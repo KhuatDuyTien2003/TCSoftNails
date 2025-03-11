@@ -1,0 +1,280 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\CODE\\.NET\\web\\NailsTcsoft\\NailsTcsoft3\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|d:\\code\\.net\\web\\nailstcsoft\\nailstcsoft3\\nailstcsoft3\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|solutionrelative:nailstcsoft3\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|d:\\code\\.net\\web\\nailstcsoft\\nailstcsoft3\\nailstcsoft3\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|solutionrelative:nailstcsoft3\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|d:\\code\\.net\\web\\nailstcsoft\\nailstcsoft3\\nailstcsoft3\\controllers\\staffcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|solutionrelative:nailstcsoft3\\controllers\\staffcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|d:\\code\\.net\\web\\nailstcsoft\\nailstcsoft3\\nailstcsoft3\\models\\accountmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|solutionrelative:nailstcsoft3\\models\\accountmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|d:\\code\\.net\\web\\nailstcsoft\\nailstcsoft3\\nailstcsoft3\\models\\staffmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|solutionrelative:nailstcsoft3\\models\\staffmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|d:\\code\\.net\\web\\nailstcsoft\\nailstcsoft3\\nailstcsoft3\\repository\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|solutionrelative:nailstcsoft3\\repository\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|d:\\code\\.net\\web\\nailstcsoft\\nailstcsoft3\\nailstcsoft3\\repository\\iemailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|solutionrelative:nailstcsoft3\\repository\\iemailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|d:\\code\\.net\\web\\nailstcsoft\\nailstcsoft3\\nailstcsoft3\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|solutionrelative:nailstcsoft3\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|d:\\code\\.net\\web\\nailstcsoft\\nailstcsoft3\\nailstcsoft3\\data\\thuctapktktcnnail2025context.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|solutionrelative:nailstcsoft3\\data\\thuctapktktcnnail2025context.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|d:\\code\\.net\\web\\nailstcsoft\\nailstcsoft3\\nailstcsoft3\\data\\account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|solutionrelative:nailstcsoft3\\data\\account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|d:\\code\\.net\\web\\nailstcsoft\\nailstcsoft3\\nailstcsoft3\\migrations\\20250307165228_addidentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|solutionrelative:nailstcsoft3\\migrations\\20250307165228_addidentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 18,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1249424754:0:{83107a3e-496a-485e-b455-16ddb978e55e}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{c9c0ae26-aa77-11d2-b3f0-0000f87570ee}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{74946827-37a0-11d2-a273-00c04f8ef4ff}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e506b91c-c606-466a-90a9-123d1d1e12b3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:132:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "EmailService.cs",
+              "DocumentMoniker": "D:\\CODE\\.NET\\web\\NailsTcsoft\\NailsTcsoft3\\NailsTcsoft3\\repository\\EmailService.cs",
+              "RelativeDocumentMoniker": "NailsTcsoft3\\repository\\EmailService.cs",
+              "ToolTip": "D:\\CODE\\.NET\\web\\NailsTcsoft\\NailsTcsoft3\\NailsTcsoft3\\repository\\EmailService.cs",
+              "RelativeToolTip": "NailsTcsoft3\\repository\\EmailService.cs",
+              "ViewState": "AQIAABUAAAAAAAAAAAAmwBcAAABBAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-08T03:06:24.423Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "D:\\CODE\\.NET\\web\\NailsTcsoft\\NailsTcsoft3\\NailsTcsoft3\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "NailsTcsoft3\\Controllers\\AccountController.cs",
+              "ToolTip": "D:\\CODE\\.NET\\web\\NailsTcsoft\\NailsTcsoft3\\NailsTcsoft3\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "NailsTcsoft3\\Controllers\\AccountController.cs",
+              "ViewState": "AQIAAG0AAAAAAAAAAAA/wHMAAAAQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-07T16:56:38.486Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\CODE\\.NET\\web\\NailsTcsoft\\NailsTcsoft3\\NailsTcsoft3\\appsettings.json",
+              "RelativeDocumentMoniker": "NailsTcsoft3\\appsettings.json",
+              "ToolTip": "D:\\CODE\\.NET\\web\\NailsTcsoft\\NailsTcsoft3\\NailsTcsoft3\\appsettings.json",
+              "RelativeToolTip": "NailsTcsoft3\\appsettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAgAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-03-07T16:46:37.477Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "StaffModel.cs",
+              "DocumentMoniker": "D:\\CODE\\.NET\\web\\NailsTcsoft\\NailsTcsoft3\\NailsTcsoft3\\Models\\StaffModel.cs",
+              "RelativeDocumentMoniker": "NailsTcsoft3\\Models\\StaffModel.cs",
+              "ToolTip": "D:\\CODE\\.NET\\web\\NailsTcsoft\\NailsTcsoft3\\NailsTcsoft3\\Models\\StaffModel.cs",
+              "RelativeToolTip": "NailsTcsoft3\\Models\\StaffModel.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-07T16:55:56.633Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AccountModel.cs",
+              "DocumentMoniker": "D:\\CODE\\.NET\\web\\NailsTcsoft\\NailsTcsoft3\\NailsTcsoft3\\Models\\AccountModel.cs",
+              "RelativeDocumentMoniker": "NailsTcsoft3\\Models\\AccountModel.cs",
+              "ToolTip": "D:\\CODE\\.NET\\web\\NailsTcsoft\\NailsTcsoft3\\NailsTcsoft3\\Models\\AccountModel.cs",
+              "RelativeToolTip": "NailsTcsoft3\\Models\\AccountModel.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-07T16:55:42.405Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "StaffController.cs",
+              "DocumentMoniker": "D:\\CODE\\.NET\\web\\NailsTcsoft\\NailsTcsoft3\\NailsTcsoft3\\Controllers\\StaffController.cs",
+              "RelativeDocumentMoniker": "NailsTcsoft3\\Controllers\\StaffController.cs",
+              "ToolTip": "D:\\CODE\\.NET\\web\\NailsTcsoft\\NailsTcsoft3\\NailsTcsoft3\\Controllers\\StaffController.cs",
+              "RelativeToolTip": "NailsTcsoft3\\Controllers\\StaffController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAADkAAAAfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-07T16:57:13.289Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "IEmailService.cs",
+              "DocumentMoniker": "D:\\CODE\\.NET\\web\\NailsTcsoft\\NailsTcsoft3\\NailsTcsoft3\\repository\\IEmailService.cs",
+              "RelativeDocumentMoniker": "NailsTcsoft3\\repository\\IEmailService.cs",
+              "ToolTip": "D:\\CODE\\.NET\\web\\NailsTcsoft\\NailsTcsoft3\\NailsTcsoft3\\repository\\IEmailService.cs",
+              "RelativeToolTip": "NailsTcsoft3\\repository\\IEmailService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAABEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-08T03:05:56.732Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\CODE\\.NET\\web\\NailsTcsoft\\NailsTcsoft3\\NailsTcsoft3\\Program.cs",
+              "RelativeDocumentMoniker": "NailsTcsoft3\\Program.cs",
+              "ToolTip": "D:\\CODE\\.NET\\web\\NailsTcsoft\\NailsTcsoft3\\NailsTcsoft3\\Program.cs",
+              "RelativeToolTip": "NailsTcsoft3\\Program.cs",
+              "ViewState": "AQIAACUAAAAAAAAAAAAAADcAAAAdAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-07T16:47:56.805Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "20250307165228_AddIdentity.cs",
+              "DocumentMoniker": "D:\\CODE\\.NET\\web\\NailsTcsoft\\NailsTcsoft3\\NailsTcsoft3\\Migrations\\20250307165228_AddIdentity.cs",
+              "RelativeDocumentMoniker": "NailsTcsoft3\\Migrations\\20250307165228_AddIdentity.cs",
+              "ToolTip": "D:\\CODE\\.NET\\web\\NailsTcsoft\\NailsTcsoft3\\NailsTcsoft3\\Migrations\\20250307165228_AddIdentity.cs",
+              "RelativeToolTip": "NailsTcsoft3\\Migrations\\20250307165228_AddIdentity.cs",
+              "ViewState": "AQIAAM4AAAAAAAAAAAAAAOcAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-07T16:52:28.659Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Account.cs",
+              "DocumentMoniker": "D:\\CODE\\.NET\\web\\NailsTcsoft\\NailsTcsoft3\\NailsTcsoft3\\Data\\Account.cs",
+              "RelativeDocumentMoniker": "NailsTcsoft3\\Data\\Account.cs",
+              "ToolTip": "D:\\CODE\\.NET\\web\\NailsTcsoft\\NailsTcsoft3\\NailsTcsoft3\\Data\\Account.cs",
+              "RelativeToolTip": "NailsTcsoft3\\Data\\Account.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-07T16:45:43.432Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ThuctapKtktcnNail2025Context.cs",
+              "DocumentMoniker": "D:\\CODE\\.NET\\web\\NailsTcsoft\\NailsTcsoft3\\NailsTcsoft3\\Data\\ThuctapKtktcnNail2025Context.cs",
+              "RelativeDocumentMoniker": "NailsTcsoft3\\Data\\ThuctapKtktcnNail2025Context.cs",
+              "ToolTip": "D:\\CODE\\.NET\\web\\NailsTcsoft\\NailsTcsoft3\\NailsTcsoft3\\Data\\ThuctapKtktcnNail2025Context.cs",
+              "RelativeToolTip": "NailsTcsoft3\\Data\\ThuctapKtktcnNail2025Context.cs",
+              "ViewState": "AQIAAC4AAAAAAAAAAAAxwEIAAAArAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-07T16:44:37.419Z"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 73,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
