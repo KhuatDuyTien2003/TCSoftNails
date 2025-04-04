@@ -33,10 +33,12 @@ builder.Services.Configure<IdentityOptions>(options =>
 });
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll",
-        policy => policy.AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader());
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
 });
 builder.Services.AddAuthentication(opts =>
 {
@@ -89,6 +91,10 @@ app.UseCors("AllowAll");
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
+<<<<<<< HEAD
+=======
+app.UseStaticFiles();
+>>>>>>> origin/Duy_Hung_BE
 app.MapControllers();
 
 app.Run();

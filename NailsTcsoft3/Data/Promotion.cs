@@ -30,4 +30,6 @@ public partial class Promotion
     public bool IsDeleted { get; set; }
 
     public bool Status { get; set; }
+
+    public Double Value_data { get; set; }
 }

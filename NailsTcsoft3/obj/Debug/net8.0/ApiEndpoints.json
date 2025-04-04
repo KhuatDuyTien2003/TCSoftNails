@@ -259,6 +259,196 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "NailsTcsoft3.Controllers.PromotionController",
+    "Method": "UpdatePromotion",
+    "RelativePath": "Promotion/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "promotion",
+        "Type": "NailsTcsoft3.Data.Promotion",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.PromotionController",
+    "Method": "CreatePromotion",
+    "RelativePath": "Promotion/CreatePromotion",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "promotion",
+        "Type": "NailsTcsoft3.Data.Promotion",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.PromotionController",
+    "Method": "DeletePromotion",
+    "RelativePath": "Promotion/DeletePromotion/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.PromotionController",
+    "Method": "GetAll",
+    "RelativePath": "Promotion/GetAllPromotion",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.PromotionController",
+    "Method": "GetPromotionById",
+    "RelativePath": "Promotion/GetPromotionById",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.PromotionController",
+    "Method": "ImportExcel",
+    "RelativePath": "Promotion/import-excel",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "data",
+        "Type": "System.Collections.Generic.List\u00601[[NailsTcsoft3.Data.Promotion, NailsTcsoft3, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.PromotionController",
+    "Method": "UploadImage",
+    "RelativePath": "Promotion/UploadImage",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "file",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.PromotionDetailController",
+    "Method": "UpdatePromotionDetail",
+    "RelativePath": "PromotionDetail/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "promotionDetail",
+        "Type": "NailsTcsoft3.Data.PromotionDetail",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.PromotionDetailController",
+    "Method": "CreatePromotionDetail",
+    "RelativePath": "PromotionDetail/CreatePromotionDetail",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "promotionDetail",
+        "Type": "NailsTcsoft3.Data.PromotionDetail",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.PromotionDetailController",
+    "Method": "DeletePromotionDetail",
+    "RelativePath": "PromotionDetail/DeletePromotionDetail/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.PromotionDetailController",
+    "Method": "GetAll",
+    "RelativePath": "PromotionDetail/GetAllPromotionDetail",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.PromotionDetailController",
+    "Method": "GetPromotionDetailById",
+    "RelativePath": "PromotionDetail/GetPromotionDetailById",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "NailsTcsoft3.Controllers.StaffController",
     "Method": "CreateCalendar",
     "RelativePath": "Staff/CreateCalendar",

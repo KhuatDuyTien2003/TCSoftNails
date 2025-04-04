@@ -1,113 +1,206 @@
 ﻿<Project>
   <ItemGroup>
+<<<<<<< HEAD
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\07b06371-e397-481a-8c05-c916e1129519.png))">
+=======
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\Images\anh1.jpg'))">
+>>>>>>> origin/Duy_Hung_BE
       <SourceType>Package</SourceType>
       <SourceId>NailsTcsoft3</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/NailsTcsoft3</BasePath>
+<<<<<<< HEAD
       <RelativePath>uploads/07b06371-e397-481a-8c05-c916e1129519.png</RelativePath>
+=======
+      <RelativePath>uploads/Images/anh1.jpg</RelativePath>
+>>>>>>> origin/Duy_Hung_BE
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
+<<<<<<< HEAD
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\07b06371-e397-481a-8c05-c916e1129519.png))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\164daee4-91b3-4496-a622-4962efbae34a.png))">
+=======
+      <Fingerprint>knuzhs2wix</Fingerprint>
+      <Integrity>8EbzJv5EleJqG4VARdq85x+ZF4ctKLvn/jsmeedQlis=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\Images\anh1.jpg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\Images\anh2.jpg'))">
+>>>>>>> origin/Duy_Hung_BE
       <SourceType>Package</SourceType>
       <SourceId>NailsTcsoft3</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/NailsTcsoft3</BasePath>
+<<<<<<< HEAD
       <RelativePath>uploads/164daee4-91b3-4496-a622-4962efbae34a.png</RelativePath>
+=======
+      <RelativePath>uploads/Images/anh2.jpg</RelativePath>
+>>>>>>> origin/Duy_Hung_BE
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
+<<<<<<< HEAD
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\164daee4-91b3-4496-a622-4962efbae34a.png))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\16c4ed2e-dc98-43b8-994d-a68869bcfc85.png))">
+=======
+      <Fingerprint>aoob1won0k</Fingerprint>
+      <Integrity>qrI32GoDXyRUpho/mktbe55KU1TwBTZD0R9hrlgsxDU=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\Images\anh2.jpg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\Images\anh3.png'))">
+>>>>>>> origin/Duy_Hung_BE
       <SourceType>Package</SourceType>
       <SourceId>NailsTcsoft3</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/NailsTcsoft3</BasePath>
+<<<<<<< HEAD
       <RelativePath>uploads/16c4ed2e-dc98-43b8-994d-a68869bcfc85.png</RelativePath>
+=======
+      <RelativePath>uploads/Images/anh3.png</RelativePath>
+>>>>>>> origin/Duy_Hung_BE
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
+<<<<<<< HEAD
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\16c4ed2e-dc98-43b8-994d-a68869bcfc85.png))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\1f7e5b0c-bd9e-4bd9-a0e0-1ed67535afc3.png))">
+=======
+      <Fingerprint>9fx2qq5k1k</Fingerprint>
+      <Integrity>S5j1p1rk/vbOJ4JhS6xOp6riD9aWqh2+hvE8wHRyMm4=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\Images\anh3.png'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\Images\anh4.jpg'))">
+>>>>>>> origin/Duy_Hung_BE
       <SourceType>Package</SourceType>
       <SourceId>NailsTcsoft3</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/NailsTcsoft3</BasePath>
+<<<<<<< HEAD
       <RelativePath>uploads/1f7e5b0c-bd9e-4bd9-a0e0-1ed67535afc3.png</RelativePath>
+=======
+      <RelativePath>uploads/Images/anh4.jpg</RelativePath>
+>>>>>>> origin/Duy_Hung_BE
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
+<<<<<<< HEAD
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\1f7e5b0c-bd9e-4bd9-a0e0-1ed67535afc3.png))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\23e02a90-6a80-4c96-a5f6-771b12494160.png))">
+=======
+      <Fingerprint>tmhrkhc2nj</Fingerprint>
+      <Integrity>+7XyD4G+7YjHzMUJpoPHtSEcPLoQ6KNATSFGrxZGxh0=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\Images\anh4.jpg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\Images\anh4.png'))">
+>>>>>>> origin/Duy_Hung_BE
       <SourceType>Package</SourceType>
       <SourceId>NailsTcsoft3</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/NailsTcsoft3</BasePath>
+<<<<<<< HEAD
       <RelativePath>uploads/23e02a90-6a80-4c96-a5f6-771b12494160.png</RelativePath>
+=======
+      <RelativePath>uploads/Images/anh4.png</RelativePath>
+>>>>>>> origin/Duy_Hung_BE
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
+<<<<<<< HEAD
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\23e02a90-6a80-4c96-a5f6-771b12494160.png))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\25b3ccdc-6ba7-4cb6-ac16-f98559c52017.png))">
+=======
+      <Fingerprint>n3rvb66j9r</Fingerprint>
+      <Integrity>DYKxuKzdwmLZu7yx9RheXhS8CqUsXG/ngAQUp3ycZr8=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\Images\anh4.png'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\Images\default-image.jpg'))">
+>>>>>>> origin/Duy_Hung_BE
       <SourceType>Package</SourceType>
       <SourceId>NailsTcsoft3</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/NailsTcsoft3</BasePath>
+<<<<<<< HEAD
       <RelativePath>uploads/25b3ccdc-6ba7-4cb6-ac16-f98559c52017.png</RelativePath>
+=======
+      <RelativePath>uploads/Images/default-image.jpg</RelativePath>
+>>>>>>> origin/Duy_Hung_BE
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
+<<<<<<< HEAD
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\25b3ccdc-6ba7-4cb6-ac16-f98559c52017.png))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\2d35513c-d423-4ccf-8ead-31fc66649ca9.png))">
+=======
+      <Fingerprint>0hfd3inwr1</Fingerprint>
+      <Integrity>bJUIEExrg+qcQdNgNQqW+8yfQgcoSFKtlw1NBefGXc4=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\Images\default-image.jpg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\Images\f15622f9-967d-4508-834d-f69f069982c9.jpg'))">
+>>>>>>> origin/Duy_Hung_BE
       <SourceType>Package</SourceType>
       <SourceId>NailsTcsoft3</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/NailsTcsoft3</BasePath>
+<<<<<<< HEAD
       <RelativePath>uploads/2d35513c-d423-4ccf-8ead-31fc66649ca9.png</RelativePath>
+=======
+      <RelativePath>uploads/Images/f15622f9-967d-4508-834d-f69f069982c9.jpg</RelativePath>
+>>>>>>> origin/Duy_Hung_BE
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
+<<<<<<< HEAD
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\2d35513c-d423-4ccf-8ead-31fc66649ca9.png))</OriginalItemSpec>
@@ -303,6 +396,13 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\fe04ec39-e6a9-4da7-828d-88a7abdbf09c.png))</OriginalItemSpec>
+=======
+      <Fingerprint>tyqcryvo7y</Fingerprint>
+      <Integrity>hcaObFRbH38/ttbEehkfiQBHS+EHLPY5tywBSWbszvA=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\Images\f15622f9-967d-4508-834d-f69f069982c9.jpg'))</OriginalItemSpec>
+>>>>>>> origin/Duy_Hung_BE
     </StaticWebAsset>
   </ItemGroup>
 </Project>
