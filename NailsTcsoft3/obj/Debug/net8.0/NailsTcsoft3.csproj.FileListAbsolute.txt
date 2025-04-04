@@ -150,9 +150,6 @@ D:\CODE\.NET\web\NailsTcsoft\NailsTcsoft3\NailsTcsoft3\bin\Debug\net8.0\runtimes
 D:\CODE\.NET\web\NailsTcsoft\NailsTcsoft3\NailsTcsoft3\bin\Debug\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
 D:\CODE\.NET\web\NailsTcsoft\NailsTcsoft3\NailsTcsoft3\bin\Debug\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
 D:\CODE\.NET\web\NailsTcsoft\NailsTcsoft3\NailsTcsoft3\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
-D:\CODE\.NET\web\NailsTcsoft\NailsTcsoft3\NailsTcsoft3\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
-D:\CODE\.NET\web\NailsTcsoft\NailsTcsoft3\NailsTcsoft3\bin\Debug\net8.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
-D:\CODE\.NET\web\NailsTcsoft\NailsTcsoft3\NailsTcsoft3\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
 D:\CODE\.NET\web\NailsTcsoft\NailsTcsoft3\NailsTcsoft3\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
 D:\CODE\.NET\web\NailsTcsoft\NailsTcsoft3\NailsTcsoft3\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 D:\CODE\.NET\web\NailsTcsoft\NailsTcsoft3\NailsTcsoft3\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
@@ -178,3 +175,14 @@ D:\CODE\.NET\web\NailsTcsoft\NailsTcsoft3\NailsTcsoft3\obj\Debug\net8.0\refint\N
 D:\CODE\.NET\web\NailsTcsoft\NailsTcsoft3\NailsTcsoft3\obj\Debug\net8.0\NailsTcsoft3.pdb
 D:\CODE\.NET\web\NailsTcsoft\NailsTcsoft3\NailsTcsoft3\obj\Debug\net8.0\NailsTcsoft3.genruntimeconfig.cache
 D:\CODE\.NET\web\NailsTcsoft\NailsTcsoft3\NailsTcsoft3\obj\Debug\net8.0\ref\NailsTcsoft3.dll
+D:\CODE\.NET\web\NailsTcsoft\NailsTcsoft3\NailsTcsoft3\obj\Debug\net8.0\NailsTcsoft3.sourcelink.json
+D:\CODE\.NET\web\NailsTcsoft\NailsTcsoft3\NailsTcsoft3\bin\Debug\net8.0\NailsTcsoft3.staticwebassets.runtime.json
+D:\CODE\.NET\web\NailsTcsoft\NailsTcsoft3\NailsTcsoft3\bin\Debug\net8.0\EPPlus.dll
+D:\CODE\.NET\web\NailsTcsoft\NailsTcsoft3\NailsTcsoft3\bin\Debug\net8.0\EPPlus.Interfaces.dll
+D:\CODE\.NET\web\NailsTcsoft\NailsTcsoft3\NailsTcsoft3\bin\Debug\net8.0\EPPlus.System.Drawing.dll
+D:\CODE\.NET\web\NailsTcsoft\NailsTcsoft3\NailsTcsoft3\bin\Debug\net8.0\Microsoft.Extensions.Configuration.FileExtensions.dll
+D:\CODE\.NET\web\NailsTcsoft\NailsTcsoft3\NailsTcsoft3\bin\Debug\net8.0\Microsoft.Extensions.Configuration.Json.dll
+D:\CODE\.NET\web\NailsTcsoft\NailsTcsoft3\NailsTcsoft3\bin\Debug\net8.0\Microsoft.IO.RecyclableMemoryStream.dll
+D:\CODE\.NET\web\NailsTcsoft\NailsTcsoft3\NailsTcsoft3\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
+D:\CODE\.NET\web\NailsTcsoft\NailsTcsoft3\NailsTcsoft3\bin\Debug\net8.0\runtimes\win\lib\net8.0\Microsoft.Win32.SystemEvents.dll
+D:\CODE\.NET\web\NailsTcsoft\NailsTcsoft3\NailsTcsoft3\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll

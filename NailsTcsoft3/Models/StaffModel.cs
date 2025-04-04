@@ -2,15 +2,27 @@
 {
     public class StaffModel
     {
-        public string StaffName { get; set; } = null!;
-        public string Email { get; set; }
+        public int staffId { get; set; }
 
-        public bool? Gender { get; set; }
+        public string staffName { get; set; } = null!;
 
-        public string? NumberPhone { get; set; }
+        public bool? gender { get; set; }
 
-        public DateTime Birthday { get; set; }
+        public string? numberPhone { get; set; }
 
-        public string? UrlAvatar { get; set; }
+        public string? email { get; set; }
+
+        public DateTime? birthday { get; set; }
+
+        public string? urlAvatar { get; set; }
+
+        public double? totalStar { get; set; }
+
+        public DateTime? joinDate { get; set; }
+        public string serviceId { get; set; }
+        public string serviceName { get; set; }
+        public bool? status { get; set; }
+
+   
     }
 }

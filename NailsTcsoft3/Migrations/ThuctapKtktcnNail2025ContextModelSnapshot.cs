@@ -174,6 +174,9 @@ namespace NailsTcsoft3.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<bool?>("IsDelete")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -202,6 +205,9 @@ namespace NailsTcsoft3.Migrations
 
                     b.Property<int>("StaffId")
                         .HasColumnType("int");
+
+                    b.Property<bool?>("Status")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
@@ -502,7 +508,6 @@ namespace NailsTcsoft3.Migrations
                         .HasColumnName("numberPhone");
 
                     b.Property<string>("Password")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("password");
@@ -529,7 +534,6 @@ namespace NailsTcsoft3.Migrations
                         .HasColumnName("urlAvatar");
 
                     b.Property<string>("UserName")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("userName");
@@ -618,6 +622,42 @@ namespace NailsTcsoft3.Migrations
                         .HasName("PK__Feedback__2613FD24D1FBCB6B");
 
                     b.ToTable("Feedback", (string)null);
+                });
+
+            modelBuilder.Entity("NailsTcsoft3.Data.Functions", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CssClass")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsAdmin")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsMenu")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ParentId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("SortOrder")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Functions");
                 });
 
             modelBuilder.Entity("NailsTcsoft3.Data.GoodsReceipt", b =>
@@ -730,6 +770,31 @@ namespace NailsTcsoft3.Migrations
                         .HasName("PK__ImageFee__3213E83F3D2B5449");
 
                     b.ToTable("ImageFeedback", (string)null);
+                });
+
+            modelBuilder.Entity("NailsTcsoft3.Data.Permissions", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ActionId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FunctionId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Permissions");
                 });
 
             modelBuilder.Entity("NailsTcsoft3.Data.PriceList", b =>
@@ -1159,6 +1224,9 @@ namespace NailsTcsoft3.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("bit")
                         .HasColumnName("status");
+
+                    b.Property<DateTime>("WorkDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("WorkScheduleId")
                         .HasName("PK__WorkSche__86913838780CA3AF");

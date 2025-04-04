@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using NailsTcsoft3.Data;
 using NailsTcsoft3.repository;
+using OfficeOpenXml;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -40,23 +42,44 @@ builder.Services.AddAuthentication(opts =>
 {
     opts.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     opts.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    opts.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+    opts.DefaultScheme = JwtBearerDefaults  .AuthenticationScheme;
 }).AddJwtBearer(opts =>
 {
     opts.SaveToken = true;
     opts.RequireHttpsMetadata = false;
     opts.TokenValidationParameters = new TokenValidationParameters
     {
-        ValidateIssuer = true,
-        ValidateActor = true,
+        ValidateIssuer = false,
+        ValidateActor = false,
+        ValidateAudience = false,
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(secretKeyByte)
     };
 });
-builder.Services.AddTransient<IEmailService, EmailService>();
-var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("CUSTOMER:ADD", policy =>
+        policy.RequireClaim("Action", "CUSTOMER:ADD"));
+    options.AddPolicy("CUSTOMER:VIEW", policy =>
+        policy.RequireClaim("Action", "CUSTOMER:VIEW"));
+    options.AddPolicy("CUSTOMER:EDIT", policy =>
+        policy.RequireClaim("Action", "CUSTOMER:EDIT"));
+     options.AddPolicy("CUSTOMER:DELETE", policy =>
+        policy.RequireClaim("Action", "CUSTOMER:DELETE"));
+});
+builder.Services.AddAuthorization();
+builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<ISaveImageRepo, SaveImageRepo>();
+var app = builder.Build();
+ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+app.Use(async (context, next) =>
+{
+    context.Response.Headers.Remove("Content-Security-Policy");
+    await next();
+});
+
+app.UseStaticFiles();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -66,7 +89,6 @@ app.UseCors("AllowAll");
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();

@@ -8,9 +8,12 @@ using NailsTcsoft3.Data;
 using NailsTcsoft3.Models;
 using NailsTcsoft3.repository;
 using Newtonsoft.Json.Linq;
+using System.Data;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net;
 using System.Security.Claims;
 using System.Text;
+using System.Web;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace NailsTcsoft3.Controllers
@@ -21,16 +24,18 @@ namespace NailsTcsoft3.Controllers
     {
         private readonly ThuctapKtktcnNail2025Context _context;
         private readonly IConfiguration _configuration;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<Account> _userManager;
         private readonly SignInManager<Account> _signInManager;
         private readonly IEmailService _emailService;
-        public AccountController(ThuctapKtktcnNail2025Context context, IConfiguration configuration, UserManager<Account> userManager, SignInManager<Account> signInManager, IEmailService emailService)
+        public AccountController(ThuctapKtktcnNail2025Context context, IConfiguration configuration, UserManager<Account> userManager, SignInManager<Account> signInManager, IEmailService emailService, RoleManager<IdentityRole> roleManager)
         {
             _context = context;
             _configuration = configuration;
             _userManager = userManager;
             _signInManager = signInManager;
             _emailService = emailService;
+            _roleManager = roleManager;
         }
         [HttpGet]
         public async Task<IActionResult> getAll()
@@ -46,31 +51,48 @@ namespace NailsTcsoft3.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(AccountModel account)
         {
-            var user = await _userManager.FindByEmailAsync(account.Email);
-            if (user != null)
+            var userByEmail = await _userManager.FindByEmailAsync(account.Email);
+            if (userByEmail != null)
             {
                 return Ok(new
                 {
                     success = false,
-                    message = "Tài khoản này đã tồn tại"
+                    message = "Email đã được sử dụng!"
                 });
             }
-            else
+            var userByUsername = await _userManager.FindByNameAsync(account.UserName);
+            if (userByUsername != null)
             {
-                var newUser = new Account { StaffId = account.StaffId, UserName = account.UserName, Email = account.Email };
-                var result = await _userManager.CreateAsync(newUser, account.Password);
-                if (result.Succeeded)
+                return Ok(new
                 {
-                    return Ok(new
-                    {
-                        success = true,
-                        message = "Tạo tài khoản thành công"
-                    });
-                }
+                    success = false,
+                    message = "Tên đăng nhập đã tồn tại!"
+                });
+            }
+            var newUser = new Account
+            {
+                StaffId = account.StaffId,
+                UserName = account.UserName,
+                Email = account.Email
+            };
+
+            var result = await _userManager.CreateAsync(newUser, account.Password);
+            if (result.Succeeded)
+            {
+                return Ok(new
+                {
+                    success = true,
+                    message = "Tạo tài khoản thành công!"
+                });
             }
 
-            return BadRequest();
+            return BadRequest(new
+            {
+                success = false,
+                message = "Đăng ký thất bại, vui lòng thử lại!"
+            });
         }
+
         [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody] Dictionary<string, string> data)
         {
@@ -85,6 +107,7 @@ namespace NailsTcsoft3.Controllers
 
             string username = data["Username"];
             string password = data["Password"];
+            var account = await _userManager.FindByNameAsync(username);
 
             var user = await _signInManager.PasswordSignInAsync(username, password, false, false);
             if (user.Succeeded)
@@ -93,7 +116,7 @@ namespace NailsTcsoft3.Controllers
                 {
                     success = true,
                     message = "Đăng nhập thành công",
-                    data = GeneToken(username, password)
+                    data = new { token =  GeneToken(username, password), staffId = account.StaffId }
                 });
             }
             return Ok(new
@@ -111,44 +134,56 @@ namespace NailsTcsoft3.Controllers
             var user = await _userManager.FindByEmailAsync(model.Email);
             if(user == null)
             {
-                return BadRequest("Email không tồn tại");
+                return Ok(new
+                {
+                    success = false,
+                    message = "Email này không tồn tại",
+                
+                });
             }
             else
             {
                 var tokenForgot = await _userManager.GeneratePasswordResetTokenAsync(user);
-                var resetLink = $"{_configuration["ClientUrl"]}Reset-Password?token={Uri.EscapeDataString(tokenForgot)}&email={Uri.EscapeDataString(user.Email)}";
+               
+                var resetLink = $"{_configuration["ClientUrl"]}Reset-Password?token={WebUtility.UrlEncode(tokenForgot)}&email={Uri.EscapeDataString(user.Email)}";
                 await _emailService.SendEmailAsync(user.Email, "Reset Password", $"Click vào link để đặt lại mật khẩu: {resetLink}");
                 return Ok(new
                 {
                     success = true,
-                    message = "Truy cập email để đặt lại mật khẩu"
+                    message = "Truy cập email để đặt lại mật khẩu",
+                    token = tokenForgot
                 });
             }
          
 
         }
 
+        public class modelPassword
+        {
+            public string Email { get; set; }
+            public string Token { get; set; }
+            public string Password { get; set; }
+         
+        }
+
         [HttpPost("ResetPassword")]
 
-        public async Task<IActionResult> ResetPassword([FromBody] Dictionary<string, string> data)
+        public async Task<IActionResult> ResetPassword([FromBody] modelPassword data)
         {
             // Kiểm tra đầu vào
-            if (!data.ContainsKey("Email") || !data.ContainsKey("Password") || !data.ContainsKey("token"))
+            if (data.Token == "" || data.Email =="")
             {
                 return BadRequest(new
                 {
                     success = false,
-                    message = "Thiếu thông tin bắt buộc (Email, Password, token)"
+                    message = "Thiếu thông tin bắt buộc (Email, Password, Token)"
                 });
             }
 
-            var email = data["Email"].ToLower();
-            var password = data["Password"];
-            var token = data["token"];
- 
-
-
-
+            var email = data.Email.ToLower();
+            var password = data.Password;
+            var token = data.Token;
+           
             var user = await _userManager.FindByEmailAsync(email);
             if (user == null)
             {
@@ -186,30 +221,57 @@ namespace NailsTcsoft3.Controllers
                 throw new Exception("Tài khoản không tồn tại.");
             }
 
-            // Kiểm tra mật khẩu
+   
             var isPasswordValid = await _userManager.CheckPasswordAsync(account, Password);
             if (!isPasswordValid)
             {
                 throw new Exception("Mật khẩu không chính xác.");
             }
 
-            // Lấy secret key từ appsettings.json
+
             var secretKey = _configuration["AppSettings:SecretKey"];
             if (string.IsNullOrEmpty(secretKey))
             {
                 throw new Exception("SecretKey không được cấu hình.");
             }
-
             var secretKeyByte = Encoding.UTF8.GetBytes(secretKey);
 
-            // Tạo token
+
+            var roles = await _userManager.GetRolesAsync(account);
+            
+
+            var claims = new List<Claim>
+    {
+        new Claim("StaffId", account.StaffId.ToString()),
+        new Claim("IdToken", Guid.NewGuid().ToString())
+    };
+            foreach (var role in roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+                var fullRole = await _roleManager.FindByNameAsync(role);
+                var functions = await _context.Permissions
+                                             .Where(p => p.RoleId == fullRole.Id)
+                                             .Select(p => p.FunctionId).Distinct()
+                                             .ToListAsync();
+
+                foreach (var functionId in functions)
+                {
+                    claims.Add(new Claim("FunctionId", functionId));
+                    var actions = await _context.Permissions
+                                                .Where(p => p.FunctionId == functionId)
+                                                .Select(p => p.ActionId)
+                                                .ToListAsync();
+
+                    foreach (var actionId in actions)
+                    {
+                        claims.Add(new Claim("Action", $"{functionId}:{actionId}"));
+                    }
+                }
+            }
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[]
-                {
-            new Claim("StaffId", account.StaffId.ToString()),
-            new Claim("IdToken", Guid.NewGuid().ToString()),
-        }),
+                Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.UtcNow.AddMinutes(30),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(secretKeyByte), SecurityAlgorithms.HmacSha256Signature)
             };
