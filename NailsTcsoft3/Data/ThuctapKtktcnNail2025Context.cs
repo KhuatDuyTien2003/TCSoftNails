@@ -410,6 +410,7 @@ public partial class ThuctapKtktcnNail2025Context : IdentityDbContext<Account>
                 .HasColumnType("datetime")
                 .HasColumnName("startDate");
             entity.Property(e => e.Status).HasColumnName("status");
+            entity.Property(e => e.Value_data).HasColumnName("value_data");
             entity.Property(e => e.UrlImage)
                 .IsUnicode(false)
                 .HasColumnName("urlImage");

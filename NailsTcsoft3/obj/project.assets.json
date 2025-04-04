@@ -5248,23 +5248,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\kdt09\\.nuget\\packages\\": {},
+    "C:\\Users\\hamva\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\CODE\\.NET\\web\\NailsTcsoft\\NailsTcsoft3\\NailsTcsoft3\\NailsTcsoft3.csproj",
+      "projectUniqueName": "C:\\Users\\hamva\\Desktop\\TCSoftNails\\NailsTcsoft3\\NailsTcsoft3.csproj",
       "projectName": "NailsTcsoft3",
-      "projectPath": "D:\\CODE\\.NET\\web\\NailsTcsoft\\NailsTcsoft3\\NailsTcsoft3\\NailsTcsoft3.csproj",
-      "packagesPath": "C:\\Users\\kdt09\\.nuget\\packages\\",
-      "outputPath": "D:\\CODE\\.NET\\web\\NailsTcsoft\\NailsTcsoft3\\NailsTcsoft3\\obj\\",
+      "projectPath": "C:\\Users\\hamva\\Desktop\\TCSoftNails\\NailsTcsoft3\\NailsTcsoft3.csproj",
+      "packagesPath": "C:\\Users\\hamva\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\hamva\\Desktop\\TCSoftNails\\NailsTcsoft3\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\kdt09\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\hamva\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -5273,7 +5273,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -5291,7 +5290,8 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      }
+      },
+      "SdkAnalysisLevel": "9.0.200"
     },
     "frameworks": {
       "net8.0": {
@@ -5347,7 +5347,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
       }
     }
   },
