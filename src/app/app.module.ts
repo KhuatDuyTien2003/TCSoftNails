@@ -7,8 +7,6 @@ import {
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
-import { AccountComponent } from './admin/account/account.component';
 import { provideNzI18n } from 'ng-zorro-antd/i18n';
 import { vi_VN } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
@@ -17,15 +15,19 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideHttpClient } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withFetch,
+  HttpClientModule,
+} from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-
-
+import { AddProductGroupDialogComponent } from './Product/add-product-group-dialog/add-product-group-dialog.component';
+import { DetailProductComponent } from './Product/detail-product/detail-product.component';
 
 registerLocaleData(vi);
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, DetailProductComponent],
   imports: [
     BrowserModule,
     RouterModule,
@@ -33,12 +35,13 @@ registerLocaleData(vi);
     FormsModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [
     provideClientHydration(withEventReplay()),
     provideNzI18n(vi_VN),
     provideAnimationsAsync(),
-    provideHttpClient(),
+    provideHttpClient(withFetch()),
   ],
   bootstrap: [AppComponent],
 })

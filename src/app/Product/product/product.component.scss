@@ -1,0 +1,327 @@
+/* custom-styles.css */
+input[type="checkbox"],
+input[type="radio"] {
+  cursor: pointer;
+}
+.content label {
+  cursor: pointer;
+}
+/* Áp dụng cho khối bọc bên ngoài */
+.page-wrapper {
+  background-color: #f3f4f6; /* Màu tương đương với bg-gray-100 */
+  min-height: 100vh; /* min-h-screen */
+}
+/* Áp dụng cho phần main */
+.main-container {
+  margin: 0 auto; /* mx-auto: căn giữa */
+  padding: 20px; /* py-6: 1.5rem top/bottom, px-4: 1rem left/right */
+}
+
+/* Áp dụng cho container flex */
+.flex-container {
+  display: flex; /* flex */
+  gap: 1rem; /* space-x-4 */
+}
+
+/* styles.css */
+
+.product-section {
+  width: 80%;
+  padding: 1rem;
+  border-radius: 0.25rem;
+  height: 100%;
+}
+
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.header-row > span {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.button-group {
+  display: flex;
+  align-items: center;
+}
+.button-group > *:not(:last-child) {
+  margin-right: 1rem;
+}
+
+.btn-green {
+  background-color: #00b63e; /* Màu green-500 */
+  color: #ffffff;
+  padding: 7px 13px;
+  border-radius: 0.25rem;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 1rem;
+  min-height: 40px;
+}
+
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.product-table tr {
+  height: 70px;
+}
+
+.product-table > tbody > tr:hover {
+  background-color: #72a8de;
+  cursor: pointer;
+}
+
+.table-cell-img {
+  border-bottom: 1px solid #e5e7eb;
+  padding: 4px;
+  vertical-align: middle;
+}
+.table-cell-bordered {
+  border-bottom: 1px solid #e5e7eb;
+  padding: 0.5rem 1rem;
+  vertical-align: middle;
+  width: fit-content;
+}
+.table-cell-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  max-height: 70px;
+  border-radius: 2px;
+}
+
+.table-header {
+  background-color: #ccd9f4;
+}
+.table-header th {
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+}
+
+.no-products {
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.filter-container {
+  width: 20%;
+  height: 100%;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.content {
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+}
+
+.filter-container input[type="text"] {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #cbd5e0;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.filter-container h3 {
+  margin-bottom: 0.5rem;
+  font-size: 1.125rem; /* khoảng 18px */
+  color: #2d3748;
+}
+
+.filter-container label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  color: #4a5568;
+}
+
+.filter-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0;
+}
+
+.filter-container ul li {
+  padding: 0.5rem;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  transition: background-color 0.3s;
+}
+
+.filter-container ul li.selected {
+  background-color: #3182ce;
+  color: #ffffff;
+}
+
+.filter-container button {
+  display: block;
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  padding: 0.5rem;
+  background-color: #e53e3e;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.filter-container button:hover {
+  background-color: #c53030;
+}
+
+/* === PAGINATION CONTAINER === */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+  width: 100%;
+  @media (max-width: 640px) {
+    gap: 0.25rem;
+  }
+}
+
+/* === BASE BUTTON STYLES === */
+.page-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 2.5rem;
+  height: 2.5rem;
+  padding: 0 0.5rem;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  user-select: none;
+
+  /* Light Theme */
+  background-color: #f3f4f6;
+  color: #4b5563;
+  border: 1px solid #e5e7eb;
+
+  /* Dark Theme Support */
+  @media (prefers-color-scheme: dark) {
+    background-color: #374151;
+    color: #d1d5db;
+    border-color: #4b5563;
+  }
+
+  &:hover:not(.active, .disabled) {
+    background-color: #e5e7eb;
+    transform: translateY(-1px);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: #4b5563;
+    }
+  }
+
+  /* Mobile Optimization */
+  @media (max-width: 640px) {
+    min-width: 2rem;
+    height: 2rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* === ACTIVE PAGE BUTTON === */
+.active {
+  background-color: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+  box-shadow: 0 1px 3px rgba(59, 130, 246, 0.3);
+
+  &:hover {
+    background-color: #2563eb;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: #1d4ed8;
+    border-color: #1d4ed8;
+  }
+}
+
+/* === DISABLED BUTTONS === */
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* === ELLIPSIS STYLING === */
+.ellipsis {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  color: #6b7280;
+
+  @media (max-width: 640px) {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+/* === NAVIGATION BUTTONS (PREV/NEXT) === */
+.nav-button {
+  padding: 0 1rem;
+  font-weight: 600;
+
+  @media (max-width: 640px) {
+    padding: 0 0.75rem;
+  }
+
+  &.disabled {
+    background-color: #f3f4f6;
+    color: #9ca3af;
+
+    @media (prefers-color-scheme: dark) {
+      background-color: #374151;
+      color: #6b7280;
+    }
+  }
+}
+
+/* === LOADING STATE === */
+.loading-spinner {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: currentColor;
+  animation: spin 1s ease-in-out infinite;
+  margin-left: 0.5rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

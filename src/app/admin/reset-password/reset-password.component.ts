@@ -33,13 +33,20 @@ export class ResetPasswordComponent implements OnInit {
   constructor(private router: ActivatedRoute, private http: HttpsService) {}
 
   ngOnInit(): void {
-    this.router.queryParams.subscribe((params) => {
-      this.token = params['token'];
-      this.email = params['email'];
-      console.log('token: ' + this.token);
-      console.log('email: ' + this.email);
+    this.router.paramMap.subscribe((params) => {
+      this.token = params.get('token') || '';
+      this.email = params.get('email') || '';
+      if (!this.token || !this.email) {
+        // Chuyển hướng đến trang lỗi hoặc hiển thị thông báo
+        console.error('Thiếu token hoặc email trong URL.');
+        // Ví dụ: this.router.navigate(['/error']);
+      } else {
+        console.log('token: ' + this.token);
+        console.log('email: ' + this.email);
+      }
     });
   }
+
   private fb = inject(NonNullableFormBuilder);
   validateForm = this.fb.group({
     password: this.fb.control('', [Validators.required]),

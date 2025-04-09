@@ -1,5 +1,4 @@
 import { account } from './../app.type/account.type';
-
 import {
   HttpClient,
   HttpErrorResponse,
@@ -7,8 +6,8 @@ import {
   HttpParams,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { emit } from 'process';
-import { catchError, Observable, ObservedValueOf, throwError } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 export interface NewAccount {
   staffId: string;
@@ -16,27 +15,40 @@ export interface NewAccount {
   password: string;
   email: string;
 }
+
 @Injectable({
   providedIn: 'root',
 })
 export class HttpsService {
-  private base_url = 'https://localhost:7087/';
+  private base_url = 'http://localhost:5213/';
+  private tokenKey = 'authToken'; // Ensure tokenKey is defined
+
   constructor(private http: HttpClient) {}
+
   httpOption = {
     headers: new HttpHeaders({
       'Content-type': 'application/json',
     }),
   };
+
   public Login(Username: string, Password: string): Observable<any> {
     const url = `${this.base_url}Account/Login`;
+
     return this.http
       .post<any>(url, { Username, Password }, this.httpOption)
-      .pipe(catchError((error) => this.handleError(error)));
+      .pipe(
+        catchError((error) => {
+          // Xử lý lỗi tại đây
+          console.error('Đã xảy ra lỗi:', error);
+          return throwError(() => new Error(error.message || 'Server error'));
+        })
+      );
   }
+
   public CreateStaff(account: account): Observable<any> {
     const url = `${this.base_url}Staff/CreateStaff`;
     return this.http
-      .post<any>(url, account)
+      .post<any>(url, account, this.httpOption) // Ensure httpOption is used
       .pipe(catchError((error) => this.handleError(error)));
   }
 
@@ -50,13 +62,8 @@ export class HttpsService {
   public forgotPassword(email: string): Observable<any> {
     const url = `${this.base_url}Account/ForgotPassword`;
     const requestBody = { Email: email };
-
-    // var para = new HttpParams().set('email', email);
-    // return this.http
-    //   .post<any>(url, email, this.httpOption)
-    //   .pipe(catchError((error) => this.handleError(error)));
     return this.http
-      .post<any>(url, requestBody)
+      .post<any>(url, requestBody, this.httpOption) // Ensure httpOption is used
       .pipe(catchError((error) => this.handleError(error)));
   }
 
@@ -68,14 +75,14 @@ export class HttpsService {
     const url = `${this.base_url}Account/ResetPassword`;
     var jsonParam = { Email: email, token: token, Password: password };
     return this.http
-      .post<any>(url, jsonParam)
+      .post<any>(url, jsonParam, this.httpOption) // Ensure httpOption is used
       .pipe(catchError((error) => this.handleError(error)));
   }
 
   public getAll(): Observable<account[]> {
     const url = `${this.base_url}Account`;
     return this.http
-      .get<account[]>(url)
+      .get<account[]>(url, this.httpOption) // Ensure httpOption is used
       .pipe(catchError((error) => this.handleError(error)));
   }
 
