@@ -9,6 +9,7 @@ using NailsTcsoft3.Models;
 using NailsTcsoft3.repository;
 using Newtonsoft.Json.Linq;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net;
 using System.Security.Claims;
 using System.Text;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -23,6 +24,7 @@ namespace NailsTcsoft3.Controllers
         private readonly IConfiguration _configuration;
         private readonly UserManager<Account> _userManager;
         private readonly SignInManager<Account> _signInManager;
+
         private readonly IEmailService _emailService;
         public AccountController(ThuctapKtktcnNail2025Context context, IConfiguration configuration, UserManager<Account> userManager, SignInManager<Account> signInManager, IEmailService emailService)
         {
@@ -71,29 +73,30 @@ namespace NailsTcsoft3.Controllers
 
             return BadRequest();
         }
-        [HttpPost("Login")]
-        public async Task<IActionResult> Login([FromBody] Dictionary<string, string> data)
+
+        public class LoginModel
         {
-            if (!data.ContainsKey("Username") || !data.ContainsKey("Password"))
+            public string Username { get; set; }
+            public string Password { get; set; }
+        }
+
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login([FromBody] LoginModel model)
+        {
+            if (!ModelState.IsValid)
             {
-                return BadRequest(new
-                {
-                    success = false,
-                    message = "Thiếu Username hoặc Password"
-                });
+                return BadRequest(ModelState);
             }
 
-            string username = data["Username"];
-            string password = data["Password"];
-
-            var user = await _signInManager.PasswordSignInAsync(username, password, false, false);
+            var user = await _signInManager.PasswordSignInAsync(model.Username, model.Password, false, false);
             if (user.Succeeded)
             {
+
                 return Ok(new
                 {
                     success = true,
                     message = "Đăng nhập thành công",
-                    data = GeneToken(username, password)
+                    data = GeneToken(model.Username, model.Password)
                 });
             }
             return Ok(new
@@ -107,57 +110,51 @@ namespace NailsTcsoft3.Controllers
             public string Email { get; set; }
         }
         [HttpPost("ForgotPassword")]
-        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequest model) {
+        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequest model)
+        {
             var user = await _userManager.FindByEmailAsync(model.Email);
-            if(user == null)
+            if (user == null)
             {
                 return BadRequest("Email không tồn tại");
             }
             else
             {
                 var tokenForgot = await _userManager.GeneratePasswordResetTokenAsync(user);
-                var resetLink = $"{_configuration["ClientUrl"]}Reset-Password?token={Uri.EscapeDataString(tokenForgot)}&email={Uri.EscapeDataString(user.Email)}";
-                await _emailService.SendEmailAsync(user.Email, "Reset Password", $"Click vào link để đặt lại mật khẩu: {resetLink}");
+                var encodedToken = WebUtility.UrlEncode(tokenForgot);
+                var encodedEmail = WebUtility.UrlEncode(user.Email);
+                var resetLink = $"{_configuration["ClientUrl"]}/Reset-Password?token={encodedToken}&email={encodedEmail}";
+                await _emailService.SendEmailAsync(user.Email, "Đặt lại mật khẩu", $"Nhấp vào liên kết để đặt lại mật khẩu: {resetLink}");
                 return Ok(new
                 {
                     success = true,
-                    message = "Truy cập email để đặt lại mật khẩu"
+                    message = "Vui lòng kiểm tra email để đặt lại mật khẩu"
                 });
             }
-         
+        }
 
+        public class RePassModel
+        {
+            public string Email { get; set; }
+            public string Password { get; set; }
+            public string Token { get; set; }
         }
 
         [HttpPost("ResetPassword")]
 
-        public async Task<IActionResult> ResetPassword([FromBody] Dictionary<string, string> data)
+        public async Task<IActionResult> ResetPassword([FromBody] RePassModel model)
         {
-            // Kiểm tra đầu vào
-            if (!data.ContainsKey("Email") || !data.ContainsKey("Password") || !data.ContainsKey("token"))
+
+            if (!ModelState.IsValid)
             {
-                return BadRequest(new
-                {
-                    success = false,
-                    message = "Thiếu thông tin bắt buộc (Email, Password, token)"
-                });
+                return BadRequest(ModelState);
             }
-
-            var email = data["Email"].ToLower();
-            var password = data["Password"];
-            var token = data["token"];
- 
-
-
-
-            var user = await _userManager.FindByEmailAsync(email);
+          
+            var user = await _userManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
                 return BadRequest(new { success = false, message = "Email không tồn tại" });
             }
-
-
-            var result = await _userManager.ResetPasswordAsync(user, token, password);
-
+            var result = await _userManager.ResetPasswordAsync(user, model.Token, model.Password);
 
             if (!result.Succeeded)
             {

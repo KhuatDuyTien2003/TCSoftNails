@@ -816,6 +816,26 @@ namespace NailsTcsoft3.Migrations
                     b.ToTable("PriceListDetail", (string)null);
                 });
 
+            modelBuilder.Entity("NailsTcsoft3.Data.ProAndSerImage", b =>
+                {
+                    b.Property<int>("ImageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ImageId"));
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProAndSerId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ImageId");
+
+                    b.ToTable("ProAndSerImages");
+                });
+
             modelBuilder.Entity("NailsTcsoft3.Data.ProductAndService", b =>
                 {
                     b.Property<int>("ProAndSerId")
@@ -829,6 +849,14 @@ namespace NailsTcsoft3.Migrations
                         .HasColumnType("int")
                         .HasColumnName("commission");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("text")
+                        .HasColumnName("description");
+
+                    b.Property<DateTime?>("ExpiryDate")
+                        .HasColumnType("date")
+                        .HasColumnName("expiryDate");
+
                     b.Property<int?>("InventoryQuantity")
                         .HasColumnType("int")
                         .HasColumnName("inventoryQuantity");
@@ -837,7 +865,7 @@ namespace NailsTcsoft3.Migrations
                         .HasColumnType("bit")
                         .HasColumnName("isDeleted");
 
-                    b.Property<decimal?>("OriginalPrice")
+                    b.Property<decimal>("OriginalPrice")
                         .HasColumnType("decimal(18, 2)")
                         .HasColumnName("originalPrice");
 
@@ -860,8 +888,12 @@ namespace NailsTcsoft3.Migrations
                         .HasColumnType("int")
                         .HasColumnName("productTypeId");
 
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit")
+                    b.Property<decimal>("SellingPrice")
+                        .HasColumnType("decimal(18, 2)")
+                        .HasColumnName("SellingPrice");
+
+                    b.Property<byte>("Status")
+                        .HasColumnType("tinyint")
                         .HasColumnName("status");
 
                     b.Property<int?>("Unit")
@@ -869,12 +901,10 @@ namespace NailsTcsoft3.Migrations
                         .HasColumnName("unit");
 
                     b.Property<string>("UrlImage")
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(max)")
-                        .HasColumnName("urlImage");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<TimeOnly?>("WorkTime")
-                        .HasColumnType("time")
+                    b.Property<int?>("WorkTime")
+                        .HasColumnType("int")
                         .HasColumnName("workTime");
 
                     b.HasKey("ProAndSerId")

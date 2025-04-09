@@ -1,11 +1,640 @@
 {
   "Version": 1,
-  "Hash": "hh9A1FSPRWgFeqtdZQhvazOrtMhkFQt/NeIMVHAOisk=",
+  "Hash": "lDIMrr0LpES43yRpi8H2TNzeI2fYkJ1qfhzoD33T5+Q=",
   "Source": "NailsTcsoft3",
   "BasePath": "_content/NailsTcsoft3",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "NailsTcsoft3\\wwwroot",
+      "Source": "NailsTcsoft3",
+      "ContentRoot": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\wwwroot\\",
+      "BasePath": "_content/NailsTcsoft3",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\wwwroot\\uploads\\products\\1c0c40c8-e444-4ff7-b6d9-de7803e57809.webp",
+      "SourceId": "NailsTcsoft3",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\wwwroot\\",
+      "BasePath": "_content/NailsTcsoft3",
+      "RelativePath": "uploads/products/1c0c40c8-e444-4ff7-b6d9-de7803e57809#[.{fingerprint}]?.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "rp04ko7mgr",
+      "Integrity": "n8CBJ634cptsn3JrbveusHcvjV5GmX7dM1t5/whq8Uw=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\products\\1c0c40c8-e444-4ff7-b6d9-de7803e57809.webp"
+    },
+    {
+      "Identity": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\wwwroot\\uploads\\products\\246f92de-2af9-46fc-9b62-53c5bfac7093.webp",
+      "SourceId": "NailsTcsoft3",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\wwwroot\\",
+      "BasePath": "_content/NailsTcsoft3",
+      "RelativePath": "uploads/products/246f92de-2af9-46fc-9b62-53c5bfac7093#[.{fingerprint}]?.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "255evo2m1k",
+      "Integrity": "hpD8zqD15xwh5kvktc2Z9bBSRlPU0b0xN0VayksLjNE=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\products\\246f92de-2af9-46fc-9b62-53c5bfac7093.webp"
+    },
+    {
+      "Identity": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\wwwroot\\uploads\\products\\301272c9-f801-486d-a99b-057f004a5bd0.webp",
+      "SourceId": "NailsTcsoft3",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\wwwroot\\",
+      "BasePath": "_content/NailsTcsoft3",
+      "RelativePath": "uploads/products/301272c9-f801-486d-a99b-057f004a5bd0#[.{fingerprint}]?.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "kgohokbw4x",
+      "Integrity": "7NGRSW5MGvbe9fSbX7B+94vQ598vG5dbW70yRE6k5rw=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\products\\301272c9-f801-486d-a99b-057f004a5bd0.webp"
+    },
+    {
+      "Identity": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\wwwroot\\uploads\\products\\357bffe1-2782-447d-9748-4241d98f3e6c.jpg",
+      "SourceId": "NailsTcsoft3",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\wwwroot\\",
+      "BasePath": "_content/NailsTcsoft3",
+      "RelativePath": "uploads/products/357bffe1-2782-447d-9748-4241d98f3e6c#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "9lp39oucj5",
+      "Integrity": "s3Jh+9yffVStkixj6D3xJOrahg7r3cvkt2cfGS9PA6g=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\products\\357bffe1-2782-447d-9748-4241d98f3e6c.jpg"
+    },
+    {
+      "Identity": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\wwwroot\\uploads\\products\\4d7c79b3-434b-465f-9b31-62ea9539b1a6.webp",
+      "SourceId": "NailsTcsoft3",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\wwwroot\\",
+      "BasePath": "_content/NailsTcsoft3",
+      "RelativePath": "uploads/products/4d7c79b3-434b-465f-9b31-62ea9539b1a6#[.{fingerprint}]?.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "ac058zp1g6",
+      "Integrity": "Biscnp+5VeGM4h8bI9ztIgDKm0aao3npNcdHLZqsAqQ=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\products\\4d7c79b3-434b-465f-9b31-62ea9539b1a6.webp"
+    },
+    {
+      "Identity": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\wwwroot\\uploads\\products\\b68e862e-cb5e-4710-b1da-f19f38b2c198.jpg",
+      "SourceId": "NailsTcsoft3",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\wwwroot\\",
+      "BasePath": "_content/NailsTcsoft3",
+      "RelativePath": "uploads/products/b68e862e-cb5e-4710-b1da-f19f38b2c198#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "09rvmgc6k6",
+      "Integrity": "TA4lJsFQ0z7ELuy6lFOKJnFaKNHteYbqP/h6zD1Ysrc=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\products\\b68e862e-cb5e-4710-b1da-f19f38b2c198.jpg"
+    }
+  ],
+  "Endpoints": [
+    {
+      "Route": "uploads/products/1c0c40c8-e444-4ff7-b6d9-de7803e57809.rp04ko7mgr.webp",
+      "AssetFile": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\wwwroot\\uploads\\products\\1c0c40c8-e444-4ff7-b6d9-de7803e57809.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "215126"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"n8CBJ634cptsn3JrbveusHcvjV5GmX7dM1t5/whq8Uw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 03 Apr 2025 19:33:59 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "rp04ko7mgr"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/products/1c0c40c8-e444-4ff7-b6d9-de7803e57809.webp"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-n8CBJ634cptsn3JrbveusHcvjV5GmX7dM1t5/whq8Uw="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/products/1c0c40c8-e444-4ff7-b6d9-de7803e57809.webp",
+      "AssetFile": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\wwwroot\\uploads\\products\\1c0c40c8-e444-4ff7-b6d9-de7803e57809.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "215126"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"n8CBJ634cptsn3JrbveusHcvjV5GmX7dM1t5/whq8Uw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 03 Apr 2025 19:33:59 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-n8CBJ634cptsn3JrbveusHcvjV5GmX7dM1t5/whq8Uw="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/products/246f92de-2af9-46fc-9b62-53c5bfac7093.255evo2m1k.webp",
+      "AssetFile": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\wwwroot\\uploads\\products\\246f92de-2af9-46fc-9b62-53c5bfac7093.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "98528"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"hpD8zqD15xwh5kvktc2Z9bBSRlPU0b0xN0VayksLjNE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 03 Apr 2025 19:33:59 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "255evo2m1k"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/products/246f92de-2af9-46fc-9b62-53c5bfac7093.webp"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-hpD8zqD15xwh5kvktc2Z9bBSRlPU0b0xN0VayksLjNE="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/products/246f92de-2af9-46fc-9b62-53c5bfac7093.webp",
+      "AssetFile": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\wwwroot\\uploads\\products\\246f92de-2af9-46fc-9b62-53c5bfac7093.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "98528"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"hpD8zqD15xwh5kvktc2Z9bBSRlPU0b0xN0VayksLjNE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 03 Apr 2025 19:33:59 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-hpD8zqD15xwh5kvktc2Z9bBSRlPU0b0xN0VayksLjNE="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/products/301272c9-f801-486d-a99b-057f004a5bd0.kgohokbw4x.webp",
+      "AssetFile": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\wwwroot\\uploads\\products\\301272c9-f801-486d-a99b-057f004a5bd0.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "58800"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"7NGRSW5MGvbe9fSbX7B+94vQ598vG5dbW70yRE6k5rw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 03 Apr 2025 19:42:14 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "kgohokbw4x"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/products/301272c9-f801-486d-a99b-057f004a5bd0.webp"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-7NGRSW5MGvbe9fSbX7B+94vQ598vG5dbW70yRE6k5rw="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/products/301272c9-f801-486d-a99b-057f004a5bd0.webp",
+      "AssetFile": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\wwwroot\\uploads\\products\\301272c9-f801-486d-a99b-057f004a5bd0.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "58800"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"7NGRSW5MGvbe9fSbX7B+94vQ598vG5dbW70yRE6k5rw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 03 Apr 2025 19:42:14 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-7NGRSW5MGvbe9fSbX7B+94vQ598vG5dbW70yRE6k5rw="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/products/357bffe1-2782-447d-9748-4241d98f3e6c.9lp39oucj5.jpg",
+      "AssetFile": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\wwwroot\\uploads\\products\\357bffe1-2782-447d-9748-4241d98f3e6c.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "155732"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"s3Jh+9yffVStkixj6D3xJOrahg7r3cvkt2cfGS9PA6g=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 03 Apr 2025 16:00:22 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "9lp39oucj5"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/products/357bffe1-2782-447d-9748-4241d98f3e6c.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-s3Jh+9yffVStkixj6D3xJOrahg7r3cvkt2cfGS9PA6g="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/products/357bffe1-2782-447d-9748-4241d98f3e6c.jpg",
+      "AssetFile": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\wwwroot\\uploads\\products\\357bffe1-2782-447d-9748-4241d98f3e6c.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "155732"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"s3Jh+9yffVStkixj6D3xJOrahg7r3cvkt2cfGS9PA6g=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 03 Apr 2025 16:00:22 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-s3Jh+9yffVStkixj6D3xJOrahg7r3cvkt2cfGS9PA6g="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/products/4d7c79b3-434b-465f-9b31-62ea9539b1a6.ac058zp1g6.webp",
+      "AssetFile": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\wwwroot\\uploads\\products\\4d7c79b3-434b-465f-9b31-62ea9539b1a6.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "642732"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Biscnp+5VeGM4h8bI9ztIgDKm0aao3npNcdHLZqsAqQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 03 Apr 2025 19:42:14 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "ac058zp1g6"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/products/4d7c79b3-434b-465f-9b31-62ea9539b1a6.webp"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Biscnp+5VeGM4h8bI9ztIgDKm0aao3npNcdHLZqsAqQ="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/products/4d7c79b3-434b-465f-9b31-62ea9539b1a6.webp",
+      "AssetFile": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\wwwroot\\uploads\\products\\4d7c79b3-434b-465f-9b31-62ea9539b1a6.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "642732"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Biscnp+5VeGM4h8bI9ztIgDKm0aao3npNcdHLZqsAqQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 03 Apr 2025 19:42:14 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Biscnp+5VeGM4h8bI9ztIgDKm0aao3npNcdHLZqsAqQ="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/products/b68e862e-cb5e-4710-b1da-f19f38b2c198.09rvmgc6k6.jpg",
+      "AssetFile": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\wwwroot\\uploads\\products\\b68e862e-cb5e-4710-b1da-f19f38b2c198.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "154547"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"TA4lJsFQ0z7ELuy6lFOKJnFaKNHteYbqP/h6zD1Ysrc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 03 Apr 2025 16:00:22 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "09rvmgc6k6"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/products/b68e862e-cb5e-4710-b1da-f19f38b2c198.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-TA4lJsFQ0z7ELuy6lFOKJnFaKNHteYbqP/h6zD1Ysrc="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/products/b68e862e-cb5e-4710-b1da-f19f38b2c198.jpg",
+      "AssetFile": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\wwwroot\\uploads\\products\\b68e862e-cb5e-4710-b1da-f19f38b2c198.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "154547"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"TA4lJsFQ0z7ELuy6lFOKJnFaKNHteYbqP/h6zD1Ysrc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 03 Apr 2025 16:00:22 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-TA4lJsFQ0z7ELuy6lFOKJnFaKNHteYbqP/h6zD1Ysrc="
+        }
+      ]
+    }
+  ]
 }

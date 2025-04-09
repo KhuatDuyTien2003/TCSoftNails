@@ -51,6 +51,7 @@ public partial class ThuctapKtktcnNail2025Context : IdentityDbContext<Account>
     public virtual DbSet<Promotion> Promotions { get; set; }
 
     public virtual DbSet<PromotionDetail> PromotionDetails { get; set; }
+    public virtual DbSet<ProAndSerImage> ProAndSerImages { get; set; }
 
     public virtual DbSet<Staff> Staff { get; set; }
 
@@ -352,9 +353,15 @@ public partial class ThuctapKtktcnNail2025Context : IdentityDbContext<Account>
             entity.Property(e => e.Commission).HasColumnName("commission");
             entity.Property(e => e.InventoryQuantity).HasColumnName("inventoryQuantity");
             entity.Property(e => e.IsDeleted).HasColumnName("isDeleted");
+            entity.Property(e => e.Description)
+                .HasColumnType("text")
+                .HasColumnName("description");
             entity.Property(e => e.OriginalPrice)
                 .HasColumnType("decimal(18, 2)")
                 .HasColumnName("originalPrice");
+            entity.Property(e => e.SellingPrice)
+               .HasColumnType("decimal(18, 2)")
+               .HasColumnName("SellingPrice");
             entity.Property(e => e.ProAndSerCode)
                 .HasMaxLength(20)
                 .HasColumnName("proAndSerCode");
@@ -365,11 +372,13 @@ public partial class ThuctapKtktcnNail2025Context : IdentityDbContext<Account>
             entity.Property(e => e.ProductTypeId).HasColumnName("productTypeId");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.Unit).HasColumnName("unit");
-            entity.Property(e => e.UrlImage)
-                .IsUnicode(false)
-                .HasColumnName("urlImage");
+
             entity.Property(e => e.WorkTime).HasColumnName("workTime");
+            entity.Property(e => e.ExpiryDate).HasColumnName("expiryDate").HasColumnType("date");
         });
+
+
+
 
         modelBuilder.Entity<ProductType>(entity =>
         {

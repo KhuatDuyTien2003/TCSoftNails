@@ -1,0 +1,49 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\wwwroot\\uploads\\products\\1c0c40c8-e444-4ff7-b6d9-de7803e57809.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\1c0c40c8-e444-4ff7-b6d9-de7803e57809.webp"
+    },
+    {
+      "Id": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\wwwroot\\uploads\\products\\246f92de-2af9-46fc-9b62-53c5bfac7093.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\246f92de-2af9-46fc-9b62-53c5bfac7093.webp"
+    },
+    {
+      "Id": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\wwwroot\\uploads\\products\\301272c9-f801-486d-a99b-057f004a5bd0.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\301272c9-f801-486d-a99b-057f004a5bd0.webp"
+    },
+    {
+      "Id": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\wwwroot\\uploads\\products\\357bffe1-2782-447d-9748-4241d98f3e6c.jpg",
+      "PackagePath": "staticwebassets\\uploads\\products\\357bffe1-2782-447d-9748-4241d98f3e6c.jpg"
+    },
+    {
+      "Id": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\wwwroot\\uploads\\products\\4d7c79b3-434b-465f-9b31-62ea9539b1a6.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\4d7c79b3-434b-465f-9b31-62ea9539b1a6.webp"
+    },
+    {
+      "Id": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\wwwroot\\uploads\\products\\b68e862e-cb5e-4710-b1da-f19f38b2c198.jpg",
+      "PackagePath": "staticwebassets\\uploads\\products\\b68e862e-cb5e-4710-b1da-f19f38b2c198.jpg"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.NailsTcsoft3.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.NailsTcsoft3.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.NailsTcsoft3.props",
+      "PackagePath": "build\\NailsTcsoft3.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.NailsTcsoft3.props",
+      "PackagePath": "buildMultiTargeting\\NailsTcsoft3.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.NailsTcsoft3.props",
+      "PackagePath": "buildTransitive\\NailsTcsoft3.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
