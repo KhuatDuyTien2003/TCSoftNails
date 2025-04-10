@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|d:\\thuctap2025\\nailtcsoft\\back-end\\tcsoftnails\\nailstcsoft3\\models\\productfilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|solutionrelative:nailstcsoft3\\models\\productfilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|d:\\thuctap2025\\nailtcsoft\\back-end\\tcsoftnails\\nailstcsoft3\\data\\producttype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|solutionrelative:nailstcsoft3\\data\\producttype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|d:\\thuctap2025\\nailtcsoft\\back-end\\tcsoftnails\\nailstcsoft3\\models\\productfilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|solutionrelative:nailstcsoft3\\models\\productfilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|d:\\thuctap2025\\nailtcsoft\\back-end\\tcsoftnails\\nailstcsoft3\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -42,7 +42,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -66,7 +66,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "ProductFilter.cs",
               "DocumentMoniker": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\Models\\ProductFilter.cs",
               "RelativeDocumentMoniker": "NailsTcsoft3\\Models\\ProductFilter.cs",
@@ -79,13 +79,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "ProductType.cs",
               "DocumentMoniker": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\Data\\ProductType.cs",
               "RelativeDocumentMoniker": "NailsTcsoft3\\Data\\ProductType.cs",
               "ToolTip": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\Data\\ProductType.cs",
               "RelativeToolTip": "NailsTcsoft3\\Data\\ProductType.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAhAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-04T04:44:15.078Z",
               "EditorCaption": ""
@@ -112,8 +112,7 @@
               "RelativeToolTip": "NailsTcsoft3\\Controllers\\ProductGroupsController.cs",
               "ViewState": "AgIAAGwAAAAAAAAAAAAowFcAAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-03T17:32:10.541Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-03T17:32:10.541Z"
             },
             {
               "$type": "Document",
@@ -161,8 +160,7 @@
               "RelativeToolTip": "NailsTcsoft3\\Controllers\\ProductsController.cs",
               "ViewState": "AgIAAFEBAAAAAAAAAAAuwFMBAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-14T07:27:45.397Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-14T07:27:45.397Z"
             }
           ]
         }
