@@ -1,0 +1,138 @@
+import { Appointment } from './../../app.type/Appointment.type';
+import { endOfWeek, startOfWeek } from 'date-fns';
+import { Component, LOCALE_ID, OnInit } from '@angular/core';
+import { CommonModule, registerLocaleData } from '@angular/common';
+import { HeaderComponent } from '../../header/header.component';
+import { RouterModule } from '@angular/router';
+import { GetWeekPipe } from '../../pipe/get-week.pipe';
+import localeVi from '@angular/common/locales/vi';
+
+import { HttpStaffService } from '../../services/http-staff.service';
+import { ToastrService } from 'ngx-toastr';
+registerLocaleData(localeVi);
+@Component({
+  selector: 'app-appointment',
+  standalone: true,
+  templateUrl: './appointment.component.html',
+  styleUrl: './appointment.component.scss',
+  imports: [CommonModule, HeaderComponent, RouterModule, GetWeekPipe],
+  providers: [{ provide: LOCALE_ID, useValue: 'vi-VN' }],
+})
+export class AppointmentComponent implements OnInit {
+  date = new Date();
+  swatDate = new Date('1900-10-11');
+  swatDate2 = new Date('1900-10-12');
+  selectedWeek: Date[] = [];
+  appointmentList: Appointment[] = [];
+  staffId: number = 0;
+  staffName: string = '';
+  pickDate: Date | null = null;
+  colors = [
+    '#FEE2E2',
+    '#FEF9C3',
+    '#D1FAE5',
+    '#E0F2FE',
+    '#F3E8FF',
+    '#FFE4E6',
+    '#FAE8FF',
+    '#E0E7FF',
+  ];
+  borderColors = [
+    '#EF4444',
+    '#EAB308',
+    '#10B981',
+    '#3B82F6',
+    '#8B5CF6',
+    '#EC4899',
+    '#D946EF',
+    '#6366F1',
+  ];
+
+  constructor(
+    private httpStaff: HttpStaffService,
+    private toastr: ToastrService
+  ) {
+    this.updateWeek(this.date);
+  }
+  ngOnInit(): void {
+    this.getAppointments();
+    //console.log('hihi', this.appointmentList);
+  }
+
+  getNow() {
+    this.updateWeek(this.date);
+  }
+  getColor(index: number) {
+    return {
+      background: this.colors[index % this.colors.length],
+      border: this.borderColors[index % this.borderColors.length],
+    };
+  }
+  goToNextWeek() {
+    const nextWeekStart = new Date(this.selectedWeek[0]);
+    nextWeekStart.setDate(nextWeekStart.getDate() + 7);
+
+    this.updateWeek(nextWeekStart);
+  }
+
+  goToPreviousWeek() {
+    const prevWeekStart = new Date(this.selectedWeek[0]);
+    prevWeekStart.setDate(prevWeekStart.getDate() - 7);
+
+    this.updateWeek(prevWeekStart);
+  }
+
+  onDateSelect(date: Date) {
+    this.date = date;
+    this.updateWeek(date);
+  }
+
+  updateWeek(date: Date) {
+    const start = startOfWeek(date, { weekStartsOn: 1 });
+    const end = endOfWeek(date, { weekStartsOn: 1 });
+
+    this.selectedWeek = this.getWeekDays(start, end);
+  }
+
+  getWeekDays(start: Date, end: Date): Date[] {
+    const days = [];
+    let currentDate = new Date(start);
+    while (currentDate <= end) {
+      days.push(new Date(currentDate));
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+    return days;
+  }
+
+  formatDate(date?: Date | string): string {
+    if (!date) return '';
+    const d = typeof date === 'string' ? new Date(date) : date;
+
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+  }
+
+  getAppointments(): void {
+    this.httpStaff.getAppointment().subscribe({
+      next: (data) => {
+        if (data.success) {
+          this.toastr.success(data.message);
+          this.appointmentList = data.data;
+        } else {
+          this.toastr.error(data.message);
+          this.appointmentList = [];
+        }
+      },
+      error: (err) => {
+        this.toastr.error(err);
+        this.appointmentList = [];
+      },
+      complete: () => {
+        console.log('Appointment fetching completed.');
+      },
+    });
+  }
+}

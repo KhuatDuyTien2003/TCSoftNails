@@ -1,0 +1,170 @@
+<div class="booking-form">
+  <h1 class="booking-title">Thêm lịch hẹn</h1>
+  <form
+    nz-form
+    [formGroup]="validateForm"
+    (ngSubmit)="submitForm()"
+    class="booking-form-wrapper"
+  >
+    <nz-form-item class="form-item">
+      <nz-form-label class="form-label" [nzSm]="6" [nzXs]="24" nzFor="email"
+        >E-mail</nz-form-label
+      >
+      <nz-form-control
+        class="form-control"
+        [nzSm]="14"
+        [nzXs]="24"
+        nzErrorTip="Vui lòng nhập email"
+      >
+        <input
+          nz-input
+          class="input-email"
+          formControlName="email"
+          id="email"
+        />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item class="form-item">
+      <nz-form-label
+        class="form-label"
+        [nzSm]="6"
+        [nzXs]="24"
+        nzRequired
+        nzFor="numberPhone"
+        >SĐT</nz-form-label
+      >
+      <nz-form-control
+        class="form-control"
+        [nzSm]="14"
+        [nzXs]="24"
+        nzErrorTip="Vui lòng nhập số điện thoại"
+      >
+        <input
+          nz-input
+          class="input-phone"
+          formControlName="numberPhone"
+          id="numberPhone"
+        />
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- Giới tính & Tên khách -->
+    <nz-form-item class="form-item">
+      <nz-form-control class="form-control">
+        <div class="info-group">
+          <nz-select formControlName="gender" class="gender-select">
+            <nz-option nzValue="0" nzLabel="Anh"></nz-option>
+            <nz-option nzValue="1" nzLabel="Chị"></nz-option>
+          </nz-select>
+          <input
+            nz-input
+            formControlName="customerName"
+            placeholder="Tên khách hàng"
+            class="name-input"
+          />
+        </div>
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- Ngày làm -->
+    <nz-form-item class="form-item">
+      <nz-form-label class="form-label" [nzSm]="6" [nzXs]="24" nzRequired
+        >Ngày làm</nz-form-label
+      >
+      <nz-form-control class="form-control" [nzSm]="14" [nzXs]="24">
+        <nz-input-group nzPrefixIcon="calendar">
+          <input
+            type="date"
+            nz-input
+            formControlName="date"
+            placeholder="Chọn ngày làm"
+            class="input-date"
+          />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- Chọn dịch vụ -->
+    <nz-form-item class="form-item">
+      <nz-form-label class="form-label" [nzSm]="6" [nzXs]="24" nzRequired
+        >Dịch vụ</nz-form-label
+      >
+      <nz-form-control class="form-control" [nzSm]="14" [nzXs]="24">
+        <nz-select
+          nzMode="multiple"
+          [nzMaxTagCount]="3"
+          [nzMaxTagPlaceholder]="tagPlaceHolder"
+          nzPlaceHolder="Chọn dịch vụ"
+          formControlName="listOfSelectedValue"
+          class="service-select"
+        >
+          @for (item of serviceList; track item.id) {
+          <nz-option
+            [nzLabel]="item.name + ' - ' + item.price + 'đ (' + item.time + ')'"
+            [nzValue]="item"
+          ></nz-option>
+          }
+        </nz-select>
+        <ng-template #tagPlaceHolder let-selectedList>
+          và {{ selectedList.length }} dịch vụ khác
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- Chọn khung giờ -->
+    <nz-form-item class="form-item">
+      <nz-form-label class="form-label" [nzSm]="6" [nzXs]="24" nzRequired
+        >Khung giờ</nz-form-label
+      >
+      <nz-form-control class="form-control" [nzSm]="14" [nzXs]="24">
+        <div class="time-slot-grid">
+          <div
+            class="time-slot"
+            *ngFor="let slot of timeSlots"
+            [class.active]="selectedTime === slot.time"
+            (click)="selectTime(slot.time)"
+          >
+            <div class="time">{{ slot.time }}</div>
+            <div class="status">{{ slot.status }}</div>
+          </div>
+        </div>
+      </nz-form-control>
+    </nz-form-item>
+    <p style="float: inline-end">
+      {{
+        timeStart !== null ? (timeStart | date : "HH:mm  EEEE, dd/MM/yyyy") : ""
+      }}
+    </p>
+    <nz-form-item class="form-item">
+      <nz-form-label class="form-label" [nzSm]="6" [nzXs]="24" nzRequired
+        >Dịch vụ</nz-form-label
+      >
+      <nz-form-control class="form-control" [nzSm]="14" [nzXs]="24">
+        <nz-select
+          nzMode="multiple"
+          [nzMaxTagCount]="3"
+          [nzMaxTagPlaceholder]="tagPlaceHolder"
+          nzPlaceHolder="Chọn dịch vụ"
+          formControlName="listOfSelectedValue"
+          class="service-select"
+        >
+          @for (item of serviceList; track item.id) {
+          <nz-option
+            [nzLabel]="item.name + ' - ' + item.price + 'đ (' + item.time + ')'"
+            [nzValue]="item"
+          ></nz-option>
+          }
+        </nz-select>
+        <ng-template #tagPlaceHolder let-selectedList>
+          và {{ selectedList.length }} dịch vụ khác
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- Submit -->
+    <div class="form-actions">
+      <button nz-button nzType="primary" class="submit-btn">Đặt lịch</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,74 @@
+<app-header></app-header>
+<div class="schedule-container">
+  <div class="header">
+    <h2>Lịch hẹn</h2>
+    <div class="toolbar">
+      <input type="text" placeholder="Tìm kiếm nhân viên" />
+      <div class="week-selector">
+        <button (click)="goToPreviousWeek()">&lt;</button>
+        <span>{{ selectedWeek[1] | getWeek }}</span>
+        <button (click)="goToNextWeek()">&gt;</button>
+      </div>
+      <button class="current-week" (click)="getNow()">Tuần này</button>
+    </div>
+    <div>
+      <button class="export-btn">Đặt lịch cho khách hàng</button>
+      <button class="export-btn">Xuất file</button>
+    </div>
+  </div>
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th *ngFor="let day of selectedWeek">
+            {{ day | date : "EEEE(dd/MM)" }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of appointmentList">
+          <td>{{ item.staffName }}</td>
+          <td *ngFor="let day of selectedWeek">
+            <div class="appointment-block">
+              <ng-container
+                *ngFor="let customer of item.appointmentCustomer; let i = index"
+              >
+                <div
+                  class="appointment-card"
+                  *ngIf="
+                    formatDate(customer?.timeStart || swatDate) ===
+                    formatDate(day || swatDate2)
+                  "
+                  [ngStyle]="{
+                    'background-color': getColor(i).background,
+                    'border-left': '4px solid ' + getColor(i).border
+                  }"
+                >
+                  <p class="appointment-time">
+                    {{ customer.timeStart | date : "HH:mm" }} -
+                    {{ customer.timeEnd | date : "HH:mm" }}
+                  </p>
+                  <p class="appointment-customer">
+                    {{ customer.customerName }}
+                  </p>
+                  <p class="appointment-services">
+                    <span
+                      class="appointment-service"
+                      *ngFor="
+                        let service of customer.appointmentDetails;
+                        let isLast = last
+                      "
+                    >
+                      {{ service.proAndSerName }}<span *ngIf="!isLast">, </span>
+                    </span>
+                  </p>
+                </div>
+              </ng-container>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

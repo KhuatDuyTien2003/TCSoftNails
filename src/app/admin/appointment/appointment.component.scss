@@ -1,0 +1,188 @@
+.week-view {
+  text-align: center;
+  margin: 20px;
+}
+
+.week-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.week-table th,
+.week-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.week-table th {
+  background-color: #f5f5f5;
+  font-weight: bold;
+}
+
+
+
+
+.schedule-container {
+  width: 100%;
+  margin: auto;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.toolbar input {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.week-selector {
+  display: flex;
+  align-items: center;
+}
+
+.week-selector button {
+  background: none;
+  border: 1px solid #ddd;
+  padding: 5px 10px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.current-week {
+  background: #007bff;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h2 {
+    color: #007bff;
+  }
+}
+
+.export-btn {
+  background: #28a745;
+  margin-left: 10px;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.table-container {
+  overflow-x: auto;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th,
+  td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+
+
+  }
+
+
+  .addShift {
+    margin: auto;
+
+    width: fit-content;
+    padding: 0 10px;
+    height: fit-content;
+    background-color: #cce5ff;
+    border-radius: 10px;
+
+    .itemShift {
+      background-color: red;
+      height: 10px;
+      width: 20px;
+    }
+  }
+
+  .addShift:hover {
+    background-color: #a9cdf4;
+  }
+
+  .addShift:active {
+    background-color: #cce5ff;
+  }
+
+  th {
+    background: #007bff;
+    color: white;
+  }
+
+  .appointment-block {
+    padding: 4px;
+  }
+
+  .appointment-card {
+    padding: 12px;
+    margin-bottom: 10px;
+    border-left: 4px solid #3b82f6; // xanh viền trái
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      cursor: pointer;
+    }
+
+    .appointment-time {
+      font-weight: 700;
+      color: #1d4ed8; // xanh đậm
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+
+    .appointment-customer {
+      font-size: 15px;
+      font-weight: 600;
+      color: #111827; // đen xám
+      margin-bottom: 4px;
+    }
+
+    .appointment-services {
+      font-size: 14px;
+      color: #374151; // xám đậm
+      line-height: 1.5;
+    }
+
+    .appointment-service {
+      display: inline;
+      font-style: italic;
+      color: #2563eb; // xanh
+    }
+  }
+
+
+
+
+  .hidden {
+    display: none;
+  }
+}

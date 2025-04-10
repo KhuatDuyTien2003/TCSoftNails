@@ -1,0 +1,207 @@
+  // body {
+  //   margin: 0;
+  //   padding: 0;
+  //   font-family: sans-serif;
+  //   background-color: #2bb673;
+  // }
+
+  // .formDiv {
+  //   width: 350px;
+  //   margin: 5% auto;
+  //   padding: 2rem;
+  //   background-color: #fff;
+  //   border-radius: 8px;
+  //   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  //   text-align: center;
+
+  //   h1 {
+  //     margin-top: 0;
+  //     margin-bottom: 1rem;
+  //     font-size: 1.5rem;
+  //     color: #333;
+  //   }
+
+  //   form {
+  //     display: flex;
+  //     flex-direction: column;
+  //     align-items: stretch;
+
+  //     nz-form-item {
+  //       margin-bottom: 1rem;
+  //     }
+
+  //     nz-form-control {
+  //       width: 100%;
+
+  //       nz-input-group {
+  //         display: flex;
+  //         align-items: center;
+  //         padding: 0 11px;
+
+  //         input[nz-input] {
+  //           width: 100%;
+  //           padding: 0.75rem;
+  //           border-radius: 4px;
+
+  //           transition: border-color 0.3s;
+
+  //           &:focus {
+  //             border-color: #2bb673;
+  //             outline: none;
+  //           }
+  //         }
+  //       }
+  //     }
+
+  //     a[routerLink="/Forgot-Password"] {
+  //       display: block;
+  //       margin-top: -0.5rem;
+  //       margin-bottom: 1rem;
+  //       text-align: right;
+  //       color: #2bb673;
+  //       text-decoration: none;
+  //       font-size: 0.9rem;
+
+  //       &:hover {
+  //         text-decoration: underline;
+  //       }
+  //     }
+
+  //     button[nz-button] {
+  //       width: 100%;
+  //       height: fit-content;
+  //       padding: 15px;
+  //       font-size: 1rem;
+  //       font-weight: 600;
+  //       border-radius: 4px;
+  //       cursor: pointer;
+
+  //       &:hover:not(:disabled) {
+  //         opacity: 0.9;
+  //       }
+
+  //       &:disabled {
+  //         cursor: not-allowed;
+  //         opacity: 0.6;
+  //       }
+  //     }
+
+  //     p {
+  //       margin-top: 1rem;
+  //       font-size: 0.95rem;
+  //       color: #333;
+
+  //       a[routerLink="/Register"] {
+  //         color: #2bb673;
+  //         font-weight: 600;
+  //         text-decoration: none;
+
+  //         &:hover {
+  //           text-decoration: underline;
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
+  .formDiv {
+    width: 100%;
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border-top: 5px solid #1890ff; // Thêm viền xanh dương ở trên cùng
+
+    h1 {
+      font-size: 24px;
+      color: #1890ff; // Đổi tiêu đề thành xanh dương
+      margin-bottom: 20px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    nz-form-item {
+      width: 100%;
+    }
+
+    input[nz-input] {
+      height: 40px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      transition: border 0.3s ease, box-shadow 0.3s ease;
+
+      &:focus {
+        border-color: #1890ff;
+        box-shadow: 0 0 5px rgba(24, 144, 255, 0.5);
+      }
+    }
+
+    a {
+      color: #1890ff;
+      text-decoration: none;
+      font-size: 14px;
+      margin-top: 5px;
+      display: inline-block;
+      transition: color 0.3s ease;
+      text-align: left;
+
+      &:hover {
+        color: #0056b3;
+      }
+    }
+
+    button[nz-button] {
+      width: 100%;
+      height: 40px;
+      border-radius: 5px;
+      font-size: 16px;
+      font-weight: bold;
+      background: #1890ff; // Nền xanh dương
+      border: none;
+      color: white;
+      transition: background 0.3s ease, transform 0.2s ease;
+
+      &:hover {
+        background: #1071d3;
+        transform: translateY(-2px);
+      }
+
+      &:disabled {
+        background: #b0d5ff;
+        cursor: not-allowed;
+      }
+    }
+
+    p {
+      font-size: 14px;
+      color: #666;
+      margin-top: 10px;
+
+      a {
+        font-weight: bold;
+      }
+    }
+  }
+
+  .messageDiv {
+
+    font-size: 14px;
+    font-weight: bold;
+    color: #d32f2f;
+
+
+    p {
+      margin: 0;
+      padding: 5px 10px;
+      color: #d32f2f;
+    }
+
+
+  }

@@ -1,0 +1,194 @@
+.booking-form {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 32px;
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+
+  .booking-title {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 32px;
+    color: #1890ff;
+  }
+
+  .booking-form-wrapper {
+    display: flex;
+    flex-direction: column;
+
+  }
+
+  .form-item {
+    display: flex;
+    align-items: center;
+  }
+
+  .form-label {
+    color: #333; // Màu chữ cho nhãn
+  }
+
+  .form-control {
+    flex: 1; // Đảm bảo form control trải dài
+  }
+
+  .info-group {
+    display: flex;
+    gap: 12px;
+
+    .gender-select {
+      width: fit-content;
+      height: 40px;
+      border-radius: 8px;
+      border: 1px solid #d9d9d9;
+      padding: 0 10px;
+      margin-left: 110px;
+
+      // Custom selector bên trong Ant Design
+      ::ng-deep .ant-select-selector {
+        border: none !important;
+        box-shadow: none !important; // xóa cả viền xanh khi focus
+        height: 100% !important;
+        display: flex;
+        align-items: center;
+        padding: 0 !important;
+        background-color: transparent;
+      }
+
+      ::ng-deep .ant-select-selection-item {
+        font-size: 14px;
+        line-height: 40px;
+      }
+    }
+
+
+    .name-input {
+
+      height: 40px;
+      width: 55%;
+      border-radius: 8px;
+    }
+  }
+
+  .input-email,
+  .input-phone,
+  .input-date {
+    width: 100%;
+    height: 40px;
+    border-radius: 8px;
+    border: 1px solid #d9d9d9;
+    padding: 0 10px;
+
+    &:focus {
+      border-color: #1890ff;
+      box-shadow: 0 0 5px rgba(24, 144, 255, 0.3);
+    }
+  }
+
+  .service-select {
+    width: 100%;
+
+    ::ng-deep .ant-select-selector {
+      min-height: 40px;
+      border-radius: 8px;
+      border: 1px solid #d9d9d9;
+      padding: 4px 10px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap; // cho tag xuống dòng gọn gàng nếu nhiều
+      background-color: #fff;
+      overflow: hidden;
+    }
+
+    ::ng-deep .ant-select-selection-item {
+      background-color: #e6f7ff;
+      border-radius: 6px;
+      margin: 2px;
+      padding: 2px 8px;
+      font-size: 13px;
+      color: #1890ff;
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+      max-width: 100%;
+    }
+
+    ::ng-deep .ant-select-selection-item-remove {
+      color: #ff4d4f;
+      margin-left: 4px;
+      font-size: 14px;
+    }
+
+    ::ng-deep .ant-select-selection-overflow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    ::ng-deep .ant-select-focused .ant-select-selector {
+      border-color: #1890ff !important;
+      box-shadow: 0 0 5px rgba(24, 144, 255, 0.3) !important;
+    }
+  }
+
+
+
+  .time-slot-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 8px;
+
+    .time-slot {
+      background: #e6f7ff;
+      border: 1px solid #91d5ff;
+      border-radius: 8px;
+      padding: 8px;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.3s;
+
+      &.active {
+        background: #1890ff;
+        color: white;
+        border-color: #40a9ff;
+      }
+
+      .time {
+        font-weight: 600;
+      }
+
+      .status {
+        font-size: 12px;
+        color: #777;
+      }
+    }
+  }
+
+  .form-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+
+    .submit-btn {
+      width: 160px;
+      height: 44px;
+      font-size: 16px;
+      background-color: #1890ff;
+      color: white;
+      border-radius: 8px;
+
+      &:hover {
+        background-color: #40a9ff;
+      }
+    }
+  }
+}
+
+.ant-select {
+  border: 0;
+}
+
+.ant-select-selector {
+  border: 0;
+}

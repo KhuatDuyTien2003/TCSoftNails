@@ -1,0 +1,49 @@
+<div class="formDiv">
+  <h1>ĐĂNG NHẬP</h1>
+  <formnz-form [formGroup]="validateForm">
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Tên tài khoản không được để trống">
+        <nz-input-group nzPrefixIcon="user">
+          <input formControlName="username" nz-input placeholder="username" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Mật khẩu không được để trống">
+        <nz-input-group nzPrefixIcon="lock">
+          <input
+            formControlName="password"
+            nz-input
+            type="password"
+            placeholder="Password"
+          />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <div class="messageDiv">
+      <p>{{ messageError == "" ? "" : messageError }}</p>
+    </div>
+    <a style="position: relative; left: -130px" routerLink="/Forgot-Password"
+      >Quên mật khẩu?</a
+    >
+
+    <nz-form-item>
+      <nz-form-control>
+        <button
+          nz-button
+          nzType="primary"
+          (click)="submitForm()"
+          [disabled]="!validateForm.valid"
+        >
+          Đăng nhập
+        </button>
+      </nz-form-control>
+    </nz-form-item>
+
+    <p>
+      Bạn chưa có tài khoản?
+      <a routerLink="/Register">Đăng ký</a>
+    </p>
+  </formnz-form>
+</div>

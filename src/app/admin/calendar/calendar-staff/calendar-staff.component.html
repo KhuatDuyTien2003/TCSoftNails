@@ -1,0 +1,87 @@
+<app-header></app-header>
+<div class="schedule-container">
+  <div class="header">
+    <h2>Lịch làm việc</h2>
+    <div class="toolbar">
+      <input type="text" placeholder="Tìm kiếm nhân viên" />
+      <div class="week-selector">
+        <button (click)="goToPreviousWeek()">&lt;</button>
+        <span>{{ selectedWeek[1] | getWeek }}</span>
+        <button (click)="goToNextWeek()">&gt;</button>
+      </div>
+      <button class="current-week" (click)="getNow()">Tuần này</button>
+    </div>
+    <button class="export-btn">Xuất file</button>
+  </div>
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th *ngFor="let day of selectedWeek">
+            {{ day | date : "EEEE(dd/MM)" }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of listCalendarWork">
+          <td>{{ item?.staffName }}</td>
+          <td
+            *ngFor="let day of selectedWeek"
+            (mouseover)="onHidden($event)"
+            (mouseout)="onHidden($event)"
+          >
+            <div class="addShift hidden">
+              <p
+                (click)="
+                  openAddModel(
+                    null,
+                    item?.staffId || 0,
+                    item?.staffName || '',
+                    day,
+                    null,
+                    null,
+                    null,
+                    false
+                  )
+                "
+              >
+                <nz-icon nzType="plus" nzTheme="outline"></nz-icon>
+                <span>Thêm lịch</span>
+              </p>
+            </div>
+            <div *ngFor="let workDate of item?.workSchedule" class="itemShift">
+              <p
+                (click)="
+                  openAddModel(
+                    workDate?.workScheduleId || 0,
+                    item?.staffId || 0,
+                    item?.staffName || '',
+                    day,
+                    workDate?.customerId || 100,
+                    workDate?.shift || null,
+                    workDate?.customerName || null,
+                    true
+                  )
+                "
+                class="{{ 'shift' + workDate.shift + ' shift' }}"
+                *ngIf="
+                  formatDate(workDate?.workDate || swatDate) ===
+                  formatDate(day || swatDate2)
+                "
+              >
+                {{
+                  getShiftDescription(
+                    workDate?.shift || 10000,
+                    workDate?.customerName || ""
+                  )
+                }}
+              </p>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<app-add-shift (dataEvent)="receiveWorkScheule($event)"></app-add-shift>

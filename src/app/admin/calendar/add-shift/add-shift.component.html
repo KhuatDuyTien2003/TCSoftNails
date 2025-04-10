@@ -1,0 +1,131 @@
+<!-- THÊM -->
+<div class="add">
+  <nz-modal
+    [(nzVisible)]="isVisible"
+    [nzTitle]="
+      (staffName || 'Không xác định') +
+      ' - ' +
+      (pickDate ? (pickDate | date : 'EEEE, dd/MM/yyyy') : 'Chưa chọn ngày')
+    "
+    (nzOnCancel)="handleCancel()"
+    (nzOnOk)="handleOk()"
+    [nzOkText]="'Xong'"
+    [nzOkType]="'primary'"
+    [nzCancelText]="WorkDateId !== null ? 'Xóa' : 'Hủy'"
+    [nzMaskClosable]="false"
+  >
+    <ng-container>
+      <div>
+        {{ staffName || "Không xác định" }} -
+        {{
+          pickDate ? (pickDate | date : "EEEE, dd/MM/yyyy") : "Chưa chọn ngày"
+        }}
+
+        <button
+          nz-button
+          (click)="handleClose()"
+          nzType="text"
+          style="float: right; pointer-events: none; opacity: 0.5"
+        >
+          <i nz-icon nzType="close"></i>
+          aaaaa
+        </button>
+      </div>
+    </ng-container>
+
+    <ng-container *nzModalContent>
+      <div class="work-shift-container">
+        <div class="section-title">
+          CHỌN CA LÀM VIỆC <span class="add-icon">+</span>
+        </div>
+        <div class="shift-options">
+          <nz-checkbox-wrapper (nzOnChange)="onShiftChange($event)">
+            <label nz-checkbox [nzValue]="1" [nzChecked]="shift === 1"
+              >Ca Sáng 07:00 - 11:00</label
+            >
+            <label nz-checkbox [nzValue]="2" [nzChecked]="shift === 2"
+              >Ca Chiều 14:00 - 18:00</label
+            >
+            <label nz-checkbox [nzValue]="3" [nzChecked]="shift === 3"
+              >Ca Tối 19:00 - 23:00</label
+            >
+          </nz-checkbox-wrapper>
+        </div>
+
+        <div class="section-title">THIẾT LẬP</div>
+        <div class="settings">
+          <div class="setting-item">
+            <span>Lặp lại hàng tuần</span>
+            <nz-switch [(ngModel)]="repeatWeekly"></nz-switch>
+          </div>
+          <div class="pickWeek" *ngIf="repeatWeekly">
+            <nz-date-picker
+              [(ngModel)]="date"
+              (ngModelChange)="onChangeDate($event)"
+            ></nz-date-picker>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </nz-modal>
+</div>
+
+<div class="delete hidden" id="deleteDiv">
+  <div class="custom-modal-backdrop">
+    <div class="custom-modal">
+      <!-- Header -->
+      <div class="modal-header">
+        <h2>
+          {{ staffName || "Không xác định" }} -
+          {{
+            pickDate ? (pickDate | date : "EEEE, dd/MM/yyyy") : "Chưa chọn ngày"
+          }}
+        </h2>
+        <button class="close-btn" (click)="handleCloseDelete()">×</button>
+      </div>
+
+      <!-- Nội dung -->
+      <div class="modal-content">
+        <div class="work-shift-container">
+          <div class="section-title">CA LÀM VIỆC</div>
+          <div class="shift-options">
+            <p>
+              {{
+                shift === 1
+                  ? "Ca sáng(7:00 - 11:00)"
+                  : shift === 2
+                  ? "Ca chiều(13:00 - 17:00)"
+                  : "Ca tối(18:00 - 23:00)"
+              }}
+            </p>
+          </div>
+          <div class="section-title">THIẾT LẬP</div>
+          <div class="settings">
+            <div class="setting-item">
+              <span>Lặp lại hàng tuần</span>
+              <nz-switch [(ngModel)]="repeatWeekly"></nz-switch>
+            </div>
+            <div class="pickWeek" *ngIf="repeatWeekly">
+              <nz-date-picker
+                [(ngModel)]="date"
+                (ngModelChange)="onChangeDate($event)"
+              ></nz-date-picker>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer">
+        <button
+          class="primary-btn"
+          (click)="handleDelete()"
+          style="background-color: red; color: white"
+        >
+          {{ WorkDateId !== null ? "Xóa" : "Hủy" }}
+        </button>
+        <button (click)="handleOk()" class="primary-btn">Xong</button>
+      </div>
+    </div>
+  </div>
+</div>
