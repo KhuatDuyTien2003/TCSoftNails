@@ -76,16 +76,16 @@ namespace NailsTcsoft3.Controllers
                 Email = account.Email
             };
 
-                var result = await _userManager.CreateAsync(newUser, account.Password);
-                if (result.Succeeded)
+            var result = await _userManager.CreateAsync(newUser, account.Password);
+            if (result.Succeeded)
+            {
+                return Ok(new
                 {
-                    return Ok(new
-                    {
-                        success = true,
+                    success = true,
                     message = "Tạo tài khoản thành công!"
-                    });
-                }
+                });
             }
+
 
             return BadRequest(new
             {
@@ -93,39 +93,41 @@ namespace NailsTcsoft3.Controllers
                 message = "Đăng ký thất bại, vui lòng thử lại!"
             });
         }
+    
 
-        [HttpPost("Login")]
-        public async Task<IActionResult> Login([FromBody] Dictionary<string, string> data)
+    [HttpPost("Login")]
+    public async Task<IActionResult> Login([FromBody] Dictionary<string, string> data)
+    {
+        if (!data.ContainsKey("Username") || !data.ContainsKey("Password"))
         {
-            if (!data.ContainsKey("Username") || !data.ContainsKey("Password"))
-            {
-                return BadRequest(new
-                {
-                    success = false,
-                    message = "Thiếu Username hoặc Password"
-                });
-            }
-
-            string username = data["Username"];
-            string password = data["Password"];
-            var account = await _userManager.FindByNameAsync(username);
-
-            var user = await _signInManager.PasswordSignInAsync(username, password, false, false);
-            if (user.Succeeded)
-            {
-                return Ok(new
-                {
-                    success = true,
-                    message = "Đăng nhập thành công",
-                    data = new { token =  GeneToken(username, password), staffId = account.StaffId }
-                });
-            }
-            return Ok(new
+            return BadRequest(new
             {
                 success = false,
-                message = "Sai tên tài khoản hoặc mật khẩu"
+                message = "Thiếu Username hoặc Password"
             });
         }
+
+        string username = data["Username"];
+        string password = data["Password"];
+        var account = await _userManager.FindByNameAsync(username);
+
+        var user = await _signInManager.PasswordSignInAsync(username, password, false, false);
+        if (user.Succeeded)
+        {
+            return Ok(new
+            {
+                success = true,
+                message = "Đăng nhập thành công",
+                data = new { token = GeneToken(username, password), staffId = account.StaffId }
+            });
+        }
+        return Ok(new
+        {
+            success = false,
+            message = "Sai tên tài khoản hoặc mật khẩu"
+        });
+    }
+
         public class ForgotPasswordRequest
         {
             public string Email { get; set; }
