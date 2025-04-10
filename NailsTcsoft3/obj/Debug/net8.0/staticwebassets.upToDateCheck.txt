@@ -3,4 +3,7 @@ wwwroot\uploads\products\246f92de-2af9-46fc-9b62-53c5bfac7093.webp
 wwwroot\uploads\products\301272c9-f801-486d-a99b-057f004a5bd0.webp
 wwwroot\uploads\products\357bffe1-2782-447d-9748-4241d98f3e6c.jpg
 wwwroot\uploads\products\4d7c79b3-434b-465f-9b31-62ea9539b1a6.webp
+wwwroot\uploads\products\92a9ed2d-4b48-429a-9cef-5c7c76ec3620.webp
+wwwroot\uploads\products\a4de743c-ddeb-4b7a-880b-6e4548a8609d.webp
+wwwroot\uploads\products\af6d14a6-3343-47b7-a871-4dded7b5b7c7.webp
 wwwroot\uploads\products\b68e862e-cb5e-4710-b1da-f19f38b2c198.jpg
