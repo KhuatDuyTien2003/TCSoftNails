@@ -2,7 +2,7 @@
 {
     public class WorkDateModel
     {
-
+        public int? workScheduleId { get; set; }
         public int? staffId { get; set; }
         public int? customerId { get; set; }
         public string? staffName { get; set; }

@@ -42,7 +42,7 @@ builder.Services.AddAuthentication(opts =>
 {
     opts.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     opts.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    opts.DefaultScheme = JwtBearerDefaults  .AuthenticationScheme;
+    opts.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(opts =>
 {
     opts.SaveToken = true;
@@ -65,8 +65,8 @@ builder.Services.AddAuthorization(options =>
         policy.RequireClaim("Action", "CUSTOMER:VIEW"));
     options.AddPolicy("CUSTOMER:EDIT", policy =>
         policy.RequireClaim("Action", "CUSTOMER:EDIT"));
-     options.AddPolicy("CUSTOMER:DELETE", policy =>
-        policy.RequireClaim("Action", "CUSTOMER:DELETE"));
+    options.AddPolicy("CUSTOMER:DELETE", policy =>
+       policy.RequireClaim("Action", "CUSTOMER:DELETE"));
 });
 builder.Services.AddAuthorization();
 builder.Services.AddScoped<IEmailService, EmailService>();

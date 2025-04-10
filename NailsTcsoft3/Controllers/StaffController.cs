@@ -16,14 +16,14 @@ namespace NailsTcsoft3.Controllers
     public class StaffController : ControllerBase
     {
         private readonly ThuctapKtktcnNail2025Context _context;
-    
+
         private readonly UserManager<Account> _userManager;
         private readonly ISaveImageRepo _saveImage;
 
         public StaffController(ThuctapKtktcnNail2025Context context, UserManager<Account> userManager, ISaveImageRepo saveImage)
         {
             _context = context;
-          _saveImage = saveImage;
+            _saveImage = saveImage;
             _userManager = userManager;
         }
 
@@ -86,7 +86,7 @@ namespace NailsTcsoft3.Controllers
 
                         foreach (var item in serviceIds)
                         {
-                            if (int.TryParse(item, out int serviceId))  
+                            if (int.TryParse(item, out int serviceId))
                             {
                                 staffService.Add(new StaffService
                                 {
@@ -252,7 +252,7 @@ namespace NailsTcsoft3.Controllers
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll(int page = 1, int pageSize = 10)
         {
-           
+
             var listStaff = await _context.Database
                                           .SqlQueryRaw<StaffModel>("EXEC PROC_GET_STAFF_EXCEL {0}, {1}, {2}", null, pageSize, page)
                                           .ToListAsync();
@@ -263,20 +263,21 @@ namespace NailsTcsoft3.Controllers
                 {
                     success = false,
                     message = "Không có dữ liệu"
-                }); 
+                });
             }
             else
             {
-                return Ok(new 
-                {  
+                return Ok(new
+                {
                     data = listStaff,
                     count = countStaff
                 });
             }
-        }       [HttpPost("SearchStaff")]
+        }
+        [HttpPost("SearchStaff")]
         public async Task<IActionResult> SearchStaff(SearchStaffModel model)
         {
-           
+
             var listStaff = await _context.Database
                                           .SqlQueryRaw<StaffModel>("EXEC PROC_SEARCH_STAFF {0}, {1}, {2}, {3}, {4}, {5}", new object[]
         {
@@ -284,7 +285,7 @@ namespace NailsTcsoft3.Controllers
             (object?)model.FromDate ?? DBNull.Value,
             (object?)model.ToDate ?? DBNull.Value,
             model.ServiceId == 0 ? DBNull.Value : model.ServiceId,
-            model.PageNumber ?? 1, 
+            model.PageNumber ?? 1,
             model.PageSize ?? 10
         })
                                           .ToListAsync();
@@ -295,22 +296,23 @@ namespace NailsTcsoft3.Controllers
                 {
                     success = false,
                     message = "Không có dữ liệu",
-                    
-                }); 
+
+                });
             }
             else
             {
-                return Ok(new 
-                {  
+                return Ok(new
+                {
                     data = listStaff,
                     count = countStaff
                 });
             }
         }
 
-        [HttpGet("GetStaffById/{id}")]   
-        
-        public async Task<IActionResult> GetStaffById(int id) {
+        [HttpGet("GetStaffById/{id}")]
+
+        public async Task<IActionResult> GetStaffById(int id)
+        {
             var result = await _context.Database
      .SqlQueryRaw<StaffModel>("EXEC PROC_GET_STAFF_EXCEL {0}", id)
      .ToListAsync();
@@ -368,18 +370,18 @@ namespace NailsTcsoft3.Controllers
             else
             {
                 var imageResponse = await _saveImage.SaveImageAsync(newStaff.urlAvatar);
-                staff.Birthday  = newStaff.birthday;
+                staff.Birthday = newStaff.birthday;
                 staff.Email = newStaff.email;
-                staff.Gender = newStaff.gender; 
-               
+                staff.Gender = newStaff.gender;
+
                 staff.NumberPhone = newStaff.numberPhone;
                 staff.StaffName = newStaff.staffName;
-             
-                if(imageResponse.success == true)
+
+                if (imageResponse.success == true)
                 {
-                     staff.UrlAvatar = imageResponse.data;
+                    staff.UrlAvatar = imageResponse.data;
                 }
-               
+
                 _context.Entry(staff).State = EntityState.Modified;
 
                 await _context.SaveChangesAsync();
@@ -435,7 +437,7 @@ namespace NailsTcsoft3.Controllers
                 var user = await _userManager.FindByIdAsync(staff.StaffId.ToString());
                 if (user != null)
                 {
-                    user.IsDelete = true;   
+                    user.IsDelete = true;
                     await _userManager.UpdateAsync(user);
                 }
                 _context.Entry(staff).State = EntityState.Modified;
@@ -447,7 +449,8 @@ namespace NailsTcsoft3.Controllers
                     data = null
                 });
             }
-        }    [HttpGet("StopStartWork/{id}")]
+        }
+        [HttpGet("StopStartWork/{id}")]
         public async Task<IActionResult> StopStartWork(int id)
         {
             var staff = await _context.Staff.FindAsync(id);
@@ -465,20 +468,20 @@ namespace NailsTcsoft3.Controllers
                 if (staff.Status)
                 {
                     staff.Status = false;
-                var user = await _userManager.FindByIdAsync(staff.StaffId.ToString());
-                if (user != null)
-                {
-                    user.Status = false;   
-                    await _userManager.UpdateAsync(user);
-                }
-                _context.Entry(staff).State = EntityState.Modified;
-                await _context.SaveChangesAsync();
-                return Ok(new ResponseModel<StaffModel>
-                {
-                    success = true,
-                    message = "Tắt quyền hoạt động của " + staff.StaffName +" thành công",
-                    data = null
-                });
+                    var user = await _userManager.FindByIdAsync(staff.StaffId.ToString());
+                    if (user != null)
+                    {
+                        user.Status = false;
+                        await _userManager.UpdateAsync(user);
+                    }
+                    _context.Entry(staff).State = EntityState.Modified;
+                    await _context.SaveChangesAsync();
+                    return Ok(new ResponseModel<StaffModel>
+                    {
+                        success = true,
+                        message = "Tắt quyền hoạt động của " + staff.StaffName + " thành công",
+                        data = null
+                    });
                 }
                 else
                 {
@@ -498,7 +501,7 @@ namespace NailsTcsoft3.Controllers
                         data = null
                     });
                 }
-                
+
             }
         }
 
@@ -510,7 +513,7 @@ namespace NailsTcsoft3.Controllers
                 var staffList = await _context.Database
                     .SqlQueryRaw<StaffModel>("EXEC PROC_GET_STAFF_EXCEL")
                     .ToListAsync();
-                    
+
                 if (staffList == null || staffList.Count == 0)
                 {
                     return NotFound("Không có dữ liệu nhân viên để xuất.");
@@ -596,7 +599,7 @@ namespace NailsTcsoft3.Controllers
 
         public async Task<IActionResult> GetServices()
         {
-            var services =  _context.ProductAndServices
+            var services = _context.ProductAndServices
                 .Where(s => s.IsDeleted == false && s.ProAndSerType == 2)
                 .Select(s => new ServiceModel
                 {
@@ -620,7 +623,7 @@ namespace NailsTcsoft3.Controllers
                     message = "Lấy dữ liệu thành công",
                     data = services.ToListAsync().Result.ToArray()
                 });
-            }   
+            }
         }
         [HttpGet("GetWorkDate")]
         public async Task<IActionResult> GetWorkDate()
@@ -648,6 +651,7 @@ namespace NailsTcsoft3.Controllers
                 {
                     existingWorkDateSend.workSchedule.Add(new WorkScheduleModel
                     {
+                        workScheduleId = workDate.workScheduleId,
                         customerId = workDate.customerId,
                         customerName = workDate.customerName,
                         shift = workDate.shift,
@@ -657,7 +661,7 @@ namespace NailsTcsoft3.Controllers
                 }
                 else
                 {
-                  
+
                     var workDateSendModel = new WorkDateSendModel
                     {
                         staffId = int.Parse(workDate.staffId.ToString()),
@@ -689,10 +693,12 @@ namespace NailsTcsoft3.Controllers
         }
 
 
+
+
         [HttpGet("GetCustomer")]
         public async Task<IActionResult> GetCustomer()
         {
-            var listCustomer = _context.Customers.Where(c => c.IsDeleted == false && c.Status == true).Select(c => new 
+            var listCustomer = _context.Customers.Where(c => c.IsDeleted == false && c.Status == true).Select(c => new
             {
                 CustomerId = c.CustomerId,
                 CustomerName = c.CustomerName,
@@ -717,7 +723,7 @@ namespace NailsTcsoft3.Controllers
                     data = listCustomer.ToArray()
                 });
             }
-         
+
         }
 
         [HttpPost("CreateCalendar")]
@@ -738,11 +744,11 @@ namespace NailsTcsoft3.Controllers
 
             var newWorkDate = new WorkSchedule
             {
-                StaffId =int.Parse(model.staffId.ToString()),
-                WorkDate =DateTime.Parse(model.WorkDate.ToString()),
-                CustomerId = int.Parse(model.customerId.ToString()),
+                StaffId = int.Parse(model.staffId.ToString()),
+                WorkDate = DateTime.Parse(model.WorkDate.ToString()),
+                CustomerId = 100,
                 Shift = model.shift.HasValue ? model.shift.Value : (byte)0,
-                 IsDeleted = false,
+                IsDeleted = false,
                 IsDone = false,
                 Status = true
             };
@@ -758,5 +764,30 @@ namespace NailsTcsoft3.Controllers
             });
         }
 
+        [HttpPost("DeleteCalendar/{id}")]
+        public async Task<IActionResult> DeleteCalendar(int id)
+        {
+            var workDate = await _context.WorkSchedules.FindAsync(id);
+            if (workDate == null)
+            {
+                return Ok(new ResponseModel<string>
+                {
+                    success = false,
+                    message = "Không tìm thấy lịch làm việc",
+                    data = null
+                });
+            }
+
+            workDate.IsDeleted = true;
+            _context.Entry(workDate).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return Ok(new ResponseModel<string>
+            {
+                success = true,
+                message = "Xóa lịch làm việc thành công",
+                data = null
+            });
+        }
     }
 }

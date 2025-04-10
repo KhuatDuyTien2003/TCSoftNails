@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\CODE\\.NET\\web\\NailsTcsoft - Copy\\NailsTcsoft3\\NailsTcsoft3\\NailsTcsoft3.csproj": {}
+    "D:\\CODE\\.NET\\web\\dev\\NailsTcsoft3\\NailsTcsoft3.csproj": {}
   },
   "projects": {
-    "D:\\CODE\\.NET\\web\\NailsTcsoft - Copy\\NailsTcsoft3\\NailsTcsoft3\\NailsTcsoft3.csproj": {
+    "D:\\CODE\\.NET\\web\\dev\\NailsTcsoft3\\NailsTcsoft3.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\CODE\\.NET\\web\\NailsTcsoft - Copy\\NailsTcsoft3\\NailsTcsoft3\\NailsTcsoft3.csproj",
+        "projectUniqueName": "D:\\CODE\\.NET\\web\\dev\\NailsTcsoft3\\NailsTcsoft3.csproj",
         "projectName": "NailsTcsoft3",
-        "projectPath": "D:\\CODE\\.NET\\web\\NailsTcsoft - Copy\\NailsTcsoft3\\NailsTcsoft3\\NailsTcsoft3.csproj",
+        "projectPath": "D:\\CODE\\.NET\\web\\dev\\NailsTcsoft3\\NailsTcsoft3.csproj",
         "packagesPath": "C:\\Users\\kdt09\\.nuget\\packages\\",
-        "outputPath": "D:\\CODE\\.NET\\web\\NailsTcsoft - Copy\\NailsTcsoft3\\NailsTcsoft3\\obj\\",
+        "outputPath": "D:\\CODE\\.NET\\web\\dev\\NailsTcsoft3\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

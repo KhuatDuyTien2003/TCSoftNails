@@ -57,8 +57,10 @@ public partial class ThuctapKtktcnNail2025Context : IdentityDbContext<Account>
     public virtual DbSet<StaffService> StaffServices { get; set; }
 
     public virtual DbSet<WorkSchedule> WorkSchedules { get; set; }
+
     public virtual DbSet<Functions> Functions { get; set; }
     public virtual DbSet<Permissions> Permissions { get; set; }
+
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -412,6 +414,9 @@ public partial class ThuctapKtktcnNail2025Context : IdentityDbContext<Account>
                 .HasColumnType("datetime")
                 .HasColumnName("startDate");
             entity.Property(e => e.Status).HasColumnName("status");
+
+            entity.Property(e => e.Value_data).HasColumnName("value_data");
+
             entity.Property(e => e.UrlImage)
                 .IsUnicode(false)
                 .HasColumnName("urlImage");
@@ -495,7 +500,6 @@ public partial class ThuctapKtktcnNail2025Context : IdentityDbContext<Account>
             entity.Property(e => e.IsDeleted).HasColumnName("isDeleted");
             entity.Property(e => e.IsDone).HasColumnName("isDone");
             entity.Property(e => e.Shift).HasColumnName("shift");
-           
             entity.Property(e => e.StaffId).HasColumnName("staffId");
             entity.Property(e => e.Status).HasColumnName("status");
         });

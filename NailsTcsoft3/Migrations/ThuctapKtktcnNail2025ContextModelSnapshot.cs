@@ -177,6 +177,7 @@ namespace NailsTcsoft3.Migrations
                     b.Property<bool?>("IsDelete")
                         .HasColumnType("bit");
 
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -206,8 +207,10 @@ namespace NailsTcsoft3.Migrations
                     b.Property<int>("StaffId")
                         .HasColumnType("int");
 
+
                     b.Property<bool?>("Status")
                         .HasColumnType("bit");
+
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
@@ -508,6 +511,9 @@ namespace NailsTcsoft3.Migrations
                         .HasColumnName("numberPhone");
 
                     b.Property<string>("Password")
+
+                        .IsRequired()
+
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("password");
@@ -534,6 +540,9 @@ namespace NailsTcsoft3.Migrations
                         .HasColumnName("urlAvatar");
 
                     b.Property<string>("UserName")
+
+                        .IsRequired()
+
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("userName");
@@ -624,6 +633,7 @@ namespace NailsTcsoft3.Migrations
                     b.ToTable("Feedback", (string)null);
                 });
 
+
             modelBuilder.Entity("NailsTcsoft3.Data.Functions", b =>
                 {
                     b.Property<string>("Id")
@@ -659,6 +669,7 @@ namespace NailsTcsoft3.Migrations
 
                     b.ToTable("Functions");
                 });
+
 
             modelBuilder.Entity("NailsTcsoft3.Data.GoodsReceipt", b =>
                 {
@@ -796,6 +807,7 @@ namespace NailsTcsoft3.Migrations
 
                     b.ToTable("Permissions");
                 });
+
 
             modelBuilder.Entity("NailsTcsoft3.Data.PriceList", b =>
                 {

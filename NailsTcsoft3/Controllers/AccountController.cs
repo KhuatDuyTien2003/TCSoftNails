@@ -76,14 +76,15 @@ namespace NailsTcsoft3.Controllers
                 Email = account.Email
             };
 
-            var result = await _userManager.CreateAsync(newUser, account.Password);
-            if (result.Succeeded)
-            {
-                return Ok(new
+                var result = await _userManager.CreateAsync(newUser, account.Password);
+                if (result.Succeeded)
                 {
-                    success = true,
+                    return Ok(new
+                    {
+                        success = true,
                     message = "Tạo tài khoản thành công!"
-                });
+                    });
+                }
             }
 
             return BadRequest(new
@@ -163,7 +164,7 @@ namespace NailsTcsoft3.Controllers
             public string Email { get; set; }
             public string Token { get; set; }
             public string Password { get; set; }
-         
+
         }
 
         [HttpPost("ResetPassword")]
@@ -183,7 +184,8 @@ namespace NailsTcsoft3.Controllers
             var email = data.Email.ToLower();
             var password = data.Password;
             var token = data.Token;
-           
+
+
             var user = await _userManager.FindByEmailAsync(email);
             if (user == null)
             {
@@ -269,6 +271,7 @@ namespace NailsTcsoft3.Controllers
                 }
             }
 
+            // Tạo token
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
