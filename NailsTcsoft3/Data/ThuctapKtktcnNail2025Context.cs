@@ -60,6 +60,9 @@ public partial class ThuctapKtktcnNail2025Context : IdentityDbContext<Account>
 
     public virtual DbSet<Functions> Functions { get; set; }
     public virtual DbSet<Permissions> Permissions { get; set; }
+    public virtual DbSet<Appointment> Appointments { get; set; }
+    public virtual DbSet<AppointmentDetail> AppointmentDetails { get; set; }
+
 
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -125,7 +128,35 @@ public partial class ThuctapKtktcnNail2025Context : IdentityDbContext<Account>
             entity.Property(e => e.Money).HasColumnName("money");
             entity.Property(e => e.Point).HasColumnName("point");
             entity.Property(e => e.Status).HasColumnName("status");
+
+        });   
+        modelBuilder.Entity<Appointment>(entity =>
+        {
+            entity.HasKey(e => e.IdAppointment).HasName("PK__Appointment__E8BD939AFBCD6212");
+
+            entity.Property(e => e.IdAppointment).HasColumnName("IdAppointment");
+            entity.Property(e => e.Status).HasColumnName("Status");
+            entity.Property(e => e.IsDeleted).HasColumnName("isDeleted");
+            entity.Property(e => e.StartTime).HasColumnName("StartTime");
+            entity.Property(e => e.IdStaff).HasColumnName("IdStaff");
+            entity.Property(e => e.EndTime).HasColumnName("EndTime");
+            entity.Property(e => e.Description).HasColumnName("Description");
+            entity.Property(e => e.NumberPhone).HasColumnName("NumberPhone");
+            entity.Property(e => e.Email).HasColumnName("Email");
+            entity.Property(e => e.Name).HasColumnName("Name");
+        }); 
+        modelBuilder.Entity<AppointmentDetail>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__AppointmentDetail__E8BD939AFBCD6212");
+
+            entity.Property(e => e.IdAppointment).HasColumnName("IdAppointment");
+            entity.Property(e => e.Status).HasColumnName("Status");
+            entity.Property(e => e.IsDeleted).HasColumnName("isDeleted");
+            entity.Property(e => e.IdService).HasColumnName("IdService");
+           
         });
+   
+
 
         modelBuilder.Entity<Category>(entity =>
         {
@@ -414,7 +445,6 @@ public partial class ThuctapKtktcnNail2025Context : IdentityDbContext<Account>
                 .HasColumnType("datetime")
                 .HasColumnName("startDate");
             entity.Property(e => e.Status).HasColumnName("status");
-
             entity.Property(e => e.Value_data).HasColumnName("value_data");
 
             entity.Property(e => e.UrlImage)

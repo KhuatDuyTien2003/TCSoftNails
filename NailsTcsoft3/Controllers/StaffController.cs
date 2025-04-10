@@ -670,6 +670,8 @@ namespace NailsTcsoft3.Controllers
                 {
                     new WorkScheduleModel
                     {
+                        workScheduleId = workDate.workScheduleId,
+
                         customerId = workDate.customerId,
                         customerName = workDate.customerName,
                         shift = workDate.shift,
@@ -691,9 +693,6 @@ namespace NailsTcsoft3.Controllers
                 data = workDateSendList.ToArray()
             });
         }
-
-
-
 
         [HttpGet("GetCustomer")]
         public async Task<IActionResult> GetCustomer()
@@ -764,10 +763,14 @@ namespace NailsTcsoft3.Controllers
             });
         }
 
+
+
         [HttpPost("DeleteCalendar/{id}")]
         public async Task<IActionResult> DeleteCalendar(int id)
         {
-            var workDate = await _context.WorkSchedules.FindAsync(id);
+            var workDate = _context.WorkSchedules
+                .FirstOrDefault(w => w.WorkScheduleId == id && w.IsDeleted == false);
+
             if (workDate == null)
             {
                 return Ok(new ResponseModel<string>
@@ -789,5 +792,114 @@ namespace NailsTcsoft3.Controllers
                 data = null
             });
         }
-    }
+
+
+        [HttpGet("GetAppointment")]
+        public async Task<IActionResult> GetAppointment()
+        {
+            var listAppointment = await _context.Database
+                .SqlQueryRaw<AppointmentModel>("EXEC GET_ALL_APPOINTMENT")
+                .ToListAsync();
+
+            if (listAppointment == null || listAppointment.Count == 0)
+            {
+                return Ok(new ResponseModel<AppointmentModel>
+                {
+                    success = false,
+                    message = "Không có lịch hẹn nào",
+                    data = null
+                });
+            }
+            else
+            {
+                var result = new List<AppointmentSendModel>();
+                foreach (var item in listAppointment)
+                {
+                    var appointment = result.FirstOrDefault(a => a.IdStaff == item.IdStaff);
+                    if (appointment != null)
+                    {
+                        var existingCustomer = appointment.AppointmentCustomer.FirstOrDefault(c => c.NumberPhone == item.NumberPhone && c.Email == item.Email);
+                        if (existingCustomer != null)
+                        {
+                            var AppointmentDetail = new AppointmentDetailModel
+                            {
+
+                                IdService = item.ProAndSerId,
+                                ProAndSerName = item.ProAndSerName,
+                                WorkTime = item.WorkTime,
+                                SellingPrice = item.SellingPrice
+
+                            };
+                            existingCustomer.AppointmentDetails.Add(AppointmentDetail);
+
+                        }
+                        else
+                        {
+                            appointment.AppointmentCustomer.Add(new AppointmentCustomerModel
+                            {
+
+                                CustomerName = item.Name,
+                                Email = item.Email,
+                                NumberPhone = item.NumberPhone,
+                                TimeStart = item.StartTime,
+                                TimeEnd = item.EndTime,
+                                Note = item.Description,
+                                AppointmentDetails = new List<AppointmentDetailModel>
+                            {
+                                new AppointmentDetailModel
+                                {
+                                    IdService = item.ProAndSerId,
+                                    ProAndSerName = item.ProAndSerName,
+                                    WorkTime = item.WorkTime,
+                                    SellingPrice = item.SellingPrice
+                                }
+                            }
+                            });
+                        }
+                    }
+                    else
+                    {
+                        var newAppointment = new AppointmentSendModel
+                        {
+                            IdStaff = item.IdStaff,
+                            StaffName = item.StaffName,
+                            AppointmentCustomer = new List<AppointmentCustomerModel>
+                            {
+                                new AppointmentCustomerModel
+                                {
+
+                                    CustomerName = item.Name,
+                                    Email = item.Email,
+                                    NumberPhone = item.NumberPhone,
+                                    TimeStart = item.StartTime,
+                                    TimeEnd = item.EndTime,
+                                    Note = item.Description,
+                                    AppointmentDetails = new List<AppointmentDetailModel>
+                                    {
+                                        new AppointmentDetailModel
+                                        {
+                                            IdService = item.ProAndSerId,
+                                            ProAndSerName = item.ProAndSerName,
+                                            WorkTime = item.WorkTime,
+                                            SellingPrice = item.SellingPrice
+                                        }
+                                    }
+                                }
+                            }
+                        };
+                        result.Add(newAppointment);
+                    }
+                }
+                return Ok(new ResponseModel<AppointmentSendModel[]>
+                 {
+                     success = true,
+                     message = "Lấy dữ liệu thành công",
+                     data = result.ToArray()
+                 });
+            }
+           
+        } 
+        }   
+    
+
 }

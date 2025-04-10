@@ -12,7 +12,6 @@ public partial class WorkSchedule
     public int CustomerId { get; set; }
 
     public byte Shift { get; set; }
-
     public DateTime WorkDate { get; set; }
 
     public bool IsDone { get; set; }

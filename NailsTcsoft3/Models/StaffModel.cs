@@ -23,6 +23,5 @@
         public string serviceName { get; set; }
         public bool? status { get; set; }
 
-
     }
 }

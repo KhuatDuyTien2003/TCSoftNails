@@ -128,6 +128,7 @@ namespace NailsTcsoft3.Controllers
         });
     }
 
+
         public class ForgotPasswordRequest
         {
             public string Email { get; set; }
@@ -186,7 +187,6 @@ namespace NailsTcsoft3.Controllers
             var email = data.Email.ToLower();
             var password = data.Password;
             var token = data.Token;
-
 
             var user = await _userManager.FindByEmailAsync(email);
             if (user == null)
@@ -273,7 +273,7 @@ namespace NailsTcsoft3.Controllers
                 }
             }
 
-            // Tạo token
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
@@ -286,4 +286,6 @@ namespace NailsTcsoft3.Controllers
         }
 
     }
+
 }
+

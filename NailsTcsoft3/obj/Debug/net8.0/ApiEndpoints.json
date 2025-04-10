@@ -545,6 +545,16 @@
   },
   {
     "ContainingType": "NailsTcsoft3.Controllers.StaffController",
+    "Method": "GetAppointment",
+    "RelativePath": "Staff/GetAppointment",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.StaffController",
     "Method": "GetCustomer",
     "RelativePath": "Staff/GetCustomer",
     "HttpMethod": "GET",

@@ -8,9 +8,5 @@ namespace NailsTcsoft3.Models
         public int StaffId { get; set; }
         public string UserName { get; set; }
 
-
-
-
-
     }
 }

@@ -31,6 +31,8 @@ public partial class Promotion
 
     public bool Status { get; set; }
 
+
     public Double Value_data { get; set; }
+
 
 }
