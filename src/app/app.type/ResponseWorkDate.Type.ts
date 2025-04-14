@@ -6,9 +6,7 @@ export interface ResponseWorkDate {
 }
 
 export interface WorkScheduleModel {
-
-workScheduleId
-?: number;
+  workScheduleId?: number;
   customerId?: number;
   customerName?: string;
   shift?: number;

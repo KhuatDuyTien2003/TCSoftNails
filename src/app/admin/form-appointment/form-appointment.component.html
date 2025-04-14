@@ -99,9 +99,16 @@
           formControlName="listOfSelectedValue"
           class="service-select"
         >
-          @for (item of serviceList; track item.id) {
+          @for (item of serviceList; track item.serviceId) {
           <nz-option
-            [nzLabel]="item.name + ' - ' + item.price + 'đ (' + item.time + ')'"
+            [nzLabel]="
+              item.serviceName +
+              ' - ' +
+              item.sellingPrice +
+              'đ (' +
+              item.workTime +
+              ')'
+            "
             [nzValue]="item"
           ></nz-option>
           }
@@ -148,10 +155,20 @@
           nzPlaceHolder="Chọn dịch vụ"
           formControlName="listOfSelectedValue"
           class="service-select"
+          (ngModelChange)="
+            getStaffByServiceId(validateForm.value.listOfSelectedValue || [])
+          "
         >
-          @for (item of serviceList; track item.id) {
+          @for (item of serviceList; track item.serviceId) {
           <nz-option
-            [nzLabel]="item.name + ' - ' + item.price + 'đ (' + item.time + ')'"
+            [nzLabel]="
+              item.serviceName +
+              ' - ' +
+              item.sellingPrice +
+              'đ (' +
+              item.workTime +
+              ')'
+            "
             [nzValue]="item"
           ></nz-option>
           }

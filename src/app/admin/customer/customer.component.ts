@@ -390,7 +390,7 @@ export class CustomerComponent implements OnInit {
 
   public exportCustomer() {
     this.httpCustomer.exportCustomer().subscribe((data) => {
-      var urlDownload = `https://localhost:7087/TempFiles/${data.filePath}`;
+      var urlDownload = `http://localhost:5213/TempFiles/${data.filePath}`;
       window.open(urlDownload, '_blank');
       setTimeout(() => {
         this.httpCustomer.deleteFile(data.filePath).subscribe(() => {

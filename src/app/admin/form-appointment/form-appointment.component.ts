@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormsModule,
@@ -15,6 +15,9 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { ToastrService } from 'ngx-toastr';
+import { HttpStaffService } from '../../services/http-staff.service';
+import { Service } from '../../app.type/service.type';
+import { StaffByServiceId } from '../../app.type/StaffByServiceId.type';
 
 @Component({
   selector: 'app-form-appointment',
@@ -31,17 +34,16 @@ import { ToastrService } from 'ngx-toastr';
     NzSelectModule,
   ],
 })
-export class FormAppointmentComponent {
-  constructor(private toastr: ToastrService) {}
-  timeStart: Date | null= null;
+export class FormAppointmentComponent implements OnInit {
+  constructor(
+    private toastr: ToastrService,
+    private httpStaff: HttpStaffService
+  ) {}
+  timeStart: Date | null = null;
+  serviceList: Service[] = [];
   timeStartDefault: Date = new Date('1900-01-02T06:01');
-  serviceList = [
-    { id: 'DV001', name: 'Cắt tóc nam', price: 50000, time: '30 phút' },
-    { id: 'DV002', name: 'Gội đầu', price: 30000, time: '15 phút' },
-    { id: 'DV003', name: 'Nhuộm tóc', price: 150000, time: '1 tiếng' },
-    { id: 'DV004', name: 'Cạo mặt', price: 40000, time: '20 phút' },
-    { id: 'DV005', name: 'Massage đầu', price: 60000, time: '25 phút' },
-  ];
+  staffList: StaffByServiceId[] = [];
+
   private fb = inject(NonNullableFormBuilder);
   validateForm = this.fb.group({
     numberPhone: this.fb.control('', [Validators.required]),
@@ -67,7 +69,9 @@ export class FormAppointmentComponent {
   ];
 
   selectedTime: string | null = null;
-
+  ngOnInit(): void {
+    this.getService();
+  }
   selectTime(time: string) {
     this.selectedTime = time;
     if (this.validateForm.value.date !== null) {
@@ -81,6 +85,23 @@ export class FormAppointmentComponent {
     console.log('onChange: ', result);
   }
 
+  getStaffByServiceId(serviceIds: number[]) {
+    console.log('hihi');
+    this.httpStaff.getStaffByServiceId(serviceIds).subscribe({
+      next: (data) => {
+        if (data.success) {
+          this.staffList = data.data;
+          console.log(this.staffList);
+        } else {
+          this.toastr.error(data.message);
+        }
+      },
+      error: (err) => {
+        this.toastr.error(err);
+      },
+    });
+  }
+
   submitForm(): void {
     if (this.validateForm.valid) {
       console.log('submit', this.validateForm.value);
@@ -92,5 +113,20 @@ export class FormAppointmentComponent {
         }
       });
     }
+  }
+
+  getService(): void {
+    this.httpStaff.getService().subscribe({
+      next: (data) => {
+        if (data.success) {
+          this.serviceList = data.data;
+        } else {
+          this.toastr.error(data.message);
+        }
+      },
+      error: (error: any) => {
+        this.toastr.error(error);
+      },
+    });
   }
 }

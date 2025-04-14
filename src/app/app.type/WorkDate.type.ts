@@ -1,4 +1,5 @@
 export interface WorkDate {
+  workScheduleId: number;
   staffId?: number | null;
   customerId?: number | null;
   staffName?: string | null;

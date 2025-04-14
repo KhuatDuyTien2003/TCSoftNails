@@ -14,7 +14,7 @@ import { ToastrService } from 'ngx-toastr';
   providedIn: 'root',
 })
 export class HttpCustomerService {
-  private base_url = 'https://localhost:7087/';
+  private base_url = 'http://localhost:5213/';
   token: string = localStorage.getItem('token') || '';
   constructor(private httpCustomer: HttpClient, toastr: ToastrService) {}
   httpOption = {
