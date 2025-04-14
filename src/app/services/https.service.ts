@@ -9,6 +9,7 @@ import {
 import { Injectable } from '@angular/core';
 import { emit } from 'process';
 import { catchError, Observable, ObservedValueOf, throwError } from 'rxjs';
+import { BaseHttpService } from './base-http.service';
 
 export interface NewAccount {
   staffId: string;
@@ -20,13 +21,11 @@ export interface NewAccount {
   providedIn: 'root',
 })
 export class HttpsService {
-  private base_url = 'https://localhost:7087/';
+    baseClass = new BaseHttpService
+    private base_url = this.baseClass.base_url+"/";
+      httpOption = this.baseClass.httpOption
   constructor(private http: HttpClient) {}
-  httpOption = {
-    headers: new HttpHeaders({
-      'Content-type': 'application/json',
-    }),
-  };
+
   public Login(Username: string, Password: string): Observable<any> {
     const url = `${this.base_url}Account/Login`;
     return this.http

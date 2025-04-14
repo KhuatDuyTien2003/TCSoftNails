@@ -33,6 +33,7 @@ export class ResetPasswordComponent implements OnInit {
   constructor(private router: ActivatedRoute, private http: HttpsService) {}
 
   ngOnInit(): void {
+
     this.router.queryParams.subscribe((params) => {
       this.token = decodeURIComponent(params['token']);
       this.email = params['email'];
@@ -40,6 +41,7 @@ export class ResetPasswordComponent implements OnInit {
       console.log('email: ' + this.email);
     });
   }
+
   private fb = inject(NonNullableFormBuilder);
   validateForm = this.fb.group({
     password: this.fb.control('', [Validators.required]),

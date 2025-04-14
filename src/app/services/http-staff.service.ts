@@ -14,20 +14,18 @@ import { WorkDate } from '../app.type/WorkDate.type';
 import { customer } from '../app.type/customer.type';
 import { ResponseWorkDate } from '../app.type/ResponseWorkDate.Type';
 import { Appointment } from '../app.type/Appointment.type';
+import { BaseHttpService } from './base-http.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HttpStaffService {
-  private base_url = 'https://localhost:7087/';
+    baseClass = new BaseHttpService
+    private base_url = this.baseClass.base_url+"/";
+      httpOption = this.baseClass.httpOption
   token: string = localStorage.getItem('token') || '';
   constructor(private httpStaff: HttpClient) {}
-  httpOption = {
-    headers: new HttpHeaders({
-      'Content-type': 'application/json',
-      Authorization: `Bearer ${this.token}`,
-    }),
-  };
+
   public getAllStaff(
     page: number,
     pageSize: number

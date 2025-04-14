@@ -1,0 +1,103 @@
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+  HttpParams,
+} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, catchError, Observable, throwError } from 'rxjs';
+import { FilterCriteria } from '../../app.type/filter-criteria.type';
+import { BaseHttpService } from '../base-http.service';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class ProductService {
+   baseClass = new BaseHttpService
+   private base_url = this.baseClass.base_url;
+     httpOptions = this.baseClass.httpOption
+
+  private firstServiceCompleteSource = new BehaviorSubject<boolean>(false);
+  firstServiceComplete$ = this.firstServiceCompleteSource.asObservable();
+
+  notifyFirstServiceComplete() {
+    this.firstServiceCompleteSource.next(true);
+  }
+
+  constructor(private http: HttpClient) {}
+
+  getProducts(): Observable<Array<any>> {
+    const url = `${this.base_url}/Products`;
+    return this.http
+      .get<Array<any>>(url, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
+  getProductsByFilter(filter: FilterCriteria): Observable<any[]> {
+    const url = `${this.base_url}/Products/GetByFilter`;
+    let params = new HttpParams()
+      .set('PageNumber', filter.pageNumber)
+      .set('PageSize', filter.pageSize);
+    if (filter.searchTerm) params = params.set('searchTerm', filter.searchTerm);
+    if (filter.productTypes?.length)
+      params = params.set('productTypes', filter.productTypes.join(','));
+    if (filter.productGroup)
+      params = params.set('productGroup', filter.productGroup);
+    if (filter.rank) params = params.set('Rank', filter.rank);
+    if (filter.status) params = params.set('Status', filter.status);
+    return this.http
+      .get<any[]>(url, { params })
+      .pipe(catchError(this.handleError));
+  }
+
+  postProduct(product: FormData): Observable<any> {
+    const url = `${this.base_url}/Products/PostProduct`;
+    // Nếu product là FormData, bạn không cần đặt Content-Type
+    const options = { ...this.httpOptions };
+    if (product instanceof FormData) {
+      // Loại bỏ header Content-Type nếu có
+      if (options.headers) {
+        options.headers = options.headers.delete('Content-Type');
+      }
+    }
+
+    return this.http
+      .post<any>(url, product, options)
+      .pipe(catchError(this.handleError));
+  }
+
+  updateProduct(product: any): Observable<any> {
+    const url = `${this.base_url}/Products/PutProduct/${product.ProAndSerId}`;
+    return this.http
+      .put<any>(url, product, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
+  getProductById(id: number): Observable<any> {
+    const url = `${this.base_url}/Products/GetById/${id}`;
+    return this.http
+      .get<any>(url, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
+  deleteProduct(id: number): Observable<any> {
+    const url = `${this.base_url}/Products/DeleteProduct/${id}`;
+    return this.http
+      .delete<any>(url, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    debugger;
+    let errorMess;
+    if (error.error instanceof Error) {
+      // Lỗi phía client hoặc mạng
+      errorMess = 'Lỗi phía client hoặc mạng: ' + error.message;
+    } else {
+      // Server trả về mã lỗi không thành công
+      errorMess = 'Lỗi phía server: ' + error.status + ': ' + error.message;
+    }
+    console.error(errorMess);
+    return throwError(() => new Error(errorMess));
+  }
+}

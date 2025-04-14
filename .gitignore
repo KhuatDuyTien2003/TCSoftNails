@@ -1,37 +1,40 @@
+# Angular build output
+/dist
+/out-tsc
+
 # Node modules
-node_modules/
+/node_modules
 
-# Build outputs
-dist/
-out-tsc/
-
-# IDEs and editors
+# IDE and editor settings
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+*.sublime-project
 .vscode/
-.idea/
+
+# Compiled output
+*.js
+*.js.map
 
 # System files
 .DS_Store
 Thumbs.db
 
-# Angular specific
-.angular/
-
-# Environment files (nếu có)
-*.env
-.env*
+# Angular cache
+.angular/cache
 
 # Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Compiled output
-*.js
-*.js.map
+# Environment files
+.env
+.env.*.local
 
-# Testing
-coverage/
-karma-coverage/
-
-# Optional
-package-lock.json
+# Optional: OS generated files
+*.swp

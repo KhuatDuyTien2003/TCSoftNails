@@ -8,18 +8,17 @@ import { catchError, Observable, throwError } from 'rxjs';
 import { Header } from '../app.type/Header.typr';
 import { ResponseModel } from '../app.type/Response.type';
 import { Staff } from '../app.type/Staff.type';
+import { BaseHttpService } from './base-http.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HttpHeaderService {
-  private base_url = 'https://localhost:7087/';
+   baseClass = new BaseHttpService
+   private base_url = this.baseClass.base_url+"/";
+     httpOption = this.baseClass.httpOption
   constructor(private httpHeader: HttpClient) {}
-  httpOption = {
-    headers: new HttpHeaders({
-      'Content-type': 'application/json',
-    }),
-  };
+
   getAllHeader(): Observable<Header[]> {
     const url = `${this.base_url}Header`;
     return this.httpHeader

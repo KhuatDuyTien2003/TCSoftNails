@@ -9,20 +9,18 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { searchCustomerType } from '../app.type/searchCustomerType.type';
 import { ToastrService } from 'ngx-toastr';
+import { BaseHttpService } from './base-http.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HttpCustomerService {
-  private base_url = 'https://localhost:7087/';
-  token: string = localStorage.getItem('token') || '';
+  baseClass = new BaseHttpService
+  private base_url = this.baseClass.base_url+"/";
+    httpOption = this.baseClass.httpOption
+
   constructor(private httpCustomer: HttpClient, toastr: ToastrService) {}
-  httpOption = {
-    headers: new HttpHeaders({
-      'Content-type': 'application/json',
-      Authorization: `Bearer ${this.token}`,
-    }),
-  };
+
 
 
   public addCustomer(

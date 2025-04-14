@@ -3,7 +3,9 @@
   <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
     <nz-form-item>
       <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="staffName" nzRequired
+
         >Tên nhân viên</nz-form-label
+
       >
       <nz-form-control
         [nzSm]="14"
@@ -16,7 +18,9 @@
 
     <nz-form-item>
       <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="gender" nzRequired
+
         >Giới tính</nz-form-label
+
       >
       <nz-form-control [nzSm]="14" [nzXs]="24">
         <nz-radio-group formControlName="Gender">
@@ -31,9 +35,9 @@
     </nz-form-item>
 
     <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="numberPhone" nzRequired
-        >Số điện thoại</nz-form-label
-      >
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="numberPhone" nzRequired>
+        Số điện thoại
+      </nz-form-label>
       <nz-form-control
         [nzSm]="14"
         [nzXs]="24"
@@ -45,12 +49,16 @@
 
     <nz-form-item>
       <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="birthday" nzRequired
+
         >Ngày sinh</nz-form-label
+
       >
       <nz-form-control
         [nzSm]="14"
         [nzXs]="24"
+
         nzErrorTip="Vui lòng chọn ngày sinh!"
+
       >
         <input nz-input type="date" formControlName="Birthday" id="birthday" />
       </nz-form-control>
@@ -58,12 +66,16 @@
 
     <nz-form-item>
       <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="username" nzRequired
+
         >Tên đăng nhập</nz-form-label
+
       >
       <nz-form-control
         [nzSm]="14"
         [nzXs]="24"
+
         nzErrorTip="Vui lòng nhập tên đăng nhập!"
+
       >
         <input nz-input formControlName="Username" id="username" />
       </nz-form-control>
@@ -71,12 +83,16 @@
 
     <nz-form-item>
       <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="password" nzRequired
+
         >Mật khẩu</nz-form-label
+
       >
       <nz-form-control
         [nzSm]="14"
         [nzXs]="24"
+
         nzErrorTip="Vui lòng nhập mật khẩu!"
+
       >
         <input
           nz-input
@@ -91,21 +107,23 @@
       <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="email" nzRequired
         >Email</nz-form-label
       >
-      <nz-form-control
-        [nzSm]="14"
-        [nzXs]="24"
-        nzErrorTip="Vui lòng nhập địa chỉ email hợp lệ!"
-      >
-        <input nz-input type="email" formControlName="Email" id="email" />
-      </nz-form-control>
+<nz-form-control
+  [nzSm]="14"
+  [nzXs]="24"
+  nzErrorTip="Vui lòng nhập địa chỉ email hợp lệ!"
+>
+  <input nz-input type="email" formControlName="Email" id="email" />
+</nz-form-control>
     </nz-form-item>
+
     <div class="messageDiv">
       <p>{{ messageError }}</p>
     </div>
     <nz-form-item nz-row class="register-area">
       <nz-form-control [nzSpan]="14" [nzOffset]="6">
-        <button nz-button nzType="primary">Đăng ký</button>
-      </nz-form-control>
-    </nz-form-item>
-  </form>
+<div class="messageDiv">
+  <p>{{ messageError }}</p>
 </div>
+<nz-form-item nz-row class="register-area">
+  <nz-form-control [nzSpan]="14" [nzOffset]="6">
+    <button nz-button nzType="primary">Đăng ký</button>
