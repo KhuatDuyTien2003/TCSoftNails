@@ -14,9 +14,11 @@ import { BaseHttpService } from './base-http.service';
   providedIn: 'root',
 })
 export class HttpHeaderService {
+
    baseClass = new BaseHttpService
    private base_url = this.baseClass.base_url+"/";
      httpOption = this.baseClass.httpOption
+
   constructor(private httpHeader: HttpClient) {}
 
   getAllHeader(): Observable<Header[]> {

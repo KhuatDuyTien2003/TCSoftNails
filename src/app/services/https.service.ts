@@ -21,9 +21,11 @@ export interface NewAccount {
   providedIn: 'root',
 })
 export class HttpsService {
+
     baseClass = new BaseHttpService
     private base_url = this.baseClass.base_url+"/";
       httpOption = this.baseClass.httpOption
+
   constructor(private http: HttpClient) {}
 
   public Login(Username: string, Password: string): Observable<any> {

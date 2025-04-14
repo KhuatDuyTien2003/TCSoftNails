@@ -320,7 +320,7 @@ export class StaffComponent implements OnInit {
 
   public exportStaff() {
     this.httpStaff.exportStaff().subscribe((data) => {
-      var urlDownload = `https://localhost:7087/TempFiles/${data.filePath}`;
+      var urlDownload = `http://localhost:5213/TempFiles/${data.filePath}`;
       window.open(urlDownload, '_blank');
       setTimeout(() => {
         this.httpStaff.deleteFile(data.filePath).subscribe(() => {

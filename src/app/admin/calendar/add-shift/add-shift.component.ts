@@ -169,6 +169,7 @@ export class AddShiftComponent implements OnInit {
     for (let week = 0; week < weekCount; week++) {
       for (let i = 0; i < this.selectedShifts.length; i++) {
         let schedule: WorkDate = {
+          workScheduleId: 100,
           customerId: null,
           staffId: this.staffId,
           staffName: null,

@@ -15,6 +15,7 @@ import { BaseHttpService } from './base-http.service';
   providedIn: 'root',
 })
 export class HttpCustomerService {
+
   baseClass = new BaseHttpService
   private base_url = this.baseClass.base_url+"/";
     httpOption = this.baseClass.httpOption

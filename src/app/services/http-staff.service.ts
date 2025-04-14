@@ -14,15 +14,21 @@ import { WorkDate } from '../app.type/WorkDate.type';
 import { customer } from '../app.type/customer.type';
 import { ResponseWorkDate } from '../app.type/ResponseWorkDate.Type';
 import { Appointment } from '../app.type/Appointment.type';
+
+import { Service } from '../app.type/service.type';
+import { StaffByServiceId } from '../app.type/StaffByServiceId.type';
 import { BaseHttpService } from './base-http.service';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class HttpStaffService {
+
     baseClass = new BaseHttpService
     private base_url = this.baseClass.base_url+"/";
       httpOption = this.baseClass.httpOption
+
   token: string = localStorage.getItem('token') || '';
   constructor(private httpStaff: HttpClient) {}
 
@@ -169,6 +175,24 @@ export class HttpStaffService {
     const url = `${this.base_url}Staff/GetAppointment`;
     return this.httpStaff
       .get<ResponseModel<Appointment[]>>(url, this.httpOption)
+      .pipe(catchError((error) => this.handleError(error)));
+  }
+
+  public getService(): Observable<ResponseModel<Service[]>> {
+    const url = `${this.base_url}Staff/GetService`;
+    return this.httpStaff
+      .get<ResponseModel<Service[]>>(url, this.httpOption)
+      .pipe(catchError((error) => this.handleError(error)));
+  }
+
+  public getStaffByServiceId(
+    serviceIds: number[]
+  ): Observable<ResponseModel<StaffByServiceId[]>> {
+    const url = `${this.base_url}Staff/GetStaffByServiceIds`;
+
+    const jsonArray = serviceIds.map(id => ({ serviceId: id }));
+    return this.httpStaff
+      .post<ResponseModel<StaffByServiceId[]>>(url, jsonArray, this.httpOption)
       .pipe(catchError((error) => this.handleError(error)));
   }
 

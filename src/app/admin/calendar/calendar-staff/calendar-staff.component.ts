@@ -50,7 +50,7 @@ export class CalendarStaffComponent implements OnInit {
     this.updateWeek(this.date);
   }
 
-  getNow(){
+  getNow() {
     this.updateWeek(this.date);
   }
 

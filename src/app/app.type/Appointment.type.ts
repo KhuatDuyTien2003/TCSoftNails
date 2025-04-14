@@ -1,5 +1,5 @@
 export interface Appointment {
-  id: number;
+  idAppointment: number;
   idStaff: number;
   staffName: string;
   appointmentCustomer: AppointmentCustomerModel[];
