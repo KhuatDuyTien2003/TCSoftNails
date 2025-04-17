@@ -1,0 +1,301 @@
+<app-header></app-header>
+<div class="container-customer">
+  <div class="formSerch">
+    <div class="search-box">
+      <h3>Tìm kiếm</h3>
+      <input
+        type="text"
+        placeholder="Theo mã, tên, điện thoại"
+        class="search-input"
+        id="idNamePhone"
+        name="idNamePhone"
+        (keyup.enter)="searchCustomer($event)"
+      />
+      <input type="text" placeholder="Theo mã hóa đơn" class="search-input" />
+    </div>
+    <div class="search-box">
+      <h3>Sinh nhật</h3>
+      <Select
+        class="search-input"
+        id="birthday"
+        name="birthday"
+        (change)="searchCustomer($event)"
+      >
+        <option value="null">Tất cả các ngày</option>
+        <option value="today">Hôm nay</option>
+        <option value="ytd">Hôm qua</option>
+        <option value="tomorow">Ngày mai</option>
+      </Select>
+      <nz-range-picker
+      name="dateObject"
+      [(ngModel)]="date"
+      (ngModelChange)="onChangeDate($event)"
+    ></nz-range-picker>    </div>
+    <div class="search-box">
+      <h3>Hạng khách hàng</h3>
+      <Select class="search-input" name="rankId" id="rankId">
+        <option value="1">1</option>
+        <option value="1">1</option>
+      </Select>
+    </div>
+    <div class="search-box">
+      <h3>Giới tính</h3>
+      <label for="gender_all" class="genderLabel">
+        <input
+          class="genderInput"
+          type="radio"
+          name="Gender"
+          id="gender_all"
+          value="null"
+          (change)="searchCustomer($event)"
+        />
+        Tất cả giới tính
+      </label>
+      <label for="gender_male" class="genderLabel">
+        <input
+          class="genderInput"
+          type="radio"
+          name="Gender"
+          id="gender_male"
+          value="male"
+          (change)="searchCustomer($event)"
+        />
+        Nam
+      </label>
+      <label for="gender_female" class="genderLabel">
+        <input
+          class="genderInput"
+          type="radio"
+          name="Gender"
+          id="gender_female"
+          value="female"
+          (change)="searchCustomer($event)"
+        />
+        Nữ
+      </label>
+    </div>
+  </div>
+  <div class="customer">
+    <div class="header-filter">
+      <h1>Khách hàng</h1>
+      <div class="header-filter-btn">
+        <ul class="btnList">
+          <li>
+            <button
+              class="action hidden"
+              id="action"
+              (click)="deleteMultipleCustomers(listCustomerId)"
+            >
+              Thao tác
+            </button>
+          </li>
+          <li>
+            <button id="add" (click)="onHidden('addCustomer')">
+              <nz-icon nzType="plus" nzTheme="outline" /> Thêm khách hàng
+            </button>
+          </li>
+          <li>
+            <button id="import" (click)="onHidden('uploadFile')">Import</button>
+          </li>
+          <li>
+            <button id="export" (click)="exportCustomer()">Xuất file</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <table class="customer-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>STT</th>
+          <th>Tên khách hàng</th>
+          <th>Ngày sinh</th>
+          <th>SĐT</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="customerList.length > 0">
+        <ng-container *ngFor="let item of customerList; let i = index">
+          <tr class="setHidden" (click)="hiddenDetail($event)">
+            <td>
+              <input
+                type="checkbox"
+                class="actionItem"
+                (click)="HiddenAction($event)"
+                [value]="item.customerId"
+              />
+            </td>
+            <td>{{ i + 1 + (currentPage - 1) * 10 }}</td>
+            <td>{{ item.customerName }}</td>
+            <td>{{ item.birthday | date : "dd/MM/yyyy" }}</td>
+            <td>{{ item.numberPhone }}</td>
+            <td>{{ item.email }}</td>
+          </tr>
+          <tr class="hidden">
+            <td colspan="5">
+              <div class="information-customer">
+                <div class="image">
+                  <img
+                    [src]="
+                      'http://localhost:5213/uploads/' +
+                      (item.urlAvatar || 'default.png')
+                    "
+                    alt="Avatar"
+                  />
+                </div>
+                <div class="item">
+                  <div class="item1">
+                    <p>
+                      Mã khách hàng: <span>{{ item.customerId }}</span>
+                    </p>
+                    <p>
+                      Tên khách hàng: <span>{{ item.customerName }}</span>
+                    </p>
+                    <p>
+                      Ngày sinh:
+                      <span>{{ item.birthday | date : "dd/MM/yyyy" }}</span>
+                    </p>
+                    <p>
+                      SĐT: <span>{{ item.numberPhone }}</span>
+                    </p>
+                  </div>
+                  <div class="item2">
+                    <p>
+                      Email: <span>{{ item.email }}</span>
+                    </p>
+                    <p>
+                      Tổng tiền đã tiêu:
+                      <span>{{ item.totalMoney || 0 | vncurrency }}</span>
+                    </p>
+                    <p>
+                      Tổng điểm tích lũy: <span>{{ item.totalPoints }}</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="customButton">
+                <button
+                  class="edit"
+                  (click)="getCustomer(item.customerId || 1000000000)"
+                >
+                  Cập nhật
+                </button>
+                <button class="status">Ngừng hoạt động</button>
+                <button
+                  class="isDelete"
+                  (click)="
+                    startDelete('formDelete', item.customerId || 100000000)
+                  "
+                >
+                  Xóa khách hàng
+                </button>
+              </div>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+      <tbody *ngIf="!isSuccessSearch && customerList.length === 0">
+        <tr>
+          <td colspan="5">
+            <div class="no-customer">
+              <p style="text-align: center">Không tìm thấy khách hàng</p>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="text-align: center; margin-top: 10px">
+      <nz-pagination
+        [nzPageIndex]="currentPage"
+        [nzTotal]="countPage"
+        [nzPageSize]="pageSize"
+        (nzPageIndexChange)="onPageChange($event)"
+      ></nz-pagination>
+    </div>
+  </div>
+  <div class="formDelete hidden">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="icon">⚠️</span>
+        <h2>Xóa khách hàng</h2>
+      </div>
+      <div class="modal-body">
+        <p>
+          Bạn có chắc chắn muốn xóa
+          <strong>khách hàng </strong> này không?
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn cancel" (click)="onHidden('formDelete')">
+          Hủy bỏ
+        </button>
+        <button class="btn delete" (click)="deleteCustomer(CustomerId)">
+          Xác nhận
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="addCustomer hidden">
+    <h1>{{ isEdit ? "Sửa khách hàng" : "Thêm khách hàng mới" }}</h1>
+    <form action="" [formGroup]="formAdd">
+      <label for="customerName">Tên khách hàng:</label>
+      <input type="text" formControlName="customerName" id="customerName" />
+      <label for="gender">Giới tính:</label>
+      <div>
+        <input
+          type="radio"
+          formControlName="gender"
+          id="customerName"
+          value="male"
+        />
+        <span>Nam</span>
+        <input
+          type="radio"
+          formControlName="gender"
+          id="customerName"
+          value="female"
+        />
+        <Span>Nữ</Span>
+      </div>
+
+      <label for="birthday">Ngày sinh:</label>
+      <input type="date" formControlName="birthday" id="birthday" />
+      <label for="email">Email:</label>
+      <input type="text" formControlName="email" id="email" />
+      <label for="sdt">SĐT:</label>
+      <input type="text" formControlName="sdt" id="sdt" />
+      <label for="urAvatar">Ảnh đại diện</label>
+      <input
+        type="file"
+        (change)="onFileSelected($event)"
+        id="urAvatar"
+        accept="image/png, image/jpeg, image/jpg, image/gif, image/bmp"
+      />
+      <div class="messageDiv">
+        <p>{{ messageErrore == "" ? "" : messageErrore }}</p>
+      </div>
+      <div class="btnAddForm">
+        <button
+          class="btnAdd {{ CustomerId }}"
+          value="{{ CustomerId }}"
+          (click)="handleCustomer(CustomerId)"
+        >
+          {{ isEdit ? "Sửa khách hàng" : "Thêm khách hàng" }}
+        </button>
+        <button class="btnExit" (click)="onHidden('addCustomer')">Hủy</button>
+      </div>
+    </form>
+  </div>
+  <div class="uploadFile hidden">
+    <nz-icon
+      nzType="close"
+      (click)="onHidden('uploadFile')"
+      nzTheme="outline"
+    />
+    <div class="form">
+      <input type="file" name="file" id="file" accept=".xls,.xlsx" />
+      <button class="upload" (click)="readExcel()">Xác nhận</button>
+    </div>
+  </div>
+</div>

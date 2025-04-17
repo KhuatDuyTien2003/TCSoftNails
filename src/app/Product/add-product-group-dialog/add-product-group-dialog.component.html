@@ -1,0 +1,91 @@
+<form [formGroup]="productGroupForm" (ngSubmit)="onSubmit()">
+  <div class="flex w-[700px]">
+    <div class="bg-white rounded-lg shadow-lg w-full">
+      <!-- Header Dialog -->
+      <div class="bg-gray-200">
+        <div class="p-4 flex justify-between items-center">
+          <h2 class="text-lg font-semibold">Thêm Nhóm Hàng</h2>
+          <button
+            type="button"
+            (click)="onCancel()"
+            class="pr-2 text-gray-500 hover:text-red-700"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+      <!-- Nội dung Dialog -->
+      <div class="p-4">
+        <div class="flex items-center justify-between pb-4">
+          <label class="w-[20%] block text-gray-700">
+            Tên nhóm hàng
+            <i class="fas fa-info-circle text-gray-400"></i>
+          </label>
+          <div class="w-[80%] mr-5">
+            <input
+              formControlName="productTypeName"
+              class="w-full border rounded p-2 mt-1"
+              type="text"
+            />
+            <div
+              *ngIf="
+                productGroupForm.get('productTypeName')?.invalid &&
+                productGroupForm.get('productTypeName')?.touched
+              "
+              class="text-red-500 text-sm pt-2"
+            >
+              <div
+                *ngIf="productGroupForm.get('productTypeName')?.errors?.['required']"
+              >
+                Tên không được để trống.
+              </div>
+              <div
+                *ngIf="productGroupForm.get('productTypeName')?.errors?.['minlength']"
+              >
+                Tên phải có ít nhất 3 ký tự.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nhóm hàng -->
+        <div class="flex items-center justify-between">
+          <label class="w-[20%] block text-gray-700">
+            Nhóm Cha
+            <i class="fas fa-info-circle text-gray-400"></i>
+          </label>
+          <div class="w-[80%] mr-5 flex items-center">
+            <select
+              formControlName="categoryId"
+              class="w-full border rounded p-2 mt-1 h-10"
+            >
+              <option disabled value="">--Chọn nhóm cha--</option>
+              <option
+                *ngFor="let category of Categories"
+                [value]="category.categoryId"
+              >
+                {{ category.categoryName }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="m-4 flex justify-end space-x-2">
+          <button
+            type="submit"
+            class="bg-green-500 text-white px-4 py-2 rounded"
+          >
+            Lưu
+          </button>
+          <button
+            type="button"
+            (click)="onCancel()"
+            class="bg-gray-500 text-white px-4 py-2 rounded"
+          >
+            Bỏ qua
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

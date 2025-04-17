@@ -1,0 +1,137 @@
+.work-shift-container {
+  .section-title {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 16px;
+
+    .add-icon {
+      color: #1890ff;
+      cursor: pointer;
+      margin-left: 8px;
+    }
+  }
+
+  .shift-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 24px;
+
+    label {
+      font-size: 14px;
+    }
+  }
+
+  .settings {
+    .setting-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+
+      span {
+        font-size: 14px;
+        color: #595959;
+
+      }
+
+
+      nz-switch {
+        .ant-switch-checked {
+          background-color: #1890ff;
+        }
+
+        .ant-switch {
+          height: 24px;
+          width: 48px;
+        }
+      }
+
+      .pickWeek {
+        .ant-picker {
+          width: 160px;
+          background-color: red;
+
+        }
+      }
+    }
+  }
+
+  /* Additional styling for better UI */
+  .setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+}
+
+nz-date-picker {
+  margin: 0 8px 12px 0;
+  width: 100%;
+}
+
+.delete-cancel .ant-btn-cancel {
+  background-color: red;
+  /* Red color for 'Xóa' */
+  font-weight: bold;
+}
+
+.cancel-cancel .ant-btn-cancel {
+  background-color: rgb(255, 255, 255);
+  /* Green color for 'Hủy' */
+  font-style: italic;
+}
+
+.custom-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.custom-modal {
+  background: white;
+  width: 600px;
+  max-width: 90%;
+  margin: 100px auto;
+  padding: 20px;
+  border-radius: 10px;
+  position: relative;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.primary-btn {
+  background-color: #1677ff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+}
+
+
+.hidden {
+  display: none;
+}

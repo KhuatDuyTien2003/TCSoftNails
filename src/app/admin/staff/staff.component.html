@@ -1,0 +1,293 @@
+<app-header></app-header>
+
+<div class="staff-container">
+  <div class="formSerch">
+    <div class="search-box">
+      <h3>Tìm kiếm</h3>
+      <input
+        type="text"
+        placeholder="Theo mã, tên, điện thoại"
+        class="search-input"
+        id="idNamePhone"
+        name="idNamePhone"
+        (keyup.enter)="searchStaff($event)"
+      />
+      <input type="text" placeholder="Theo mã hóa đơn" class="search-input" />
+    </div>
+    <div class="search-box">
+      <h3>Sinh nhật</h3>
+      <Select
+        class="search-input"
+        id="birthday"
+        name="birthday"
+        (change)="searchStaff($event)"
+      >
+        <option value="null">Tất cả các ngày</option>
+        <option value="today">Hôm nay</option>
+        <option value="ytd">Hôm qua</option>
+        <option value="tomorow">Ngày mai</option>
+      </Select>
+      <nz-range-picker
+        name="dateObject"
+        [(ngModel)]="date"
+        (ngModelChange)="onChangeDate($event)"
+      ></nz-range-picker>
+    </div>
+    <div class="search-box">
+      <h3>Dịch vụ</h3>
+      <Select
+        class="search-input"
+        name="serviceId"
+        id="rankId"
+        (change)="searchStaff($event)"
+      >
+        <option value="null">Tất cả các dịch vụ</option>
+        <option
+          *ngFor="let serviceItem of listService"
+          value="{{ serviceItem.serviceId }}"
+        >
+          {{ serviceItem.serviceName }}
+        </option>
+      </Select>
+    </div>
+  </div>
+  <div class="staff">
+    <div class="header-filter">
+      <h1>Nhân viên</h1>
+      <div class="header-filter-btn">
+        <ul class="btnList">
+          <li>
+            <button class="action hidden" id="action">Thao tác</button>
+          </li>
+          <li>
+            <button id="add" (click)="onHidden('addStaff')">
+              <nz-icon nzType="plus" nzTheme="outline" /> Thêm nhân viên
+            </button>
+          </li>
+          <li>
+            <button id="import" (click)="onHidden('uploadFile')">Import</button>
+          </li>
+          <li>
+            <button id="export" (click)="exportStaff()">Xuất file</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <table class="staff-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>STT</th>
+          <th>Tên nhân viên</th>
+          <th>Ngày sinh</th>
+          <th>SĐT</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="staffList.length > 0">
+        <ng-container *ngFor="let item of staffList; let i = index">
+          <tr class="setHidden" (click)="hiddenDetail($event)">
+            <td>
+              <input
+                type="checkbox"
+                class="actionItem"
+                [value]="item.staffId"
+              />
+            </td>
+            <td>{{ i + 1 + (currentPage - 1) * 10 }}</td>
+            <td>{{ item.staffName }}</td>
+            <td>{{ item.birthday | date : "dd/MM/yyyy" }}</td>
+            <td>{{ item.numberPhone }}</td>
+            <td>{{ item.email }}</td>
+          </tr>
+          <tr class="hidden">
+            <td colspan="5">
+              <div class="information-staff">
+                <div class="image">
+                  <img
+                    [src]="
+                      'http://localhost:5213/uploads/' +
+                      (item.urlAvatar || 'avatar.png')
+                    "
+                    alt="Avatar"
+                  />
+                </div>
+                <div class="item">
+                  <div class="item1">
+                    <p>
+                      Mã khách hàng: <span>{{ item.staffId }}</span>
+                    </p>
+                    <p>
+                      Tên khách hàng: <span>{{ item.staffName }}</span>
+                    </p>
+                    <p>
+                      Ngày sinh:
+                      <span>{{ item.birthday | date : "dd/MM/yyyy" }}</span>
+                    </p>
+                    <p>
+                      SĐT: <span>{{ item.numberPhone }}</span>
+                    </p>
+                  </div>
+                  <div class="item2">
+                    <p>
+                      Email: <span>{{ item.email }}</span>
+                    </p>
+                    <p>
+                      Tổng tiền đã tiêu:
+                      <span>{{ item.totalStar || 0 | vncurrency }}</span>
+                    </p>
+                    <p>
+                      Dịch vụ:
+                      <span>{{
+                        item.serviceName || "Không đảm nhận dịch vụ"
+                      }}</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="customButton">
+                <button
+                  (click)="getStaff(item.staffId || 10000000)"
+                  class="edit"
+                >
+                  Cập nhật
+                </button>
+                <button
+                  (click)="stopStartStaff(item.staffId || 1000000)"
+                  class="status"
+                  [ngStyle]="{
+                    'background-color': item.status ? 'red' : 'green',
+                    color: 'white'
+                  }"
+                >
+                  {{ item.status ? "Ngừng hoạt động" : "Mở lại tài khoản" }}
+                </button>
+
+                <button
+                  (click)="startDeleteStaff(item.staffId || 1000000000)"
+                  class="isDelete"
+                >
+                  Xóa nhân viên
+                </button>
+              </div>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+      <tbody *ngIf="!isSuccessSearch && staffList.length === 0">
+        <tr>
+          <td colspan="5">
+            <div class="no-staff">
+              <p style="text-align: center">Không tìm thấy nhân viên</p>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="text-align: center; margin-top: 10px">
+      <nz-pagination
+        [nzPageIndex]="currentPage"
+        [nzTotal]="countPage"
+        [nzPageSize]="pageSize"
+        (nzPageIndexChange)="onPageChange($event)"
+      ></nz-pagination>
+    </div>
+  </div>
+</div>
+<div class="addStaff hidden">
+  <h1>{{ isEdit ? "Sửa khách hàng" : "Thêm khách hàng mới" }}</h1>
+  <form action="" [formGroup]="formAdd">
+    <label for="staffName">Tên khách hàng:</label>
+    <input type="text" formControlName="staffName" id="staffName" />
+    <label for="gender">Giới tính:</label>
+    <div>
+      <input
+        type="radio"
+        formControlName="gender"
+        id="staffName"
+        value="male"
+      />
+      <span>Nam</span>
+      <input
+        type="radio"
+        formControlName="gender"
+        id="staffName"
+        value="female"
+      />
+      <Span>Nữ</Span>
+    </div>
+
+    <label for="birthday">Ngày sinh:</label>
+    <input type="date" formControlName="birthday" id="birthday" />
+    <label for="email">Email:</label>
+    <input type="text" formControlName="email" id="email" />
+    <label for="sdt">SĐT:</label>
+    <input type="text" formControlName="sdt" id="sdt" />
+    <div class="service-container">
+      <label for="service">Dịch vụ:</label>
+      <ng-container *ngFor="let ser of listService">
+        <div class="service-item">
+          <input
+            [checked]="
+              formAdd.get('services')?.value?.includes(ser.serviceId.toString())
+            "
+            type="checkbox"
+            id="service"
+            [value]="ser.serviceId"
+            (change)="onCheckboxChange($event, ser.serviceId)"
+          />
+          <span>{{ ser.serviceName }}</span>
+        </div>
+      </ng-container>
+    </div>
+    <label for="urAvatar">Ảnh đại diện</label>
+    <input
+      type="file"
+      (change)="onFileSelected($event)"
+      id="urAvatar"
+      accept="image/png, image/jpeg, image/jpg, image/gif, image/bmp"
+    />
+    <div class="messageDiv">
+      <p>{{ messageErrore == "" ? "" : messageErrore }}</p>
+    </div>
+    <div class="btnAddForm">
+      <button
+        class="btnAdd {{ staffId }}"
+        value="{{ staffId }}"
+        (click)="handleStaff(staffId)"
+      >
+        {{ isEdit ? "Sửa khách hàng" : "Thêm khách hàng" }}
+      </button>
+      <button class="btnExit" (click)="onHidden('addStaff')">Hủy</button>
+    </div>
+  </form>
+</div>
+<div class="formDelete hidden">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="icon">⚠️</span>
+      <h2>Xóa khách hàng</h2>
+    </div>
+    <div class="modal-body">
+      <p>
+        Bạn có chắc chắn muốn xóa
+        <strong>khách hàng </strong> này không?
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn cancel" (click)="onHidden('formDelete')">
+        Hủy bỏ
+      </button>
+      <button class="btn delete" (click)="deleteStaff(staffId)">
+        Xác nhận
+      </button>
+    </div>
+  </div>
+</div>
+<div class="uploadFile hidden">
+  <nz-icon nzType="close" (click)="onHidden('uploadFile')" nzTheme="outline" />
+  <div class="form">
+    <input type="file" name="file" id="file" accept=".xls,.xlsx" />
+    <button class="upload" (click)="readExcel()">Xác nhận</button>
+  </div>
+</div>

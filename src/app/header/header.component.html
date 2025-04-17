@@ -1,0 +1,61 @@
+<div class="header">
+  <div class="imgDiv">
+    <a routerLink="customer"><img src="assets/images/avatar.jpg" alt="" /></a>
+  </div>
+  <ul nz-menu nzMode="horizontal">
+    <ng-container *ngFor="let item of headerList">
+      <li
+        (click)="navigateTo(item.url)"
+        nz-menu-item
+        *ngIf="
+          getHeaderChildList(item.id).length === 0 && item.parentId === null
+        "
+      >
+        <a [routerLink]="item.url"> {{ item.name }}</a>
+      </li>
+      <li
+        nz-submenu
+        *ngIf="getHeaderChildList(item.id).length > 0"
+        [nzTitle]="item.name"
+        (click)="navigateTo(item.url)"
+      >
+        <ul>
+          <ng-container *ngFor="let child of getHeaderChildList(item.id)">
+            <li nz-menu-item (click)="navigateTo(child.url)">
+              <a>{{ child.name }}</a>
+            </li>
+          </ng-container>
+        </ul>
+      </li>
+    </ng-container>
+  </ul>
+  <ng-container *ngIf="!isLogin">
+    <div class="signIn">
+      <p>
+        <a routerLink="/Login">Đăng nhập</a><span> và </span>
+        <a routerLink="/Register">Đăng kí</a>
+      </p>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="isLogin">
+    <div
+      class="user-menu"
+      (mouseenter)="toggleDropdown(true)"
+      (mouseleave)="toggleDropdown(false)"
+    >
+      <div class="user-info">
+        <img
+          *ngIf="staff?.urlAvatar"
+          src="http://localhost:5213/uploads/{{ staff?.urlAvatar }}"
+          alt="avatar"
+        />
+        <p>{{ staff?.staffName || "" }}</p>
+      </div>
+      <div class="dropdown-menu" *ngIf="isDropdownVisible">
+        <a (click)="editProfile()">Chỉnh sửa thông tin</a>
+        <a (click)="logout()">Đăng xuất</a>
+      </div>
+    </div>
+  </ng-container>
+</div>

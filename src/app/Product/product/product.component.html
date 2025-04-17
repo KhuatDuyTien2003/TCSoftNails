@@ -1,0 +1,310 @@
+<app-header></app-header>
+<div class="page-wrapper">
+  <main class="main-container">
+    <div class="flex-container">
+      <!-- Filter Sidebar -->
+      <aside class="filter-container">
+        <!-- Search -->
+        <div class="content">
+          <h3>Tìm Kiếm</h3>
+          <input
+            type="text"
+            [(ngModel)]="searchTerm"
+            (keyup)="debounceApplyFilter()"
+            placeholder="Tìm kiếm sản phẩm..."
+          />
+        </div>
+
+        <!-- Customer Rank / Price List -->
+        <div class="content">
+          <h3>Bảng giá áp dụng</h3>
+          <div *ngFor="let customerrank of customerRanks">
+            <label>
+              <input
+                type="radio"
+                name="customerRank"
+                [(ngModel)]="rank"
+                [value]="customerrank.rankId"
+                (change)="applyFilter()"
+              />
+              {{ customerrank.rankName }}
+            </label>
+          </div>
+        </div>
+
+        <!-- Product Types -->
+        <div class="content">
+          <h3>Loại sản phẩm</h3>
+          <div *ngFor="let type of productTypes">
+            <label>
+              <input
+                type="checkbox"
+                [(ngModel)]="type.selected"
+                (change)="applyFilter()"
+              />
+              {{ type.name }}
+            </label>
+          </div>
+        </div>
+
+        <!-- Product Groups -->
+        <div class="content">
+          <h3>Nhóm hàng</h3>
+          <input
+            type="text"
+            [(ngModel)]="groupSearchTerm"
+            (input)="debounceFilterGroups()"
+            placeholder="Tìm kiếm nhóm hàng..."
+          />
+          <ul class="max-h-[200px] overflow-y-auto">
+            <li
+              *ngFor="let group of filteredGroups"
+              (click)="selectGroup(group.productTypeId)"
+              [class.selected]="selectedProductGroup === group.productTypeId"
+            >
+              {{ group.productTypeName }}
+            </li>
+          </ul>
+        </div>
+
+        <!-- Inventory Status -->
+        <div class="content">
+          <h3>Trạng thái tồn kho</h3>
+          <div *ngFor="let stt of statuses">
+            <label>
+              <input
+                type="radio"
+                name="status"
+                [(ngModel)]="status"
+                [value]="stt.id"
+                (change)="applyFilter()"
+              />
+              {{ stt.name }}
+            </label>
+          </div>
+        </div>
+
+        <!-- Reset Button -->
+        <button (click)="resetFilter()">Xóa bộ lọc</button>
+      </aside>
+
+      <!-- Product Table Section -->
+      <section class="product-section">
+        <!-- Header with Buttons -->
+        <div class="header-row">
+          <span>Hàng hóa</span>
+          <div class="button-group">
+            <!-- Operations Dropdown -->
+            <div class="relative group inline-block">
+              <a class="btn-green cursor-pointer">
+                <i class="fa-solid fa-ellipsis-vertical"></i> Thao tác
+                <i class="fa fa-caret-down"></i>
+              </a>
+              <ul
+                class="absolute min-w-max left-0 hidden group-hover:block bg-white border rounded shadow-md z-10"
+              >
+                <li class="px-4 py-4 hover:bg-gray-100 cursor-pointer">
+                  <a class="flex items-center gap-5">
+                    <i class="far fa-plus"></i> Chuyển nhóm hàng
+                  </a>
+                </li>
+                <li class="px-4 py-4 hover:bg-gray-100 cursor-pointer">
+                  <a class="flex items-center gap-5">
+                    <i class="far fa-plus"></i> In tem mã
+                  </a>
+                </li>
+                <li class="px-4 py-4 hover:bg-gray-100 cursor-pointer">
+                  <a class="flex items-center gap-5">
+                    <i class="far fa-plus"></i> Ngừng kinh doanh
+                  </a>
+                </li>
+                <li class="px-4 py-4 hover:bg-gray-100 cursor-pointer">
+                  <a class="flex items-center gap-5">
+                    <i class="far fa-plus"></i> Xóa
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Add New Dropdown -->
+            <div class="relative group inline-block">
+              <a class="btn-green cursor-pointer">
+                <i class="far fa-plus"></i> Thêm mới
+                <i class="fa fa-caret-down"></i>
+              </a>
+
+              <ul
+                class="absolute min-w-max left-0 hidden group-hover:block bg-white border rounded shadow-md z-10"
+              >
+                <li class="px-4 py-3 hover:bg-gray-100 cursor-pointer">
+                  <a class="flex items-center gap-3" (click)="openDialog()">
+                    <i class="far fa-plus"></i> Thêm sản phẩm
+                  </a>
+                </li>
+                <li class="px-4 py-3 hover:bg-gray-100 cursor-pointer">
+                  <a class="flex items-center gap-3">
+                    <i class="far fa-plus"></i> Thêm dịch vụ
+                  </a>
+                </li>
+                <li class="px-4 py-3 hover:bg-gray-100 cursor-pointer">
+                  <a class="flex items-center gap-3">
+                    <i class="far fa-plus"></i> Thêm Combo
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Import/Export Buttons -->
+            <a class="btn-green">
+              <i class="fas fa-fw fa-file-import"></i>Import
+            </a>
+            <a class="btn-green">
+              <i class="fas fa-fw fa-file-export"></i>Xuất file
+            </a>
+
+            <!-- Column Toggle -->
+            <div class="relative">
+              <button class="btn-green" (click)="toggleCheckboxList()">
+                <i class="fa-solid fa-list-ul"></i>
+                <i class="fa fa-caret-down"></i>
+              </button>
+
+              <div
+                *ngIf="showCheckboxList"
+                class="absolute right-0 top-full mt-1 bg-white border rounded shadow-md z-10"
+              >
+                <div class="p-2">
+                  <label
+                    *ngFor="let option of checkboxOptions"
+                    class="block py-1"
+                  >
+                    <input
+                      type="checkbox"
+                      [(ngModel)]="option.selected"
+                      class="mr-2"
+                    />
+                    {{ option.name }}
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Products Table -->
+        <table class="product-table">
+          <thead>
+            <tr class="table-header">
+              <th><input type="checkbox" /></th>
+              <th>Mã hàng hóa</th>
+              <th>Hinh ảnh</th>
+              <th>Tên hàng</th>
+              <th>Thời lượng</th>
+              <th>Loại hàng</th>
+              <th>Nhóm hàng</th>
+              <th>Giá bán</th>
+              <th>Giá vốn</th>
+              <th>Tồn kho</th>
+              <th>Trạng thái</th>
+              <th>Hsd</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let product of products">
+              <td class="table-cell-bordered">
+                <input type="checkbox" [value]="product.proAndSerId" />
+              </td>
+              <td class="table-cell-bordered">{{ product.proAndSerCode }}</td>
+              <td class="table-cell-img">
+                <img
+                  *ngIf="product.urlImage"
+                  [src]="'http://localhost:5213' + product.urlImage"
+                  alt="{{ product.proAndSerName }}"
+                />
+                <img
+                  *ngIf="!product.urlImage"
+                  src="assets/images/image.png"
+                  alt="Không có ảnh"
+                  width="100"
+                  height="100"
+                  style="object-fit: cover"
+                />
+              </td>
+              <td class="table-cell-bordered">{{ product.proAndSerName }}</td>
+              <td class="table-cell-bordered">{{ product.workTime }} Phút</td>
+              <td class="table-cell-bordered">
+                {{ getProductType(product.proAndSerType) }}
+              </td>
+              <td class="table-cell-bordered">
+                {{ getProductGroupName(product.productTypeId) }}
+              </td>
+              <td class="table-cell-bordered">
+                {{ product.sellingPrice | number }} VND
+              </td>
+              <td class="table-cell-bordered">
+                {{ product.originalPrice | number }} VND
+              </td>
+              <td class="table-cell-bordered">
+                {{ product.inventoryQuantity | number }}
+              </td>
+              <td class="table-cell-bordered">
+                {{ getStatus(product.status) }}
+              </td>
+              <td class="table-cell-bordered">
+                {{ product.expiryDate | date : "dd/MM/yyyy" }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- No Products Message -->
+        <div *ngIf="products.length === 0" class="no-products">
+          Không có sản phẩm nào.
+        </div>
+
+        <div *ngIf="totalPages > 0" class="pagination">
+          <!-- Previous Button -->
+          <button
+            (click)="prevPage()"
+            [disabled]="currentPage === 1 || isLoading"
+            class="page-button nav-button"
+            [class.disabled]="currentPage === 1"
+          >
+            <i class="fas fa-chevron-left"></i>
+            <span
+              *ngIf="isLoading && currentPage !== 1"
+              class="loading-spinner"
+            ></span>
+          </button>
+
+          <!-- Page Numbers -->
+          <ng-container *ngFor="let page of pageNumbers">
+            <span *ngIf="page === -1" class="ellipsis">...</span>
+            <button
+              *ngIf="page !== -1"
+              (click)="goToPage(page)"
+              [class.active]="currentPage === page"
+              class="page-button"
+            >
+              {{ page }}
+            </button>
+          </ng-container>
+
+          <!-- Next Button -->
+          <button
+            (click)="nextPage()"
+            [disabled]="currentPage === totalPages || isLoading"
+            class="page-button nav-button"
+            [class.disabled]="currentPage === totalPages"
+          >
+            <span
+              *ngIf="isLoading && currentPage !== totalPages"
+              class="loading-spinner"
+            ></span>
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>

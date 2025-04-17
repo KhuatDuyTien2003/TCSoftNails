@@ -1,0 +1,187 @@
+<div class="form-update hidden" id="form-update">
+  <div class="exit" (click)="exit()">
+    <nz-icon nzType="close" nzTheme="outline" />
+  </div>
+  <h1>Cập nhật lịch hẹn</h1>
+  <form
+    [formGroup]="validateForm"
+    (ngSubmit)="onSubmit()"
+    nz-form
+    nzLayout="vertical"
+    class="book-form"
+  >
+    <div class="form-grid">
+      <!-- Email & SĐT -->
+      <div class="form-row">
+        <nz-form-item>
+          <nz-form-label>Email:</nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              formControlName="email"
+              placeholder="Email khách hàng"
+            />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label>SĐT:</nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              formControlName="numberPhone"
+              placeholder="Nhập số điện thoại"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <!-- Giới tính & Tên khách hàng -->
+      <div class="form-row form-gender-customer">
+        <nz-form-item class="form-item-gender">
+          <nz-form-label>Giới tính:</nz-form-label>
+          <nz-form-control>
+            <nz-select
+              formControlName="gender"
+              nzPlaceHolder="Giới tính"
+              style="z-index: 10000"
+            >
+              <nz-option nzValue="1" nzLabel="Nam"></nz-option>
+              <nz-option nzValue="0" nzLabel="Nữ"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item class="form-item-customer-name">
+          <nz-form-label>Tên khách hàng:</nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              formControlName="customerName"
+              placeholder="Nhập tên khách hàng"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <!-- Dịch vụ -->
+      <div class="form-row">
+        <nz-form-item>
+          <nz-form-label>Dịch vụ:</nz-form-label>
+          <nz-form-control>
+            <nz-select
+              nzMode="multiple"
+              [nzMaxTagCount]="3"
+              [nzMaxTagPlaceholder]="tagPlaceHolder"
+              nzPlaceHolder="Chọn dịch vụ"
+              formControlName="listOfSelectedValue"
+              class="service-select"
+              (ngModelChange)="
+                getStaffByServiceId(
+                  validateForm.value.listOfSelectedValue || []
+                )
+              "
+            >
+              @for (item of serviceList; track item.serviceId) {
+              <nz-option
+                [nzLabel]="
+                  item.serviceName +
+                  ' - ' +
+                  item.sellingPrice +
+                  'đ (' +
+                  item.workTime +
+                  ')'
+                "
+                [nzValue]="item"
+              ></nz-option>
+              }
+            </nz-select>
+            <ng-template #tagPlaceHolder let-selectedList>
+              và {{ selectedList.length }} dịch vụ khác
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div class="form-row" style="z-index: 10000">
+        <nz-form-item>
+          <nz-form-label>Nhân viên:</nz-form-label>
+          <nz-form-control>
+            <nz-select
+              [nzMaxTagPlaceholder]="tagPlaceHolder"
+              nzPlaceHolder="Chọn nhân viên"
+              formControlName="idStaff"
+              class="service-select"
+            >
+              @for (item of staffList; track item.staffId) {
+              <nz-option
+                [nzLabel]="item.staffName + ' - ' + item.totalStar + ' sao'"
+                [nzValue]="item.staffId"
+              ></nz-option>
+              }
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <!-- Thời gian & Ngày -->
+      <div class="form-row form-time-date">
+        <nz-form-item class="form-item-time">
+          <nz-form-label>Giờ:</nz-form-label>
+          <nz-form-control>
+            <nz-select formControlName="time">
+              <nz-option
+                *ngFor="let item of timeSlots"
+                [nzValue]="item.time"
+                [nzLabel]="item.time + ' - ' + item.status"
+              ></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item class="form-item-date">
+          <nz-form-label>Ngày đặt:</nz-form-label>
+          <nz-form-control>
+            <input nz-input type="date" formControlName="timeStart" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div class="form-row avis-field">
+        <nz-form-item>
+          <nz-form-label>Ghi chú:</nz-form-label>
+          <nz-form-control>
+            <textarea
+              nz-input
+              formControlName="description"
+              rows="3"
+              maxlength="1024"
+            ></textarea>
+            <div class="char-count">1024 ký tự còn lại</div>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div class="form-row">
+        <nz-form-item>
+          <nz-form-label>Trạng thái:</nz-form-label>
+          <nz-form-control
+            [nzErrorTip]="'Trường này là bắt buộc'"
+            style="z-index: 100"
+          >
+            <nz-radio-group formControlName="status" nzButtonStyle="solid">
+              <label nz-radio-button [nzValue]="false">Chưa hoàn thành</label>
+              <label nz-radio-button [nzValue]="true">Hoàn thành</label>
+            </nz-radio-group>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div class="btn">
+        <button nz-button nzType="primary" value="{{ idAppointment }}">
+          Submit
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
