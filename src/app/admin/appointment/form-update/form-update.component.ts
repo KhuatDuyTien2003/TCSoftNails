@@ -1,12 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import {
-  AbstractControl,
-  FormsModule,
   NonNullableFormBuilder,
   ReactiveFormsModule,
-  ValidationErrors,
-  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
@@ -17,12 +13,9 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { StaffByServiceId } from '../../../app.type/StaffByServiceId.type';
 import { HttpStaffService } from '../../../services/http-staff.service';
 import { Service } from '../../../app.type/service.type';
-import { Toast, ToastrService } from 'ngx-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { NzIconModule } from 'ng-zorro-antd/icon';
-import {
-  Appointment,
-  AppointmentDetailModel,
-} from '../../../app.type/Appointment.type';
+import { AppointmentDetailModel } from '../../../app.type/Appointment.type';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { AppointmentSent } from '../../../app.type/AppointmentSent.type';
 
@@ -45,7 +38,7 @@ import { AppointmentSent } from '../../../app.type/AppointmentSent.type';
   ],
 })
 export class FormUpdateComponent implements OnInit {
-  //  @Output() getAppointments = new EventEmitter<void>();
+  @Output() getAppointments = new EventEmitter<void>();
   idAppointment: number = 0;
   isOpen: boolean = true;
   private fb = inject(NonNullableFormBuilder);
@@ -53,7 +46,7 @@ export class FormUpdateComponent implements OnInit {
     numberPhone: this.fb.control('', [Validators.required]),
     customerName: this.fb.control('', [Validators.required]),
     email: this.fb.control('', [Validators.required]),
-    gender: this.fb.control(false, [Validators.required]),
+    gender: this.fb.control(true, [Validators.required]),
     description: this.fb.control('', [Validators.required]),
     date: this.fb.control<Date | null>(null, [Validators.required]),
     listOfSelectedValue: this.fb.control<any[]>([], Validators.required),
@@ -100,12 +93,13 @@ export class FormUpdateComponent implements OnInit {
     numberPhone: string,
     customerName: string,
     email: string,
-    gender: number,
+    gender: boolean,
     description: string,
     idStaff: number,
     timeStart: Date,
     service: AppointmentDetailModel[],
-    idAppoint: number
+    idAppoint: number,
+    status: boolean
   ) {
     var services: Service[] = [];
 
@@ -117,21 +111,20 @@ export class FormUpdateComponent implements OnInit {
     }
     this.getStaffByServiceId(services);
     const timeStartDate = new Date(timeStart);
-    console.log(`${timeStartDate.getHours()}:${timeStartDate.getMinutes()}`);
     var form = document.getElementById('form-update');
     if (form?.classList.contains('hidden')) {
       form.classList.remove('hidden');
-      console.log(idStaff);
       this.validateForm.patchValue({
         customerName: customerName,
         numberPhone: numberPhone,
         idStaff: idStaff,
         email: email,
-        gender: gender === 0 ? false : true,
+        gender: gender,
         description: description,
         time: `${timeStartDate.getHours()}:${timeStartDate.getMinutes()}0`,
         listOfSelectedValue: services,
         timeStart: this.formatDate(timeStartDate),
+        status: status,
       });
       this.idAppointment = idAppoint;
     } else {
@@ -141,13 +134,36 @@ export class FormUpdateComponent implements OnInit {
 
   formatDate(date: Date): string {
     const year = date.getFullYear();
-    const month = ('0' + (date.getMonth() + 1)).slice(-2); // thêm 0 nếu < 10
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
     const day = ('0' + date.getDate()).slice(-2);
-    return `${year}-${month}-${day}`; // yyyy-MM-dd
+    return `${year}-${month}-${day}`;
   }
 
   exit() {
     document.getElementById('form-update')?.classList.add('hidden');
+  }
+  onDelete() {
+    console.log('baatj del');
+    if (document.getElementById('formDelete')?.classList.contains('hidden'))
+      document.getElementById('formDelete')?.classList.remove('hidden');
+    else document.getElementById('formDelete')?.classList.add('hidden');
+  }
+  deleteAppointment(id: number) {
+    this.httpStaff.deleteAppointment(id).subscribe({
+      next: (data) => {
+        if (data.success) {
+          this.toastr.success(data.message);
+          this.exit();
+          this.onDelete();
+          this.getAppointments.emit();
+        } else {
+          this.toastr.error(data.message);
+        }
+      },
+      error: (err) => {
+        this.toastr.error(err);
+      },
+    });
   }
   getStaffByServiceId(serviceIds: Service[]) {
     let totalTimeService = 0;
@@ -190,28 +206,56 @@ export class FormUpdateComponent implements OnInit {
       },
     });
   }
-
+  changeDate(time: string): Date | undefined {
+    if (this.validateForm.value.timeStart !== null) {
+      let timeStart: Date = new Date(
+        `${this.validateForm.value.timeStart}T${time}`
+      );
+      return timeStart;
+    } else {
+      this.toastr.warning('Vui lòng chọn ngày ở phía trên');
+      return undefined;
+    }
+  }
   onSubmit() {
-    let endTime = new Date(
-      this.validateForm.value.timeStart || '2025-04-14T10:30:00'
-    );
+    let startTime = this.changeDate(this.validateForm.value.time || '');
+    if (!startTime) {
+      this.toastr.error('Invalid start time');
+      return;
+    }
+    let endTime = startTime;
     endTime.setMinutes(endTime.getMinutes() + this.totalTime);
     let model: AppointmentSent = {
       customerName: this.validateForm.value.customerName || '',
-      description: this.validateForm.value.description || '',
+      description: this.validateForm.value.description || 'hihihahah',
       email: this.validateForm.value.email || '',
       idStaff: this.validateForm.value.idStaff || 0,
+      status: this.validateForm.value.status || false,
       gender: this.validateForm.value.gender || false,
       numberPhone: this.validateForm.value.numberPhone || '',
-      listOfSevice: this.validateForm.value.listOfSelectedValue || [],
-      startTime: new Date(
-        this.validateForm.value.timeStart || '2025-04-14T10:30:00'
-      ),
+      listOfSevice:
+        this.validateForm.value.listOfSelectedValue?.map((s) => s.serviceId) ||
+        [],
+      startTime: startTime,
       endTime: endTime,
     };
     this.httpStaff.updateAppointment(this.idAppointment, model).subscribe({
       next: (data) => {
         if (data.success) {
+          this.validateForm.reset({
+            numberPhone: '',
+            customerName: '',
+            email: '',
+            gender: true,
+            description: '',
+            date: null,
+            listOfSelectedValue: [],
+            idStaff: 0,
+            time: '',
+            timeStart: this.formatDate(new Date()),
+            status: false,
+          });
+          this.getAppointments.emit();
           this.exit();
         }
       },

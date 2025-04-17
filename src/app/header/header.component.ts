@@ -37,9 +37,7 @@ export class HeaderComponent implements OnInit {
     }
     this.httpHeader.getAllHeader().subscribe((data) => {
       this.headerList = data;
-      console.log(this.headerList);
     });
-    console.log(this.headerList);
   }
 
   getStaffById(staffId: number) {
@@ -75,9 +73,7 @@ export class HeaderComponent implements OnInit {
     this.isDropdownVisible = state;
   }
 
-  editProfile() {
-    console.log('Chỉnh sửa thông tin');
-  }
+  editProfile() {}
 
   logout() {
     this.navigateTo('/Login');

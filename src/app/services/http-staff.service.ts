@@ -226,18 +226,20 @@ export class HttpStaffService {
     model: AppointmentSent
   ): Observable<ResponseModel<string>> {
     const url = `${this.base_url}Staff/UpdateAppointment`;
-
+    console.log(model.description);
     let json = {
       idAppointment: idAppointment,
       idStaff: model.idStaff,
       name: model.customerName,
       email: model.email,
+      gender: model.gender,
+      status: model.status,
       numberPhone: model.numberPhone,
       startTime: format(model.startTime, "yyyy-MM-dd'T'HH:mm:ss"),
       endTime: format(model.endTime, "yyyy-MM-dd'T'HH:mm:ss"),
-      desciption: model.description,
+      description: model.description,
       seviceDetail: model.listOfSevice.map((s) => ({
-        idAppointment: 100,
+        idAppointment: idAppointment,
         serviceId: Number(s),
       })),
     };
@@ -277,7 +279,12 @@ export class HttpStaffService {
       .pipe(catchError((error) => this.handleError(error)));
   }
 
-  
+  public deleteAppointment(id: Number): Observable<ResponseModel<string>> {
+    const url = `${this.base_url}Staff/DeleteAppointment/${id}`;
+    return this.httpStaff
+      .get<ResponseModel<string>>(url, this.httpOption)
+      .pipe(catchError((error) => this.handleError(error)));
+  }
 
   public handleError(error: HttpErrorResponse) {
     let errorMess;

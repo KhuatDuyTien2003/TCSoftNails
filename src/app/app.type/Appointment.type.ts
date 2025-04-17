@@ -9,10 +9,12 @@ export interface AppointmentCustomerModel {
   idCustomer: number;
   customerName: string;
   email: string;
+  gender: boolean;
+  status: boolean;
   numberPhone: string;
   timeStart: Date;
   timeEnd: Date;
-  note: string;
+  description: string;
   appointmentDetails: AppointmentDetailModel[];
 }
 

@@ -1,3 +1,4 @@
+import { AppointmentSent } from './../../../app.type/AppointmentSent.type';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { Component, inject, LOCALE_ID, OnInit } from '@angular/core';
 import {
@@ -124,7 +125,7 @@ export class FormAppointmentComponent implements OnInit {
 
   submitForm(): void {
     if (this.validateForm.valid) {
-      console.log('submit', this.validateForm.value);
+    
     } else {
       Object.values(this.validateForm.controls).forEach((control) => {
         if (control.invalid) {

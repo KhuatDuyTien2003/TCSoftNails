@@ -43,26 +43,8 @@ export class AppointmentComponent implements OnInit {
   staffId: number = 0;
   staffName: string = '';
   pickDate: Date | null = null;
-  colors = [
-    '#FEE2E2',
-    '#FEF9C3',
-    '#D1FAE5',
-    '#E0F2FE',
-    '#F3E8FF',
-    '#FFE4E6',
-    '#FAE8FF',
-    '#E0E7FF',
-  ];
-  borderColors = [
-    '#EF4444',
-    '#EAB308',
-    '#10B981',
-    '#3B82F6',
-    '#8B5CF6',
-    '#EC4899',
-    '#D946EF',
-    '#6366F1',
-  ];
+  colors = ['#FEE2E2', '#D1FAE5'];
+  borderColors = ['#EF4444', '#10B981'];
   @ViewChild('formUpdate') formUpdate!: FormUpdateComponent;
   constructor(
     private httpStaff: HttpStaffService,
@@ -78,13 +60,15 @@ export class AppointmentComponent implements OnInit {
     numberPhone: string,
     customerName: string,
     email: string,
-    gender: number,
+    gender: boolean,
     description: string,
     idStaff: number,
     timeStart: Date,
     service: AppointmentDetailModel[],
-    idAppointment: number
+    idAppointment: number,
+    status: boolean
   ): void {
+    console.log(status);
     if (this.formUpdate) {
       this.formUpdate.openForm(
         numberPhone,
@@ -95,7 +79,8 @@ export class AppointmentComponent implements OnInit {
         idStaff,
         timeStart,
         service,
-        idAppointment
+        idAppointment,
+        status
       );
     } else {
       console.error('Child component chưa được khởi tạo!');
@@ -105,10 +90,11 @@ export class AppointmentComponent implements OnInit {
   getNow() {
     this.updateWeek(this.date);
   }
-  getColor(index: number) {
+
+  getColor(status: boolean) {
     return {
-      background: this.colors[index % this.colors.length],
-      border: this.borderColors[index % this.borderColors.length],
+      background: status ? this.colors[1] : this.colors[0],
+      border: status ? this.borderColors[1] : this.borderColors[0],
     };
   }
   goToNextWeek() {
@@ -164,6 +150,7 @@ export class AppointmentComponent implements OnInit {
         if (data.success) {
           this.toastr.success(data.message);
           this.appointmentList = data.data;
+          console.log(this.appointmentList);
         } else {
           this.toastr.error(data.message);
           this.appointmentList = [];

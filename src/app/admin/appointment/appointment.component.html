@@ -13,7 +13,9 @@
       <button class="current-week" (click)="getNow()">Tuần này</button>
     </div>
     <div>
-      <button class="export-btn">Đặt lịch cho khách hàng</button>
+      <button class="export-btn" routerLink="/form-add-appointment">
+        Đặt lịch cho khách hàng
+      </button>
       <button class="export-btn">Xuất file</button>
     </div>
   </div>
@@ -41,12 +43,13 @@
                       customer.numberPhone,
                       customer.customerName,
                       customer.email,
-                      1,
-                      customer.note,
+                      customer.gender,
+                      customer.description,
                       item.idStaff,
                       customer.timeStart,
                       customer.appointmentDetails,
-                      customer.idAppointment
+                      customer.idAppointment,
+                      customer.status
                     )
                   "
                   class="appointment-card"
@@ -55,8 +58,9 @@
                     formatDate(day || swatDate2)
                   "
                   [ngStyle]="{
-                    'background-color': getColor(i).background,
-                    'border-left': '4px solid ' + getColor(i).border
+                    'background-color': getColor(customer.status).background,
+                    'border-left':
+                      '4px solid ' + getColor(customer.status).border
                   }"
                 >
                   <p class="appointment-time">
@@ -65,6 +69,10 @@
                   </p>
                   <p class="appointment-customer">
                     {{ customer.customerName }}
+                  </p>
+                  <p>
+                    <span style="font-weight: bold">Ghi chú: </span
+                    >{{ customer.description }}
                   </p>
                   <p class="appointment-services">
                     <span
@@ -86,4 +94,7 @@
     </table>
   </div>
 </div>
-<app-form-update #formUpdate></app-form-update>
+<app-form-update
+  #formUpdate
+  (getAppointments)="getAppointments()"
+></app-form-update>

@@ -5,7 +5,6 @@
   <h1>Cập nhật lịch hẹn</h1>
   <form
     [formGroup]="validateForm"
-    (ngSubmit)="onSubmit()"
     nz-form
     nzLayout="vertical"
     class="book-form"
@@ -46,8 +45,8 @@
               nzPlaceHolder="Giới tính"
               style="z-index: 10000"
             >
-              <nz-option nzValue="1" nzLabel="Nam"></nz-option>
-              <nz-option nzValue="0" nzLabel="Nữ"></nz-option>
+              <nz-option [nzValue]="true" nzLabel="Nam"></nz-option>
+              <nz-option active [nzValue]="false" nzLabel="Nữ"></nz-option>
             </nz-select>
           </nz-form-control>
         </nz-form-item>
@@ -129,7 +128,10 @@
         <nz-form-item class="form-item-time">
           <nz-form-label>Giờ:</nz-form-label>
           <nz-form-control>
-            <nz-select formControlName="time">
+            <nz-select
+              formControlName="time"
+              (ngModelChange)="changeDate($event)"
+            >
               <nz-option
                 *ngFor="let item of timeSlots"
                 [nzValue]="item.time"
@@ -177,11 +179,46 @@
         </nz-form-item>
       </div>
 
-      <div class="btn">
-        <button nz-button nzType="primary" value="{{ idAppointment }}">
-          Submit
+      <div class="btn" style="float: right">
+        <button
+          nz-button
+          nzType="primary"
+          (click)="onDelete()"
+          nzDanger
+          value="{{ idAppointment }}"
+        >
+          Xóa
+        </button>
+        <button
+          nz-button
+          (click)="onSubmit()"
+          nzType="primary"
+          value="{{ idAppointment }}"
+        >
+          Sửa
         </button>
       </div>
     </div>
   </form>
+</div>
+
+<div class="formDelete hidden" id="formDelete">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="icon">⚠️</span>
+      <h2>Xóa lịch hẹn</h2>
+    </div>
+    <div class="modal-body">
+      <p>
+        Bạn có chắc chắn muốn xóa
+        <strong>lịch hẹn </strong> này không?
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn cancel" (click)="onDelete()">Hủy bỏ</button>
+      <button class="btn delete" (click)="deleteAppointment(idAppointment)">
+        Xác nhận
+      </button>
+    </div>
+  </div>
 </div>

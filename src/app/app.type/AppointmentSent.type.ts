@@ -7,5 +7,6 @@ export interface AppointmentSent {
   description: string;
   startTime: Date;
   endTime: Date;
+  status: boolean
   listOfSevice: number[];
 }

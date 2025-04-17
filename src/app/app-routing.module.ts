@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: '', component: AccountComponent },
   { path: '', component: AccountComponent },
 
-  { path: 'form1', component: FormAppointmentComponent },
+  { path: 'form-add-appointment', component: FormAppointmentComponent },
   { path: 'Forgot-Password', component: ForgotPasswordComponent },
   { path: 'Reset-Password', component: ResetPasswordComponent },
   { path: 'customer', component: CustomerComponent },
