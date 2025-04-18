@@ -7,15 +7,17 @@ import {
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, Observable, throwError } from 'rxjs';
 import { FilterCriteria } from '../../app.type/filter-criteria.type';
-import { BaseHttpService } from '../base-http.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
-   baseClass = new BaseHttpService
-   private base_url = this.baseClass.base_url;
-     httpOptions = this.baseClass.httpOption
+  private base_url = 'http://localhost:5213';
+  private httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    }),
+  };
 
   private firstServiceCompleteSource = new BehaviorSubject<boolean>(false);
   firstServiceComplete$ = this.firstServiceCompleteSource.asObservable();
@@ -45,6 +47,7 @@ export class ProductService {
       params = params.set('productGroup', filter.productGroup);
     if (filter.rank) params = params.set('Rank', filter.rank);
     if (filter.status) params = params.set('Status', filter.status);
+    if (filter.stock) params = params.set('Stock', filter.stock);
     return this.http
       .get<any[]>(url, { params })
       .pipe(catchError(this.handleError));
@@ -66,13 +69,41 @@ export class ProductService {
       .pipe(catchError(this.handleError));
   }
 
-  updateProduct(product: any): Observable<any> {
-    const url = `${this.base_url}/Products/PutProduct/${product.ProAndSerId}`;
+  getImagesByProductId(id: number): Observable<any> {
+    const url = `${this.base_url}/Products/GetImagesByProductId/${id}`;
     return this.http
-      .put<any>(url, product, this.httpOptions)
+      .get<any>(url, this.httpOptions)
       .pipe(catchError(this.handleError));
   }
 
+  updateProduct(id: number, product: FormData): Observable<any> {
+    const url = `${this.base_url}/Products/PutProduct/${id}`;
+    console.log('Updating product:', id);
+    // Nếu product là FormData, bạn không cần đặt Content-Type
+    const options = { ...this.httpOptions };
+    if (product instanceof FormData) {
+      // Loại bỏ header Content-Type nếu có
+      if (options.headers) {
+        options.headers = options.headers.delete('Content-Type');
+      }
+    }
+    // Đảm bảo FormData được cấu hình đúng
+    this.logFormData(product);
+
+    return this.http
+      .put<any>(url, product, options)
+      .pipe(catchError(this.handleError));
+  }
+  private logFormData(formData: FormData): void {
+    console.log('---- FormData entries ----');
+    for (const [key, val] of formData.entries()) {
+      if (val instanceof File) {
+        console.log(`${key}: File(${(val as File).name})`);
+      } else {
+        console.log(`${key}:`, val);
+      }
+    }
+  }
   getProductById(id: number): Observable<any> {
     const url = `${this.base_url}/Products/GetById/${id}`;
     return this.http
@@ -88,7 +119,6 @@ export class ProductService {
   }
 
   private handleError(error: HttpErrorResponse) {
-    debugger;
     let errorMess;
     if (error.error instanceof Error) {
       // Lỗi phía client hoặc mạng

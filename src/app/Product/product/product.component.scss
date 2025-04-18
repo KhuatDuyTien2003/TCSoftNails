@@ -3,24 +3,33 @@ input[type="checkbox"],
 input[type="radio"] {
   cursor: pointer;
 }
+
 .content label {
   cursor: pointer;
 }
+
 /* Áp dụng cho khối bọc bên ngoài */
 .page-wrapper {
-  background-color: #f3f4f6; /* Màu tương đương với bg-gray-100 */
-  min-height: 100vh; /* min-h-screen */
+  background-color: #f3f4f6;
+  /* Màu tương đương với bg-gray-100 */
+  min-height: 100vh;
+  /* min-h-screen */
 }
+
 /* Áp dụng cho phần main */
 .main-container {
-  margin: 0 auto; /* mx-auto: căn giữa */
-  padding: 20px; /* py-6: 1.5rem top/bottom, px-4: 1rem left/right */
+  margin: 0 auto;
+  /* mx-auto: căn giữa */
+  padding: 20px;
+  /* py-6: 1.5rem top/bottom, px-4: 1rem left/right */
 }
 
 /* Áp dụng cho container flex */
 .flex-container {
-  display: flex; /* flex */
-  gap: 1rem; /* space-x-4 */
+  display: flex;
+  /* flex */
+  gap: 1rem;
+  /* space-x-4 */
 }
 
 /* styles.css */
@@ -38,7 +47,8 @@ input[type="radio"] {
   align-items: center;
   margin-bottom: 1rem;
 }
-.header-row > span {
+
+.header-row>span {
   font-size: 2rem;
   font-weight: bold;
 }
@@ -47,12 +57,14 @@ input[type="radio"] {
   display: flex;
   align-items: center;
 }
-.button-group > *:not(:last-child) {
+
+.button-group>*:not(:last-child) {
   margin-right: 1rem;
 }
 
 .btn-green {
-  background-color: #00b63e; /* Màu green-500 */
+  background-color: #00b63e;
+  /* Màu green-500 */
   color: #ffffff;
   padding: 7px 13px;
   border-radius: 0.25rem;
@@ -70,14 +82,15 @@ input[type="radio"] {
   border-collapse: collapse;
   background-color: #ffffff;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  border: #d3d9e3 2px solid;
 }
 
 .product-table tr {
   height: 70px;
 }
 
-.product-table > tbody > tr:hover {
-  background-color: #72a8de;
+.table-row:hover {
+  background-color: #ebedef;
   cursor: pointer;
 }
 
@@ -86,15 +99,17 @@ input[type="radio"] {
   padding: 4px;
   vertical-align: middle;
 }
+
 .table-cell-bordered {
   border-bottom: 1px solid #e5e7eb;
   padding: 0.5rem 1rem;
   vertical-align: middle;
   width: fit-content;
 }
+
 .table-cell-img img {
-  width: 100%;
   height: 100%;
+  width: 100%;
   object-fit: cover;
   display: block;
   max-height: 70px;
@@ -104,6 +119,7 @@ input[type="radio"] {
 .table-header {
   background-color: #ccd9f4;
 }
+
 .table-header th {
   padding: 0.5rem 1rem;
   border-bottom: 1px solid #e5e7eb;
@@ -121,6 +137,7 @@ input[type="radio"] {
   overflow-y: auto;
   scrollbar-width: none;
 }
+
 .content {
   background-color: #ffffff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -128,6 +145,10 @@ input[type="radio"] {
   padding: 10px;
   border-radius: 10px;
   border: 1px solid #e2e8f0;
+}
+
+.filter-container {
+  font-size: 14px;
 }
 
 .filter-container input[type="text"] {
@@ -140,7 +161,8 @@ input[type="radio"] {
 
 .filter-container h3 {
   margin-bottom: 0.5rem;
-  font-size: 1.125rem; /* khoảng 18px */
+  font-size: 1.125rem;
+  /* khoảng 18px */
   color: #2d3748;
 }
 
@@ -149,7 +171,7 @@ input[type="radio"] {
   align-items: center;
   gap: 0.5rem;
   margin-bottom: 0.5rem;
-  font-size: 1rem;
+  font-size: 15px;
   color: #4a5568;
 }
 
@@ -200,6 +222,7 @@ input[type="radio"] {
   margin-top: 2rem;
   flex-wrap: wrap;
   width: 100%;
+
   @media (max-width: 640px) {
     gap: 0.25rem;
   }

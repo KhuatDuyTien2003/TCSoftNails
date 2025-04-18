@@ -19,6 +19,7 @@ const routes: Routes = [
   { path: 'Login', component: AccountComponent },
   { path: 'Register', component: RegisterComponent },
   { path: '', component: AccountComponent },
+
   { path: 'form-add-appointment', component: FormAppointmentComponent },
   { path: 'Forgot-Password', component: ForgotPasswordComponent },
   { path: 'Reset-Password', component: ResetPasswordComponent },
@@ -30,6 +31,7 @@ const routes: Routes = [
   { path: 'Forgot-Password', component: ForgotPasswordComponent },
   { path: 'product', component: ProductComponent },
   { path: '**', component: NotFound502Component },
+
   // { path: ':id', component: ProductComponent },
 ];
 

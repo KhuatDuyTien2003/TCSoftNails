@@ -6,15 +6,17 @@ import {
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { BaseHttpService } from '../base-http.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CustomerRankService {
-    baseClass = new BaseHttpService
-    private base_url = this.baseClass.base_url;
-      httpOptions = this.baseClass.httpOption
+  private base_url = 'http://localhost:5213';
+  private httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    }),
+  };
 
   constructor(private http: HttpClient) {}
 

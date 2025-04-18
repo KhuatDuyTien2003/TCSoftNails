@@ -17,7 +17,9 @@ import {
   catchError,
   filter,
 
+
   of,
+
 
   Subject,
   switchMap,
@@ -44,6 +46,7 @@ import { RouterModule } from '@angular/router';
   ],
 })
 export class RegisterComponent implements OnInit, OnDestroy {
+
 
   messageError: string = '';
 
@@ -92,6 +95,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       .CreateStaff(account)
       .pipe(
 
+
         tap((data) => console.log('CreateStaff response:', data.data?.staffId)), // Kiểm tra null safety
 
         switchMap((data) => {
@@ -120,6 +124,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
             console.log('Thêm thành công', data);
           }
         },
+
 
         error: (err) => console.error('Đăng ký thất bại:', err),
       });

@@ -2,7 +2,6 @@ import { ProductService } from '../../services/product/product.service';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
@@ -15,7 +14,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { ProductGroupService } from '../../services/product-group/product-group.service';
 import { ProductGroup } from '../../app.type/product-group.type';
 import { AddProductGroupDialogComponent } from '../add-product-group-dialog/add-product-group-dialog.component';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-add-product-dialog',
   standalone: true,
@@ -41,15 +40,16 @@ export class AddProductDialogComponent implements OnInit {
     private dialogRef: MatDialogRef<AddProductDialogComponent>,
     private productService: ProductService,
     private productGroupService: ProductGroupService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) {
     this.productForm = this.fb.group({
       proAndSerName: ['', [Validators.required, Validators.minLength(3)]],
       proAndSerCode: [''],
       proAndSerType: [1],
-      inventoryQuantity: ['', [Validators.min(0)]],
-      originalPrice: ['', [Validators.required, Validators.min(0)]],
-      sellingPrice: ['', [Validators.required, Validators.min(0)]],
+      inventoryQuantity: [0, [Validators.min(0)]],
+      originalPrice: [0, [Validators.min(0)]],
+      sellingPrice: [0, [Validators.min(0)]],
       unit: [''],
       productTypeId: [''],
       commission: [''],
@@ -108,14 +108,24 @@ export class AddProductDialogComponent implements OnInit {
 
       // Gọi API
       this.productService.postProduct(formData).subscribe({
-        next: (response) => this.dialogRef.close(response),
+        next: (response) => {
+          console.log('Product added successfully:', response);
+          this.productForm.reset(); // Reset form sau khi thêm sản phẩm thành công
+          this.snackBar.open('Thêm Sản Phẩm Thành Công!', 'Close', {
+            duration: 3000,
+          });
+        },
         error: (error) => console.error(error),
       });
     } else {
       this.productForm.markAllAsTouched();
     }
   }
-
+  resetForm() {
+    this.productForm.reset(); // Reset form
+    this.selectedImages.fill(null); // Reset selected images
+    this.selectedFiles.fill(null); // Reset selected files
+  }
   onCancel(): void {
     this.dialogRef.close();
   }
@@ -165,10 +175,8 @@ export class AddProductDialogComponent implements OnInit {
   }
 
   nextImages(): void {
-    // Nếu còn đủ ảnh để di chuyển sang nhóm tiếp theo
-    if (this.currentIndex + 5 < this.selectedImages.length) {
-      this.currentIndex += 5;
-    }
+    const maxStartIndex = this.selectedImages.length - 5;
+    this.currentIndex = Math.min(this.currentIndex + 5, maxStartIndex);
   }
 
   openDialog(): void {

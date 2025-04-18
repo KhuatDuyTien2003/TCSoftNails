@@ -31,7 +31,9 @@ export class ForgotPasswordComponent {
   constructor(private http: HttpsService, private router: Router) {}
   isHidden: boolean = true;
 
+
   messageError: string = '';
+
 
   private fb = inject(NonNullableFormBuilder);
   validateForm = this.fb.group({
@@ -47,9 +49,11 @@ export class ForgotPasswordComponent {
     this.http.forgotPassword(email).subscribe((data) => {
       if (data.success === true) {
 
+
         this.isHidden = !this.isHidden;
       } else {
         this.messageError = data.message;
+
 
       }
     });

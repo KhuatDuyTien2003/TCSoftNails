@@ -16,12 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
-import {
-  HttpClientModule,
-  provideHttpClient,
-  withFetch,
-} from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+
 import { ToastrModule } from 'ngx-toastr';
 
 import { NotFound502Component } from './not-found502/not-found502.component';
@@ -30,10 +25,20 @@ import { AddProductGroupDialogComponent } from './Product/add-product-group-dial
 import { DetailProductComponent } from './Product/detail-product/detail-product.component';
 import { FormUpdateComponent } from './admin/appointment/form-update/form-update.component';
 
+import {
+  provideHttpClient,
+  withFetch,
+  HttpClientModule,
+} from '@angular/common/http';
+import { RouterModule } from '@angular/router';
+
+
 registerLocaleData(vi);
 
 @NgModule({
-  declarations: [AppComponent, NotFound502Component, DetailProductComponent],
+
+  declarations: [AppComponent, NotFound502Component],
+
 
   imports: [
     BrowserModule,
@@ -43,8 +48,10 @@ registerLocaleData(vi);
     BrowserAnimationsModule,
     ReactiveFormsModule,
 
+
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+
 
     HttpClientModule,
   ],
@@ -52,9 +59,7 @@ registerLocaleData(vi);
     provideClientHydration(withEventReplay()),
     provideNzI18n(vi_VN),
     provideAnimationsAsync(),
-
     provideHttpClient(),
-
     provideHttpClient(withFetch()),
   ],
   bootstrap: [AppComponent],
