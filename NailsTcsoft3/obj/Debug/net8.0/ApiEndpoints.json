@@ -322,6 +322,22 @@
   },
   {
     "ContainingType": "NailsTcsoft3.Controllers.ProductsController",
+    "Method": "DeleteMultipleProducts",
+    "RelativePath": "Products/DeleteMultipleProducts",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productIds",
+        "Type": "System.Collections.Generic.List\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.ProductsController",
     "Method": "DeleteProduct",
     "RelativePath": "Products/DeleteProduct/{id}",
     "HttpMethod": "DELETE",

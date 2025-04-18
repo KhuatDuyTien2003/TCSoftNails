@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "FhdlcY7AqxeOTSCUaw1tAvFDgeVPHUG7WS1Ub10TPd4=",
+  "Hash": "IWLfIuSHG4wao9NpeZ/u7HJAs+5emka+ZuVL0zQRcus=",
   "Source": "NailsTcsoft3",
   "BasePath": "_content/NailsTcsoft3",
   "Mode": "Default",
@@ -225,6 +225,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\products\\92a9ed2d-4b48-429a-9cef-5c7c76ec3620.webp"
+    },
+    {
+      "Identity": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\wwwroot\\uploads\\products\\9ec41aec-8873-47c1-b727-61d4b4640ed1.jpg",
+      "SourceId": "NailsTcsoft3",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\wwwroot\\",
+      "BasePath": "_content/NailsTcsoft3",
+      "RelativePath": "uploads/products/9ec41aec-8873-47c1-b727-61d4b4640ed1#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "09rvmgc6k6",
+      "Integrity": "TA4lJsFQ0z7ELuy6lFOKJnFaKNHteYbqP/h6zD1Ysrc=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\products\\9ec41aec-8873-47c1-b727-61d4b4640ed1.jpg"
     },
     {
       "Identity": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\wwwroot\\uploads\\products\\a3d7d02b-6f70-4d41-ab40-245335a49fa2.webp",
@@ -1129,6 +1150,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-44wn6bW8aVzdIUSWJjQ/+E2p/eP84gssEoGJppn6+ZQ="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/products/9ec41aec-8873-47c1-b727-61d4b4640ed1.09rvmgc6k6.jpg",
+      "AssetFile": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\wwwroot\\uploads\\products\\9ec41aec-8873-47c1-b727-61d4b4640ed1.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "154547"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"TA4lJsFQ0z7ELuy6lFOKJnFaKNHteYbqP/h6zD1Ysrc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 18 Apr 2025 06:54:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "09rvmgc6k6"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/products/9ec41aec-8873-47c1-b727-61d4b4640ed1.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-TA4lJsFQ0z7ELuy6lFOKJnFaKNHteYbqP/h6zD1Ysrc="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/products/9ec41aec-8873-47c1-b727-61d4b4640ed1.jpg",
+      "AssetFile": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\wwwroot\\uploads\\products\\9ec41aec-8873-47c1-b727-61d4b4640ed1.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "154547"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"TA4lJsFQ0z7ELuy6lFOKJnFaKNHteYbqP/h6zD1Ysrc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 18 Apr 2025 06:54:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-TA4lJsFQ0z7ELuy6lFOKJnFaKNHteYbqP/h6zD1Ysrc="
         }
       ]
     },

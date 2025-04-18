@@ -65,6 +65,7 @@ namespace NailsTcsoft3.Controllers
             var product = new ProductAndService
             {
                 ProAndSerName = request.ProAndSerName,
+                ProAndSerCode = request.ProAndSerCode,
                 ProAndSerType = request.ProAndSerType,
                 OriginalPrice = request.OriginalPrice,
                 SellingPrice = request.SellingPrice,
@@ -81,9 +82,8 @@ namespace NailsTcsoft3.Controllers
 
             await _context.ProductAndServices.AddAsync(product);
             await _context.SaveChangesAsync(); // Lưu để lấy ID
-            if (request.ProAndSerCode.IsNullOrEmpty())
+            if (product.ProAndSerCode.IsNullOrEmpty())
             {
-                // TẠO MÃ TỰ ĐỘNG THEO CÔNG THỨC: [prefix] + "00000" + [Id] ⭐
                 string prefix = product.ProAndSerType switch
                 {
                     1 => "SP", // Sản phẩm
@@ -493,9 +493,55 @@ namespace NailsTcsoft3.Controllers
             _context.Entry(product).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok(new
+            {
+                success = true,
+                message = "Xóa sản phẩm thành công",
+            });
         }
+        // DELETE: Products/DeleteMultipleProducts
+        [HttpPost("DeleteMultipleProducts")]
+        public async Task<IActionResult> DeleteMultipleProducts([FromBody] List<int> productIds)
+        {
+            if (productIds == null || !productIds.Any())
+            {
+                return BadRequest(new
+                {
+                    success = false,
+                    message = "Danh sách sản phẩm cần xóa không hợp lệ"
+                });
+            }
 
+            // Fetch the products to be deleted
+            var productsToDelete = await _context.ProductAndServices
+                .Where(p => productIds.Contains(p.ProAndSerId) && !p.IsDeleted)
+                .ToListAsync();
+
+            if (!productsToDelete.Any())
+            {
+                return NotFound(new
+                {
+                    success = false,
+                    message = "Không tìm thấy sản phẩm nào để xóa"
+                });
+            }
+
+            // Mark products as deleted
+            foreach (var product in productsToDelete)
+            {
+                product.IsDeleted = true;
+            }
+
+            // Save changes to the database
+            await _context.SaveChangesAsync();
+
+            return Ok(new
+            {
+                success = true,
+                message = "Xóa sản phẩm thành công",
+                deletedProductIds = productIds
+            });
+        }
         private bool ProductExists(int id)
         {
             return _context.ProductAndServices.Any(e => e.ProAndSerId == id);

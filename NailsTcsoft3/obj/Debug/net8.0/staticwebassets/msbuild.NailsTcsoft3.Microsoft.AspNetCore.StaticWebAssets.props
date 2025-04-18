@@ -180,6 +180,24 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\92a9ed2d-4b48-429a-9cef-5c7c76ec3620.webp'))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\9ec41aec-8873-47c1-b727-61d4b4640ed1.jpg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>NailsTcsoft3</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/NailsTcsoft3</BasePath>
+      <RelativePath>uploads/products/9ec41aec-8873-47c1-b727-61d4b4640ed1.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>09rvmgc6k6</Fingerprint>
+      <Integrity>TA4lJsFQ0z7ELuy6lFOKJnFaKNHteYbqP/h6zD1Ysrc=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\9ec41aec-8873-47c1-b727-61d4b4640ed1.jpg'))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\a3d7d02b-6f70-4d41-ab40-245335a49fa2.webp'))">
       <SourceType>Package</SourceType>
       <SourceId>NailsTcsoft3</SourceId>
