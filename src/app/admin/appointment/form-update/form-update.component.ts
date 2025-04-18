@@ -18,6 +18,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { AppointmentDetailModel } from '../../../app.type/Appointment.type';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { AppointmentSent } from '../../../app.type/AppointmentSent.type';
+import { timePick } from '../../../app.type/timePick.type';
 
 @Component({
   selector: 'app-form-update',
@@ -41,6 +42,8 @@ export class FormUpdateComponent implements OnInit {
   @Output() getAppointments = new EventEmitter<void>();
   idAppointment: number = 0;
   isOpen: boolean = true;
+  timeStartDefault: Date = new Date('1900-01-02T06:01');
+  timeStart: Date = new Date();
   private fb = inject(NonNullableFormBuilder);
   validateForm = this.fb.group({
     numberPhone: this.fb.control('', [Validators.required]),
@@ -48,7 +51,6 @@ export class FormUpdateComponent implements OnInit {
     email: this.fb.control('', [Validators.required]),
     gender: this.fb.control(true, [Validators.required]),
     description: this.fb.control('', [Validators.required]),
-    date: this.fb.control<Date | null>(null, [Validators.required]),
     listOfSelectedValue: this.fb.control<any[]>([], Validators.required),
     idStaff: this.fb.control(0, Validators.required),
     time: this.fb.control('', Validators.required),
@@ -58,18 +60,18 @@ export class FormUpdateComponent implements OnInit {
     ),
     status: this.fb.control(false),
   });
-
+  timeAppointmentPicked: timePick[] = [];
   staffList: StaffByServiceId[] = [];
   totalTime: number = 0;
   TotalMoney: number = 0;
   serviceList: Service[] = [];
   status: boolean = false;
+
   timeSlots = [
     { time: '08:00', status: 'Còn chỗ' },
     { time: '09:00', status: 'Còn chỗ' },
     { time: '10:00', status: 'Còn chỗ' },
     { time: '11:00', status: 'Còn chỗ' },
-
     { time: '13:00', status: 'Còn chỗ' },
     { time: '14:00', status: 'Còn chỗ' },
     { time: '15:00', status: 'Còn chỗ' },
@@ -87,6 +89,7 @@ export class FormUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     this.getService();
+    this.getTimeAppointment();
   }
 
   openForm(
@@ -102,7 +105,6 @@ export class FormUpdateComponent implements OnInit {
     status: boolean
   ) {
     var services: Service[] = [];
-
     for (let s of service) {
       let item = this.serviceList.find((i) => i.serviceId === s.idService);
       if (item) {
@@ -110,6 +112,14 @@ export class FormUpdateComponent implements OnInit {
       }
     }
     this.getStaffByServiceId(services);
+    let totalTimeService = 0;
+    let totalMoneyService = 0;
+    this.serviceList.forEach((s) => {
+      totalTimeService += s.workTime ?? 0;
+      totalMoneyService += s.sellingPrice ?? 0;
+    });
+    this.totalTime = totalTimeService;
+    this.TotalMoney = totalMoneyService;
     const timeStartDate = new Date(timeStart);
     var form = document.getElementById('form-update');
     if (form?.classList.contains('hidden')) {
@@ -130,6 +140,68 @@ export class FormUpdateComponent implements OnInit {
     } else {
       form?.classList.add('hidden');
     }
+    const date = new Date(timeStart);
+    this.setFreeTime(date.toISOString());
+  }
+
+  getTimeAppointment() {
+    this.httpStaff.getTimeAppointment().subscribe({
+      next: (data) => {
+        if (data.success) {
+          this.timeAppointmentPicked = data.data;
+        }
+      },
+      error: (err) => {
+        this.toastr.error(err);
+      },
+    });
+  }
+
+  setFreeTime(day: string) {
+    const pickDay = new Date(day);
+    const pickTime = this.timeAppointmentPicked
+      .filter((t) => {
+        const start = new Date(t.startTime);
+        const end = new Date(t.endTime);
+
+        const sameDay =
+          start.getFullYear() === pickDay.getFullYear() &&
+          start.getMonth() === pickDay.getMonth() &&
+          start.getDate() === pickDay.getDate() &&
+          end.getFullYear() === pickDay.getFullYear() &&
+          end.getMonth() === pickDay.getMonth() &&
+          end.getDate() === pickDay.getDate();
+
+        return sameDay;
+      })
+      .map((t) => {
+        const timeStart = new Date(t.startTime).getHours();
+        const timeEnd = new Date(t.endTime).getHours();
+
+        if (isNaN(timeStart) || isNaN(timeEnd)) {
+          console.error('Invalid time data:', t);
+          return null;
+        }
+
+        return {
+          timeStart,
+          timeEnd,
+        };
+      })
+      .filter(
+        (item): item is { timeStart: number; timeEnd: number } => item !== null
+      );
+    console.log(pickDay, '   ', pickTime);
+    this.timeSlots.forEach((time) => {
+      const hours = parseInt(time.time.split(':')[0], 10);
+      time.status = 'Còn trống';
+      for (let item of pickTime) {
+        if (hours >= item.timeStart && hours < item.timeEnd) {
+          time.status = 'Đã đặt';
+          break;
+        }
+      }
+    });
   }
 
   formatDate(date: Date): string {
@@ -143,7 +215,6 @@ export class FormUpdateComponent implements OnInit {
     document.getElementById('form-update')?.classList.add('hidden');
   }
   onDelete() {
-    console.log('baatj del');
     if (document.getElementById('formDelete')?.classList.contains('hidden'))
       document.getElementById('formDelete')?.classList.remove('hidden');
     else document.getElementById('formDelete')?.classList.add('hidden');
@@ -211,6 +282,7 @@ export class FormUpdateComponent implements OnInit {
       let timeStart: Date = new Date(
         `${this.validateForm.value.timeStart}T${time}`
       );
+      this.timeStart = timeStart;
       return timeStart;
     } else {
       this.toastr.warning('Vui lòng chọn ngày ở phía trên');
@@ -218,12 +290,8 @@ export class FormUpdateComponent implements OnInit {
     }
   }
   onSubmit() {
-    let startTime = this.changeDate(this.validateForm.value.time || '');
-    if (!startTime) {
-      this.toastr.error('Invalid start time');
-      return;
-    }
-    let endTime = startTime;
+    let startTime = this.timeStart ? new Date(this.timeStart) : new Date();
+    let endTime = new Date(startTime);
     endTime.setMinutes(endTime.getMinutes() + this.totalTime);
     let model: AppointmentSent = {
       customerName: this.validateForm.value.customerName || '',
@@ -236,7 +304,7 @@ export class FormUpdateComponent implements OnInit {
       listOfSevice:
         this.validateForm.value.listOfSelectedValue?.map((s) => s.serviceId) ||
         [],
-      startTime: startTime,
+      startTime: startTime || new Date(),
       endTime: endTime,
     };
     this.httpStaff.updateAppointment(this.idAppointment, model).subscribe({
@@ -248,7 +316,7 @@ export class FormUpdateComponent implements OnInit {
             email: '',
             gender: true,
             description: '',
-            date: null,
+
             listOfSelectedValue: [],
             idStaff: 0,
             time: '',

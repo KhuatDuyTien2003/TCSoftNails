@@ -22,6 +22,7 @@ import { StaffByServiceId } from '../app.type/StaffByServiceId.type';
 import { BaseHttpService } from './base-http.service';
 import { Service } from '../app.type/service.type';
 import { AppointmentSent } from '../app.type/AppointmentSent.type';
+import { timePick } from '../app.type/timePick.type';
 
 @Injectable({
   providedIn: 'root',
@@ -248,34 +249,10 @@ export class HttpStaffService {
       .pipe(catchError((error) => this.handleError(error)));
   }
 
-  public getTimeAppointment(): Observable<
-    ResponseModel<
-      Omit<
-        AppointmentCustomerModel,
-        | 'idCustomer'
-        | 'customerName'
-        | 'email'
-        | 'numberPhone'
-        | 'note'
-        | 'appointmentDetails'
-      >[]
-    >
-  > {
+  public getTimeAppointment(): Observable<ResponseModel<timePick[]>> {
     const url = `${this.base_url}Staff/GetTimeAppointment`;
     return this.httpStaff
-      .get<
-        ResponseModel<
-          Omit<
-            AppointmentCustomerModel,
-            | 'idCustomer'
-            | 'customerName'
-            | 'email'
-            | 'numberPhone'
-            | 'note'
-            | 'appointmentDetails'
-          >[]
-        >
-      >(url, this.httpOption)
+      .get<ResponseModel<timePick[]>>(url, this.httpOption)
       .pipe(catchError((error) => this.handleError(error)));
   }
 

@@ -144,7 +144,19 @@
         <nz-form-item class="form-item-date">
           <nz-form-label>Ngày đặt:</nz-form-label>
           <nz-form-control>
-            <input nz-input type="date" formControlName="timeStart" />
+            <input
+              nz-input
+              type="date"
+              (ngModelChange)="
+                getStaffByServiceId(
+                  validateForm.value.listOfSelectedValue || []
+                );
+                setFreeTime(
+                  validateForm.value.timeStart || timeStartDefault.toISOString()
+                )
+              "
+              formControlName="timeStart"
+            />
           </nz-form-control>
         </nz-form-item>
       </div>

@@ -54,8 +54,8 @@
       <nz-form-control class="form-control">
         <div class="info-group">
           <nz-select formControlName="gender" class="gender-select">
-            <nz-option nzValue="1" nzLabel="Anh"></nz-option>
-            <nz-option nzValue="0" nzLabel="Chị"></nz-option>
+            <nz-option [nzValue]="true" nzLabel="Anh"></nz-option>
+            <nz-option [nzValue]="false" nzLabel="Chị"></nz-option>
           </nz-select>
           <input
             nz-input
@@ -77,6 +77,9 @@
           <input
             type="date"
             nz-input
+            (ngModelChange)="
+              setFreeTime(validateForm.value.date || timeStartDefault)
+            "
             formControlName="date"
             placeholder="Chọn ngày làm"
             class="input-date"
@@ -137,7 +140,11 @@
             class="time-slot"
             *ngFor="let slot of timeSlots"
             [class.active]="selectedTime === slot.time"
-            (click)="selectTime(slot.time)"
+            [ngClass]="{
+              disabled: slot.status === 'Đã đặt',
+              booked: slot.status === 'Đã đặt'
+            }"
+            (click)="slot.status !== 'Đã đặt' && selectTime(slot.time)"
           >
             <div class="time">{{ slot.time }}</div>
             <div class="status">{{ slot.status }}</div>
@@ -178,24 +185,22 @@
         class="form-label"
         [nzSm]="6"
         [nzXs]="24"
-        nzRequired
-        nzFor="numberPhone"
-        >Ghi chú</nz-form-label
+        nzFor="description"
       >
-      <nz-form-control
-        class="form-control"
-        [nzSm]="14"
-        [nzXs]="24"
-        nzErrorTip="Vui lòng nhập số điện thoại"
-      >
-        <input
+        Ghi chú
+      </nz-form-label>
+      <nz-form-control class="form-control" [nzSm]="14" [nzXs]="24">
+        <textarea
           nz-input
           class="input-description"
           formControlName="description"
           id="description"
-        />
+          rows="3"
+          placeholder="Nhập ghi chú (nếu có)"
+        ></textarea>
       </nz-form-control>
     </nz-form-item>
+
 
     <!-- Submit -->
     <div class="form-actions">

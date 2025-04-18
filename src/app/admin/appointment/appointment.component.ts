@@ -68,8 +68,8 @@ export class AppointmentComponent implements OnInit {
     idAppointment: number,
     status: boolean
   ): void {
-    console.log(status);
     if (this.formUpdate) {
+      console.log(timeStart);
       this.formUpdate.openForm(
         numberPhone,
         customerName,
@@ -150,7 +150,6 @@ export class AppointmentComponent implements OnInit {
         if (data.success) {
           this.toastr.success(data.message);
           this.appointmentList = data.data;
-          console.log(this.appointmentList);
         } else {
           this.toastr.error(data.message);
           this.appointmentList = [];

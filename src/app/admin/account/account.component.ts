@@ -37,9 +37,6 @@ export class AccountComponent {
   });
 
   submitForm(): void {
-    // this.http.getAll().subscribe((data) => {
-    //   console.log(data);
-    // });
     var account: Omit<
       account,
       'staffName' | 'gender' | 'phoneNumber' | 'birthday' | 'Email'

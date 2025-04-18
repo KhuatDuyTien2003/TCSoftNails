@@ -19,8 +19,6 @@ const routes: Routes = [
   { path: 'Login', component: AccountComponent },
   { path: 'Register', component: RegisterComponent },
   { path: '', component: AccountComponent },
-  { path: '', component: AccountComponent },
-
   { path: 'form-add-appointment', component: FormAppointmentComponent },
   { path: 'Forgot-Password', component: ForgotPasswordComponent },
   { path: 'Reset-Password', component: ResetPasswordComponent },
@@ -29,9 +27,7 @@ const routes: Routes = [
   { path: 'staff/calendar-staff', component: CalendarStaffComponent },
   { path: 'staff/appointment', component: AppointmentComponent },
   { path: 'addShift', component: AddShiftComponent },
-
   { path: 'Forgot-Password', component: ForgotPasswordComponent },
-  { path: 'Reset-Password/:token&:email', component: ResetPasswordComponent },
   { path: 'product', component: ProductComponent },
   { path: '**', component: NotFound502Component },
   // { path: ':id', component: ProductComponent },

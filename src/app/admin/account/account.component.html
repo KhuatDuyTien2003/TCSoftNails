@@ -1,8 +1,6 @@
 <div class="formDiv">
-
   <h1>ĐĂNG NHẬP</h1>
   <formnz-form [formGroup]="validateForm">
-
     <nz-form-item>
       <nz-form-control nzErrorTip="Tên tài khoản không được để trống">
         <nz-input-group nzPrefixIcon="user">
@@ -15,6 +13,7 @@
       <nz-form-control nzErrorTip="Mật khẩu không được để trống">
         <nz-input-group nzPrefixIcon="lock">
           <input
+            (keydown.enter)="submitForm()"
             formControlName="password"
             nz-input
             type="password"
@@ -39,17 +38,14 @@
           (click)="submitForm()"
           [disabled]="!validateForm.valid"
         >
-
           Đăng nhập
         </button>
       </nz-form-control>
     </nz-form-item>
-
 
     <p>
       Bạn chưa có tài khoản?
       <a routerLink="/Register">Đăng ký</a>
     </p>
   </formnz-form>
-
 </div>
