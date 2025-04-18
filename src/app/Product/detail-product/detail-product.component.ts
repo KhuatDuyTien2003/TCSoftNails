@@ -5,6 +5,7 @@ import { ProductService } from '../../services/product/product.service';
 import { EditProductDialogComponent } from '../edit-product-dialog/edit-product-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { EventEmitter } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-detail-product',
@@ -21,7 +22,8 @@ export class DetailProductComponent implements OnInit {
   bigImage: any;
   constructor(
     private productService: ProductService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -39,19 +41,25 @@ export class DetailProductComponent implements OnInit {
   getImagesByProductId(productId: number): void {
     this.productService.getImagesByProductId(productId).subscribe({
       next: (response) => {
-        if (response.success) {
-          this.images = response.data;
-          this.bigImage = this.images[0];
+        if (response && response.success) {
+          if (response.data) {
+            this.images = response.data;
+            this.bigImage = this.images[0];
+          }
           console.log(this.images);
         } else {
-          console.error(response.message);
+          console.error(
+            'Lỗi phản hồi từ server:',
+            response?.message || 'Không có message'
+          );
         }
       },
       error: (err) => {
-        console.error('Error fetching images:', err);
+        console.error('Lỗi khi gọi API lấy ảnh:', err);
       },
     });
   }
+
   onThumbnailClick(image: string): void {
     this.bigImage = image;
   }
@@ -78,5 +86,26 @@ export class DetailProductComponent implements OnInit {
         console.log('Chưa lấy dữ liệu cập nhật mới lên');
       }
     });
+  }
+  deleteProduct(): void {
+    if (this.product?.proAndSerId) {
+      this.productService.deleteProduct(this.product.proAndSerId).subscribe({
+        next: (response) => {
+          if (response.success) {
+            this.snackBar.open('Cập nhật sản phẩm thành công!', 'Close', {
+              duration: 3000,
+            });
+            this.productUpdated.emit();
+          } else {
+            console.error(response.message);
+          }
+        },
+        error: (err) => {
+          console.error('Error deleting product:', err);
+        },
+      });
+    } else {
+      console.warn('Product ID is not defined for deletion.');
+    }
   }
 }

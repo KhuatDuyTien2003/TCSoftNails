@@ -343,4 +343,35 @@ export class ProductComponent implements OnInit {
       this.applyFilter();
     });
   }
+
+  showActionMenu: boolean = false;
+  selectedProductIds: Set<number> = new Set<number>();
+
+  showActions(id: number) {
+    if (this.selectedProductIds.has(id)) {
+      this.selectedProductIds.delete(id);
+    } else {
+      this.selectedProductIds.add(id);
+    }
+
+    this.showActionMenu = this.selectedProductIds.size > 0;
+    console.log('Selected product IDs:', this.selectedProductIds);
+  }
+
+  deleteProducts() {
+    const idsToDelete = Array.from(this.selectedProductIds);
+    this.productService.deleteMultipleProducts(idsToDelete).subscribe({
+      next: (response) => {
+        if (response.success) {
+          console.log('Xóa sản phẩm thành công:', response);
+          this.loadProducts();
+        } else {
+          console.error('Lỗi khi xóa sản phẩm:', response.message);
+        }
+      },
+      error: (err) => {
+        console.error('Lỗi khi gọi API xóa nhiều sản phẩm:', err);
+      },
+    });
+  }
 }

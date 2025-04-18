@@ -118,6 +118,13 @@ export class ProductService {
       .pipe(catchError(this.handleError));
   }
 
+  deleteMultipleProducts(ids: number[]): Observable<any> {
+    const url = `${this.base_url}/Products/DeleteMultipleProducts`;
+    return this.http
+      .post<any>(url, ids, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
   private handleError(error: HttpErrorResponse) {
     let errorMess;
     if (error.error instanceof Error) {
