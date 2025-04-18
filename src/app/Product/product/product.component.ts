@@ -12,32 +12,36 @@ import { CustomerRankService } from '../../services/customer-rank/customer-rank.
 import { ProductService } from '../../services/product/product.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddProductDialogComponent } from '../add-product-dialog/add-product-dialog.component';
+import { DetailProductComponent } from '../detail-product/detail-product.component';
 
 @Component({
   selector: 'app-product',
   standalone: true,
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.scss'],
-  imports: [CommonModule, FormsModule, NgFor],
+  imports: [CommonModule, FormsModule, NgFor, DetailProductComponent],
 })
 export class ProductComponent implements OnInit {
   // --- Các trường cho phần lọc ---
   searchTerm: string = '';
   rank: number | null = null;
   status: number | null = null;
-
+  stock: number | null = null;
   productTypes = [
     { id: 1, name: 'Sản Phẩm', selected: false },
     { id: 2, name: 'Dịch Vụ', selected: false },
     { id: 3, name: 'Combo', selected: false },
   ];
   statuses = [
+    { id: 0, name: 'Tất cả' },
+    { id: 1, name: 'Đang mở bán' },
+    { id: 2, name: 'Bị ẩn' },
+  ];
+  stocks = [
+    { id: 0, name: 'Tất cả' },
     { id: 1, name: 'Còn hàng' },
     { id: 2, name: 'Hết hàng' },
-    { id: 3, name: 'Sản phẩm bị ẩn' },
-    { id: 0, name: 'Tất cả' },
   ];
-
   productGroups: ProductGroup[] = [];
   filteredGroups: ProductGroup[] = [];
   customerRanks: CustomerRank[] = [];
@@ -99,6 +103,7 @@ export class ProductComponent implements OnInit {
 
           this.rank = this.customerRanks[0].rankId;
           this.status = this.statuses[0].id;
+          this.stock = this.stocks[0].id;
           // console.log('Danh sách nhóm khách hàng:', this.customerRanks);
         } else {
           console.error('Thông báo lỗi từ server:', response.message);
@@ -128,7 +133,8 @@ export class ProductComponent implements OnInit {
     this.groupSearchTerm = '';
     this.filteredGroups = [...this.productGroups];
     this.selectedProductGroup = null;
-    this.status = 1;
+    this.status = 0;
+    this.stock = 0;
     this.rank =
       this.customerRanks && this.customerRanks.length > 0
         ? this.customerRanks[0].rankId
@@ -174,6 +180,7 @@ export class ProductComponent implements OnInit {
       productTypes: this.selectedProductTypes ?? [],
       productGroup: this.selectedProductGroup ?? undefined,
       status: this.status ?? undefined,
+      stock: this.stock ?? undefined,
       rank: this.rank ?? undefined,
       pageNumber: this.currentPage,
       pageSize: this.pageSize,
@@ -315,14 +322,15 @@ export class ProductComponent implements OnInit {
       case 1:
         return 'Mở Bán';
       case 2:
-        return 'Hết Hàng';
-      case 3:
         return 'Bị Ẩn';
       default:
         return '';
     }
   }
-
+  selectedProduct: product | null = null;
+  toggleDetail(product: product): void {
+    this.selectedProduct = this.selectedProduct === product ? null : product;
+  }
   openDialog(): void {
     const dialogRef = this.dialog.open(AddProductDialogComponent, {
       autoFocus: false,

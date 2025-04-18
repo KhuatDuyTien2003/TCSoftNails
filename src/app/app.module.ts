@@ -21,13 +21,11 @@ import {
   HttpClientModule,
 } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { AddProductGroupDialogComponent } from './Product/add-product-group-dialog/add-product-group-dialog.component';
-import { DetailProductComponent } from './Product/detail-product/detail-product.component';
 
 registerLocaleData(vi);
 
 @NgModule({
-  declarations: [AppComponent, DetailProductComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     RouterModule,

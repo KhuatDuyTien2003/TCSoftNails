@@ -3,6 +3,7 @@ export interface FilterCriteria {
   productTypes?: number[];
   productGroup?: number;
   status?: number;
+  stock?: number;
   rank?: number;
   pageNumber: number;
   pageSize: number;

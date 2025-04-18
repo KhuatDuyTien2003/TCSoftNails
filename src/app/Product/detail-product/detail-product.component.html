@@ -1,1 +1,151 @@
-<p>detail-product works!</p>
+<div class="bg-white text-gray-800 h-[fit-content]">
+  <div class="container mx-auto">
+    <!-- Tabs -->
+    <div class="border-b mb-4">
+      <div class="flex space-x-4">
+        <button
+          class="px-4 py-2 border-b-2 font-semibold"
+          [ngClass]="
+            selectedTab === 'info'
+              ? 'text-blue-500 border-blue-500'
+              : 'text-gray-500 border-transparent'
+          "
+          (click)="selectTab('info')"
+        >
+          Thông tin
+        </button>
+        <button
+          class="px-4 py-2 border-b-2 font-semibold"
+          [ngClass]="
+            selectedTab === 'stock'
+              ? 'text-blue-500 border-blue-500'
+              : 'text-gray-500 border-transparent'
+          "
+          (click)="selectTab('stock')"
+        >
+          Thẻ kho
+        </button>
+      </div>
+    </div>
+    <div *ngIf="selectedTab === 'info'">
+      <!-- Title -->
+      <h1 class="text-2xl font-bold mb-2">{{ product?.proAndSerName }}</h1>
+
+      <!-- Status -->
+      <div *ngIf="product?.status == 1" class="flex items-center mb-4">
+        <i class="fas fa-check text-green-500 mr-2"></i>
+        <span>Bán trực tiếp</span>
+      </div>
+      <div *ngIf="product?.status == 3" class="flex items-center mb-4">
+        <i class="fas fa-times text-red-500 mr-2"></i>
+        <span>Sản phẩm bị ẩn</span>
+      </div>
+
+      <!-- Main Content -->
+      <div class="flex flex-col md:flex-row">
+        <!-- Images -->
+        <div class="md:w-1/3 mb-4 md:mb-0 flex gap-[10px]">
+          <!-- Large Image -->
+          <div
+            class="rounded-lg w-[300px] h-[300px] border-grey-500 border-2 flex align-center justify-center"
+          >
+            <img
+              [src]="bigImage?.imageUrl || 'assets/images/image.png'"
+              alt="Main product image"
+              class="h-[full] object-cover"
+            />
+          </div>
+
+          <!-- Thumbnails -->
+          <div class="flex flex-col gap-[10px] h-[300px] overflow-y-auto">
+            <img
+              *ngFor="let image of images"
+              [src]="image?.imageUrl || 'assets/images/image.png'"
+              alt="Thumbnail"
+              class="rounded-lg w-[50px] h-[50px] object-cover cursor-pointer"
+              (click)="onThumbnailClick(image)"
+            />
+          </div>
+        </div>
+
+        <!-- Info -->
+        <div class="md:w-2/3 md:pl-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <p class="font-semibold">Mã hàng hóa:</p>
+              <p>{{ product?.proAndSerCode }}</p>
+            </div>
+            <div>
+              <p class="font-semibold">Nhóm hàng:</p>
+              <p>{{ product?.productTypeId }}</p>
+            </div>
+            <div>
+              <p class="font-semibold">Loại hàng:</p>
+              <p>{{ product?.proAndSerType }}</p>
+            </div>
+            <div>
+              <p class="font-semibold">Hạn sử dụng:</p>
+              <p>{{ product?.expiryDate | date : "dd/MM/yyyy" }}</p>
+            </div>
+            <div>
+              <div class="pb-4">
+                <p class="font-semibold">Thương hiệu:</p>
+                <p></p>
+              </div>
+              <div class="pb-4">
+                <p class="font-semibold">Giá vốn:</p>
+                <p>{{ product?.originalPrice | number }} VND</p>
+              </div>
+              <div class="pb-4">
+                <p class="font-semibold">Giá bán:</p>
+                <p>{{ product?.sellingPrice | number }} VND</p>
+              </div>
+              <div class="pb-4">
+                <p class="font-semibold">Tồn kho:</p>
+                <p>{{ product?.inventoryQuantity | number }}</p>
+              </div>
+            </div>
+            <div>
+              <p class="font-semibold">Mô tả:</p>
+              <div [innerHTML]="product?.description"></div>
+            </div>
+          </div>
+
+          <!-- Buttons -->
+          <div class="mt-4 flex flex-wrap gap-2">
+            <button
+              class="bg-green-500 text-white px-4 py-2 rounded flex items-center"
+              (click)="editProduct()"
+            >
+              <i class="fas fa-check mr-2"></i> Cập nhật
+            </button>
+            <button
+              class="bg-gray-500 text-white px-4 py-2 rounded flex items-center"
+            >
+              <i class="fas fa-barcode mr-2"></i> In tem mã
+            </button>
+            <button
+              class="bg-green-500 text-white px-4 py-2 rounded flex items-center"
+            >
+              <i class="fas fa-copy mr-2"></i> Sao chép
+            </button>
+            <button
+              class="bg-red-500 text-white px-4 py-2 rounded flex items-center"
+            >
+              <i class="fas fa-lock mr-2"></i> Ngừng kinh doanh
+            </button>
+            <button
+              class="bg-red-500 text-white px-4 py-2 rounded flex items-center"
+            >
+              <i class="fas fa-trash mr-2"></i> Xóa
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="selectedTab === 'stock'">
+      <h1 class="text-2xl font-bold mb-2">Thẻ kho</h1>
+      <p>Chưa có thông tin thẻ kho.</p>
+    </div>
+  </div>
+</div>

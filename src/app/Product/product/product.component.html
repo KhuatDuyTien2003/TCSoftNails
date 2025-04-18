@@ -66,9 +66,25 @@
           </ul>
         </div>
 
+        <div class="content">
+          <h3>Tồn kho</h3>
+          <div *ngFor="let st of stocks">
+            <label>
+              <input
+                type="radio"
+                name="stock"
+                [(ngModel)]="stock"
+                [value]="st.id"
+                (change)="applyFilter()"
+              />
+              {{ st.name }}
+            </label>
+          </div>
+        </div>
+
         <!-- Inventory Status -->
         <div class="content">
-          <h3>Trạng thái tồn kho</h3>
+          <h3>Trạng thái</h3>
           <div *ngFor="let stt of statuses">
             <label>
               <input
@@ -209,50 +225,74 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let product of products">
-              <td class="table-cell-bordered">
-                <input type="checkbox" [value]="product.proAndSerId" />
-              </td>
-              <td class="table-cell-bordered">{{ product.proAndSerCode }}</td>
-              <td class="table-cell-img">
-                <img
-                  *ngIf="product.urlImage"
-                  [src]="'http://localhost:5213' + product.urlImage"
-                  alt="{{ product.proAndSerName }}"
-                />
-                <img
-                  *ngIf="!product.urlImage"
-                  src="assets/images/image.png"
-                  alt="Không có ảnh"
-                  width="100"
-                  height="100"
-                  style="object-fit: cover"
-                />
-              </td>
-              <td class="table-cell-bordered">{{ product.proAndSerName }}</td>
-              <td class="table-cell-bordered">{{ product.workTime }} Phút</td>
-              <td class="table-cell-bordered">
-                {{ getProductType(product.proAndSerType) }}
-              </td>
-              <td class="table-cell-bordered">
-                {{ getProductGroupName(product.productTypeId) }}
-              </td>
-              <td class="table-cell-bordered">
-                {{ product.sellingPrice | number }} VND
-              </td>
-              <td class="table-cell-bordered">
-                {{ product.originalPrice | number }} VND
-              </td>
-              <td class="table-cell-bordered">
-                {{ product.inventoryQuantity | number }}
-              </td>
-              <td class="table-cell-bordered">
-                {{ getStatus(product.status) }}
-              </td>
-              <td class="table-cell-bordered">
-                {{ product.expiryDate | date : "dd/MM/yyyy" }}
-              </td>
-            </tr>
+            <ng-container *ngFor="let product of products">
+              <tr
+                [ngClass]="{
+                  'border-l-2 border-r-2 border-t-2 border-blue-500':
+                    selectedProduct === product || products.length == 1
+                }"
+                class="table-row"
+                (click)="toggleDetail(product)"
+              >
+                <td class="table-cell-bordered">
+                  <input type="checkbox" [value]="product.proAndSerId" />
+                </td>
+                <td class="table-cell-bordered">{{ product.proAndSerCode }}</td>
+                <td class="table-cell-img">
+                  <img
+                    *ngIf="product.urlImage"
+                    [src]="'http://localhost:5213' + product.urlImage"
+                    alt="{{ product.proAndSerName }}"
+                    lazyLoad="true"
+                  />
+                  <img
+                    *ngIf="!product.urlImage"
+                    src="assets/images/image.png"
+                    alt="Không có ảnh"
+                    width="100"
+                    height="100"
+                    style="object-fit: cover"
+                  />
+                </td>
+                <td class="table-cell-bordered">{{ product.proAndSerName }}</td>
+                <td class="table-cell-bordered">{{ product.workTime }} Phút</td>
+                <td class="table-cell-bordered">
+                  {{ getProductType(product.proAndSerType) }}
+                </td>
+                <td class="table-cell-bordered">
+                  {{ getProductGroupName(product.productTypeId) }}
+                </td>
+                <td class="table-cell-bordered">
+                  {{ product.sellingPrice | number }} VND
+                </td>
+                <td class="table-cell-bordered">
+                  {{ product.originalPrice | number }} VND
+                </td>
+                <td class="table-cell-bordered">
+                  {{ product.inventoryQuantity | number }}
+                </td>
+                <td class="table-cell-bordered">
+                  {{ getStatus(product.status) }}
+                </td>
+                <td class="table-cell-bordered">
+                  {{ product.expiryDate | date : "dd/MM/yyyy" }}
+                </td>
+              </tr>
+              <tr
+                *ngIf="selectedProduct === product || products.length == 1"
+                [ngClass]="{
+                  'border-l-2 border-b-2  border-r-2 border-blue-500 bg-blue-50':
+                    selectedProduct === product || products.length == 1
+                }"
+              >
+                <td colspan="12" class="border p-4 bg-gray-50">
+                  <app-detail-product
+                    (productUpdated)="applyFilter()"
+                    [product]="product"
+                  ></app-detail-product>
+                </td>
+              </tr>
+            </ng-container>
           </tbody>
         </table>
 

@@ -4,7 +4,7 @@
       <!-- Header Dialog -->
       <div class="bg-gray-200">
         <div class="p-4 flex justify-between items-center">
-          <h2 class="text-lg font-semibold">Thêm hàng hóa</h2>
+          <h2 class="text-lg font-semibold">Sửa hàng hóa</h2>
           <button
             type="button"
             (click)="closeDialog()"
@@ -44,7 +44,7 @@
       <!-- Nội dung Dialog -->
       <div class="p-4">
         <!-- Tab Thông tin -->
-        <div [hidden]="selectedTab !== 'info'">
+        <div *ngIf="selectedTab == 'info'">
           <!-- Sử dụng grid cho bố cục -->
           <div class="mt-4 grid grid-cols-1 md:grid-cols-[60%_40%] gap-4">
             <!-- Mã hàng hóa -->
@@ -314,10 +314,9 @@
                     </span>
 
                     <!-- Label để kích hoạt input file -->
-                    <label
-                      [attr.for]="'productImageFiles' + i"
+                    <div
                       class="relative group cursor-pointer transition-all duration-300 transform border-2 hover:border-blue-500 flex items-center justify-center"
-                      (keyup)="openFileDialog($event, currentIndex + i)"
+                      (click)="openFileDialog($event, currentIndex + i)"
                       tabindex="0"
                     >
                       <!-- Hiện chữ "+ Thêm" nếu chưa có ảnh -->
@@ -334,12 +333,12 @@
                         [src]="img || 'assets/images/image.png'"
                         alt="Ảnh sản phẩm"
                       />
-                    </label>
+                    </div>
 
                     <input
                       *ngIf="!img"
                       type="file"
-                      [id]="'productImageFiles' + i"
+                      [id]="'productImageFiles' + (currentIndex + i)"
                       accept="image/*"
                       hidden
                       (change)="onFileSelected($event, currentIndex + i)"
@@ -378,9 +377,8 @@
             </button>
           </div>
         </div>
-
         <!-- Tab Mô tả chi tiết -->
-        <div [hidden]="selectedTab !== 'details'" class="mt-4 h-[380px]">
+        <div *ngIf="selectedTab == 'details'" class="mt-4 h-[380px]">
           <div class="flex flex-col h-full">
             <label class="text-gray-700 mb-2">Mô tả chi tiết</label>
             <quill-editor
@@ -409,14 +407,14 @@
             class="bg-green-500 text-white px-4 py-2 rounded"
             (click)="onSubmit()"
           >
-            Lưu
+            Cập nhật
           </button>
           <button
             type="button"
             (click)="resetForm()"
             class="bg-gray-500 text-white px-4 py-2 rounded"
           >
-            Làm mới
+            Dữ liệu ban đầu
           </button>
           <button
             type="button"

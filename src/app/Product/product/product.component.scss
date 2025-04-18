@@ -70,14 +70,15 @@ input[type="radio"] {
   border-collapse: collapse;
   background-color: #ffffff;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  border: #d3d9e3 2px solid;
 }
 
 .product-table tr {
   height: 70px;
 }
 
-.product-table > tbody > tr:hover {
-  background-color: #72a8de;
+.table-row:hover {
+  background-color: #ebedef;
   cursor: pointer;
 }
 
@@ -93,8 +94,8 @@ input[type="radio"] {
   width: fit-content;
 }
 .table-cell-img img {
-  width: 100%;
   height: 100%;
+  width: 100%;
   object-fit: cover;
   display: block;
   max-height: 70px;
@@ -129,7 +130,9 @@ input[type="radio"] {
   border-radius: 10px;
   border: 1px solid #e2e8f0;
 }
-
+.filter-container {
+  font-size: 14px;
+}
 .filter-container input[type="text"] {
   width: 100%;
   padding: 0.5rem;
@@ -149,7 +152,7 @@ input[type="radio"] {
   align-items: center;
   gap: 0.5rem;
   margin-bottom: 0.5rem;
-  font-size: 1rem;
+  font-size: 15px;
   color: #4a5568;
 }
 
