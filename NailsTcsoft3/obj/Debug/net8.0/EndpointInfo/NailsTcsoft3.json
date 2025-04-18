@@ -598,6 +598,16 @@
                       "format": "binary"
                     }
                   },
+                  "KeptImageIds": {
+                    "type": "string"
+                  },
+                  "ImageIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "format": "int32"
+                    }
+                  },
                   "ProAndSerType": {
                     "type": "integer",
                     "format": "int32"
@@ -646,6 +656,12 @@
                 "Images": {
                   "style": "form"
                 },
+                "KeptImageIds": {
+                  "style": "form"
+                },
+                "ImageIds": {
+                  "style": "form"
+                },
                 "ProAndSerType": {
                   "style": "form"
                 },
@@ -662,6 +678,29 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Products/GetImagesByProductId/{id}": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success"
@@ -687,19 +726,127 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/ProductAndService"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ProductAndService"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ProductAndService"
+                "type": "object",
+                "properties": {
+                  "ProAndSerName": {
+                    "type": "string"
+                  },
+                  "ProAndSerCode": {
+                    "type": "string"
+                  },
+                  "WorkTime": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "InventoryQuantity": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "OriginalPrice": {
+                    "type": "number",
+                    "format": "double"
+                  },
+                  "SellingPrice": {
+                    "type": "number",
+                    "format": "double"
+                  },
+                  "Unit": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "ProductTypeId": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Commission": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Images": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  },
+                  "KeptImageIds": {
+                    "type": "string"
+                  },
+                  "ImageIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "format": "int32"
+                    }
+                  },
+                  "ProAndSerType": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "ExpiryDate": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "Description": {
+                    "type": "string"
+                  },
+                  "Status": {
+                    "type": "integer",
+                    "format": "int32"
+                  }
+                }
+              },
+              "encoding": {
+                "ProAndSerName": {
+                  "style": "form"
+                },
+                "ProAndSerCode": {
+                  "style": "form"
+                },
+                "WorkTime": {
+                  "style": "form"
+                },
+                "InventoryQuantity": {
+                  "style": "form"
+                },
+                "OriginalPrice": {
+                  "style": "form"
+                },
+                "SellingPrice": {
+                  "style": "form"
+                },
+                "Unit": {
+                  "style": "form"
+                },
+                "ProductTypeId": {
+                  "style": "form"
+                },
+                "Commission": {
+                  "style": "form"
+                },
+                "Images": {
+                  "style": "form"
+                },
+                "KeptImageIds": {
+                  "style": "form"
+                },
+                "ImageIds": {
+                  "style": "form"
+                },
+                "ProAndSerType": {
+                  "style": "form"
+                },
+                "ExpiryDate": {
+                  "style": "form"
+                },
+                "Description": {
+                  "style": "form"
+                },
+                "Status": {
+                  "style": "form"
+                }
               }
             }
           }
@@ -799,6 +946,14 @@
           },
           {
             "name": "PageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Stock",
             "in": "query",
             "schema": {
               "type": "integer",
@@ -972,81 +1127,6 @@
           "password": {
             "type": "string",
             "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "ProductAndService": {
-        "type": "object",
-        "properties": {
-          "proAndSerId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "proAndSerName": {
-            "type": "string",
-            "nullable": true
-          },
-          "proAndSerCode": {
-            "type": "string",
-            "nullable": true
-          },
-          "workTime": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "inventoryQuantity": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "originalPrice": {
-            "type": "number",
-            "format": "double"
-          },
-          "sellingPrice": {
-            "type": "number",
-            "format": "double"
-          },
-          "unit": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "urlImage": {
-            "type": "string",
-            "nullable": true
-          },
-          "productTypeId": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "commission": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "proAndSerType": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "expiryDate": {
-            "type": "string",
-            "format": "date",
-            "nullable": true
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
-          "isDeleted": {
-            "type": "boolean"
-          },
-          "status": {
-            "type": "integer",
-            "format": "int32"
           }
         },
         "additionalProperties": false

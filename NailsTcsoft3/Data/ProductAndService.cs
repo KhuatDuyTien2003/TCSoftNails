@@ -17,6 +17,7 @@ public partial class ProductAndService
 
     public int? InventoryQuantity { get; set; }
 
+
     public decimal OriginalPrice { get; set; }
 
     public decimal SellingPrice { get; set; }

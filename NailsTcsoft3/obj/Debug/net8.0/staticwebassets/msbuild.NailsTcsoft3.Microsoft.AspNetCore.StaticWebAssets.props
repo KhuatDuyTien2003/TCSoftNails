@@ -1,5 +1,23 @@
 ﻿<Project>
   <ItemGroup>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\007adb27-00d7-4612-8c2a-1bd32ab280f3.webp'))">
+      <SourceType>Package</SourceType>
+      <SourceId>NailsTcsoft3</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/NailsTcsoft3</BasePath>
+      <RelativePath>uploads/products/007adb27-00d7-4612-8c2a-1bd32ab280f3.webp</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>4tv77ei1x2</Fingerprint>
+      <Integrity>yFskFWW5BSVymwDtS5lI3YvPSDItdnR1eO+evkcH8pQ=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\007adb27-00d7-4612-8c2a-1bd32ab280f3.webp'))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\1c0c40c8-e444-4ff7-b6d9-de7803e57809.webp'))">
       <SourceType>Package</SourceType>
       <SourceId>NailsTcsoft3</SourceId>
@@ -17,6 +35,24 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\1c0c40c8-e444-4ff7-b6d9-de7803e57809.webp'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\1fb2a583-b072-452b-8df0-3a99f5bff9e1.webp'))">
+      <SourceType>Package</SourceType>
+      <SourceId>NailsTcsoft3</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/NailsTcsoft3</BasePath>
+      <RelativePath>uploads/products/1fb2a583-b072-452b-8df0-3a99f5bff9e1.webp</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>atbv7v2rp8</Fingerprint>
+      <Integrity>jnArXJ0srLEW+q+e0gTvlFEOqZpzrS6i8tgmXvcP26w=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\1fb2a583-b072-452b-8df0-3a99f5bff9e1.webp'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\246f92de-2af9-46fc-9b62-53c5bfac7093.webp'))">
       <SourceType>Package</SourceType>
@@ -54,23 +90,23 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\301272c9-f801-486d-a99b-057f004a5bd0.webp'))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\357bffe1-2782-447d-9748-4241d98f3e6c.jpg'))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\3da6452d-3dbe-46eb-98a3-b4ef4a89f6eb.webp'))">
       <SourceType>Package</SourceType>
       <SourceId>NailsTcsoft3</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/NailsTcsoft3</BasePath>
-      <RelativePath>uploads/products/357bffe1-2782-447d-9748-4241d98f3e6c.jpg</RelativePath>
+      <RelativePath>uploads/products/3da6452d-3dbe-46eb-98a3-b4ef4a89f6eb.webp</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>9lp39oucj5</Fingerprint>
-      <Integrity>s3Jh+9yffVStkixj6D3xJOrahg7r3cvkt2cfGS9PA6g=</Integrity>
+      <Fingerprint>vejio0uin4</Fingerprint>
+      <Integrity>x6q/C3FjthRpzkYg2JL3B3Flz8Uobu7XtZ+BtHvQZG4=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\357bffe1-2782-447d-9748-4241d98f3e6c.jpg'))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\3da6452d-3dbe-46eb-98a3-b4ef4a89f6eb.webp'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\4d7c79b3-434b-465f-9b31-62ea9539b1a6.webp'))">
       <SourceType>Package</SourceType>
@@ -90,6 +126,42 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\4d7c79b3-434b-465f-9b31-62ea9539b1a6.webp'))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\60fac955-4625-4634-9522-e2a3ebbb7194.jpg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>NailsTcsoft3</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/NailsTcsoft3</BasePath>
+      <RelativePath>uploads/products/60fac955-4625-4634-9522-e2a3ebbb7194.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>70paj8azt5</Fingerprint>
+      <Integrity>FxB+64K2SaxMMAKdJrLzP1JSrjso0OgdsCr85YukBHE=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\60fac955-4625-4634-9522-e2a3ebbb7194.jpg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\82761d90-9255-432c-b350-2c1799df5376.jpg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>NailsTcsoft3</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/NailsTcsoft3</BasePath>
+      <RelativePath>uploads/products/82761d90-9255-432c-b350-2c1799df5376.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>yuvghcgeed</Fingerprint>
+      <Integrity>SuYZV99DGhZ44+XMjfs10fJkrsSNwyQSyrWLpQfz9YM=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\82761d90-9255-432c-b350-2c1799df5376.jpg'))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\92a9ed2d-4b48-429a-9cef-5c7c76ec3620.webp'))">
       <SourceType>Package</SourceType>
       <SourceId>NailsTcsoft3</SourceId>
@@ -107,6 +179,24 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\92a9ed2d-4b48-429a-9cef-5c7c76ec3620.webp'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\a3d7d02b-6f70-4d41-ab40-245335a49fa2.webp'))">
+      <SourceType>Package</SourceType>
+      <SourceId>NailsTcsoft3</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/NailsTcsoft3</BasePath>
+      <RelativePath>uploads/products/a3d7d02b-6f70-4d41-ab40-245335a49fa2.webp</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>d68dye4q20</Fingerprint>
+      <Integrity>pYTmcdxOyTFPEmz8m3E3+i1dNpWxdWk90t9Od5S1Lpw=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\a3d7d02b-6f70-4d41-ab40-245335a49fa2.webp'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\a4de743c-ddeb-4b7a-880b-6e4548a8609d.webp'))">
       <SourceType>Package</SourceType>
@@ -144,12 +234,12 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\af6d14a6-3343-47b7-a871-4dded7b5b7c7.webp'))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\b68e862e-cb5e-4710-b1da-f19f38b2c198.jpg'))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\dae35dac-b0d1-43ae-b1ec-5b14351f0719.jpg'))">
       <SourceType>Package</SourceType>
       <SourceId>NailsTcsoft3</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/NailsTcsoft3</BasePath>
-      <RelativePath>uploads/products/b68e862e-cb5e-4710-b1da-f19f38b2c198.jpg</RelativePath>
+      <RelativePath>uploads/products/dae35dac-b0d1-43ae-b1ec-5b14351f0719.jpg</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -160,7 +250,7 @@
       <Integrity>TA4lJsFQ0z7ELuy6lFOKJnFaKNHteYbqP/h6zD1Ysrc=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\b68e862e-cb5e-4710-b1da-f19f38b2c198.jpg'))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\dae35dac-b0d1-43ae-b1ec-5b14351f0719.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
   </ItemGroup>
 </Project>

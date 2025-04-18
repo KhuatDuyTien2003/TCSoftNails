@@ -8,6 +8,7 @@ using NailsTcsoft3.Models;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace NailsTcsoft3.Controllers
 {
@@ -56,7 +57,7 @@ namespace NailsTcsoft3.Controllers
         public async Task<IActionResult> PostProduct([FromForm] ProductForm request)
         {
             // 1. Validate
-            if( await _context.ProductAndServices.AnyAsync(p => p.ProAndSerCode == request.ProAndSerCode))
+            if (await _context.ProductAndServices.AnyAsync(p => p.ProAndSerCode == request.ProAndSerCode))
             {
                 return BadRequest(new { Message = "Mã sản phẩm đã tồn tại" });
             }
@@ -142,45 +143,165 @@ namespace NailsTcsoft3.Controllers
             });
         }
 
-
-
-        // PUT: Products/PutProduct/{id}
-        [HttpPut("PutProduct/{id}")]
-        public async Task<IActionResult> PutProduct(int id, [FromBody] ProductAndService product)
+        // GET: Products/GetImagesByProductId/{id}
+        [HttpGet("GetImagesByProductId/{id}")]
+        public async Task<IActionResult> GetImagesByProductId(int id)
         {
-            var existingProduct = await _context.ProductAndServices.FindAsync(id);
-            if (existingProduct == null || existingProduct.IsDeleted)
+            // Check if the product exists
+            var productExists = await _context.ProductAndServices.AnyAsync(p => p.ProAndSerId == id && !p.IsDeleted);
+            if (!productExists)
             {
                 return NotFound(new
                 {
                     success = false,
-                    message = "Không tìm thấy nhóm hàng"
+                    message = "Không tìm thấy sản phẩm"
                 });
             }
 
-            // Cập nhật các trường (bạn có thể điều chỉnh theo yêu cầu)
-            existingProduct.ProAndSerCode = product.ProAndSerCode;
-            existingProduct.ProAndSerName = product.ProAndSerName;
-            existingProduct.Commission = product.Commission;
-            existingProduct.ProAndSerType = product.ProAndSerType;
-            existingProduct.InventoryQuantity = product.InventoryQuantity;
-            existingProduct.OriginalPrice = product.OriginalPrice;
-            existingProduct.ProductTypeId = product.ProductTypeId;
-            existingProduct.Status = product.Status;
-            existingProduct.Unit = product.Unit;
-            existingProduct.UrlImage = product.UrlImage;
-            existingProduct.WorkTime = product.WorkTime;
-            // Nếu cần cập nhật thêm các trường khác thì thực hiện ở đây
+            // Retrieve the list of images for the product
+            var domain = $"{Request.Scheme}://{Request.Host}";
+            var images = await _context.ProAndSerImages
+                .Where(img => img.ProAndSerId == id)
+            .Select(img => new
+            {
+                ImageId = img.ImageId,
+                ImageUrl = $"{domain}{img.ImageUrl}"
 
+            })
+                .ToListAsync();
+
+            if (!images.Any())
+            {
+                return Ok(new
+                {
+                    success = false,
+                    message = "Không có ảnh nào cho sản phẩm này"
+                });
+            }
+
+            return Ok(new
+            {
+                success = true,
+                message = "Lấy danh sách ảnh thành công",
+                data = images
+            });
+        }
+
+        [HttpPut("PutProduct/{id}")]
+        public async Task<IActionResult> PutProduct(int id, [FromForm] ProductForm dto)
+        {
+            //Kiểm tra sản phẩm
+            var existingProduct = await _context.ProductAndServices
+                .FirstOrDefaultAsync(p => p.ProAndSerId == id && !p.IsDeleted);
+            if (existingProduct == null)
+            {
+                return NotFound(new
+                {
+                    success = false,
+                    message = "Không tìm thấy sản phẩm"
+                });
+            }
+
+
+            // Xử lý ảnh: XÓA ảnh không giữ lại
+            var existingImages = await _context.ProAndSerImages
+                .Where(img => img.ProAndSerId == id)
+                .ToListAsync();
+
+            if (dto.ImageIds == null || dto.ImageIds.Length == 0)
+            {
+                // Xóa tất cả ảnh nếu không giữ ảnh nào
+                foreach (var img in existingImages)
+                {
+                    var path = Path.Combine(_environment.WebRootPath, img.ImageUrl.TrimStart('/'));
+                    if (System.IO.File.Exists(path))
+                    {
+                        System.IO.File.Delete(path);
+                    }
+                }
+
+                _context.ProAndSerImages.RemoveRange(existingImages);
+            }
+            else
+            {
+                var imagesToRemove = existingImages
+                    .Where(img => !dto.ImageIds.Contains(img.ImageId))
+                    .ToList();
+
+                foreach (var img in imagesToRemove)
+                {
+                    var path = Path.Combine(_environment.WebRootPath, img.ImageUrl.TrimStart('/'));
+                    if (System.IO.File.Exists(path))
+                    {
+                        System.IO.File.Delete(path);
+                    }
+                }
+
+                _context.ProAndSerImages.RemoveRange(imagesToRemove);
+            }
+
+            //Xử lý ảnh mới: THÊM mới vào thư mục + DB
+            if (dto.Images != null && dto.Images.Any())
+            {
+                var uploadsDir = Path.Combine(_environment.WebRootPath, "uploads", "products");
+                Directory.CreateDirectory(uploadsDir);
+
+                foreach (var image in dto.Images)
+                {
+                    if (image != null)
+                    {
+                        var fileName = $"{Guid.NewGuid()}{Path.GetExtension(image.FileName)}";
+                        var filePath = Path.Combine(uploadsDir, fileName);
+
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await image.CopyToAsync(stream);
+                        }
+
+                        var imageUrl = $"/uploads/products/{fileName}";
+
+                        var newImage = new ProAndSerImage
+                        {
+                            ProAndSerId = id,
+                            ImageUrl = imageUrl
+                        };
+
+                        await _context.ProAndSerImages.AddAsync(newImage);
+                    }
+                }
+            }
+            await _context.SaveChangesAsync();
+            // Cập nhật thông tin và ảnh đại diện (lấy 1 ảnh đầu tiên)
+            var currentImages = await _context.ProAndSerImages
+                .Where(i => i.ProAndSerId == id)
+                .OrderBy(i => i.ImageId)
+                .ToListAsync();
+
+            existingProduct.ProAndSerCode = dto.ProAndSerCode;
+            existingProduct.ProAndSerName = dto.ProAndSerName;
+            existingProduct.Commission = dto.Commission;
+            existingProduct.ProAndSerType = dto.ProAndSerType;
+            existingProduct.InventoryQuantity = dto.InventoryQuantity;
+            existingProduct.OriginalPrice = dto.OriginalPrice;
+            existingProduct.ProductTypeId = dto.ProductTypeId;
+            existingProduct.Status = dto.Status;
+            existingProduct.Unit = dto.Unit;
+            existingProduct.WorkTime = dto.WorkTime;
+            existingProduct.Description = dto.Description;
+            existingProduct.ExpiryDate = dto.ExpiryDate;
+            existingProduct.UrlImage = currentImages.FirstOrDefault()?.ImageUrl;
+
+            // Lưu toàn bộ thay đổi
             await _context.SaveChangesAsync();
 
             return Ok(new
             {
                 success = true,
-                message = "Cập nhật customer rank thành công",
+                message = "Cập nhật sản phẩm thành công",
                 data = existingProduct
             });
         }
+
 
         // GET: Products/GetById/{id}
         [HttpGet("GetById/{id}")]
@@ -238,6 +359,20 @@ namespace NailsTcsoft3.Controllers
             if (filter.Status > 0)
             {
                 normalQuery = normalQuery.Where(p => p.Status == filter.Status);
+            }
+            if (filter.Stock > 0)
+            {
+                switch (filter.Stock)
+                {
+                    case 1:
+                        normalQuery = normalQuery.Where(p => p.InventoryQuantity > 0);
+                        break;
+                    case 2:
+                        normalQuery = normalQuery.Where(p => p.InventoryQuantity == 0);
+                        break;
+                    default:
+                        break;
+                }
             }
 
             var normalProducts = await normalQuery.ToListAsync();
