@@ -138,7 +138,7 @@
                   (click)="deleteProducts()"
                 >
                   <a class="flex items-center gap-5">
-                    <i class="far fa-plus" (click)="deleteProducts()"></i>
+                    <i class="far fa-plus"></i>
                     Xóa
                   </a>
                 </li>
@@ -155,17 +155,26 @@
               <ul
                 class="absolute min-w-max left-0 hidden group-hover:block bg-white border rounded shadow-md z-10"
               >
-                <li class="px-4 py-3 hover:bg-gray-100 cursor-pointer">
-                  <a class="flex items-center gap-3" (click)="openDialog()">
+                <li
+                  class="px-4 py-3 hover:bg-gray-100 cursor-pointer"
+                  (click)="AddProductDialog()"
+                >
+                  <a class="flex items-center gap-3">
                     <i class="far fa-plus"></i> Thêm sản phẩm
                   </a>
                 </li>
-                <li class="px-4 py-3 hover:bg-gray-100 cursor-pointer">
+                <li
+                  class="px-4 py-3 hover:bg-gray-100 cursor-pointer"
+                  (click)="AddServiceDialog()"
+                >
                   <a class="flex items-center gap-3">
                     <i class="far fa-plus"></i> Thêm dịch vụ
                   </a>
                 </li>
-                <li class="px-4 py-3 hover:bg-gray-100 cursor-pointer">
+                <li
+                  class="px-4 py-3 hover:bg-gray-100 cursor-pointer"
+                  (click)="AddComboDialog()"
+                >
                   <a class="flex items-center gap-3">
                     <i class="far fa-plus"></i> Thêm Combo
                   </a>
@@ -215,16 +224,21 @@
           <thead>
             <tr class="table-header">
               <th>
-                <input type="checkbox" />
+                <input
+                  type="checkbox"
+                  [checked]="isAllSelected()"
+                  (change)="toggleSelectAll($event)"
+                  class="h-4 w-4"
+                />
               </th>
               <th>Mã hàng hóa</th>
               <th>Hinh ảnh</th>
               <th>Tên hàng</th>
-              <th>Thời lượng</th>
+              <th>Thời lượng (Phút)</th>
               <th>Loại hàng</th>
               <th>Nhóm hàng</th>
-              <th>Giá bán</th>
-              <th>Giá vốn</th>
+              <th>Giá bán (VND)</th>
+              <th>Giá vốn (VND)</th>
               <th>Tồn kho</th>
               <th>Trạng thái</th>
               <th>Hsd</th>
@@ -242,13 +256,17 @@
               >
                 <td class="table-cell-bordered">
                   <input
+                    class="h-4 w-4"
+                    [id]="'idProduct_' + product.proAndSerId"
                     type="checkbox"
+                    [checked]="selectedProductIds.has(product.proAndSerId)"
                     [value]="product.proAndSerId"
                     (click)="
                       showActions(product.proAndSerId); $event.stopPropagation()
                     "
                   />
                 </td>
+
                 <td class="table-cell-bordered">{{ product.proAndSerCode }}</td>
                 <td class="table-cell-img">
                   <img
@@ -267,7 +285,7 @@
                   />
                 </td>
                 <td class="table-cell-bordered">{{ product.proAndSerName }}</td>
-                <td class="table-cell-bordered">{{ product.workTime }} Phút</td>
+                <td class="table-cell-bordered">{{ product.workTime }}</td>
                 <td class="table-cell-bordered">
                   {{ getProductType(product.proAndSerType) }}
                 </td>
@@ -275,10 +293,10 @@
                   {{ getProductGroupName(product.productTypeId) }}
                 </td>
                 <td class="table-cell-bordered">
-                  {{ product.sellingPrice | number }} VND
+                  {{ product.sellingPrice | number }}
                 </td>
                 <td class="table-cell-bordered">
-                  {{ product.originalPrice | number }} VND
+                  {{ product.originalPrice | number }}
                 </td>
                 <td class="table-cell-bordered">
                   {{ product.inventoryQuantity | number }}
@@ -297,7 +315,7 @@
                     selectedProduct === product || products.length == 1
                 }"
               >
-                <td colspan="12" class="border p-4 bg-gray-50">
+                <td colspan="12" class="border bg-gray-50">
                   <app-detail-product
                     (productUpdated)="applyFilter()"
                     [product]="product"

@@ -1,4 +1,5 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, Inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -7,23 +8,22 @@ import {
   Validators,
 } from '@angular/forms';
 import {
+  MAT_DIALOG_DATA,
   MatDialog,
   MatDialogRef,
-  MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { QuillModule } from 'ngx-quill';
 import { ProductService } from '../../services/product/product.service';
 import { ProductGroupService } from '../../services/product-group/product-group.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { CommonModule } from '@angular/common';
-import { QuillModule } from 'ngx-quill';
-import { NzIconModule } from 'ng-zorro-antd/icon';
 import { AddProductGroupDialogComponent } from '../add-product-group-dialog/add-product-group-dialog.component';
 
 @Component({
-  selector: 'app-edit-product-dialog',
+  selector: 'app-edit-service-dialog',
   standalone: true,
-  templateUrl: './edit-product-dialog.component.html',
-  styleUrls: ['./edit-product-dialog.component.scss'],
+  templateUrl: './edit-service-dialog.component.html',
+  styleUrl: './edit-service-dialog.component.scss',
   imports: [
     CommonModule,
     FormsModule,
@@ -32,18 +32,18 @@ import { AddProductGroupDialogComponent } from '../add-product-group-dialog/add-
     NzIconModule,
   ],
 })
-export class EditProductDialogComponent implements OnInit {
+export class EditServiceDialogComponent implements OnInit {
   productForm!: FormGroup;
   selectedTab: string = 'info';
   productGroups: any[] = [];
-  today: string = '';
+
   selectedImages: (string | null)[] = Array(10).fill(null);
   selectedFiles: ({ file: File; imageId: number } | null)[] =
     Array(10).fill(null);
 
   constructor(
     private fb: FormBuilder,
-    private dialogRef: MatDialogRef<EditProductDialogComponent>,
+    private dialogRef: MatDialogRef<EditServiceDialogComponent>,
     private productService: ProductService,
     private productGroupService: ProductGroupService,
     private snackBar: MatSnackBar,
@@ -58,6 +58,7 @@ export class EditProductDialogComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
     this.loadProductGroups();
+
     if (this.data?.images) {
       this.data.images.forEach((image, index) => {
         this.selectedFiles[index] = {
@@ -82,15 +83,14 @@ export class EditProductDialogComponent implements OnInit {
     this.productForm = this.fb.group({
       proAndSerName: ['', [Validators.required, Validators.minLength(3)]],
       proAndSerCode: [''],
-      proAndSerType: [2],
-      inventoryQuantity: [0, [Validators.min(0)]],
+      proAndSerType: [1],
       originalPrice: [0, [Validators.min(0)]],
       sellingPrice: [0, [Validators.min(0)]],
       unit: [''],
       productTypeId: [''],
       commission: [''],
       status: ['', Validators.required],
-      expiryDate: [''],
+      workTime: [0, [Validators.min(0)]],
       description: [''],
     });
   }

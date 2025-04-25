@@ -6,6 +6,8 @@ import { EditProductDialogComponent } from '../edit-product-dialog/edit-product-
 import { MatDialog } from '@angular/material/dialog';
 import { EventEmitter } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { EditServiceDialogComponent } from '../edit-service-dialog/edit-service-dialog.component';
+import { EditComboDialogComponent } from '../edit-combo-dialog/edit-combo-dialog.component';
 
 @Component({
   selector: 'app-detail-product',
@@ -68,17 +70,47 @@ export class DetailProductComponent implements OnInit {
     if (document.activeElement instanceof HTMLElement) {
       document.activeElement.blur();
     }
-    const dialogRef = this.dialog.open(EditProductDialogComponent, {
-      autoFocus: false,
-      width: '65%',
-      height: '90%',
-      maxWidth: 'none',
-      minHeight: 'none',
-      data: {
-        productId: this.product?.proAndSerId,
-        images: this.images,
-      },
-    });
+
+    let dialogRef; // Khai báo dialogRef bên ngoài các khối if-else
+
+    if (this.product?.proAndSerType == 1) {
+      dialogRef = this.dialog.open(EditProductDialogComponent, {
+        autoFocus: false,
+        width: '65%',
+        height: '90%',
+        maxWidth: 'none',
+        minHeight: 'none',
+        data: {
+          productId: this.product?.proAndSerId,
+          images: this.images,
+        },
+      });
+    } else if (this.product?.proAndSerType == 2) {
+      dialogRef = this.dialog.open(EditServiceDialogComponent, {
+        autoFocus: false,
+        width: '65%',
+        height: '90%',
+        maxWidth: 'none',
+        minHeight: 'none',
+        data: {
+          productId: this.product?.proAndSerId,
+          images: this.images,
+        },
+      });
+    } else {
+      dialogRef = this.dialog.open(EditComboDialogComponent, {
+        autoFocus: false,
+        width: '65%',
+        height: '90%',
+        maxWidth: 'none',
+        minHeight: 'none',
+        data: {
+          productId: this.product?.proAndSerId,
+          images: this.images,
+        },
+      });
+    }
+
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.productUpdated.emit();
@@ -87,12 +119,13 @@ export class DetailProductComponent implements OnInit {
       }
     });
   }
+
   deleteProduct(): void {
     if (this.product?.proAndSerId) {
       this.productService.deleteProduct(this.product.proAndSerId).subscribe({
         next: (response) => {
           if (response.success) {
-            this.snackBar.open('Cập nhật sản phẩm thành công!', 'Close', {
+            this.snackBar.open('Xóa thành công!', 'Close', {
               duration: 3000,
             });
             this.productUpdated.emit();

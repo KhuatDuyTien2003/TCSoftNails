@@ -14,4 +14,6 @@ export interface product {
   status?: number;
   expiryDate?: Date;
   description?: string;
+  quantity?: number;
+  finalPrice?: number;
 }

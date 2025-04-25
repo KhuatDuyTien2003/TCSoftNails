@@ -86,11 +86,13 @@ input[type="radio"] {
   border-bottom: 1px solid #e5e7eb;
   padding: 4px;
   vertical-align: middle;
+  max-width: 100px;
 }
 .table-cell-bordered {
   border-bottom: 1px solid #e5e7eb;
   padding: 0.5rem 1rem;
   vertical-align: middle;
+
   width: fit-content;
 }
 .table-cell-img img {

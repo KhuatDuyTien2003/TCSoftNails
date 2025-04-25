@@ -4,7 +4,7 @@
       <!-- Header Dialog -->
       <div class="bg-gray-200">
         <div class="p-4 flex justify-between items-center">
-          <h2 class="text-lg font-semibold">Sửa thông tin sản phẩm</h2>
+          <h2 class="text-lg font-semibold">Sửa thông tin dịch vụ</h2>
           <button
             type="button"
             (click)="closeDialog()"
@@ -98,7 +98,7 @@
             <!-- Tên hàng -->
             <div class="flex items-center justify-between">
               <label class="w-[20%] block text-gray-700">
-                Tên hàng
+                Tên dịch vụ
                 <i class="fas fa-info-circle text-gray-400"></i>
               </label>
               <div class="w-[80%] mr-5">
@@ -118,12 +118,12 @@
                   <div
                     *ngIf="productForm.get('proAndSerName')?.errors?.['required']"
                   >
-                    Tên hàng không được để trống.
+                    Tên dịch vụ không được để trống.
                   </div>
                   <div
                     *ngIf="productForm.get('proAndSerName')?.errors?.['minlength']"
                   >
-                    Tên hàng phải có ít nhất 3 ký tự.
+                    Tên dịch vụ phải có ít nhất 3 ký tự.
                   </div>
                 </div>
               </div>
@@ -199,34 +199,32 @@
             <div class="mr-5">
               <div class="flex items-center justify-between">
                 <label class="w-[30%] block text-gray-700">
-                  Tồn kho
+                  Thời gian làm
                   <i class="fas fa-info-circle text-gray-400"></i>
                 </label>
                 <div class="w-[70%]">
                   <input
-                    formControlName="inventoryQuantity"
+                    formControlName="workTime"
                     class="w-full border rounded p-2 mt-1"
                     type="number"
-                    placeholder="Số lượng tồn kho"
+                    placeholder="Phút"
                   />
 
                   <div
                     *ngIf="
-                      productForm.get('inventoryQuantity')?.invalid &&
-                      (productForm.get('inventoryQuantity')?.touched ||
-                        productForm.get('inventoryQuantity')?.dirty)
+                      productForm.get('workTime')?.invalid &&
+                      (productForm.get('workTime')?.touched ||
+                        productForm.get('workTime')?.dirty)
                     "
                     class="text-red-500 text-sm pt-2"
                   >
                     <div
-                      *ngIf="productForm.get('inventoryQuantity')?.errors?.['pattern']"
+                      *ngIf="productForm.get('workTime')?.errors?.['pattern']"
                     >
-                      Số lượng không hợp lệ.
+                      Thời gian làm không hợp lệ.
                     </div>
-                    <div
-                      *ngIf="productForm.get('inventoryQuantity')?.errors?.['min']"
-                    >
-                      Số lượng phải lớn hơn hoặc bằng 0.
+                    <div *ngIf="productForm.get('workTime')?.errors?.['min']">
+                      Thời gian làm phải lớn hơn hoặc bằng 0.
                     </div>
                   </div>
                 </div>
@@ -356,16 +354,7 @@
               </div>
             </div>
             <!-- Hạn Sử Dụng -->
-            <div class="flex items-center justify-between">
-              <label class="w-[30%] block text-gray-700">Hạn Sử Dụng</label>
-              <div class="w-[70%] mr-5">
-                <input
-                  formControlName="expiryDate"
-                  type="date"
-                  class="w-full mr-5 border rounded p-2 mt-1"
-                />
-              </div>
-            </div>
+            <div></div>
           </div>
           <!-- Nút Đơn vị tính (ví dụ mở thêm modal để chọn) -->
           <div class="mt-4">

@@ -1,22 +1,23 @@
-import { ProductService } from '../../services/product/product.service';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { AddProductGroupDialogComponent } from '../add-product-group-dialog/add-product-group-dialog.component';
+import { CommonModule } from '@angular/common';
 import {
   FormBuilder,
   FormGroup,
+  FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { QuillModule } from 'ngx-quill';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ProductService } from '../../services/product/product.service';
 import { ProductGroupService } from '../../services/product-group/product-group.service';
-import { ProductGroup } from '../../app.type/product-group.type';
-import { AddProductGroupDialogComponent } from '../add-product-group-dialog/add-product-group-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ProductGroup } from '../../app.type/product-group.type';
+
 @Component({
-  selector: 'app-add-product-dialog',
+  selector: 'app-add-service-dialog',
   standalone: true,
   imports: [
     CommonModule,
@@ -25,10 +26,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     QuillModule,
     NzIconModule,
   ],
-  templateUrl: './add-product-dialog.component.html',
-  styleUrls: ['./add-product-dialog.component.scss'],
+  templateUrl: './add-service-dialog.component.html',
+  styleUrl: './add-service-dialog.component.scss',
 })
-export class AddProductDialogComponent implements OnInit {
+export class AddServiceDialogComponent {
   // Mảng lưu trữ preview của 10 ảnh, khởi tạo 10 phần tử null
   selectedImages: (string | null)[] = Array(10).fill(null);
 
@@ -37,7 +38,7 @@ export class AddProductDialogComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private dialogRef: MatDialogRef<AddProductDialogComponent>,
+    private dialogRef: MatDialogRef<AddServiceDialogComponent>,
     private productService: ProductService,
     private productGroupService: ProductGroupService,
     public dialog: MatDialog,
@@ -46,15 +47,14 @@ export class AddProductDialogComponent implements OnInit {
     this.productForm = this.fb.group({
       proAndSerName: ['', [Validators.required, Validators.minLength(3)]],
       proAndSerCode: [''],
-      proAndSerType: [1],
-      inventoryQuantity: [0, [Validators.min(0)]],
+      proAndSerType: [2],
       originalPrice: [0, [Validators.min(0)]],
       sellingPrice: [0, [Validators.min(0)]],
+      workTime: [0, [Validators.min(0)]],
       unit: [''],
       productTypeId: [''],
       commission: [''],
       status: ['', Validators.required],
-      expiryDate: [''],
       description: [''],
     });
   }

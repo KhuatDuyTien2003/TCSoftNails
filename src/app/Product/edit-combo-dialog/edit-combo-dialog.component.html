@@ -4,7 +4,7 @@
       <!-- Header Dialog -->
       <div class="bg-gray-200">
         <div class="p-4 flex justify-between items-center">
-          <h2 class="text-lg font-semibold">Sửa thông tin sản phẩm</h2>
+          <h2 class="text-lg font-semibold">Thêm Combo</h2>
           <button
             type="button"
             (click)="closeDialog()"
@@ -44,7 +44,7 @@
       <!-- Nội dung Dialog -->
       <div class="p-4">
         <!-- Tab Thông tin -->
-        <div *ngIf="selectedTab == 'info'">
+        <div [hidden]="selectedTab !== 'info'">
           <!-- Sử dụng grid cho bố cục -->
           <div class="mt-4 grid grid-cols-1 md:grid-cols-[60%_40%] gap-4">
             <!-- Mã hàng hóa -->
@@ -60,38 +60,18 @@
                 type="text"
               />
             </div>
-            <!-- Giá vốn -->
+            <!-- Hạn Sử Dụng -->
             <div class="flex items-center justify-between">
               <label class="w-[30%] block text-gray-700">
-                Giá vốn
+                Hạn Sử Dụng
                 <i class="fas fa-info-circle text-gray-400"></i>
               </label>
               <div class="w-[70%] mr-5">
                 <input
-                  formControlName="originalPrice"
-                  class="w-full border rounded p-2 mt-1"
-                  type="number"
-                  placeholder="Giá vốn"
+                  formControlName="expiryDate"
+                  type="date"
+                  class="w-full mr-5 border rounded p-2 mt-1"
                 />
-                <div
-                  *ngIf="
-                    productForm.get('originalPrice')?.invalid &&
-                    (productForm.get('originalPrice')?.touched ||
-                      productForm.get('originalPrice')?.dirty)
-                  "
-                  class="text-red-500 text-sm pt-2"
-                >
-                  <div
-                    *ngIf="productForm.get('originalPrice')?.errors?.['pattern']"
-                  >
-                    Giá vốn không hợp lệ.
-                  </div>
-                  <div
-                    *ngIf="productForm.get('originalPrice')?.errors?.['min']"
-                  >
-                    Giá vốn phải lớn hơn hoặc bằng 0.
-                  </div>
-                </div>
               </div>
             </div>
 
@@ -195,74 +175,7 @@
                 </button>
               </div>
             </div>
-            <!-- Tồn kho -->
-            <div class="mr-5">
-              <div class="flex items-center justify-between">
-                <label class="w-[30%] block text-gray-700">
-                  Tồn kho
-                  <i class="fas fa-info-circle text-gray-400"></i>
-                </label>
-                <div class="w-[70%]">
-                  <input
-                    formControlName="inventoryQuantity"
-                    class="w-full border rounded p-2 mt-1"
-                    type="number"
-                    placeholder="Số lượng tồn kho"
-                  />
-
-                  <div
-                    *ngIf="
-                      productForm.get('inventoryQuantity')?.invalid &&
-                      (productForm.get('inventoryQuantity')?.touched ||
-                        productForm.get('inventoryQuantity')?.dirty)
-                    "
-                    class="text-red-500 text-sm pt-2"
-                  >
-                    <div
-                      *ngIf="productForm.get('inventoryQuantity')?.errors?.['pattern']"
-                    >
-                      Số lượng không hợp lệ.
-                    </div>
-                    <div
-                      *ngIf="productForm.get('inventoryQuantity')?.errors?.['min']"
-                    >
-                      Số lượng phải lớn hơn hoặc bằng 0.
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Trạng thái -->
-            <div class="flex items-center justify-between">
-              <label class="w-[20%] block text-gray-700">
-                Trạng thái
-                <i class="fas fa-info-circle text-gray-400"></i>
-              </label>
-              <div class="w-[80%] mr-5">
-                <select
-                  formControlName="status"
-                  class="w-full border rounded p-2 mt-1"
-                  required
-                >
-                  <option disabled value="">--Chọn trạng thái--</option>
-                  <option value="1">Mở bán</option>
-                  <option value="3">Ẩn sản phẩm</option>
-                </select>
-                <div
-                  *ngIf="
-                    productForm.get('status')?.invalid &&
-                    (productForm.get('status')?.touched ||
-                      productForm.get('status')?.dirty)
-                  "
-                  class="text-red-500 text-sm pt-2"
-                >
-                  <div *ngIf="productForm.get('status')?.errors?.['required']">
-                    Trạng thái bắt buộc
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Hoa hồng NV -->
+            <!-- Hoa hồng -->
             <div class="flex items-center justify-between">
               <label class="w-[30%] block text-gray-700">Hoa hồng NV</label>
               <div class="w-[70%] mr-5 flex items-center">
@@ -280,6 +193,7 @@
                 </button>
               </div>
             </div>
+
             <!-- Ảnh sản phẩm -->
             <div class="m-5 flex items-center justify-center">
               <div class="flex items-center justify-between">
@@ -338,7 +252,7 @@
                     <input
                       *ngIf="!img"
                       type="file"
-                      [id]="'productImageFiles' + (currentIndex + i)"
+                      [id]="'productImageFiles' + i"
                       accept="image/*"
                       hidden
                       (change)="onFileSelected($event, currentIndex + i)"
@@ -355,30 +269,162 @@
                 </button>
               </div>
             </div>
-            <!-- Hạn Sử Dụng -->
+            <!-- Trạng thái -->
             <div class="flex items-center justify-between">
-              <label class="w-[30%] block text-gray-700">Hạn Sử Dụng</label>
+              <label class="w-[30%] block text-gray-700">
+                Trạng thái
+                <i class="fas fa-info-circle text-gray-400"></i>
+              </label>
               <div class="w-[70%] mr-5">
-                <input
-                  formControlName="expiryDate"
-                  type="date"
-                  class="w-full mr-5 border rounded p-2 mt-1"
-                />
+                <select
+                  formControlName="status"
+                  class="w-full border rounded p-2 mt-1"
+                  required
+                >
+                  <option disabled value="">--Chọn trạng thái--</option>
+                  <option value="1">Mở bán</option>
+                  <option value="3">Ẩn sản phẩm</option>
+                </select>
+                <div
+                  *ngIf="
+                    productForm.get('status')?.invalid &&
+                    (productForm.get('status')?.touched ||
+                      productForm.get('status')?.dirty)
+                  "
+                  class="text-red-500 text-sm pt-2"
+                >
+                  <div *ngIf="productForm.get('status')?.errors?.['required']">
+                    Trạng thái bắt buộc
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-          <!-- Nút Đơn vị tính (ví dụ mở thêm modal để chọn) -->
-          <div class="mt-4">
-            <button
-              type="button"
-              class="w-full text-left bg-gray-200 p-2 rounded"
+          <div class="mt-4 border-gray-300 shadow-lg bg-white">
+            <p
+              class="w-full text-left font-semibold text-gray-800 py-2 px-3 border-b border-gray-300 bg-gray-100"
             >
-              Đơn vị tính
-            </button>
+              Thành phần trong combo
+            </p>
+            <div class="flex gap-2 w-full mt-2 py-2 px-3">
+              <p class="text-left py-2 whitespace-nowrap align-middle">
+                Chọn dịch vụ hoặc sản phẩm
+                <i class="fas fa-info-circle text-gray-500 text-xs"></i>
+              </p>
+              <nz-select
+                [(ngModel)]="selectedProductId"
+                (ngModelChange)="onSelectProduct($event)"
+                nzShowSearch
+                nzServerSearch
+                [ngModelOptions]="{ standalone: true }"
+                nzPlaceHolder="Tìm kiếm sản phẩm hoặc Dịch vụ"
+                [nzShowArrow]="false"
+                [nzFilterOption]="nzFilterOption"
+                (nzOnSearch)="search($event)"
+                class="w-full"
+              >
+                <nz-option
+                  *ngFor="let item of listOfOption"
+                  [nzLabel]="
+                    item.proAndSerName +
+                    ' - ' +
+                    item.proAndSerCode +
+                    (item.inventoryQuantity === 0 ? ' - Hết hàng' : '')
+                  "
+                  [nzValue]="item.proAndSerId"
+                  class="pro-option"
+                  [nzDisabled]="item.inventoryQuantity === 0"
+                ></nz-option>
+              </nz-select>
+
+              <button
+                type="button"
+                aria-label="Danh sách dịch vụ"
+                class="border border-gray-300 rounded-md p-2 text-gray-600 hover:text-gray-900 hover:border-gray-400 flex items-center justify-center"
+              >
+                <i class="fas fa-list-ul"></i>
+              </button>
+            </div>
+            <div class="flex flex-col items-center justify-center w-full p-2">
+              <table
+                *ngIf="selectedProAndSer.length > 0"
+                class="w-[95%] border border-sky-200 rounded-lg border-collapse"
+              >
+                <thead class="bg-sky-100">
+                  <tr
+                    class="h-10 border border-sky-100 text-gray-800 text-sm font-semibold"
+                  >
+                    <th class="text-center w-10 cursor-pointer">
+                      <i class="fa-solid fa-xmark" style="color: #e52a2a"></i>
+                    </th>
+                    <th class="text-center py-2">STT</th>
+                    <th class="text-left pl-2">Mã</th>
+                    <th class="text-left pl-2">Tên</th>
+                    <th class="text-center py-2">
+                      Số lượng<span class="text-pink-500">*</span>
+                    </th>
+                    <th class="text-right py-2 pr-3">Giá bán lẻ</th>
+                    <th class="text-right py-2 pr-3">Thành tiền</th>
+                  </tr>
+                </thead>
+                <tbody class="text-sm text-gray-900">
+                  <tr
+                    class="border-b-2 border-sky-100"
+                    *ngFor="let product of selectedProAndSer; let i = index"
+                  >
+                    <td class="text-center align-middle cursor-pointer">
+                      <i
+                        (click)="removeProduct(i)"
+                        class="fa-solid fa-xmark"
+                        style="color: #e52a2a"
+                      ></i>
+                    </td>
+                    <td class="py-2 text-center align-middle">
+                      {{ i + 1 }}
+                    </td>
+                    <td class="py-2 pl-3 align-middle">
+                      {{ product.proAndSerCode }}
+                    </td>
+                    <td class="py-2 font-semibold pl-3 align-middle">
+                      {{ product.proAndSerName }}
+                    </td>
+                    <td class="py-2 text-center align-middle">
+                      <input
+                        type="number"
+                        min="1"
+                        [(ngModel)]="product.quantity"
+                        (ngModelChange)="
+                          updateQuantity(i, product.quantity ?? 1)
+                        "
+                        [ngModelOptions]="{ standalone: true }"
+                        class="border p-1 w-16 text-center"
+                      />
+                    </td>
+                    <td class="py-2 text-right pr-3 align-middle">
+                      {{ product.sellingPrice | number }}
+                    </td>
+                    <td class="py-2 text-right pr-3 align-middle">
+                      {{ product.finalPrice | number }}
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="6" class="py-2 font-semibold text-right pr-3">
+                      Tổng giá bán lẻ:
+                    </td>
+                    <td class="py-2 text-right pr-3">
+                      {{ finalPriceProducts | number }}
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
           </div>
         </div>
+
         <!-- Tab Mô tả chi tiết -->
-        <div *ngIf="selectedTab == 'details'" class="mt-4 h-[380px]">
+        <div [hidden]="selectedTab !== 'details'" class="mt-4 h-[380px]">
           <div class="flex flex-col h-full">
             <label class="text-gray-700 mb-2">Mô tả chi tiết</label>
             <quill-editor
@@ -407,14 +453,14 @@
             class="bg-green-500 text-white px-4 py-2 rounded"
             (click)="onSubmit()"
           >
-            Cập nhật
+            Lưu
           </button>
           <button
             type="button"
             (click)="resetForm()"
             class="bg-gray-500 text-white px-4 py-2 rounded"
           >
-            Dữ liệu ban đầu
+            Làm mới
           </button>
           <button
             type="button"

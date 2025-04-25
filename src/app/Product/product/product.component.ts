@@ -1,3 +1,5 @@
+import { AddComboDialogComponent } from './../add-combo-dialog/add-combo-dialog.component';
+import { AddServiceDialogComponent } from './../add-service-dialog/add-service-dialog.component';
 import { CustomerRank } from '../../app.type/customer-rank.type';
 import { ProductGroup } from '../../app.type/product-group.type';
 import { product } from '../../app.type/product.type';
@@ -174,6 +176,8 @@ export class ProductComponent implements OnInit {
 
   loadProducts() {
     this.isLoading = true;
+    this.selectedProductIds.clear();
+    this.showActionMenu = false;
 
     const filterCriteria: FilterCriteria = {
       searchTerm: this.searchTerm ?? '',
@@ -331,7 +335,7 @@ export class ProductComponent implements OnInit {
   toggleDetail(product: product): void {
     this.selectedProduct = this.selectedProduct === product ? null : product;
   }
-  openDialog(): void {
+  AddProductDialog(): void {
     const dialogRef = this.dialog.open(AddProductDialogComponent, {
       autoFocus: false,
       width: '65%',
@@ -342,6 +346,53 @@ export class ProductComponent implements OnInit {
     dialogRef.afterClosed().subscribe(() => {
       this.applyFilter();
     });
+  }
+  AddServiceDialog(): void {
+    const dialogRef = this.dialog.open(AddServiceDialogComponent, {
+      autoFocus: false,
+      width: '65%',
+      height: '90%',
+      maxWidth: 'none',
+      minHeight: 'none',
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.applyFilter();
+    });
+  }
+  AddComboDialog(): void {
+    const dialogRef = this.dialog.open(AddComboDialogComponent, {
+      autoFocus: false,
+      width: '65%',
+      height: '90%',
+      maxWidth: 'none',
+      minHeight: 'none',
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.applyFilter();
+    });
+  }
+  isAllSelected(): boolean {
+    return (
+      this.products.length > 0 &&
+      this.selectedProductIds.size === this.products.length
+    );
+  }
+
+  toggleSelectAll(event: Event): void {
+    const checkbox = event.target as HTMLInputElement;
+
+    if (checkbox.checked) {
+      // Chọn tất cả
+      this.products.forEach((product) => {
+        this.selectedProductIds.add(product.proAndSerId);
+      });
+    } else {
+      // Bỏ chọn tất cả
+      this.selectedProductIds.clear();
+    }
+
+    this.showActionMenu = this.selectedProductIds.size > 0;
+    console.log('Selected product IDs:', this.selectedProductIds);
   }
 
   showActionMenu: boolean = false;
@@ -363,7 +414,7 @@ export class ProductComponent implements OnInit {
     this.productService.deleteMultipleProducts(idsToDelete).subscribe({
       next: (response) => {
         if (response.success) {
-          console.log('Xóa sản phẩm thành công:', response);
+          console.log('Xóa thành công:', response);
           this.loadProducts();
         } else {
           console.error('Lỗi khi xóa sản phẩm:', response.message);
