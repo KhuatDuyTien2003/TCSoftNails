@@ -38,7 +38,19 @@ namespace NailsTcsoft3.Models
                     .ToArray();
             }
         }
-
+        //public int[]? ProductIds
+        //{
+        //    get
+        //    {
+        //        if (string.IsNullOrEmpty(KeptProductIds))
+        //            return new int[0];
+        //        return KeptProductIds
+        //            .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+        //            .Select(s => int.Parse(s))
+        //            .ToArray();
+        //    }
+        //}
+        //public int[]? KeptProductIds { get; set; }
         public byte ProAndSerType { get; set; }
 
         [DataType(DataType.Date)]
@@ -47,5 +59,12 @@ namespace NailsTcsoft3.Models
         public string? Description { get; set; }
 
         public byte Status { get; set; }
+
+        public string? SelectedProducts { get; set; }
+    }
+    public class SelectedProductDto
+    {
+        public int proAndSerId { get; set; }
+        public int quantity { get; set; }
     }
 }

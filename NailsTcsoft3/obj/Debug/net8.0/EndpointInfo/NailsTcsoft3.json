@@ -622,6 +622,9 @@
                   "Status": {
                     "type": "integer",
                     "format": "int32"
+                  },
+                  "SelectedProducts": {
+                    "type": "string"
                   }
                 }
               },
@@ -673,11 +676,182 @@
                 },
                 "Status": {
                   "style": "form"
+                },
+                "SelectedProducts": {
+                  "style": "form"
                 }
               }
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Products/PostCombo": {
+      "post": {
+        "tags": [
+          "Products"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ProAndSerName": {
+                    "type": "string"
+                  },
+                  "ProAndSerCode": {
+                    "type": "string"
+                  },
+                  "WorkTime": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "InventoryQuantity": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "OriginalPrice": {
+                    "type": "number",
+                    "format": "double"
+                  },
+                  "SellingPrice": {
+                    "type": "number",
+                    "format": "double"
+                  },
+                  "Unit": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "ProductTypeId": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Commission": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Images": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  },
+                  "KeptImageIds": {
+                    "type": "string"
+                  },
+                  "ImageIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "format": "int32"
+                    }
+                  },
+                  "ProAndSerType": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "ExpiryDate": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "Description": {
+                    "type": "string"
+                  },
+                  "Status": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "SelectedProducts": {
+                    "type": "string"
+                  }
+                }
+              },
+              "encoding": {
+                "ProAndSerName": {
+                  "style": "form"
+                },
+                "ProAndSerCode": {
+                  "style": "form"
+                },
+                "WorkTime": {
+                  "style": "form"
+                },
+                "InventoryQuantity": {
+                  "style": "form"
+                },
+                "OriginalPrice": {
+                  "style": "form"
+                },
+                "SellingPrice": {
+                  "style": "form"
+                },
+                "Unit": {
+                  "style": "form"
+                },
+                "ProductTypeId": {
+                  "style": "form"
+                },
+                "Commission": {
+                  "style": "form"
+                },
+                "Images": {
+                  "style": "form"
+                },
+                "KeptImageIds": {
+                  "style": "form"
+                },
+                "ImageIds": {
+                  "style": "form"
+                },
+                "ProAndSerType": {
+                  "style": "form"
+                },
+                "ExpiryDate": {
+                  "style": "form"
+                },
+                "Description": {
+                  "style": "form"
+                },
+                "Status": {
+                  "style": "form"
+                },
+                "SelectedProducts": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Products/GetDetailCombo/{id}": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success"
@@ -795,6 +969,9 @@
                   "Status": {
                     "type": "integer",
                     "format": "int32"
+                  },
+                  "SelectedProducts": {
+                    "type": "string"
                   }
                 }
               },
@@ -845,6 +1022,165 @@
                   "style": "form"
                 },
                 "Status": {
+                  "style": "form"
+                },
+                "SelectedProducts": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Products/PutCombo/{id}": {
+      "put": {
+        "tags": [
+          "Products"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ProAndSerName": {
+                    "type": "string"
+                  },
+                  "ProAndSerCode": {
+                    "type": "string"
+                  },
+                  "WorkTime": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "InventoryQuantity": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "OriginalPrice": {
+                    "type": "number",
+                    "format": "double"
+                  },
+                  "SellingPrice": {
+                    "type": "number",
+                    "format": "double"
+                  },
+                  "Unit": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "ProductTypeId": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Commission": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Images": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  },
+                  "KeptImageIds": {
+                    "type": "string"
+                  },
+                  "ImageIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "format": "int32"
+                    }
+                  },
+                  "ProAndSerType": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "ExpiryDate": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "Description": {
+                    "type": "string"
+                  },
+                  "Status": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "SelectedProducts": {
+                    "type": "string"
+                  }
+                }
+              },
+              "encoding": {
+                "ProAndSerName": {
+                  "style": "form"
+                },
+                "ProAndSerCode": {
+                  "style": "form"
+                },
+                "WorkTime": {
+                  "style": "form"
+                },
+                "InventoryQuantity": {
+                  "style": "form"
+                },
+                "OriginalPrice": {
+                  "style": "form"
+                },
+                "SellingPrice": {
+                  "style": "form"
+                },
+                "Unit": {
+                  "style": "form"
+                },
+                "ProductTypeId": {
+                  "style": "form"
+                },
+                "Commission": {
+                  "style": "form"
+                },
+                "Images": {
+                  "style": "form"
+                },
+                "KeptImageIds": {
+                  "style": "form"
+                },
+                "ImageIds": {
+                  "style": "form"
+                },
+                "ProAndSerType": {
+                  "style": "form"
+                },
+                "ExpiryDate": {
+                  "style": "form"
+                },
+                "Description": {
+                  "style": "form"
+                },
+                "Status": {
+                  "style": "form"
+                },
+                "SelectedProducts": {
                   "style": "form"
                 }
               }
@@ -1027,6 +1363,106 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Products/RestoreProduct/{id}": {
+      "post": {
+        "tags": [
+          "Products"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Products/RestoreMultipleProducts": {
+      "post": {
+        "tags": [
+          "Products"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Products/RestoreAllProducts": {
+      "post": {
+        "tags": [
+          "Products"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Products/GetProductsBySearch/{search}": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "parameters": [
+          {
+            "name": "search",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success"

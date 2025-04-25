@@ -11,6 +11,8 @@ public partial class ComboDetail
 
     public int ServiceId { get; set; }
 
+    public int Quantity { get; set; }
+
     public bool IsDeleted { get; set; }
 
     public bool Status { get; set; }

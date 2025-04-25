@@ -405,6 +405,9 @@ namespace NailsTcsoft3.Migrations
                         .HasColumnType("bit")
                         .HasColumnName("isDeleted");
 
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
                     b.Property<int>("ServiceId")
                         .HasColumnType("int")
                         .HasColumnName("serviceId");
