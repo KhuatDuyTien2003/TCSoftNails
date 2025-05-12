@@ -74,6 +74,207 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "NailsTcsoft3.Controllers.BillController",
+    "Method": "GetAll",
+    "RelativePath": "Bill",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.BillController",
+    "Method": "CreateBill",
+    "RelativePath": "Bill/CreateBill",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "NailsTcsoft3.Models.BillResponseModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.BillController",
+    "Method": "DeleteBill",
+    "RelativePath": "Bill/DeleteBill/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.BillController",
+    "Method": "FilterBill",
+    "RelativePath": "Bill/FilterBill",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "NailsTcsoft3.Controllers.BillController\u002BSearchBillRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.BillController",
+    "Method": "GetPriceListByIdCustomer",
+    "RelativePath": "Bill/GetPriceListByIdCustomer/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.BillController",
+    "Method": "GetProduct",
+    "RelativePath": "Bill/GetProduct/{type}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "type",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.BillController",
+    "Method": "GetPromotionByCode",
+    "RelativePath": "Bill/GetPromotionByCode/{code}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "code",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.BillController",
+    "Method": "SearchProduct",
+    "RelativePath": "Bill/SearchProduct/{name}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "name",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.CategoriesController",
+    "Method": "GetAll",
+    "RelativePath": "Categories",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.CategoriesController",
+    "Method": "CreateCategory",
+    "RelativePath": "Categories/CreateCategory",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "category",
+        "Type": "NailsTcsoft3.Data.Category",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.CategoriesController",
+    "Method": "DeleteCategory",
+    "RelativePath": "Categories/DeleteCategory/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.CategoriesController",
+    "Method": "GetById",
+    "RelativePath": "Categories/GetById/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.CategoriesController",
+    "Method": "UpdateCategory",
+    "RelativePath": "Categories/UpdateCategory/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "category",
+        "Type": "NailsTcsoft3.Data.Category",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "NailsTcsoft3.Controllers.CustomerController",
     "Method": "GetAll",
     "RelativePath": "Customer",
@@ -233,6 +434,85 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "NailsTcsoft3.Controllers.CustomerRanksController",
+    "Method": "GetAll",
+    "RelativePath": "CustomerRanks",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.CustomerRanksController",
+    "Method": "DeleteCustomerRank",
+    "RelativePath": "CustomerRanks/DeleteCustomerRank/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.CustomerRanksController",
+    "Method": "GetById",
+    "RelativePath": "CustomerRanks/GetById/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.CustomerRanksController",
+    "Method": "PostCustomerRank",
+    "RelativePath": "CustomerRanks/PostCustomerRank",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "customerRank",
+        "Type": "NailsTcsoft3.Data.CustomerRank",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.CustomerRanksController",
+    "Method": "PutCustomerRank",
+    "RelativePath": "CustomerRanks/PutCustomerRank/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "customerRank",
+        "Type": "NailsTcsoft3.Data.CustomerRank",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "NailsTcsoft3.Controllers.HeaderController",
     "Method": "GetHeader",
     "RelativePath": "Header",
@@ -240,6 +520,280 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.ProductGroupsController",
+    "Method": "GetAll",
+    "RelativePath": "ProductGroups",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.ProductGroupsController",
+    "Method": "DeleteProductGroup",
+    "RelativePath": "ProductGroups/DeleteProductGroup/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.ProductGroupsController",
+    "Method": "GetById",
+    "RelativePath": "ProductGroups/GetById/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.ProductGroupsController",
+    "Method": "PostProductGroup",
+    "RelativePath": "ProductGroups/PostProductGroup",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productmodel",
+        "Type": "NailsTcsoft3.Models.ProductGroupModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.ProductGroupsController",
+    "Method": "PutProductGroup",
+    "RelativePath": "ProductGroups/PutProductGroup/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "productGroup",
+        "Type": "NailsTcsoft3.Models.ProductGroupModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.ProductsController",
+    "Method": "GetAll",
+    "RelativePath": "Products",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.ProductsController",
+    "Method": "DeleteProduct",
+    "RelativePath": "Products/DeleteProduct/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.ProductsController",
+    "Method": "GetByFilter",
+    "RelativePath": "Products/GetByFilter",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "SearchTerm",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "ProductTypes",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "ProductTypesArray",
+        "Type": "System.Int32[]",
+        "IsRequired": false
+      },
+      {
+        "Name": "ProductGroup",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "Rank",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "Status",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "PageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "PageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.ProductsController",
+    "Method": "GetById",
+    "RelativePath": "Products/GetById/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.ProductsController",
+    "Method": "PostProduct",
+    "RelativePath": "Products/PostProduct",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ProAndSerName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "ProAndSerCode",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "WorkTime",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "InventoryQuantity",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "OriginalPrice",
+        "Type": "System.Decimal",
+        "IsRequired": false
+      },
+      {
+        "Name": "SellingPrice",
+        "Type": "System.Decimal",
+        "IsRequired": false
+      },
+      {
+        "Name": "Unit",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "ProductTypeId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Commission",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Images",
+        "Type": "System.Collections.Generic.List\u00601[[Microsoft.AspNetCore.Http.IFormFile, Microsoft.AspNetCore.Http.Features, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "ProAndSerType",
+        "Type": "System.Byte",
+        "IsRequired": false
+      },
+      {
+        "Name": "ExpiryDate",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Description",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Status",
+        "Type": "System.Byte",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.ProductsController",
+    "Method": "PutProduct",
+    "RelativePath": "Products/PutProduct/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "product",
+        "Type": "NailsTcsoft3.Data.ProductAndService",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {
@@ -434,6 +988,22 @@
   },
   {
     "ContainingType": "NailsTcsoft3.Controllers.StaffController",
+    "Method": "AddAppointment",
+    "RelativePath": "Staff/AddAppointment",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "NailsTcsoft3.Models.AppointmentResponseModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.StaffController",
     "Method": "AddStaffs",
     "RelativePath": "Staff/AddStaffs",
     "HttpMethod": "POST",
@@ -475,6 +1045,22 @@
       {
         "Name": "model",
         "Type": "NailsTcsoft3.Models.StaffModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.StaffController",
+    "Method": "DeleteAppointment",
+    "RelativePath": "Staff/DeleteAppointment/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],
@@ -565,8 +1151,8 @@
   },
   {
     "ContainingType": "NailsTcsoft3.Controllers.StaffController",
-    "Method": "GetServices",
-    "RelativePath": "Staff/GetServices",
+    "Method": "GetService",
+    "RelativePath": "Staff/GetService",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -587,6 +1173,32 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.StaffController",
+    "Method": "GetStaffByServiceIds",
+    "RelativePath": "Staff/GetStaffByServiceIds",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "NailsTcsoft3.Controllers.StaffController\u002BServiceIdModel[]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.StaffController",
+    "Method": "GetTimeAppointment",
+    "RelativePath": "Staff/GetTimeAppointment",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {
@@ -626,6 +1238,22 @@
       {
         "Name": "id",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.StaffController",
+    "Method": "UpdateAppointment",
+    "RelativePath": "Staff/UpdateAppointment",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "NailsTcsoft3.Models.AppointmentResponseModel",
         "IsRequired": true
       }
     ],

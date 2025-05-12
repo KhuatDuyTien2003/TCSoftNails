@@ -1,22 +1,46 @@
 # Build output
 /bin/
+<<<<<<< HEAD
 //obj/
 
 # User-specific files
 *.user
 *.userosscache
 *.suo
+=======
+/obj/
+artifacts/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio
+.vs/
+.vs/**/*
+>>>>>>> origin/tho_backend
 
 # VS Code settings
 .vscode/
 .history/
 
+<<<<<<< HEAD
 # Rider
 .idea/
+=======
+# Rider / JetBrains
+.idea/
+*.DotSettings.user
+*.sln.DotSettings
+_ReSharper*/
+>>>>>>> origin/tho_backend
 
 # Logs
 *.log
 
+<<<<<<< HEAD
 # ASP.NET secrets folder (user secrets)
 **/secrets.json
 **/secrets/*.json
@@ -29,10 +53,20 @@
 project.lock.json
 project.fragment.lock.json
 artifacts/
+=======
+# ASP.NET secrets
+**/secrets.json
+**/secrets/*.json
+
+# Docker (nếu dùng Docker)
+docker-compose.override.yml
+*.env
+>>>>>>> origin/tho_backend
 
 # OS generated files
 .DS_Store
 Thumbs.db
+
 
 node_modules/
 npm-debug.log*
@@ -44,6 +78,7 @@ TestResults/
 *.coverage
 *.coveragejson
 
+<<<<<<< HEAD
 # Others
 *.db
 *.sqlite
@@ -80,8 +115,18 @@ obj/
 *.userosscache
 *.sln.docstates
 
+
+
 # HTTP test files
 *.http
 
 # Configuration
 appsettings.Development.json
+
+# Config (environment-specific)
+appsettings.Development.json
+
+# Project-specific (TCSoftNails)
+
+
+.gitgone

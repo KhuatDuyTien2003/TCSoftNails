@@ -1,4 +1,5 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
@@ -11,15 +12,14 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ThuctapKtktcnNail2025Context>(opts =>
 {
     opts.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
 var secretKeyByte = Encoding.UTF8.GetBytes(builder.Configuration["AppSettings:SecretKey"]);
 builder.Services.AddIdentity<Account, IdentityRole>()
       .AddEntityFrameworkStores<ThuctapKtktcnNail2025Context>()
@@ -31,6 +31,8 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequireUppercase = false;
 });
+
+// Cấu hình CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll",
@@ -38,6 +40,8 @@ builder.Services.AddCors(options =>
                         .AllowAnyMethod()
                         .AllowAnyHeader());
 });
+
+// Cấu hình JWT Authentication
 builder.Services.AddAuthentication(opts =>
 {
     opts.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -58,6 +62,18 @@ builder.Services.AddAuthentication(opts =>
         IssuerSigningKey = new SymmetricSecurityKey(secretKeyByte)
     };
 });
+
+
+// Cấu hình upload file tối đa 100MB
+builder.Services.Configure<FormOptions>(options =>
+{
+    options.MultipartBodyLengthLimit = 100_000_000;
+});
+
+builder.Services.AddTransient<IEmailService, EmailService>();
+
+
+
 
 builder.Services.AddAuthorization(options =>
 {
@@ -89,10 +105,16 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+
+app.UseStaticFiles();
+
 app.UseCors("AllowAll");
-app.UseHttpsRedirection();
+
+//app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();

@@ -24,7 +24,7 @@ namespace NailsTcsoft3.Controllers
             _saveImageRepo = saveImageRepo;
         }
         [HttpGet]
-       [Authorize(policy: "CUSTOMER:VIEW")]
+       //[Authorize(policy: "CUSTOMER:VIEW")]
         public async Task<IActionResult> GetAll(int page = 1, int pageSize = 10) {
             var skip = (page - 1) * pageSize;
             var result =  _context.Customers.Where(c => c.Status == true && c.IsDeleted == false).Select(c => new CustomerSentModel

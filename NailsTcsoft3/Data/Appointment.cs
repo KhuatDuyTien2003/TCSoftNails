@@ -8,6 +8,7 @@ public partial class Appointment
     public int IdAppointment { get; set; }
 
     public DateTime StartTime { get; set; }
+    
 
     public DateTime EndTime { get; set; }
 
@@ -16,6 +17,8 @@ public partial class Appointment
     public string? NumberPhone { get; set; }
 
     public string? Email { get; set; }
+
+    public bool? Gender { get; set; }    
 
     public string? Name { get; set; }
 

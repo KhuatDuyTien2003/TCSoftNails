@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "AG3/wa9bwD0li8XHhL3daQgGzbH1BqbkALC4Ca567FlGsEz4qI6t25a/OlwiiLs5Jwbb8IiY5n61yP8qKtbV0w==",
+  "dgSpecHash": "4cZGTigVyOfTyD/ZHUasnbraCdExN7vQmtlFJ79PHbokB35J7A+ACXNBKjJjff5vXJgTzi636l0IGU5Z2sovgg==",
   "success": true,
-  "projectFilePath": "D:\\CODE\\.NET\\web\\dev\\NailsTcsoft3\\NailsTcsoft3.csproj",
+  "projectFilePath": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\NailsTcsoft3.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\kdt09\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\kdt09\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

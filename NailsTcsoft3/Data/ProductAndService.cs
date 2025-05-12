@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NailsTcsoft3.Data;
 
@@ -11,11 +13,13 @@ public partial class ProductAndService
 
     public string? ProAndSerCode { get; set; }
 
-    public TimeOnly? WorkTime { get; set; }
+    public int? WorkTime { get; set; }
 
     public int? InventoryQuantity { get; set; }
 
-    public decimal? OriginalPrice { get; set; }
+    public decimal OriginalPrice { get; set; }
+
+    public decimal SellingPrice { get; set; }
 
     public int? Unit { get; set; }
 
@@ -27,7 +31,12 @@ public partial class ProductAndService
 
     public byte ProAndSerType { get; set; }
 
+    [DataType(DataType.Date)]
+    public DateTime? ExpiryDate { get; set; }
+
+    public string? Description { get; set; }
+
     public bool IsDeleted { get; set; }
 
-    public bool Status { get; set; }
+    public byte Status { get; set; }
 }

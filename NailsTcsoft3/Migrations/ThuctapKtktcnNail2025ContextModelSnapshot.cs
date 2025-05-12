@@ -177,7 +177,6 @@ namespace NailsTcsoft3.Migrations
                     b.Property<bool?>("IsDelete")
                         .HasColumnType("bit");
 
-
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -207,10 +206,8 @@ namespace NailsTcsoft3.Migrations
                     b.Property<int>("StaffId")
                         .HasColumnType("int");
 
-
                     b.Property<bool?>("Status")
                         .HasColumnType("bit");
-
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
@@ -230,6 +227,90 @@ namespace NailsTcsoft3.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("NailsTcsoft3.Data.Appointment", b =>
+                {
+                    b.Property<int>("IdAppointment")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("IdAppointment");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdAppointment"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Description");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Email");
+
+                    b.Property<DateTime>("EndTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("EndTime");
+
+                    b.Property<bool?>("Gender")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("IdStaff")
+                        .HasColumnType("int")
+                        .HasColumnName("IdStaff");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasColumnName("isDeleted");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Name");
+
+                    b.Property<string>("NumberPhone")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("NumberPhone");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("StartTime");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit")
+                        .HasColumnName("Status");
+
+                    b.HasKey("IdAppointment")
+                        .HasName("PK__Appointment__E8BD939AFBCD6212");
+
+                    b.ToTable("Appointments");
+                });
+
+            modelBuilder.Entity("NailsTcsoft3.Data.AppointmentDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("IdAppointment")
+                        .HasColumnType("int")
+                        .HasColumnName("IdAppointment");
+
+                    b.Property<int>("IdService")
+                        .HasColumnType("int")
+                        .HasColumnName("IdService");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasColumnName("isDeleted");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit")
+                        .HasColumnName("Status");
+
+                    b.HasKey("Id")
+                        .HasName("PK__AppointmentDetail__E8BD939AFBCD6212");
+
+                    b.ToTable("AppointmentDetails");
                 });
 
             modelBuilder.Entity("NailsTcsoft3.Data.Bill", b =>
@@ -252,6 +333,9 @@ namespace NailsTcsoft3.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit")
                         .HasColumnName("isDeleted");
+
+                    b.Property<bool>("IsPay")
+                        .HasColumnType("bit");
 
                     b.Property<decimal?>("MoneyPoint")
                         .HasColumnType("decimal(18, 2)")
@@ -277,9 +361,18 @@ namespace NailsTcsoft3.Migrations
                         .HasColumnType("bit")
                         .HasColumnName("status");
 
+                    b.Property<int>("StatusBill")
+                        .HasColumnType("int");
+
+                    b.Property<decimal?>("TotalDiscount")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<decimal>("TotalMoney")
                         .HasColumnType("decimal(18, 2)")
                         .HasColumnName("totalMoney");
+
+                    b.Property<decimal>("TotalMoneyAfterDiscount")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("BillId")
                         .HasName("PK__Bill__6D903F035C22C48F");
@@ -511,9 +604,6 @@ namespace NailsTcsoft3.Migrations
                         .HasColumnName("numberPhone");
 
                     b.Property<string>("Password")
-
-                        .IsRequired()
-
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("password");
@@ -540,9 +630,6 @@ namespace NailsTcsoft3.Migrations
                         .HasColumnName("urlAvatar");
 
                     b.Property<string>("UserName")
-
-                        .IsRequired()
-
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("userName");
@@ -633,7 +720,6 @@ namespace NailsTcsoft3.Migrations
                     b.ToTable("Feedback", (string)null);
                 });
 
-
             modelBuilder.Entity("NailsTcsoft3.Data.Functions", b =>
                 {
                     b.Property<string>("Id")
@@ -669,7 +755,6 @@ namespace NailsTcsoft3.Migrations
 
                     b.ToTable("Functions");
                 });
-
 
             modelBuilder.Entity("NailsTcsoft3.Data.GoodsReceipt", b =>
                 {
@@ -808,7 +893,6 @@ namespace NailsTcsoft3.Migrations
                     b.ToTable("Permissions");
                 });
 
-
             modelBuilder.Entity("NailsTcsoft3.Data.PriceList", b =>
                 {
                     b.Property<int>("PriceListId")
@@ -893,6 +977,26 @@ namespace NailsTcsoft3.Migrations
                     b.ToTable("PriceListDetail", (string)null);
                 });
 
+            modelBuilder.Entity("NailsTcsoft3.Data.ProAndSerImage", b =>
+                {
+                    b.Property<int>("ImageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ImageId"));
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProAndSerId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ImageId");
+
+                    b.ToTable("ProAndSerImages");
+                });
+
             modelBuilder.Entity("NailsTcsoft3.Data.ProductAndService", b =>
                 {
                     b.Property<int>("ProAndSerId")
@@ -906,6 +1010,14 @@ namespace NailsTcsoft3.Migrations
                         .HasColumnType("int")
                         .HasColumnName("commission");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("text")
+                        .HasColumnName("description");
+
+                    b.Property<DateTime?>("ExpiryDate")
+                        .HasColumnType("date")
+                        .HasColumnName("expiryDate");
+
                     b.Property<int?>("InventoryQuantity")
                         .HasColumnType("int")
                         .HasColumnName("inventoryQuantity");
@@ -914,7 +1026,7 @@ namespace NailsTcsoft3.Migrations
                         .HasColumnType("bit")
                         .HasColumnName("isDeleted");
 
-                    b.Property<decimal?>("OriginalPrice")
+                    b.Property<decimal>("OriginalPrice")
                         .HasColumnType("decimal(18, 2)")
                         .HasColumnName("originalPrice");
 
@@ -937,8 +1049,12 @@ namespace NailsTcsoft3.Migrations
                         .HasColumnType("int")
                         .HasColumnName("productTypeId");
 
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit")
+                    b.Property<decimal>("SellingPrice")
+                        .HasColumnType("decimal(18, 2)")
+                        .HasColumnName("SellingPrice");
+
+                    b.Property<byte>("Status")
+                        .HasColumnType("tinyint")
                         .HasColumnName("status");
 
                     b.Property<int?>("Unit")
@@ -946,12 +1062,10 @@ namespace NailsTcsoft3.Migrations
                         .HasColumnName("unit");
 
                     b.Property<string>("UrlImage")
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(max)")
-                        .HasColumnName("urlImage");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<TimeOnly?>("WorkTime")
-                        .HasColumnType("time")
+                    b.Property<int?>("WorkTime")
+                        .HasColumnType("int")
                         .HasColumnName("workTime");
 
                     b.HasKey("ProAndSerId")
@@ -1055,6 +1169,10 @@ namespace NailsTcsoft3.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(max)")
                         .HasColumnName("urlImage");
+
+                    b.Property<double>("Value_data")
+                        .HasColumnType("float")
+                        .HasColumnName("value_data");
 
                     b.HasKey("PromotionId")
                         .HasName("PK__Promotio__99EB696E00BFEA75");

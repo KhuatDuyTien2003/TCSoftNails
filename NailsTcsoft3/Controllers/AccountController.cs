@@ -27,6 +27,7 @@ namespace NailsTcsoft3.Controllers
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<Account> _userManager;
         private readonly SignInManager<Account> _signInManager;
+
         private readonly IEmailService _emailService;
         public AccountController(ThuctapKtktcnNail2025Context context, IConfiguration configuration, UserManager<Account> userManager, SignInManager<Account> signInManager, IEmailService emailService, RoleManager<IdentityRole> roleManager)
         {
@@ -68,6 +69,7 @@ namespace NailsTcsoft3.Controllers
                     success = false,
                     message = "Tên đăng nhập đã tồn tại!"
                 });
+
             }
             var newUser = new Account
             {
@@ -79,10 +81,13 @@ namespace NailsTcsoft3.Controllers
             var result = await _userManager.CreateAsync(newUser, account.Password);
             if (result.Succeeded)
             {
+
                 return Ok(new
                 {
                     success = true,
+
                     message = "Tạo tài khoản thành công!"
+
                 });
             }
 
@@ -134,9 +139,10 @@ namespace NailsTcsoft3.Controllers
             public string Email { get; set; }
         }
         [HttpPost("ForgotPassword")]
-        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequest model) {
+        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequest model)
+        {
             var user = await _userManager.FindByEmailAsync(model.Email);
-            if(user == null)
+            if (user == null)
             {
                 return Ok(new
                 {
@@ -156,10 +162,16 @@ namespace NailsTcsoft3.Controllers
                     success = true,
                     message = "Truy cập email để đặt lại mật khẩu",
                     token = tokenForgot
+
                 });
             }
-         
+        }
 
+        public class RePassModel
+        {
+            public string Email { get; set; }
+            public string Password { get; set; }
+            public string Token { get; set; }
         }
 
         public class modelPassword
@@ -171,6 +183,7 @@ namespace NailsTcsoft3.Controllers
         }
 
         [HttpPost("ResetPassword")]
+
 
         public async Task<IActionResult> ResetPassword([FromBody] modelPassword data)
         {
@@ -189,14 +202,12 @@ namespace NailsTcsoft3.Controllers
             var token = data.Token;
 
             var user = await _userManager.FindByEmailAsync(email);
+
             if (user == null)
             {
                 return BadRequest(new { success = false, message = "Email không tồn tại" });
             }
-
-
             var result = await _userManager.ResetPasswordAsync(user, token, password);
-
 
             if (!result.Succeeded)
             {

@@ -1,13 +1,19 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using NailsTcsoft3.Data;
 using NailsTcsoft3.Models;
 using NailsTcsoft3.repository;
 using Newtonsoft.Json;
 using OfficeOpenXml;
+using System.Data;
 using System.Drawing.Printing;
+using System.Reflection;
+using System.Reflection.Metadata.Ecma335;
 
 namespace NailsTcsoft3.Controllers
 {
@@ -589,42 +595,8 @@ namespace NailsTcsoft3.Controllers
             }
         }
 
-        public class ServiceModel
-        {
-            public int ServiceId { get; set; }
-            public string ServiceName { get; set; }
-        }
-
-        [HttpGet("GetServices")]
-
-        public async Task<IActionResult> GetServices()
-        {
-            var services = _context.ProductAndServices
-                .Where(s => s.IsDeleted == false && s.ProAndSerType == 2)
-                .Select(s => new ServiceModel
-                {
-                    ServiceId = s.ProAndSerId,
-                    ServiceName = s.ProAndSerName
-                });
-            if (services == null)
-            {
-                return Ok(new ResponseModel<ServiceModel>
-                {
-                    success = false,
-                    message = "Không có dịch vụ nào",
-                    data = null
-                });
-            }
-            else
-            {
-                return Ok(new ResponseModel<ServiceModel[]>
-                {
-                    success = true,
-                    message = "Lấy dữ liệu thành công",
-                    data = services.ToListAsync().Result.ToArray()
-                });
-            }
-        }
+ 
+    
         [HttpGet("GetWorkDate")]
         public async Task<IActionResult> GetWorkDate()
         {
@@ -837,13 +809,15 @@ namespace NailsTcsoft3.Controllers
                         {
                             appointment.AppointmentCustomer.Add(new AppointmentCustomerModel
                             {
-
+                                IdAppointment = item.IdAppointment,
                                 CustomerName = item.Name,
                                 Email = item.Email,
                                 NumberPhone = item.NumberPhone,
+                                Gender = item.Gender,
                                 TimeStart = item.StartTime,
                                 TimeEnd = item.EndTime,
-                                Note = item.Description,
+                                Description = item.Description,
+                                Status = item.Status ?? false,
                                 AppointmentDetails = new List<AppointmentDetailModel>
                             {
                                 new AppointmentDetailModel
@@ -861,19 +835,22 @@ namespace NailsTcsoft3.Controllers
                     {
                         var newAppointment = new AppointmentSendModel
                         {
+                        
                             IdStaff = item.IdStaff,
                             StaffName = item.StaffName,
                             AppointmentCustomer = new List<AppointmentCustomerModel>
                             {
                                 new AppointmentCustomerModel
                                 {
-
+                                    IdAppointment = item.IdAppointment,
                                     CustomerName = item.Name,
                                     Email = item.Email,
                                     NumberPhone = item.NumberPhone,
+                                     Gender = item.Gender,
                                     TimeStart = item.StartTime,
                                     TimeEnd = item.EndTime,
-                                    Note = item.Description,
+                                    Description = item.Description,
+                                    Status = item.Status ?? false,
                                     AppointmentDetails = new List<AppointmentDetailModel>
                                     {
                                         new AppointmentDetailModel
@@ -897,9 +874,282 @@ namespace NailsTcsoft3.Controllers
                      data = result.ToArray()
                  });
             }
-           
-        } 
-        }   
-    
+        }
 
+        [HttpGet("DeleteAppointment/{id}")]
+        public async Task<IActionResult> DeleteAppointment(int id)
+        {
+            var appointment = await _context.Appointments
+                .FirstOrDefaultAsync(a => a.IdAppointment == id && a.IsDeleted == false);
+
+            if (appointment == null)
+            {
+                return Ok(new ResponseModel<string>
+                {
+                    success = false,
+                    message = "Không tìm thấy lịch hẹn",
+                    data = null
+                });
+            }
+
+            appointment.IsDeleted = true;
+            _context.Entry(appointment).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return Ok(new ResponseModel<string>
+            {
+                success = true,
+                message = "Xóa lịch hẹn thành công",
+                data = null
+            });
+        }
+        public class ServiceModel
+        {
+            public int ServiceId { get; set; }
+            public string? ServiceName { get; set; }
+            public decimal? SellingPrice { get; set; }
+            public int? WorkTime { get; set; }
+
+        }
+
+
+        [HttpGet("GetService")]
+        public async Task<IActionResult> GetService()
+        {
+            var listService = await _context.ProductAndServices
+                .Where(s => s.IsDeleted == false && s.ProAndSerType == 2)
+                .Select(s => new ServiceModel
+                {
+                    ServiceId = s.ProAndSerId,
+                    ServiceName = s.ProAndSerName,
+                    SellingPrice = s.SellingPrice,
+                    WorkTime =int.Parse(s.WorkTime.ToString())
+                })
+                .ToListAsync();
+
+            if (listService == null || listService.Count == 0)
+            {
+                return Ok(new ResponseModel<ServiceModel>
+                {
+                    success = false,
+                    message = "Không có dịch vụ nào",
+                    data = null
+                });
+            }
+            else
+            {
+                return Ok(new ResponseModel<ServiceModel[]>
+                {
+                    success = true,
+                    message = "Lấy dữ liệu thành công",
+                    data = listService.ToArray()
+                });
+            }
+        }
+
+        [HttpPost("AddAppointment")]
+       
+        public async Task<IActionResult> AddAppointment(AppointmentResponseModel model)
+        {
+            if (model == null || model.SeviceDetail == null || !model.SeviceDetail.Any())
+            {
+                return BadRequest(new ResponseModel<string>
+                {
+                    success = false,
+                    message = "Dữ liệu không hợp lệ",
+                    data = null
+                });
+            }
+
+            using var transaction = await _context.Database.BeginTransactionAsync();
+            try
+            {
+                var appointment = new Appointment
+                {   
+                 
+                    IdStaff = model.IdStaff,
+                    StartTime = DateTime.Parse(model.StartTime.ToString()),
+                    EndTime = DateTime.Parse(model.EndTime.ToString()),
+                    Description = model.Description,
+                    Email = model.Email,
+                    NumberPhone = model.NumberPhone,
+                    Name = model.Name,
+                    Gender = model.Gender,
+                    IsDeleted = false,
+                    Status = false
+                };
+
+                _context.Appointments.Add(appointment);
+                await _context.SaveChangesAsync();
+
+                var appointmentId = appointment.IdAppointment;
+
+                foreach (var item in model.SeviceDetail)
+                {
+                    var appointmentDetail = new AppointmentDetail
+                    {
+                        IdAppointment = appointmentId,
+                        IdService = item.ServiceId,
+                        IsDeleted = false,
+                        Status = true
+                    };
+                    _context.AppointmentDetails.Add(appointmentDetail);
+                }
+
+                await _context.SaveChangesAsync();
+                await transaction.CommitAsync();
+
+                return Ok(new ResponseModel<string>
+                {
+                    success = true,
+                    message = "Tạo lịch hẹn thành công",
+                    data = appointmentId.ToString()
+                });
+            }
+            catch (Exception ex)
+            {
+                await transaction.RollbackAsync();
+                return StatusCode(500, new ResponseModel<string>
+                {
+                    success = false,
+                    message = $"Đã xảy ra lỗi: {ex.Message}",
+                    data = null
+                });
+            }
+        }
+
+        public class ServiceIdModel
+        {
+            public int ServiceId { get; set; }
+        }
+
+        public class StaffIdModel
+        {
+            public int StaffId { get; set; }
+            public string? StaffName { get; set; }
+            public string? urlAvatar   { get; set; }
+            public double? totalStar { get; set; }
+        }
+
+        
+
+        [HttpPost("GetStaffByServiceIds")]
+        public async Task<IActionResult> GetStaffByServiceIds(ServiceIdModel[] model)
+        {
+            DataTable serviceIdTable = new DataTable();
+            serviceIdTable.Columns.Add("ServiceId", typeof(int));
+            foreach (var item in model)
+            {
+                serviceIdTable.Rows.Add(item.ServiceId);
+            }
+            var parameter = new SqlParameter("@ServiceIds", serviceIdTable)
+            {
+                TypeName = "dbo.ServiceIdList",
+                SqlDbType = SqlDbType.Structured
+            };
+            var listStaff = await _context.Database
+                .SqlQueryRaw<StaffIdModel>("EXEC PROC_GET_STAFF_BY_SERVICE @ServiceIds", parameter)
+                .ToListAsync();
+            if (listStaff == null || listStaff.Count == 0)
+            {
+                return Ok(new ResponseModel<StaffIdModel>
+                {
+                    success = false,
+                    message = "Không có nhân viên nào",
+                    data = null
+                });
+            }
+            else
+            {
+                return Ok(new ResponseModel<StaffIdModel[]>
+                {
+                    success = true,
+                    message = "Lấy dữ liệu thành công",
+                    data = listStaff.ToArray()
+                });
+            }
+        }
+
+        [HttpPost("UpdateAppointment")]
+        public async Task<IActionResult> UpdateAppointment(AppointmentResponseModel model)
+        {
+            var appointment = await _context.Appointments
+                .FirstOrDefaultAsync(a => a.IdAppointment == model.IdAppointment && a.IsDeleted == false);
+            if (appointment == null)
+            {
+                return Ok(new ResponseModel<string>
+                {
+                    success = false,
+                    message = "Không tìm thấy lịch hẹn",
+                    data = null
+                });
+            }
+            else
+            {
+                appointment.StartTime = DateTime.Parse(model.StartTime.ToString());
+                appointment.EndTime = DateTime.Parse(model.EndTime.ToString());
+                appointment.Description = model.Description; 
+                appointment.Email = model.Email;
+                appointment.Gender = model.Gender;
+                appointment.NumberPhone = model.NumberPhone;
+                appointment.Name = model.Name;
+                appointment.Status = model.Status;
+
+                _context.Entry(appointment).State = EntityState.Modified;
+
+                var existingDetails = await _context.AppointmentDetails
+                    .Where(ad => ad.IdAppointment == model.IdAppointment)
+                    .ToListAsync();
+
+                _context.AppointmentDetails.RemoveRange(existingDetails);
+
+                foreach (var item in model.SeviceDetail)
+                {
+                    var appointmentDetail = new AppointmentDetail
+                    {
+                        IdAppointment = model.IdAppointment,
+                        IdService = item.ServiceId,
+                        IsDeleted = false,
+                        Status = true
+                    };
+                    _context.AppointmentDetails.Add(appointmentDetail);
+                }
+
+                await _context.SaveChangesAsync();
+
+                return Ok(new ResponseModel<AppointmentResponseModel>
+                {
+                    success = true,
+                    message = "Cập nhật lịch hẹn thành công",
+                    data = model
+
+                });
+            }
+        }
+
+        public class TimeAppointmentModel
+        {
+            public DateTime StartTime { get; set; }
+            public DateTime EndTime { get; set; }
+        }
+
+        [HttpGet("GetTimeAppointment")]
+        public async Task<IActionResult> GetTimeAppointment()
+        {
+            var listTime = await _context.Appointments
+                .Where(a => a.IsDeleted == false && a.Status == false)
+                .Select(a => new TimeAppointmentModel
+                {
+                    StartTime = a.StartTime,
+                    EndTime = a.EndTime
+                })
+                .ToListAsync(); 
+            return Ok(new ResponseModel<TimeAppointmentModel[]>
+            {
+                success = true,
+                message = "Lấy dữ liệu thành công",
+                data = listTime.ToArray()
+            });
+        }
+    }
 }
