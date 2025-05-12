@@ -1,6 +1,5 @@
 import { AddComboDialogComponent } from './../add-combo-dialog/add-combo-dialog.component';
 import { AddServiceDialogComponent } from './../add-service-dialog/add-service-dialog.component';
-import { CustomerRank } from '../../app.type/customer-rank.type';
 import { ProductGroup } from '../../app.type/product-group.type';
 import { product } from '../../app.type/product.type';
 import { FilterCriteria } from '../../app.type/filter-criteria.type';
@@ -10,11 +9,12 @@ import { FormsModule } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { ProductGroupService } from '../../services/product-group/product-group.service';
-import { CustomerRankService } from '../../services/customer-rank/customer-rank.service';
 import { ProductService } from '../../services/product/product.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddProductDialogComponent } from '../add-product-dialog/add-product-dialog.component';
 import { DetailProductComponent } from '../detail-product/detail-product.component';
+import * as XLSX from 'xlsx';
+import { AddProductGroupDialogComponent } from '../add-product-group-dialog/add-product-group-dialog.component';
 
 @Component({
   selector: 'app-product',
@@ -46,7 +46,7 @@ export class ProductComponent implements OnInit {
   ];
   productGroups: ProductGroup[] = [];
   filteredGroups: ProductGroup[] = [];
-  customerRanks: CustomerRank[] = [];
+
   groupSearchTerm: string = '';
   selectedProductGroup: number | null = null;
 
@@ -64,7 +64,6 @@ export class ProductComponent implements OnInit {
 
   constructor(
     private productGroupService: ProductGroupService,
-    private customerRankService: CustomerRankService,
     private productService: ProductService,
     public dialog: MatDialog
   ) {
@@ -79,8 +78,7 @@ export class ProductComponent implements OnInit {
 
   ngOnInit() {
     this.loadProductGroups();
-    this.loadCustomerRanks();
-    this.applyFilter();
+    this.resetFilter();
   }
 
   loadProductGroups() {
@@ -90,23 +88,6 @@ export class ProductComponent implements OnInit {
           this.productGroups = response.data;
           this.filteredGroups = [...this.productGroups];
           // console.log('Danh sách nhóm hàng:', this.productGroups);
-        } else {
-          console.error('Thông báo lỗi từ server:', response.message);
-        }
-      },
-    });
-  }
-
-  loadCustomerRanks() {
-    this.customerRankService.getCustomerRanks().subscribe({
-      next: (response: any) => {
-        if (response.success) {
-          this.customerRanks = response.data;
-
-          this.rank = this.customerRanks[0].rankId;
-          this.status = this.statuses[0].id;
-          this.stock = this.stocks[0].id;
-          // console.log('Danh sách nhóm khách hàng:', this.customerRanks);
         } else {
           console.error('Thông báo lỗi từ server:', response.message);
         }
@@ -137,10 +118,6 @@ export class ProductComponent implements OnInit {
     this.selectedProductGroup = null;
     this.status = 0;
     this.stock = 0;
-    this.rank =
-      this.customerRanks && this.customerRanks.length > 0
-        ? this.customerRanks[0].rankId
-        : null;
     this.currentPage = 1; // Reset to first page
     this.applyFilter();
   }
@@ -199,7 +176,6 @@ export class ProductComponent implements OnInit {
           this.totalItems = response.totalItems;
           this.totalPages = response.totalPages;
           this.currentPage = response.currentPage;
-          console.log('Thông điệp', response);
         } else {
           this.products = [];
           this.totalItems = 0;
@@ -424,5 +400,92 @@ export class ProductComponent implements OnInit {
         console.error('Lỗi khi gọi API xóa nhiều sản phẩm:', err);
       },
     });
+  }
+
+  showAddGroupDialog(): void {
+    const dialogRef = this.dialog.open(AddProductGroupDialogComponent, {
+      autoFocus: false,
+      maxWidth: 'none',
+      minHeight: 'none',
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.loadProductGroups();
+    });
+  }
+  exportToExcel(): void {
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(
+      this.products.map((product) => ({
+        Tên: product.proAndSerName,
+        Mã: product.proAndSerCode,
+        'Thời gian làm': product.workTime,
+        'Số lượng tồn kho': product.inventoryQuantity,
+        'Giá gốc': product.originalPrice,
+        'Giá bán': product.sellingPrice,
+        'Đơn vị': product.unit,
+        'Nhóm hàng': this.getProductGroupName(product.productTypeId),
+        'Hoa hồng': product.commission,
+        'Phân Loại': this.getProductType(product.proAndSerType),
+        'Trạng thái': this.getStatus(product.status),
+        'Hạn sử dụng': product.expiryDate
+          ? new Date(product.expiryDate).toLocaleDateString('en-GB') // Định dạng ngày tháng: dd/MM/yyyy
+          : '',
+        'Mô tả': product.description,
+      }))
+    );
+
+    // Điều chỉnh độ rộng cột sao cho không nhỏ hơn chiều dài tên cột
+    const columnNames = [
+      'Tên',
+      'Mã',
+      'Thời gian làm',
+      'Số lượng tồn kho',
+      'Giá gốc',
+      'Giá bán',
+      'Đơn vị',
+      'Nhóm hàng',
+      'Hoa hồng',
+      'Phân Loại',
+      'Trạng thái',
+      'Hạn sử dụng',
+    ];
+
+    // Xác định chiều rộng cột tối thiểu (bằng với chiều dài của tên cột)
+    const colWidths: number[] = columnNames.map((name) => name.length);
+
+    // Tính toán chiều rộng cột dựa trên dữ liệu
+    this.products.forEach((product) => {
+      const row = Object.values({
+        Tên: product.proAndSerName,
+        Mã: product.proAndSerCode,
+        'Thời gian làm': product.workTime,
+        'Số lượng tồn kho': product.inventoryQuantity,
+        'Giá gốc': product.originalPrice,
+        'Giá bán': product.sellingPrice,
+        'Đơn vị': product.unit,
+        'Nhóm hàng': this.getProductGroupName(product.productTypeId),
+        'Hoa hồng': product.commission,
+        'Phân Loại': this.getProductType(product.proAndSerType),
+        'Trạng thái': this.getStatus(product.status),
+        'Hạn sử dụng': product.expiryDate
+          ? new Date(product.expiryDate).toLocaleDateString('en-GB') // Định dạng ngày tháng: dd/MM/yyyy
+          : '',
+      });
+
+      row.forEach((value, index) => {
+        const valueLength = value ? value.toString().length : 0;
+        colWidths[index] = Math.max(colWidths[index], valueLength); // Đảm bảo chiều rộng cột phù hợp với dữ liệu
+      });
+    });
+
+    // Áp dụng chiều rộng cột, thêm 2 đơn vị vào chiều dài cột để tránh việc cắt chữ
+    ws['!cols'] = colWidths.map((width) => ({ wch: width + 2 }));
+
+    // Tạo workbook mới
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sản phẩm');
+
+    // Xuất ra file Excel
+    XLSX.writeFile(wb, 'DanhSachSanPham.xlsx');
   }
 }

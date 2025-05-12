@@ -14,23 +14,6 @@
           />
         </div>
 
-        <!-- Customer Rank / Price List -->
-        <div class="content">
-          <h3>Bảng giá áp dụng</h3>
-          <div *ngFor="let customerrank of customerRanks">
-            <label>
-              <input
-                type="radio"
-                name="customerRank"
-                [(ngModel)]="rank"
-                [value]="customerrank.rankId"
-                (change)="applyFilter()"
-              />
-              {{ customerrank.rankName }}
-            </label>
-          </div>
-        </div>
-
         <!-- Product Types -->
         <div class="content">
           <h3>Loại sản phẩm</h3>
@@ -48,7 +31,12 @@
 
         <!-- Product Groups -->
         <div class="content">
-          <h3>Nhóm hàng</h3>
+          <div class="add-GroupPro">
+            <h3>Nhóm hàng</h3>
+            <span (click)="showAddGroupDialog()">
+              <i class="fa-solid fa-circle-plus" style="color: #aab5ca"></i
+            ></span>
+          </div>
           <input
             type="text"
             [(ngModel)]="groupSearchTerm"
@@ -130,7 +118,7 @@
                 </li>
                 <li class="px-4 py-4 hover:bg-gray-100 cursor-pointer">
                   <a class="flex items-center gap-5">
-                    <i class="far fa-plus"></i> Ngừng kinh doanh
+                    <i class="far fa-plus"></i> Ẩn
                   </a>
                 </li>
                 <li
@@ -186,10 +174,9 @@
             <a class="btn-green">
               <i class="fas fa-fw fa-file-import"></i>Import
             </a>
-            <a class="btn-green">
+            <a (click)="exportToExcel()" class="btn-green">
               <i class="fas fa-fw fa-file-export"></i>Xuất file
             </a>
-
             <!-- Column Toggle -->
             <div class="relative">
               <button class="btn-green" (click)="toggleCheckboxList()">
@@ -218,7 +205,6 @@
             </div>
           </div>
         </div>
-
         <!-- Products Table -->
         <table class="product-table">
           <thead>

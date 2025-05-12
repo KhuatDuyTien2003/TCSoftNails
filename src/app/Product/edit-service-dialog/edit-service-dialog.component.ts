@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
+  FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
@@ -18,6 +19,9 @@ import { ProductService } from '../../services/product/product.service';
 import { ProductGroupService } from '../../services/product-group/product-group.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AddProductGroupDialogComponent } from '../add-product-group-dialog/add-product-group-dialog.component';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 
 @Component({
   selector: 'app-edit-service-dialog',
@@ -30,6 +34,9 @@ import { AddProductGroupDialogComponent } from '../add-product-group-dialog/add-
     ReactiveFormsModule,
     QuillModule,
     NzIconModule,
+    NzInputModule,
+    NzSelectModule,
+    NzInputNumberModule,
   ],
 })
 export class EditServiceDialogComponent implements OnInit {
@@ -54,7 +61,9 @@ export class EditServiceDialogComponent implements OnInit {
       images: { imageId: number; imageUrl: string }[];
     }
   ) {}
-
+  get unitControl() {
+    return this.productForm.get('unit') as FormControl;
+  }
   ngOnInit(): void {
     this.initForm();
     this.loadProductGroups();
@@ -72,7 +81,30 @@ export class EditServiceDialogComponent implements OnInit {
     if (this.data?.productId) {
       this.loadProductData(this.data.productId);
     }
+    this.unitControl.valueChanges.subscribe((value) => {
+      this.onUnitChange(value);
+    });
   }
+  onUnitChange(value: number) {
+    const commissionControl = this.productForm.get('commission') as FormControl;
+
+    if (value === 1) {
+      // Nếu là %
+      const currentValue = commissionControl.value;
+      if (currentValue > 100) {
+        commissionControl.setValue(100);
+      }
+    } else {
+      // Nếu là VND
+      if (
+        commissionControl.value !== null &&
+        commissionControl.value % 1 !== 0
+      ) {
+        commissionControl.setValue(Math.round(commissionControl.value));
+      }
+    }
+  }
+
   detailsContent: string = '';
 
   selectTab(tab: string) {
@@ -86,9 +118,9 @@ export class EditServiceDialogComponent implements OnInit {
       proAndSerType: [1],
       originalPrice: [0, [Validators.min(0)]],
       sellingPrice: [0, [Validators.min(0)]],
-      unit: [''],
+      unit: [0],
       productTypeId: [''],
-      commission: [''],
+      commission: [0],
       status: ['', Validators.required],
       workTime: [0, [Validators.min(0)]],
       description: [''],

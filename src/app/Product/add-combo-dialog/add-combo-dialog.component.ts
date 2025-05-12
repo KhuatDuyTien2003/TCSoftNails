@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
+  FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
@@ -19,7 +20,9 @@ import { ProductGroup } from '../../app.type/product-group.type';
 import { AddProductGroupDialogComponent } from '../add-product-group-dialog/add-product-group-dialog.component';
 import { debounceTime, Subject, switchMap } from 'rxjs';
 import { NzSelectModule } from 'ng-zorro-antd/select';
-
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 @Component({
   selector: 'app-add-combo-dialog',
   standalone: true,
@@ -32,6 +35,9 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
     QuillModule,
     NzIconModule,
     NzSelectModule,
+    NzDatePickerModule,
+    NzInputModule,
+    NzInputNumberModule,
   ],
 })
 export class AddComboDialogComponent implements OnInit {
@@ -57,9 +63,10 @@ export class AddComboDialogComponent implements OnInit {
       originalPrice: [0, [Validators.min(0)]],
       sellingPrice: [0, [Validators.min(0)]],
       productTypeId: [''],
-      commission: [''],
+      commission: [0],
+      unit: [0],
       status: ['', Validators.required],
-      expiryDate: [''],
+      expiryDate: [null],
       description: [''],
     });
   }
@@ -69,6 +76,17 @@ export class AddComboDialogComponent implements OnInit {
   proAndSerList: product[] = [];
   selectedProAndSer: product[] = [];
   listOfOption: product[] = [];
+  disabledDate = (current: Date): boolean => {
+    // So sánh ngày hiện tại (dùng getTime để lấy timestamp) với ngày được kiểm tra
+    return current && current.getTime() < new Date().setHours(0, 0, 0, 0);
+  };
+  formatDate(date: Date): string {
+    const day = date.getDate().toString().padStart(2, '0'); // Lấy ngày
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Lấy tháng
+    const year = date.getFullYear(); // Lấy năm
+    return `${day}/${month}/${year}`; // Trả về ngày theo định dạng dd/MM/yyyy
+  }
+
   search(value: string): void {
     if (value) {
       this.searchSubject.next(value);
@@ -90,7 +108,12 @@ export class AddComboDialogComponent implements OnInit {
       0
     );
   }
-
+  removeAllProducts(): void {
+    const selectedArray = this.productForm.get('selectedProducts') as FormArray;
+    this.selectedProAndSer = [];
+    selectedArray.clear();
+    this.finalPriceProducts = 0;
+  }
   onSelectProduct(proAndSerId: number): void {
     console.log('Bạn vừa chọn ID:', proAndSerId);
 
@@ -140,7 +163,9 @@ export class AddComboDialogComponent implements OnInit {
       0
     );
   }
-
+  get unitControl() {
+    return this.productForm.get('unit') as FormControl;
+  }
   ngOnInit(): void {
     this.loadProductGroups();
     this.searchSubject
@@ -162,8 +187,29 @@ export class AddComboDialogComponent implements OnInit {
           this.listOfOption = [];
         },
       });
+    this.unitControl.valueChanges.subscribe((value) => {
+      this.onUnitChange(value);
+    });
   }
+  onUnitChange(value: number) {
+    const commissionControl = this.productForm.get('commission') as FormControl;
 
+    if (value === 1) {
+      // Nếu là %
+      const currentValue = commissionControl.value;
+      if (currentValue > 100) {
+        commissionControl.setValue(100);
+      }
+    } else {
+      // Nếu là VND
+      if (
+        commissionControl.value !== null &&
+        commissionControl.value % 1 !== 0
+      ) {
+        commissionControl.setValue(Math.round(commissionControl.value));
+      }
+    }
+  }
   selectedTab: string = 'info';
   detailsContent: string = '';
 
@@ -195,6 +241,11 @@ export class AddComboDialogComponent implements OnInit {
         quantity: product.quantity,
       }));
       formData.append('selectedProducts', JSON.stringify(selectedProducts));
+      if (this.productForm.value.expiryDate) {
+        const expiryDate = this.productForm.value.expiryDate;
+        const formattedExpiryDate = this.formatDate(expiryDate);
+        formData.append('expiryDate', formattedExpiryDate);
+      }
       this.productForm.get('originalPrice')?.setValue(this.finalPriceProducts);
       console.log(
         'Danh sách sản phẩm đã chọn (trong FormData):',
@@ -211,8 +262,9 @@ export class AddComboDialogComponent implements OnInit {
       this.selectedFiles
         .filter((file) => file !== null)
         .forEach((file) => {
-          formData.append('Images', file!);
+          formData.append('images', file!);
         });
+      console.log('FormData:', formData.get('expiryDate'));
       // Gọi API để gửi dữ liệu
       this.productService.postCombo(formData).subscribe({
         next: (response) => {
@@ -279,15 +331,12 @@ export class AddComboDialogComponent implements OnInit {
     }
   }
 
-  openFileDialog(event: KeyboardEvent, index: number): void {
-    // Ví dụ: nếu phím Enter được nhấn, bạn có thể kích hoạt input tương ứng
-    if (event.key === 'Enter') {
-      const inputElem = document.getElementById(
-        'productImageFiles' + index
-      ) as HTMLElement;
-      if (inputElem) {
-        inputElem.click();
-      }
+  openFileDialog(event: Event, index: number): void {
+    const inputElem = document.getElementById(
+      'productImageFiles' + index
+    ) as HTMLElement;
+    if (inputElem) {
+      inputElem.click();
     }
   }
   removeImageFile(index: number) {

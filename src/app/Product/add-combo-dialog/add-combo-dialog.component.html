@@ -49,7 +49,7 @@
           <div class="mt-4 grid grid-cols-1 md:grid-cols-[60%_40%] gap-4">
             <!-- Mã hàng hóa -->
             <div class="flex items-center justify-between">
-              <label class="w-[20%] block text-gray-700">
+              <label class="w-[20%] block text-gray-700 font-medium">
                 Mã hàng hóa
                 <i class="fas fa-info-circle text-gray-400"></i>
               </label>
@@ -62,22 +62,25 @@
             </div>
             <!-- Hạn Sử Dụng -->
             <div class="flex items-center justify-between">
-              <label class="w-[30%] block text-gray-700">
+              <label class="w-[30%] block text-gray-700 font-medium">
                 Hạn Sử Dụng
                 <i class="fas fa-info-circle text-gray-400"></i>
               </label>
               <div class="w-[70%] mr-5">
-                <input
+                <!-- Sử dụng nz-date-picker và giới hạn ngày nhỏ nhất là hôm nay -->
+                <nz-date-picker
                   formControlName="expiryDate"
-                  type="date"
+                  [nzFormat]="'dd/MM/yyyy'"
+                  [nzDisabledDate]="disabledDate"
                   class="w-full mr-5 border rounded p-2 mt-1"
-                />
+                >
+                </nz-date-picker>
               </div>
             </div>
 
             <!-- Tên hàng -->
             <div class="flex items-center justify-between">
-              <label class="w-[20%] block text-gray-700">
+              <label class="w-[20%] block text-gray-700 font-medium">
                 Tên hàng
                 <i class="fas fa-info-circle text-gray-400"></i>
               </label>
@@ -111,7 +114,9 @@
 
             <!-- Giá bán -->
             <div class="flex items-center justify-between">
-              <label class="w-[30%] block text-gray-700">Giá bán</label>
+              <label class="w-[30%] block text-gray-700 font-medium"
+                >Giá bán</label
+              >
               <div class="w-[70%] mr-5">
                 <div class="flex items-center">
                   <input
@@ -148,7 +153,7 @@
             </div>
             <!-- Nhóm hàng -->
             <div class="flex items-center justify-between">
-              <label class="w-[20%] block text-gray-700">
+              <label class="w-[20%] block text-gray-700 font-medium">
                 Nhóm hàng
                 <i class="fas fa-info-circle text-gray-400"></i>
               </label>
@@ -175,23 +180,33 @@
                 </button>
               </div>
             </div>
-            <!-- Hoa hồng -->
-            <div class="flex items-center justify-between">
-              <label class="w-[30%] block text-gray-700">Hoa hồng NV</label>
-              <div class="w-[70%] mr-5 flex items-center">
-                <input
+            <!-- Hoa hồng NV -->
+            <div class="flex h-full items-center justify-between mb-4 mr-5">
+              <label class="w-[30%] block text-gray-700 font-medium">
+                Hoa hồng NV
+              </label>
+              <nz-input-group class="w-[70%]" nzCompact>
+                <nz-input-number
                   formControlName="commission"
-                  class="w-full border rounded p-2 mt-1"
-                  type="number"
-                  placeholder="Hoa hồng NV"
-                />
-                <button
-                  type="button"
-                  class="ml-2 border border-gray-400 rounded w-10 h-10 flex items-center justify-center text-gray-400"
+                  class="w-[70%]"
+                  [nzPlaceHolder]="'Nhập giá trị'"
+                  [nzSize]="'large'"
+                  [nzStep]="unitControl.value === 0 ? 1 : 0.1"
+                  [nzPrecision]="unitControl.value === 0 ? 0 : 2"
+                  [nzMin]="0"
+                  [nzMax]="unitControl.value === 1 ? 100 : null"
                 >
-                  <i class="fas fa-copy"></i>
-                </button>
-              </div>
+                </nz-input-number>
+                <nz-select
+                  formControlName="unit"
+                  [nzSize]="'large'"
+                  class="w-[30%]"
+                  (ngModelChange)="onUnitChange($event)"
+                >
+                  <nz-option [nzValue]="0" nzLabel="VND"></nz-option>
+                  <nz-option [nzValue]="1" nzLabel="%"></nz-option>
+                </nz-select>
+              </nz-input-group>
             </div>
 
             <!-- Ảnh sản phẩm -->
@@ -227,11 +242,9 @@
                       />
                     </span>
 
-                    <!-- Label để kích hoạt input file -->
-                    <label
-                      [attr.for]="'productImageFiles' + i"
+                    <div
                       class="relative group cursor-pointer transition-all duration-300 transform border-2 hover:border-blue-500 flex items-center justify-center"
-                      (keyup)="openFileDialog($event, currentIndex + i)"
+                      (click)="openFileDialog($event, currentIndex + i)"
                       tabindex="0"
                     >
                       <!-- Hiện chữ "+ Thêm" nếu chưa có ảnh -->
@@ -248,7 +261,7 @@
                         [src]="img || 'assets/images/image.png'"
                         alt="Ảnh sản phẩm"
                       />
-                    </label>
+                    </div>
 
                     <input
                       *ngIf="!img"
@@ -272,7 +285,7 @@
             </div>
             <!-- Trạng thái -->
             <div class="flex items-center justify-between">
-              <label class="w-[30%] block text-gray-700">
+              <label class="w-[30%] block text-gray-700 font-medium">
                 Trạng thái
                 <i class="fas fa-info-circle text-gray-400"></i>
               </label>
@@ -356,7 +369,11 @@
                     class="h-10 border border-sky-100 text-gray-800 text-sm font-semibold"
                   >
                     <th class="text-center w-10 cursor-pointer">
-                      <i class="fa-solid fa-xmark" style="color: #e52a2a"></i>
+                      <i
+                        (click)="removeAllProducts()"
+                        class="fa-solid fa-xmark"
+                        style="color: #e52a2a"
+                      ></i>
                     </th>
                     <th class="text-center py-2">STT</th>
                     <th class="text-left pl-2">Mã</th>
@@ -427,7 +444,7 @@
         <!-- Tab Mô tả chi tiết -->
         <div [hidden]="selectedTab !== 'details'" class="mt-4 h-[380px]">
           <div class="flex flex-col h-full">
-            <label class="text-gray-700 mb-2">Mô tả chi tiết</label>
+            <label class="text-gray-700 mb-2 font-medium">Mô tả chi tiết</label>
             <quill-editor
               class="h-[80%]"
               formControlName="description"

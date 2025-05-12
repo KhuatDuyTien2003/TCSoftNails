@@ -2,6 +2,7 @@ import { ProductService } from '../../services/product/product.service';
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
+  FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
@@ -15,6 +16,10 @@ import { ProductGroupService } from '../../services/product-group/product-group.
 import { ProductGroup } from '../../app.type/product-group.type';
 import { AddProductGroupDialogComponent } from '../add-product-group-dialog/add-product-group-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 @Component({
   selector: 'app-add-product-dialog',
   standalone: true,
@@ -24,6 +29,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     ReactiveFormsModule,
     QuillModule,
     NzIconModule,
+    NzDatePickerModule,
+    NzInputModule,
+    NzSelectModule,
+    NzInputNumberModule,
   ],
   templateUrl: './add-product-dialog.component.html',
   styleUrls: ['./add-product-dialog.component.scss'],
@@ -50,17 +59,52 @@ export class AddProductDialogComponent implements OnInit {
       inventoryQuantity: [0, [Validators.min(0)]],
       originalPrice: [0, [Validators.min(0)]],
       sellingPrice: [0, [Validators.min(0)]],
-      unit: [''],
+      unit: [0],
       productTypeId: [''],
-      commission: [''],
+      commission: [0],
       status: ['', Validators.required],
-      expiryDate: [''],
+      expiryDate: [null],
       description: [''],
     });
   }
-
+  disabledDate = (current: Date): boolean => {
+    // So sánh ngày hiện tại (dùng getTime để lấy timestamp) với ngày được kiểm tra
+    return current && current.getTime() < new Date().setHours(0, 0, 0, 0);
+  };
+  formatDate(date: Date): string {
+    const day = date.getDate().toString().padStart(2, '0'); // Lấy ngày
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Lấy tháng
+    const year = date.getFullYear(); // Lấy năm
+    return `${day}/${month}/${year}`; // Trả về ngày theo định dạng dd/MM/yyyy
+  }
+  get unitControl() {
+    return this.productForm.get('unit') as FormControl;
+  }
   ngOnInit(): void {
     this.loadProductGroups();
+    this.unitControl.valueChanges.subscribe((value) => {
+      this.onUnitChange(value);
+    });
+  }
+
+  onUnitChange(value: number) {
+    const commissionControl = this.productForm.get('commission') as FormControl;
+
+    if (value === 1) {
+      // Nếu là %
+      const currentValue = commissionControl.value;
+      if (currentValue > 100) {
+        commissionControl.setValue(100);
+      }
+    } else {
+      // Nếu là VND
+      if (
+        commissionControl.value !== null &&
+        commissionControl.value % 1 !== 0
+      ) {
+        commissionControl.setValue(Math.round(commissionControl.value));
+      }
+    }
   }
   selectedTab: string = 'info';
   detailsContent: string = '';
@@ -86,6 +130,12 @@ export class AddProductDialogComponent implements OnInit {
   onSubmit() {
     if (this.productForm.valid) {
       const formData = new FormData();
+      if (this.productForm.value.expiryDate) {
+        const expiryDate = this.productForm.value.expiryDate;
+        const formattedExpiryDate = this.formatDate(expiryDate);
+        formData.append('expiryDate', formattedExpiryDate);
+        console.log('expiryDate', formattedExpiryDate);
+      }
 
       // Thêm các trường dữ liệu
       Object.entries(this.productForm.value).forEach(([key, value]) => {
@@ -150,15 +200,12 @@ export class AddProductDialogComponent implements OnInit {
     }
   }
 
-  openFileDialog(event: KeyboardEvent, index: number): void {
-    // Ví dụ: nếu phím Enter được nhấn, bạn có thể kích hoạt input tương ứng
-    if (event.key === 'Enter') {
-      const inputElem = document.getElementById(
-        'productImageFiles' + index
-      ) as HTMLElement;
-      if (inputElem) {
-        inputElem.click();
-      }
+  openFileDialog(event: Event, index: number): void {
+    const inputElem = document.getElementById(
+      'productImageFiles' + index
+    ) as HTMLElement;
+    if (inputElem) {
+      inputElem.click();
     }
   }
   removeImageFile(index: number) {

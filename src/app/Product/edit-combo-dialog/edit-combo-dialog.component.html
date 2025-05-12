@@ -67,11 +67,14 @@
                 <i class="fas fa-info-circle text-gray-400"></i>
               </label>
               <div class="w-[70%] mr-5">
-                <input
+                <!-- Sử dụng nz-date-picker và giới hạn ngày nhỏ nhất là hôm nay -->
+                <nz-date-picker
                   formControlName="expiryDate"
-                  type="date"
+                  [nzFormat]="'dd/MM/yyyy'"
+                  [nzDisabledDate]="disabledDate"
                   class="w-full mr-5 border rounded p-2 mt-1"
-                />
+                >
+                </nz-date-picker>
               </div>
             </div>
 
@@ -175,23 +178,33 @@
                 </button>
               </div>
             </div>
-            <!-- Hoa hồng -->
-            <div class="flex items-center justify-between">
-              <label class="w-[30%] block text-gray-700">Hoa hồng NV</label>
-              <div class="w-[70%] mr-5 flex items-center">
-                <input
+            <!-- Hoa hồng NV -->
+            <div class="flex h-full items-center justify-between mb-4 mr-5">
+              <label class="w-[30%] block text-gray-700 font-medium">
+                Hoa hồng NV
+              </label>
+              <nz-input-group class="w-[70%]" nzCompact>
+                <nz-input-number
                   formControlName="commission"
-                  class="w-full border rounded p-2 mt-1"
-                  type="number"
-                  placeholder="Hoa hồng NV"
-                />
-                <button
-                  type="button"
-                  class="ml-2 border border-gray-400 rounded w-10 h-10 flex items-center justify-center text-gray-400"
+                  class="w-[70%]"
+                  [nzPlaceHolder]="'Nhập giá trị'"
+                  [nzSize]="'large'"
+                  [nzStep]="unitControl.value === 0 ? 1 : 0.1"
+                  [nzPrecision]="unitControl.value === 0 ? 0 : 2"
+                  [nzMin]="0"
+                  [nzMax]="unitControl.value === 1 ? 100 : null"
                 >
-                  <i class="fas fa-copy"></i>
-                </button>
-              </div>
+                </nz-input-number>
+                <nz-select
+                  formControlName="unit"
+                  class="w-[30%]"
+                  [nzSize]="'large'"
+                  (ngModelChange)="onUnitChange($event)"
+                >
+                  <nz-option [nzValue]="0" nzLabel="VND"></nz-option>
+                  <nz-option [nzValue]="1" nzLabel="%"></nz-option>
+                </nz-select>
+              </nz-input-group>
             </div>
 
             <!-- Ảnh sản phẩm -->
@@ -355,7 +368,11 @@
                     class="h-10 border border-sky-100 text-gray-800 text-sm font-semibold"
                   >
                     <th class="text-center w-10 cursor-pointer">
-                      <i class="fa-solid fa-xmark" style="color: #e52a2a"></i>
+                      <i
+                        (click)="removeAllProducts()"
+                        class="fa-solid fa-xmark"
+                        style="color: #e52a2a"
+                      ></i>
                     </th>
                     <th class="text-center py-2">STT</th>
                     <th class="text-left pl-2">Mã</th>
@@ -460,7 +477,7 @@
             (click)="resetForm()"
             class="bg-gray-500 text-white px-4 py-2 rounded"
           >
-            Làm mới
+            Dữ liệu ban đầu
           </button>
           <button
             type="button"
