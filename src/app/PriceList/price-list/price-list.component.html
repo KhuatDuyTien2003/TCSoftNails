@@ -1,0 +1,212 @@
+<div class="page-wrapper bg-gray-100">
+  <main class="main-container">
+    <div class="flex">
+      <aside class="w-80 rounded-md m-5">
+        <!-- Bảng giá sản phẩm -->
+        <div class="mb-6 bg-white p-4 rounded-md shadow-md">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-semibold">Bảng giá</h3>
+            <button
+              (click)="showAddPriceList()"
+              class="text-gray-400 hover:text-gray-600"
+            >
+              <i class="fa-solid fa-circle-plus text-xl"></i>
+            </button>
+          </div>
+          <div class="flex items-center gap-2">
+            <nz-select
+              [(ngModel)]="selectedPriceList"
+              (nzScrollToBottom)="loadPriceList()"
+              (ngModelChange)="applyFilter()"
+              nzPlaceHolder="Chọn bảng giá"
+              [nzDropdownRender]="renderTemplate"
+              class="flex-1"
+            >
+              <nz-option
+                *ngFor="let item of priceList"
+                [nzValue]="item.priceListId"
+                [nzLabel]="item.priceListName"
+              ></nz-option>
+            </nz-select>
+
+            <ng-template #renderTemplate>
+              <nz-spin *ngIf="isLoading"></nz-spin>
+            </ng-template>
+            <button
+              class="border-2 border-gray-300 p-1 rounded hover:border-gray-400"
+              (click)="showEditPriceList()"
+            >
+              <i class="fa-solid fa-pen-to-square text-lg"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Product Groups -->
+        <div class="bg-white p-4 rounded-md shadow-md">
+          <h3 class="text-lg font-semibold mb-4">Nhóm hàng</h3>
+          <input
+            type="text"
+            [(ngModel)]="groupSearchTerm"
+            (input)="debounceFilterGroups()"
+            placeholder="Tìm kiếm nhóm hàng..."
+            class="w-full px-3 py-2 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+          <ul class="max-h-[50%] overflow-y-auto space-y-2">
+            <li
+              *ngFor="let group of filteredGroups"
+              (click)="selectGroup(group.productTypeId)"
+              [ngClass]="{
+                'bg-blue-500 text-white':
+                  selectedProductGroup === group.productTypeId,
+                'hover:bg-gray-100':
+                  selectedProductGroup !== group.productTypeId
+              }"
+              class="flex justify-between items-center px-3 py-2 rounded transition-all duration-200 cursor-pointer relative group"
+            >
+              {{ group.productTypeName }}
+              <span
+                class="absolute right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:text-yellow-500"
+                (click)="
+                  addGroupProToList(group.productTypeId);
+                  $event.stopPropagation()
+                "
+              >
+                <i class="fa-solid fa-arrow-right-long fa-lg"></i>
+              </span>
+            </li>
+          </ul>
+        </div>
+      </aside>
+
+      <section class="flex-1 p-4 w-full h-[100hv]">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-semibold">{{ getPriceListName() }}</h3>
+        </div>
+        <div
+          class="overflow-y-auto max-h-[calc(100vh-150px)] border-2 bg-gray-200"
+        >
+          <table
+            class="w-full table-fixed border-collapse bg-white shadow-md border border-gray-300"
+          >
+            <thead class="sticky top-0 bg-blue-100 z-10">
+              <tr class="bg-blue-100 h-14 text-left">
+                <th class="px-3 py-2 border-b w-[5%]">
+                  <i
+                    (click)="removeAllProducts()"
+                    class="fa-solid fa-xmark cursor-pointer"
+                    style="color: #e52a2a"
+                  ></i>
+                </th>
+                <th class="px-3 py-2 border-b w-[20%]">Mã hàng hóa</th>
+                <th class="px-3 py-2 border-b w-[20%]">Tên hàng</th>
+                <th class="px-3 py-2 border-b w-[15%]">Nhóm hàng</th>
+                <th class="px-3 py-2 border-b w-[20%]">Giá vốn (VND)</th>
+                <th class="px-3 py-2 border-b w-[20%]">Giá bán (VND)</th>
+              </tr>
+            </thead>
+            <tbody class="w-full">
+              <ng-container *ngFor="let product of products">
+                <tr class="hover:bg-gray-100 h-16">
+                  <td class="border-b px-3 py-2 w-[5%]">
+                    <i
+                      (click)="removeProduct(product.proAndSerId)"
+                      class="fa-solid fa-xmark cursor-pointer"
+                      style="color: #e52a2a"
+                    ></i>
+                  </td>
+
+                  <td class="border-b px-3 py-2 w-[20%] truncate">
+                    {{ product.proAndSerCode }}
+                  </td>
+                  <td class="border-b px-3 py-2 w-[20%] truncate">
+                    {{ product.proAndSerName }}
+                  </td>
+                  <td class="border-b px-3 py-2 w-[15%] truncate">
+                    {{ getProductGroupName(product.productTypeId) }}
+                  </td>
+                  <td class="border-b px-3 py-2 w-[20%]">
+                    {{ product.originalPrice ?? 0 | number }}
+                  </td>
+                  <td class="border-b px-3 py-2 w-[20%]">
+                    <div class="flex items-center gap-2">
+                      <input
+                        class="border border-gray-300 rounded px-2 py-1 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        type="number"
+                        [(ngModel)]="product.sellingPrice"
+                        [ngClass]="{
+                          'text-red-500':
+                            (product.originalPrice ?? 0) >= product.sellingPrice
+                        }"
+                      />
+                      <button
+                        class="bg-green-500 rounded text-white px-2 py-1 hover:bg-green-600 whitespace-nowrap"
+                        (click)="updateSellingPrice(product.proAndSerId)"
+                      >
+                        Lưu
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- No Products Message -->
+        <div *ngIf="products.length === 0" class="text-center py-4">
+          Không có sản phẩm nào.
+        </div>
+
+        <!-- Pagination -->
+        <div class="w-full mt-4">
+          <div
+            *ngIf="totalPages > 0"
+            class="flex justify-center items-center gap-2 flex-wrap"
+          >
+            <!-- Previous Button -->
+            <button
+              (click)="prevPage()"
+              [disabled]="currentPage === 1 || isLoading"
+              class="px-3 py-2 bg-gray-200 rounded disabled:opacity-50 flex items-center gap-1"
+            >
+              <i class="fas fa-chevron-left"></i>
+              <span
+                *ngIf="isLoading && currentPage !== 1"
+                class="animate-spin w-4 h-4 border border-gray-400 border-t-transparent rounded-full"
+              ></span>
+            </button>
+
+            <!-- Page Numbers -->
+            <ng-container *ngFor="let page of pageNumbers">
+              <span *ngIf="page === -1" class="px-2">...</span>
+              <button
+                *ngIf="page !== -1"
+                (click)="goToPage(page)"
+                [ngClass]="{
+                  'bg-blue-500 text-white': currentPage === page,
+                  'bg-gray-200': currentPage !== page
+                }"
+                class="px-3 py-2 rounded"
+              >
+                {{ page }}
+              </button>
+            </ng-container>
+
+            <!-- Next Button -->
+            <button
+              (click)="nextPage()"
+              [disabled]="currentPage === totalPages || isLoading"
+              class="px-3 py-2 bg-gray-200 rounded disabled:opacity-50 flex items-center gap-1"
+            >
+              <span
+                *ngIf="isLoading && currentPage !== totalPages"
+                class="animate-spin w-4 h-4 border border-gray-400 border-t-transparent rounded-full"
+              ></span>
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>

@@ -1,4 +1,5 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, Inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -8,51 +9,48 @@ import {
   Validators,
 } from '@angular/forms';
 import {
+  MAT_DIALOG_DATA,
   MatDialog,
   MatDialogRef,
-  MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { QuillModule } from 'ngx-quill';
 import { ProductService } from '../../services/product/product.service';
 import { ProductGroupService } from '../../services/product-group/product-group.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { CommonModule } from '@angular/common';
-import { QuillModule } from 'ngx-quill';
-import { NzIconModule } from 'ng-zorro-antd/icon';
 import { AddProductGroupDialogComponent } from '../add-product-group-dialog/add-product-group-dialog.component';
-import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 
 @Component({
-  selector: 'app-edit-product-dialog',
+  selector: 'app-edit-service-dialog',
   standalone: true,
-  templateUrl: './edit-product-dialog.component.html',
-  styleUrls: ['./edit-product-dialog.component.scss'],
+  templateUrl: './edit-service-dialog.component.html',
+  styleUrl: './edit-service-dialog.component.scss',
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     QuillModule,
     NzIconModule,
-    NzDatePickerModule,
     NzInputModule,
     NzSelectModule,
     NzInputNumberModule,
   ],
 })
-export class EditProductDialogComponent implements OnInit {
+export class EditServiceDialogComponent implements OnInit {
   productForm!: FormGroup;
   selectedTab: string = 'info';
   productGroups: any[] = [];
-  today: string = '';
+
   selectedImages: (string | null)[] = Array(10).fill(null);
   selectedFiles: ({ file: File; imageId: number } | null)[] =
     Array(10).fill(null);
 
   constructor(
     private fb: FormBuilder,
-    private dialogRef: MatDialogRef<EditProductDialogComponent>,
+    private dialogRef: MatDialogRef<EditServiceDialogComponent>,
     private productService: ProductService,
     private productGroupService: ProductGroupService,
     private snackBar: MatSnackBar,
@@ -63,22 +61,13 @@ export class EditProductDialogComponent implements OnInit {
       images: { imageId: number; imageUrl: string }[];
     }
   ) {}
-  disabledDate = (current: Date): boolean => {
-    // So sánh ngày hiện tại (dùng getTime để lấy timestamp) với ngày được kiểm tra
-    return current && current.getTime() < new Date().setHours(0, 0, 0, 0);
-  };
-  formatDate(date: Date): string {
-    const day = date.getDate().toString().padStart(2, '0'); // Lấy ngày
-    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Lấy tháng
-    const year = date.getFullYear(); // Lấy năm
-    return `${day}/${month}/${year}`; // Trả về ngày theo định dạng dd/MM/yyyy
-  }
   get unitControl() {
     return this.productForm.get('unit') as FormControl;
   }
   ngOnInit(): void {
     this.initForm();
     this.loadProductGroups();
+
     if (this.data?.images) {
       this.data.images.forEach((image, index) => {
         this.selectedFiles[index] = {
@@ -96,7 +85,6 @@ export class EditProductDialogComponent implements OnInit {
       this.onUnitChange(value);
     });
   }
-
   onUnitChange(value: number) {
     const commissionControl = this.productForm.get('commission') as FormControl;
 
@@ -116,6 +104,7 @@ export class EditProductDialogComponent implements OnInit {
       }
     }
   }
+
   detailsContent: string = '';
 
   selectTab(tab: string) {
@@ -126,15 +115,14 @@ export class EditProductDialogComponent implements OnInit {
     this.productForm = this.fb.group({
       proAndSerName: ['', [Validators.required, Validators.minLength(3)]],
       proAndSerCode: [''],
-      proAndSerType: [2],
-      inventoryQuantity: [0, [Validators.min(0)]],
+      proAndSerType: [1],
       originalPrice: [0, [Validators.min(0)]],
       sellingPrice: [0, [Validators.min(0)]],
       unit: [0],
       productTypeId: [''],
       commission: [0],
       status: ['', Validators.required],
-      expiryDate: [null],
+      workTime: [0, [Validators.min(0)]],
       description: [''],
     });
   }
@@ -152,10 +140,6 @@ export class EditProductDialogComponent implements OnInit {
   loadProductData(productId: number) {
     this.productService.getProductById(productId).subscribe({
       next: (product) => {
-        // Chuyển đổi expiryDate thành Date nếu nó là chuỗi
-        if (product.expiryDate && typeof product.expiryDate === 'string') {
-          product.expiryDate = new Date(product.expiryDate);
-        }
         this.productForm.patchValue(product);
       },
       error: (err) => console.error(err),
@@ -165,12 +149,7 @@ export class EditProductDialogComponent implements OnInit {
   onSubmit() {
     if (this.productForm.valid) {
       const formData = new FormData();
-      if (this.productForm.value.expiryDate) {
-        const expiryDate = this.productForm.value.expiryDate;
-        const formattedExpiryDate = this.formatDate(expiryDate);
-        formData.append('expiryDate', formattedExpiryDate);
-        console.log('expiryDate', formattedExpiryDate);
-      }
+
       Object.entries(this.productForm.value).forEach(([key, value]) => {
         if (value !== null && value !== undefined) {
           formData.append(key, value.toString());
@@ -191,7 +170,7 @@ export class EditProductDialogComponent implements OnInit {
           keptImageIds.push(id);
         }
       });
-      console.log('sellingPrice', this.productForm.value.sellingPrice);
+
       // Thêm danh sách ảnh giữ lại để server biết xoá những ảnh khác
       formData.append('keptImageIds', keptImageIds.join(','));
 

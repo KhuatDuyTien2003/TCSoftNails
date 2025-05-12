@@ -9,4 +9,5 @@ export interface FilterCriteria {
   rank?: number;
   pageNumber: number;
   pageSize: number;
+  priceListId?: number;
 }

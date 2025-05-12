@@ -67,6 +67,21 @@ export class ProductService {
       .post<any>(url, product, options)
       .pipe(catchError(this.handleError));
   }
+  postCombo(product: FormData): Observable<any> {
+    const url = `${this.base_url}/Products/PostCombo`;
+    // Nếu product là FormData, bạn không cần đặt Content-Type
+    const options = { ...this.httpOptions };
+    if (product instanceof FormData) {
+      // Loại bỏ header Content-Type nếu có
+      if (options.headers) {
+        options.headers = options.headers.delete('Content-Type');
+      }
+    }
+
+    return this.http
+      .post<any>(url, product, options)
+      .pipe(catchError(this.handleError));
+  }
 
   getImagesByProductId(id: number): Observable<any> {
     const url = `${this.base_url}/Products/GetImagesByProductId/${id}`;
@@ -93,6 +108,25 @@ export class ProductService {
       .put<any>(url, product, options)
       .pipe(catchError(this.handleError));
   }
+  updateCombo(id: number, product: FormData): Observable<any> {
+    const url = `${this.base_url}/Products/PutCombo/${id}`;
+    console.log('Updating Combo:', id);
+    // Nếu product là FormData, bạn không cần đặt Content-Type
+    const options = { ...this.httpOptions };
+    if (product instanceof FormData) {
+      // Loại bỏ header Content-Type nếu có
+      if (options.headers) {
+        options.headers = options.headers.delete('Content-Type');
+      }
+    }
+    // Đảm bảo FormData được cấu hình đúng
+    this.logFormData(product);
+
+    return this.http
+      .put<any>(url, product, options)
+      .pipe(catchError(this.handleError));
+  }
+
   private logFormData(formData: FormData): void {
     console.log('---- FormData entries ----');
     for (const [key, val] of formData.entries()) {
@@ -105,6 +139,19 @@ export class ProductService {
   }
   getProductById(id: number): Observable<any> {
     const url = `${this.base_url}/Products/GetById/${id}`;
+    return this.http
+      .get<any>(url, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
+  getDetailCombo(id: number): Observable<any> {
+    const url = `${this.base_url}/Products/GetDetailCombo/${id}`;
+    return this.http
+      .get<any>(url, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+  getProBySearch(search: string): Observable<any> {
+    const url = `${this.base_url}/Products/GetProductsBySearch/${search}`;
     return this.http
       .get<any>(url, this.httpOptions)
       .pipe(catchError(this.handleError));
