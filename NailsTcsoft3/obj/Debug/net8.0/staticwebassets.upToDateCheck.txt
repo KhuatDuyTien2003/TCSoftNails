@@ -1,7 +1,0 @@
-wwwroot\uploads\Images\anh1.jpg
-wwwroot\uploads\Images\anh2.jpg
-wwwroot\uploads\Images\anh3.png
-wwwroot\uploads\Images\anh4.jpg
-wwwroot\uploads\Images\anh4.png
-wwwroot\uploads\Images\default-image.jpg
-wwwroot\uploads\Images\f15622f9-967d-4508-834d-f69f069982c9.jpg
