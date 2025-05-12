@@ -1,16 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Promotion } from '../app.type/promotion.type';
+import { Promotion } from '../app.type/Promotion.type';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PromotionService {
-
   private apiUrl = 'https://localhost:7087/Promotion';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getAllPromotions(): Observable<any> {
     return this.http.get(`${this.apiUrl}/GetAllPromotion`);

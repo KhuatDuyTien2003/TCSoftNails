@@ -1,15 +1,22 @@
+
+
+
 import { Component, OnInit } from '@angular/core';
-import { Promotion } from '../../../../app/app.type/promotion.type';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PromotionService } from '../../../services/promotion.service';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators,  } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-promotion-edit',
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './promotion-edit.component.html',
-  styleUrl: './promotion-edit.component.css'
+  styleUrl: './promotion-edit.component.css',
 })
 export class PromotionEditComponent implements OnInit {
   promotionId!: number;
@@ -23,7 +30,7 @@ export class PromotionEditComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       this.promotionId = +params['id'];
       this.loadPromotion(this.promotionId);
     });
@@ -42,7 +49,7 @@ export class PromotionEditComponent implements OnInit {
       },
       error: (err) => {
         console.error('Lỗi lấy Promotion theo id:', err);
-      }
+      },
     });
   }
 
@@ -60,7 +67,7 @@ export class PromotionEditComponent implements OnInit {
       urlImage: [promotion.urlImage, Validators.required],
       isDeleted: [promotion.isDeleted],
       status: [promotion.status],
-      value_data:[promotion.value_data]
+      value_data: [promotion.value_data],
     });
   }
 
@@ -70,16 +77,18 @@ export class PromotionEditComponent implements OnInit {
       return;
     }
 
-    this.promotionService.updatePromotion(this.promotionId, this.promotionForm.value).subscribe({
-      next: (res) => {
-        if (res.success) {
-          alert(res.message);
-          this.router.navigate(['/promotion-list']);
-        }
-      },
-      error: (err) => {
-        console.error('Lỗi cập nhật:', err);
-      }
-    });
+    this.promotionService
+      .updatePromotion(this.promotionId, this.promotionForm.value)
+      .subscribe({
+        next: (res) => {
+          if (res.success) {
+            alert(res.message);
+            this.router.navigate(['/promotion-list']);
+          }
+        },
+        error: (err) => {
+          console.error('Lỗi cập nhật:', err);
+        },
+      });
   }
 }

@@ -36,7 +36,6 @@ registerLocaleData(vi);
     FormsModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     HttpClientModule,

@@ -18,11 +18,7 @@ import { NzRadioModule } from 'ng-zorro-antd/radio';
 import {
   catchError,
   filter,
-
-
   of,
-
-
   Subject,
   switchMap,
   takeUntil,
@@ -49,8 +45,6 @@ import { RouterModule } from '@angular/router';
   ],
 })
 export class RegisterComponent implements OnInit, OnDestroy {
-
-
   messageError: string = '';
 
   private fb = inject(NonNullableFormBuilder);
@@ -97,8 +91,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.http
       .CreateStaff(account)
       .pipe(
-
-
         tap((data) => console.log('CreateStaff response:', data.data?.staffId)), // Kiểm tra null safety
 
         switchMap((data) => {
@@ -127,7 +119,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
             console.log('Thêm thành công', data);
           }
         },
-
 
         error: (err) => console.error('Đăng ký thất bại:', err),
       });

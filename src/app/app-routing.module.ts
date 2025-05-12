@@ -33,7 +33,6 @@ const routes: Routes = [
   { path: 'form-add-appointment', component: FormAppointmentComponent },
   { path: 'Forgot-Password', component: ForgotPasswordComponent },
   { path: 'Reset-Password', component: ResetPasswordComponent },
-
   { path: 'customer', component: CustomerComponent },
   { path: 'staff', component: StaffComponent },
   { path: 'staff/calendar-staff', component: CalendarStaffComponent },
@@ -44,14 +43,11 @@ const routes: Routes = [
   { path: 'customer-rank', component: CustomerRankComponent },
   { path: 'bill/add-receipt', component: AddReceiptComponent },
   { path: 'form', component: BillFilterComponent },
-  { path: '**', component: NotFound502Component },
-
-  // { path: ':id', component: ProductComponent },
-
   { path: 'promotion-list', component: PromotionListComponent },
   { path: 'promotion-add', component: PromotionAddComponent },
   { path: 'promotion-edit/:id', component: PromotionEditComponent },
 
+  { path: '**', component: NotFound502Component },
 ];
 
 @NgModule({

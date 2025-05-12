@@ -1,15 +1,20 @@
 import { Component } from '@angular/core';
 import { PromotionService } from '../../../services/promotion.service';
 import { Router } from '@angular/router';
-import { Promotion } from '../../../../app/app.type/promotion.type';
+import { Promotion } from '../../../app.type/Promotion.type';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-promotion-add',
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './promotion-add.component.html',
-  styleUrl: './promotion-add.component.css'
+  styleUrl: './promotion-add.component.css',
 })
 export class PromotionAddComponent {
   promotionForm: FormGroup;
@@ -32,7 +37,7 @@ export class PromotionAddComponent {
       urlImage: ['', Validators.required],
       isDeleted: [false],
       status: [false],
-      value_data: [0,Validators.required]
+      value_data: [0, Validators.required],
     });
   }
 
@@ -55,7 +60,7 @@ export class PromotionAddComponent {
       },
       error: (err) => {
         console.error('Lỗi thêm mới:', err);
-      }
+      },
     });
   }
 }
