@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\NailsTcsoft3.props" />
-</Project>
