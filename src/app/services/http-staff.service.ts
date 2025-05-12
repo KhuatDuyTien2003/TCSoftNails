@@ -209,10 +209,11 @@ export class HttpStaffService {
       idStaff: model.idStaff,
       name: model.customerName,
       email: model.email,
+      gender: model.gender,
       numberPhone: model.numberPhone,
       startTime: format(model.startTime, "yyyy-MM-dd'T'HH:mm:ss"),
       endTime: format(model.endTime, "yyyy-MM-dd'T'HH:mm:ss"),
-      desciption: model.description,
+      description: model.description,
       seviceDetail: model.listOfSevice.map((s) => ({
         idAppointment: 100,
         serviceId: Number(s),

@@ -53,7 +53,7 @@ export class HeaderComponent implements OnInit {
   getSubmenuTitle(): string {
     return `
       <div style="display: flex; align-items: center;">
-        <img src="http://localhost:5213/uploads/${this.staff?.urlAvatar}" alt="avatar" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 8px;" />
+        <img src="http://apithuctapnail.tcsoft.vn/uploads/${this.staff?.urlAvatar}" alt="avatar" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 8px;" />
         <span>${this.staff?.staffName}</span>
       </div>
     `;

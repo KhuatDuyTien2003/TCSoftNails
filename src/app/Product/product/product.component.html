@@ -1,3 +1,4 @@
+<app-header></app-header>
 <div class="page-wrapper">
   <main class="main-container">
     <div class="flex-container">
@@ -110,7 +111,7 @@
           <span>Hàng hóa</span>
           <div class="button-group">
             <!-- Operations Dropdown -->
-            <div class="relative group inline-block">
+            <div *ngIf="showActionMenu" class="relative group inline-block">
               <a class="btn-green cursor-pointer">
                 <i class="fa-solid fa-ellipsis-vertical"></i> Thao tác
                 <i class="fa fa-caret-down"></i>
@@ -133,9 +134,13 @@
                     <i class="far fa-plus"></i> Ngừng kinh doanh
                   </a>
                 </li>
-                <li class="px-4 py-4 hover:bg-gray-100 cursor-pointer">
+                <li
+                  class="px-4 py-4 hover:bg-gray-100 cursor-pointer"
+                  (click)="deleteProducts()"
+                >
                   <a class="flex items-center gap-5">
-                    <i class="far fa-plus"></i> Xóa
+                    <i class="far fa-plus" (click)="deleteProducts()"></i>
+                    Xóa
                   </a>
                 </li>
               </ul>
@@ -210,7 +215,9 @@
         <table class="product-table">
           <thead>
             <tr class="table-header">
-              <th><input type="checkbox" /></th>
+              <th>
+                <input type="checkbox" />
+              </th>
               <th>Mã hàng hóa</th>
               <th>Hinh ảnh</th>
               <th>Tên hàng</th>
@@ -235,13 +242,19 @@
                 (click)="toggleDetail(product)"
               >
                 <td class="table-cell-bordered">
-                  <input type="checkbox" [value]="product.proAndSerId" />
+                  <input
+                    type="checkbox"
+                    [value]="product.proAndSerId"
+                    (click)="
+                      showActions(product.proAndSerId); $event.stopPropagation()
+                    "
+                  />
                 </td>
                 <td class="table-cell-bordered">{{ product.proAndSerCode }}</td>
                 <td class="table-cell-img">
                   <img
                     *ngIf="product.urlImage"
-                    [src]="'http://localhost:5213' + product.urlImage"
+                    [src]="'http://apithuctapnail.tcsoft.vn' + product.urlImage"
                     alt="{{ product.proAndSerName }}"
                     lazyLoad="true"
                   />

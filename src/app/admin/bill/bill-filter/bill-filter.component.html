@@ -1,0 +1,44 @@
+<div class="bill-filter">
+  <h1>Hóa đơn</h1>
+  <div class="item-filter">
+    <h3>Tìm kiếm</h3>
+    <input type="text" name="billId" placeholder="Theo mã hóa đơn" id="" (change)="setSearchModel($event)">
+    <input type="text" name="customerName" placeholder="Theo tên khách hàng" id="" (change)="setSearchModel($event)">
+    <input type="text" name="productName" placeholder="Theo tên sản phẩm, dịch vụ, combo" id=""
+      (change)="setSearchModel($event)">
+    <input type="text" name="receiption" placeholder="Theo người tạo hóa đơn" id="" (change)="setSearchModel($event)">
+  </div>
+  <div class="status-bill">
+    <h3>Trạng thái hóa đơn</h3>
+    <label for="unpaid"><input type="checkbox" name="unpaid" id="unpaid" [value]="0"
+        (change)="setSearchCheckBox($event)"> Chưa thanh toán</label>
+    <label for="paid"><input type="checkbox" name="paid" id="paid" [value]="1" (change)="setSearchCheckBox($event)"> Đã
+      thanh toán</label>
+    <label for="cancel"><input type="checkbox" name="cancel" id="cancel" [value]="2"
+        (change)="setSearchCheckBox($event)"> Đã hủy</label>
+    <label for="overdue"><input type="checkbox" name="overdue" id="overdue" [value]="3"
+        (change)="setSearchCheckBox($event)"> Quá hạn</label>
+  </div>
+  <div class="payid-bill">
+    <h3>Trạng thái hóa đơn</h3>
+    <label for="cash"><input type="checkbox" name="cash" id="cash" [value]="0" (change)="setSearchCheckBox($event)">
+      Tiền mặt</label>
+    <label for="card"><input type="checkbox" name="card" id="card" [value]="1" (change)="setSearchCheckBox($event)">
+      Chuyển khoản</label>
+
+  </div>
+
+  <div class="time">
+    <h3>Thời gian</h3>
+    <nz-select [(ngModel)]="timeSelect" (change)="setSearchModel($event)">
+
+      <nz-option [nzLabel]="'Hôm qua'" [nzValue]="'ytd'"></nz-option>
+      <nz-option [nzLabel]="'Hôm nay'" [nzValue]="'today'"></nz-option>
+      <nz-option [nzLabel]="'Tuần này'" [nzValue]="'week'"></nz-option>
+      <nz-option [nzLabel]="'Tuần trước'" [nzValue]="'lastweek'"></nz-option>
+    </nz-select>
+    <nz-range-picker [(ngModel)]="date" (ngModelChange)="onChangeDate($event)"></nz-range-picker>
+
+  </div>
+</div>
+

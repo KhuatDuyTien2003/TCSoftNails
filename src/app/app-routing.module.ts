@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { AccountComponent } from './admin/account/account.component';
 import { RegisterComponent } from './admin/register/register.component';
 import { ForgotPasswordComponent } from './admin/forgot-password/forgot-password.component';
@@ -14,12 +15,18 @@ import { FormAppointmentComponent } from './admin/appointment/form-appointment/f
 import { NotFound502Component } from './not-found502/not-found502.component';
 
 import { ProductComponent } from './Product/product/product.component';
+import { CustomerRankComponent } from './admin/customer/customer-rank/customer-rank.component';
+import { BillComponent } from './admin/bill/bill.component';
+import { ReceiptComponent } from './admin/bill/receipt/receipt.component';
+import { AddReceiptComponent } from './admin/bill/add-receipt/add-receipt.component';
+import { PaymentComponent } from './admin/bill/payment/payment.component';
+import { BillFilterComponent } from './admin/bill/bill-filter/bill-filter.component';
 
 const routes: Routes = [
   { path: 'Login', component: AccountComponent },
   { path: 'Register', component: RegisterComponent },
   { path: '', component: AccountComponent },
-
+  { path: 'bill', component: BillComponent },
   { path: 'form-add-appointment', component: FormAppointmentComponent },
   { path: 'Forgot-Password', component: ForgotPasswordComponent },
   { path: 'Reset-Password', component: ResetPasswordComponent },
@@ -30,6 +37,9 @@ const routes: Routes = [
   { path: 'addShift', component: AddShiftComponent },
   { path: 'Forgot-Password', component: ForgotPasswordComponent },
   { path: 'product', component: ProductComponent },
+  { path: 'customer-rank', component: CustomerRankComponent },
+  { path: 'bill/add-receipt', component: AddReceiptComponent },
+  { path: 'form', component: BillFilterComponent },
   { path: '**', component: NotFound502Component },
 
   // { path: ':id', component: ProductComponent },

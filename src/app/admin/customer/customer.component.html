@@ -27,16 +27,28 @@
         <option value="tomorow">Ngày mai</option>
       </Select>
       <nz-range-picker
-      name="dateObject"
-      [(ngModel)]="date"
-      (ngModelChange)="onChangeDate($event)"
-    ></nz-range-picker>    </div>
+        name="dateObject"
+        [(ngModel)]="date"
+        (ngModelChange)="onChangeDate($event)"
+      ></nz-range-picker>
+    </div>
     <div class="search-box">
-      <h3>Hạng khách hàng</h3>
-      <Select class="search-input" name="rankId" id="rankId">
-        <option value="1">1</option>
-        <option value="1">1</option>
-      </Select>
+      <div style="display: flex; justify-content: space-between">
+        <h3>Hạng khách hàng</h3>
+        <nz-icon
+          style="position: relative; top: -5px"
+          nzType="plus-circle"
+          nzTheme="outline"
+          (click)="openFormRank()"
+        >
+        </nz-icon>
+      </div>
+
+      <select class="search-input" name="rankId" id="rankId">
+        <option *ngFor="let item of customerRankList" [value]="item.rankId">
+          {{ item.rankName }}
+        </option>
+      </select>
     </div>
     <div class="search-box">
       <h3>Giới tính</h3>
@@ -138,7 +150,7 @@
                 <div class="image">
                   <img
                     [src]="
-                      'http://localhost:5213/uploads/' +
+                      'http://apithuctapnail.tcsoft.vn/uploads/' +
                       (item.urlAvatar || 'default.png')
                     "
                     alt="Avatar"
@@ -299,3 +311,4 @@
     </div>
   </div>
 </div>
+<app-customer-rank #formAddRank></app-customer-rank>

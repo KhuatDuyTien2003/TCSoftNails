@@ -1,0 +1,319 @@
+// ===== Variables =====
+$primary-color: #007BFF;
+$light-bg: #f5f9ff;
+$text-color: #333;
+$border-color: #e0e0e0;
+
+// ===== Container =====
+.container-receipt {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Roboto', sans-serif;
+  background-color: white;
+  padding: 1rem;
+  color: $text-color;
+  height: 100%;
+  box-sizing: border-box;
+
+  // ===== Header Receipt =====
+  .header-receipt {
+    flex-shrink: 0; // Không co lại
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: $primary-color;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+
+    h2 {
+      margin: 0;
+    }
+
+    .bill-list {
+      list-style: none;
+      display: flex;
+      gap: 0.5rem;
+      margin: 0;
+
+      li {
+        background-color: white;
+        color: $primary-color;
+        padding: 0.3rem 0.7rem;
+        border-radius: 20px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: lighten($primary-color, 35%);
+        }
+
+        ::ng-deep nz-icon[nzType="close"] {
+          font-size: 1rem;
+          margin-top: 2px;
+          cursor: pointer;
+          transition: color 0.3s;
+          color: rgb(0, 0, 0) !important;
+
+          ::ng-deep nz-icon[nzType="close"]:hover {
+            color: rgb(255, 255, 255);
+          }
+        }
+      }
+
+      nz-icon {
+        font-size: 1.2rem;
+        cursor: pointer;
+      }
+    }
+  }
+
+  // ===== Receipt Section =====
+  .receipt {
+    display: flex;
+    flex: 1; // Chiếm phần còn lại của chiều cao
+    margin-top: 1rem;
+    gap: 1rem;
+    overflow: hidden;
+
+    .service {
+      width: 30%;
+      display: flex;
+      flex-direction: column;
+      background-color: $light-bg;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      overflow-y: auto;
+    }
+
+    .receipt-detail {
+      width: 70%;
+      display: flex;
+      flex-direction: column;
+      background-color: $light-bg;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      overflow-y: auto;
+    }
+
+    .receipt-detail {
+      justify-content: space-between;
+    }
+
+    // === Search Field ===
+    .search {
+      display: flex;
+      gap: 10px; // khoảng cách giữa 2 ô
+
+      .searchName {
+        flex: 7; // chiếm 70%
+      }
+
+      .searchPriceList {
+        flex: 3; // chiếm 30%
+      }
+
+      nz-select {
+        width: 100%;
+      }
+
+      .loading-icon {
+        margin-right: 8px;
+      }
+    }
+
+
+    // === Category Tabs ===
+    .category {
+      ul {
+        display: flex;
+        list-style: none;
+        gap: 1rem;
+        padding: 0;
+        margin-top: 1rem;
+
+        li {
+          background-color: white;
+          color: $primary-color;
+          padding: 0.3rem 0.7rem;
+          border-radius: 20px;
+          font-weight: bold;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          gap: 0.3rem;
+          transition: background-color 0.3s;
+
+          &:hover {
+            color: red;
+          }
+        }
+
+        li.active {
+          background-color: $primary-color;
+          color: white;
+          padding: 0.3rem 0.7rem;
+          border-radius: 20px;
+          font-weight: bold;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          gap: 0.3rem;
+          transition: background-color 0.3s;
+        }
+
+      }
+    }
+
+    // === Category Items List ===
+    .category-list {
+      margin-top: 1rem;
+      overflow-y: auto;
+
+      ul {
+        list-style: none;
+        padding: 0;
+
+        li {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          background-color: white;
+          padding: 0.7rem;
+          border-radius: 8px;
+          margin-bottom: 0.5rem;
+          border: 1px solid $border-color;
+          width: 100%;
+
+          .category-detail {
+            display: flex;
+            align-items: center;
+            width: 100%;
+
+            img {
+              width: 60px;
+              height: 60px;
+              object-fit: cover;
+              border-radius: 8px;
+            }
+
+            .category-content {
+              p {
+                margin: 0.2rem 0;
+                font-size: 0.9rem;
+              }
+            }
+          }
+
+          transition: background-color 0.5s;
+
+          &:hover {
+            background-color: rgb(222, 219, 219);
+
+          }
+        }
+      }
+    }
+
+    // === Customer Info ===
+    .infor-customer {
+      display: flex;
+      align-items: center;
+      background-color: white;
+      padding: 1rem;
+      border-radius: 8px;
+      margin: 1rem 0;
+      border: 1px solid $border-color;
+
+      .img img {
+        width: 60px;
+        height: 60px;
+        margin-right: 10px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .customer-detail {
+        margin-left: 1rem;
+
+        p {
+          margin: 0.3rem 0;
+          font-size: 0.9rem;
+        }
+      }
+    }
+
+    // === Product Table ===
+    .product {
+      flex: 1;
+      overflow-y: auto;
+
+      .tbl {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: white;
+        border-radius: 8px;
+        overflow: hidden;
+
+        th,
+        td {
+
+          padding: 0.75rem;
+          text-align: center;
+          border-bottom: 1px solid $border-color;
+
+          span {
+
+            padding: 3px;
+            padding-left: 4px;
+            border-radius: 30px;
+
+            &:hover {
+              background-color: #bdbaba;
+              border-radius: 10px;
+            }
+          }
+        }
+
+        thead {
+          background-color: rgb(114, 216, 244);
+          color: white;
+
+          th {
+            font-weight: 600;
+          }
+        }
+
+        tbody tr:hover {
+          background-color: lighten($primary-color, 45%);
+        }
+      }
+    }
+
+    // === Payment Button ===
+    .payment {
+      margin-top: auto;
+      text-align: right;
+      padding-top: 1rem;
+      border-top: 1px solid $border-color;
+
+      button {
+        background-color: $primary-color;
+        color: white;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+
+        &:hover {
+          background-color: darken($primary-color, 5%);
+        }
+      }
+    }
+  }
+}

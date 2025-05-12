@@ -5,17 +5,15 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
+import { BaseHttpService } from '../base-http.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CategoryService {
-  private base_url = 'http://localhost:5213';
-  private httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    }),
-  };
+  baseClass = new BaseHttpService();
+  private base_url = this.baseClass.base_url;
+  httpOptions = this.baseClass.httpOption;
 
   constructor(private http: HttpClient) {}
 

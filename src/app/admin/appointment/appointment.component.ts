@@ -124,7 +124,7 @@ export class AppointmentComponent implements OnInit {
   }
 
   getWeekDays(start: Date, end: Date): Date[] {
-    const days = [];
+    const days: Date[] = [];
     let currentDate = new Date(start);
     while (currentDate <= end) {
       days.push(new Date(currentDate));

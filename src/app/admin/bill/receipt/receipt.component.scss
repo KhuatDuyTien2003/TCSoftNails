@@ -1,0 +1,147 @@
+.receipt {
+  width: 90%;
+  max-width: 600px;
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
+  border: 2px dashed #ccc;
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.infor-shop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+
+  .infor-detail {
+    h1 {
+      font-size: 24px;
+      font-family: "Brush Script MT", cursive;
+      margin: 0;
+    }
+
+    p {
+      font-size: 14px;
+      margin: 5px 0;
+    }
+  }
+
+  .logo {
+    img {
+      display: none;
+    }
+  }
+}
+
+h1 {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 15px 0;
+  text-transform: uppercase;
+}
+
+.infor-customer {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+
+  p {
+    font-size: 14px;
+    margin: 0;
+  }
+}
+
+.infor-service {
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+
+    thead {
+      th {
+        border: 1px solid #000;
+        padding: 8px;
+        font-size: 14px;
+        font-weight: bold;
+        text-align: left;
+      }
+    }
+
+    tbody {
+      tr {
+        td {
+          border: 1px solid #000;
+          padding: 8px;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}
+
+.total {
+  text-align: left;
+  font-size: 14px;
+  margin-bottom: 20px;
+
+  p {
+    margin: 5px 0;
+  }
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+
+  p {
+    font-size: 14px;
+    margin: 5px 0;
+  }
+
+  .receiption {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    p {
+      font-size: 14px;
+      margin: 2px 0;
+    }
+  }
+}
+
+@media print {
+  body {
+    overflow: hidden !important;
+  }
+
+  * {
+    page-break-after: avoid;
+  }
+
+  .receipt,
+  .receipt * {
+    visibility: visible;
+  }
+
+  .receipt {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    max-height: 100vh;
+    overflow: hidden;
+    margin: 0;
+    padding: 10mm;
+    box-sizing: border-box;
+    border: none;
+  }
+}
+
+.hidden {
+  display: none;
+}

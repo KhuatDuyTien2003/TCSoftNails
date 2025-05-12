@@ -131,7 +131,7 @@ export class FormUpdateComponent implements OnInit {
         email: email,
         gender: gender,
         description: description,
-        time: `${timeStartDate.getHours()}:${timeStartDate.getMinutes()}0`,
+        time: this.formatTime(timeStartDate),
         listOfSelectedValue: services,
         timeStart: this.formatDate(timeStartDate),
         status: status,
@@ -142,6 +142,12 @@ export class FormUpdateComponent implements OnInit {
     }
     const date = new Date(timeStart);
     this.setFreeTime(date.toISOString());
+  }
+
+  formatTime(date: Date): string {
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    return `${hours}:${minutes}`;
   }
 
   getTimeAppointment() {
@@ -254,7 +260,6 @@ export class FormUpdateComponent implements OnInit {
         if (data.success) {
           this.staffList = data.data;
         } else {
-          this.toastr.error(data.message);
         }
       },
       error: (err) => {
@@ -290,6 +295,9 @@ export class FormUpdateComponent implements OnInit {
     }
   }
   onSubmit() {
+    this.timeStart = new Date(
+      `${this.validateForm.value.timeStart}T${this.validateForm.value.time}`
+    );
     let startTime = this.timeStart ? new Date(this.timeStart) : new Date();
     let endTime = new Date(startTime);
     endTime.setMinutes(endTime.getMinutes() + this.totalTime);

@@ -1,0 +1,29 @@
+<div class="modal-wrapper hidden" id="formRank">
+  <div class="modal">
+    <button class="btn-close" (click)="openFormRank()">×</button>
+    <h3>Thêm mới Mốc khách hàng</h3>
+    <form [formGroup]="mocForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="tenMoc">Tên mốc</label>
+        <input id="tenMoc" formControlName="tenMoc" type="text" />
+      </div>
+
+      <div class="form-group">
+        <label for="tongTien">Tổng tiền</label>
+        <input id="tongTien" formControlName="tongTien" type="number" />
+      </div>
+
+      <div class="form-group">
+        <label for="giamGia">Giảm giá (%)</label>
+        <input id="giamGia" formControlName="giamGia" type="number" />
+      </div>
+
+      <div class="actions">
+        <button type="submit" class="btn-save">💾 Lưu</button>
+        <button type="button" (click)="openFormRank()" class="btn-cancel">
+          🚫 Bỏ qua
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

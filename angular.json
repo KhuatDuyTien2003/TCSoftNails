@@ -45,7 +45,8 @@
             "styles": [
               "src/theme.less",
               "src/styles.scss",
-              "node_modules/ngx-toastr/toastr.css"
+              "node_modules/ngx-toastr/toastr.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
             ],
             "scripts": [],
             "server": "src/main.server.ts",
@@ -105,7 +106,11 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.scss", "node_modules/ngx-toastr/toastr.css"],
+            "styles": [
+              "src/styles.scss",
+              "node_modules/ngx-toastr/toastr.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
+            ],
             "scripts": []
           }
         }

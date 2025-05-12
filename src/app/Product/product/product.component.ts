@@ -13,13 +13,20 @@ import { ProductService } from '../../services/product/product.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddProductDialogComponent } from '../add-product-dialog/add-product-dialog.component';
 import { DetailProductComponent } from '../detail-product/detail-product.component';
+import { HeaderComponent } from '../../header/header.component';
 
 @Component({
   selector: 'app-product',
   standalone: true,
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.scss'],
-  imports: [CommonModule, FormsModule, NgFor, DetailProductComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    NgFor,
+    DetailProductComponent,
+    HeaderComponent,
+  ],
 })
 export class ProductComponent implements OnInit {
   // --- Các trường cho phần lọc ---
@@ -341,6 +348,37 @@ export class ProductComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(() => {
       this.applyFilter();
+    });
+  }
+
+  showActionMenu: boolean = false;
+  selectedProductIds: Set<number> = new Set<number>();
+
+  showActions(id: number) {
+    if (this.selectedProductIds.has(id)) {
+      this.selectedProductIds.delete(id);
+    } else {
+      this.selectedProductIds.add(id);
+    }
+
+    this.showActionMenu = this.selectedProductIds.size > 0;
+    console.log('Selected product IDs:', this.selectedProductIds);
+  }
+
+  deleteProducts() {
+    const idsToDelete = Array.from(this.selectedProductIds);
+    this.productService.deleteMultipleProducts(idsToDelete).subscribe({
+      next: (response) => {
+        if (response.success) {
+          console.log('Xóa sản phẩm thành công:', response);
+          this.loadProducts();
+        } else {
+          console.error('Lỗi khi xóa sản phẩm:', response.message);
+        }
+      },
+      error: (err) => {
+        console.error('Lỗi khi gọi API xóa nhiều sản phẩm:', err);
+      },
     });
   }
 }

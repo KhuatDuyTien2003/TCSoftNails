@@ -1,5 +1,5 @@
 import { customer } from './../../app.type/customer.type';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { HttpCustomerService } from '../../services/http-customer.service';
@@ -21,6 +21,11 @@ import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { HeaderComponent } from '../../header/header.component';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { ToastrService } from 'ngx-toastr';
+import { CustomerRankComponent } from './customer-rank/customer-rank.component';
+import { CustomerRank } from '../../app.type/customer-rank.type';
+import { CustomerRankService } from '../../services/customer-rank/customer-rank.service';
+import { error } from 'console';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 @Component({
   selector: 'app-customer',
   standalone: true,
@@ -38,6 +43,8 @@ import { ToastrService } from 'ngx-toastr';
     HeaderComponent,
     FormsModule,
     NzDatePickerModule,
+    CustomerRankComponent,
+    NzSelectModule,
   ],
   styleUrl: './customer.component.scss',
 })
@@ -67,9 +74,13 @@ export class CustomerComponent implements OnInit {
     page: 1,
     pageSize: 10,
   };
+  rankId: number = 0;
+  customerRankList: CustomerRank[] = [];
+  @ViewChild('formAddRank') formAddRank!: CustomerRankComponent;
   constructor(
     private httpCustomer: HttpCustomerService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private httpRank: CustomerRankService
   ) {}
   formAdd = new FormGroup({
     customerName: new FormControl('', Validators.required),
@@ -84,6 +95,7 @@ export class CustomerComponent implements OnInit {
     gender: new FormControl(''),
   });
   ngOnInit() {
+    this.getCustomerRankList();
     this.httpCustomer.getAllCustomer(this.page, this.pageSize).subscribe({
       next: (data) => {
         if ('data' in data) {
@@ -96,6 +108,22 @@ export class CustomerComponent implements OnInit {
       },
       error: (err) => {
         this.toastr.error(err.message || 'Đã xảy ra lỗi khi tải khách hàng');
+      },
+    });
+  }
+
+  openFormRank() {
+    if (this.formAddRank) {
+      this.formAddRank.openFormRank();
+    }
+  }
+
+  getCustomerRankList() {
+    this.httpRank.getCustomerRanks().subscribe({
+      next: (data) => {
+        if (data.success) {
+          this.customerRankList = data.data;
+        }
       },
     });
   }
@@ -278,7 +306,6 @@ export class CustomerComponent implements OnInit {
   }
 
   public startDelete(className: string, id: number) {
-    debugger;
     this.CustomerId = id;
 
     this.onHidden(className);
@@ -390,7 +417,7 @@ export class CustomerComponent implements OnInit {
 
   public exportCustomer() {
     this.httpCustomer.exportCustomer().subscribe((data) => {
-      var urlDownload = `http://localhost:5213/TempFiles/${data.filePath}`;
+      var urlDownload = `http://apithuctapnail.tcsoft.vn/TempFiles/${data.filePath}`;
       window.open(urlDownload, '_blank');
       setTimeout(() => {
         this.httpCustomer.deleteFile(data.filePath).subscribe(() => {

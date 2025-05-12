@@ -13,33 +13,20 @@ import { registerLocaleData } from '@angular/common';
 import vi from '@angular/common/locales/vi';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-
-
 import { ToastrModule } from 'ngx-toastr';
-
 import { NotFound502Component } from './not-found502/not-found502.component';
-
-import { AddProductGroupDialogComponent } from './Product/add-product-group-dialog/add-product-group-dialog.component';
-import { DetailProductComponent } from './Product/detail-product/detail-product.component';
-import { FormUpdateComponent } from './admin/appointment/form-update/form-update.component';
-
 import {
   provideHttpClient,
   withFetch,
   HttpClientModule,
 } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-
-
+import { HeaderComponent } from './header/header.component';
 registerLocaleData(vi);
 
 @NgModule({
-
   declarations: [AppComponent, NotFound502Component],
-
-
   imports: [
     BrowserModule,
     RouterModule,
@@ -47,13 +34,10 @@ registerLocaleData(vi);
     FormsModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-
-
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-
-
     HttpClientModule,
+    HeaderComponent,
   ],
   providers: [
     provideClientHydration(withEventReplay()),

@@ -1,0 +1,199 @@
+.bill-container {
+  padding: 24px;
+  width: 75%;
+  background-color: #f0fdf4;
+  float:
+    right;
+  font-family: 'Roboto', sans-serif;
+  min-height: 100vh;
+
+  .search-box {
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: flex-end;
+
+    input {
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      width: 250px;
+    }
+  }
+
+  .bill-content {
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+
+    .header {
+      margin-bottom: 16px;
+    }
+
+    .bill-table {
+      overflow-x: auto;
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 1000px;
+
+        thead {
+          background-color: #c8e6c9;
+
+          th {
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            color: #256029;
+            border-bottom: 2px solid #a5d6a7;
+          }
+        }
+
+        tbody {
+          tr {
+            transition: background-color 0.3s ease;
+
+            &:hover {
+              background-color: #f1f8e9;
+            }
+
+            td {
+              padding: 10px 12px;
+              font-size: 14px;
+              color: #333;
+              border-bottom: 1px solid #eee;
+              vertical-align: top;
+            }
+          }
+
+          .detailBill {
+            background-color: #f9fff8;
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid #b2dfdb;
+            margin-top: 8px;
+
+            .information {
+              display: flex;
+              justify-content: space-between;
+              flex-wrap: wrap;
+              gap: 20px;
+
+              .item {
+                flex: 1;
+                min-width: 250px;
+
+                p {
+                  margin: 4px 0;
+                  font-size: 14px;
+                  color: #444;
+                }
+              }
+
+              .productTable {
+                width: 100%;
+                overflow-x: auto;
+                margin-top: 16px;
+
+                .productDetail {
+                  width: 100%;
+                  border-collapse: collapse;
+
+                  th {
+                    background-color: #e0f2f1;
+                    padding: 8px;
+                    text-align: left;
+                    color: #00695c;
+                    font-size: 14px;
+                  }
+
+                  td {
+                    padding: 8px;
+                    border-bottom: 1px solid #ddd;
+                    font-size: 13px;
+                    color: #333;
+                  }
+                }
+              }
+            }
+          }
+
+          .actionBtn {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 12px;
+
+            .btn {
+              padding: 8px 16px;
+              border: none;
+              border-radius: 8px;
+              font-weight: 500;
+              cursor: pointer;
+              transition: background-color 0.3s ease, transform 0.2s ease;
+              color: #fff;
+              box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+              &:hover {
+                transform: translateY(-1px);
+              }
+            }
+
+            .btn_save {
+              background-color: #66bb6a;
+
+              &:hover {
+                background-color: #4caf50;
+              }
+            }
+
+            .btn_print {
+              background-color: #42a5f5;
+
+              &:hover {
+                background-color: #1e88e5;
+              }
+            }
+
+            .btn_exprort {
+              background-color: #ffa726;
+
+              &:hover {
+                background-color: #fb8c00;
+              }
+            }
+
+            .btn_cancel {
+              background-color: #ef5350;
+
+              &:hover {
+                background-color: #e53935;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .bill-container,
+  app-header {
+    visibility: hidden;
+  }
+}
+
+
+
+
+
+
+.hidden {
+  display: none;
+}

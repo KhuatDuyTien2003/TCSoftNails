@@ -269,7 +269,7 @@ export class StaffComponent implements OnInit {
   }
 
   startDeleteStaff(id: number) {
-    debugger;
+
     this.staffId = id;
     console.log(this.staffId);
     this.onHidden('formDelete');
@@ -320,7 +320,7 @@ export class StaffComponent implements OnInit {
 
   public exportStaff() {
     this.httpStaff.exportStaff().subscribe((data) => {
-      var urlDownload = `http://localhost:5213/TempFiles/${data.filePath}`;
+      var urlDownload = `http://apithuctapnail.tcsoft.vn/TempFiles/${data.filePath}`;
       window.open(urlDownload, '_blank');
       setTimeout(() => {
         this.httpStaff.deleteFile(data.filePath).subscribe(() => {

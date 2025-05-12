@@ -1,0 +1,89 @@
+<app-header></app-header>
+<div class="bill-container">
+  <div class="search-box"></div>
+  <div class="bill-content">
+    <div class="header"></div>
+    <div class="bill-table">
+      <table>
+        <thead>
+          <tr>
+            <th>STT</th>
+            <th>Thời gian</th>
+            <th>Tên Khách Hàng</th>
+            <th>SĐT</th>
+            <th>Tổng tiền hàng</th>
+            <th>Giảm giá</th>
+            <th>Tổng tiền sau giảm giá</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let item of billList">
+            <tr (click)="onHiddenDetail($event)">
+              <td>{{ item.billId }}</td>
+              <td>{{ item.billDate | date: "hh:MM 'ngày' dd/MM/yyyy"}}</td>
+              <td>{{ item.customerName !== null ? item.customerName : "Khách lẻ"}}</td>
+              <td>{{ item.numberPhone }}</td>
+              <td>{{ item.totalBill }}</td>
+              <td>{{ item.value_data }}</td>
+              <td>{{ item.totalBill }}</td>
+            </tr>
+            <tr class="hidden">
+              <td colspan="7">
+                <div class="detailBill">
+                  <div class="information">
+                    <div class="item">
+                      <p>Mã đơn hàng: {{ item.billId }}</p>
+                      <p>Ngày xuất phiếu: {{ item.billDate | date: "hh:MM 'ngày' dd/MM/yyyy"}}</p>
+                      <p>Tên khách hàng: {{ item.customerName !== null ? item.customerName : "Khách lẻ" }}</p>
+                    </div>
+                    <div class="item">
+                      <p>
+                        Thanh toán:
+                        {{ item.isPay ? "Đã thanh toán" : "Chưa thanh toán" }}
+                      </p>
+                      <p>Thu ngân: {{ item.receptionName }}</p>
+                    </div>
+                    <div class="productTable">
+                      <table class="productDetail">
+                        <thead>
+                          <tr>
+                            <th>Tên sản phẩm</th>
+                            <th>Đơn giá</th>
+                            <th>Số lượng</th>
+                            <th>Giảm giá</th>
+                            <th>Người làm</th>
+                            <th>Thành tiên</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let i of item.billSendDetails">
+                            <td>{{ i.proAndSerName }}</td>
+                            <td>{{ i.quantity }}</td>
+                            <td>{{ i.unitPrice }}</td>
+                            <td>{{ i.unitPrice }}</td>
+                            <td>{{ i.serviceStaffName }}</td>
+                            <td>{{ i.totalMoney }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div class="actionBtn">
+                  <button class="btn btn_print" (click)="sendReceipt(item.billId)">
+                    In
+                  </button>
+                  <button class="btn btn_exprort">Xuất file</button>
+
+                  <button class="btn btn_cancel" (click)="delBill(item.billId)">Hủy bỏ</button>
+                </div>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<app-receipt [model]="receipt"></app-receipt>
+<app-bill-filter (sendBill)="getBillSearch($event)"></app-bill-filter>

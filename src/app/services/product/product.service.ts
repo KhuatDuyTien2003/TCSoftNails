@@ -7,17 +7,16 @@ import {
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, Observable, throwError } from 'rxjs';
 import { FilterCriteria } from '../../app.type/filter-criteria.type';
+import { BaseHttpService } from '../base-http.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
-  private base_url = 'http://localhost:5213';
-  private httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    }),
-  };
+  baseClass = new BaseHttpService
+  private base_url = this.baseClass.base_url;
+    httpOptions = this.baseClass.httpOption
+
 
   private firstServiceCompleteSource = new BehaviorSubject<boolean>(false);
   firstServiceComplete$ = this.firstServiceCompleteSource.asObservable();
@@ -115,6 +114,13 @@ export class ProductService {
     const url = `${this.base_url}/Products/DeleteProduct/${id}`;
     return this.http
       .delete<any>(url, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
+  deleteMultipleProducts(ids: number[]): Observable<any> {
+    const url = `${this.base_url}/Products/DeleteMultipleProducts`;
+    return this.http
+      .post<any>(url, ids, this.httpOptions)
       .pipe(catchError(this.handleError));
   }
 

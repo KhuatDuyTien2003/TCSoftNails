@@ -1,0 +1,185 @@
+<div class="container-receipt">
+  <div class="header-receipt">
+    <h2>Hóa đơn</h2>
+    <ul class="bill-list">
+      <li>Hóa đơn 1 <nz-icon nzType="close" nzTheme="outline" /></li>
+      <li>Hóa đơn 1 <nz-icon nzType="close" nzTheme="outline" /></li>
+      <li>Hóa đơn 1 <nz-icon nzType="close" nzTheme="outline" /></li>
+      <li>Hóa đơn 1 <nz-icon nzType="close" nzTheme="outline" /></li>
+      <li>Hóa đơn 1 <nz-icon nzType="close" nzTheme="outline" /></li>
+      <li><nz-icon nzType="plus-circle" nzTheme="outline" /></li>
+    </ul>
+  </div>
+  <div class="receipt">
+    <div class="service">
+      <div class="search">
+        <nz-select style="width: 100%;" nzPlaceHolder="Mời nhập tên sản phẩm, dịch vụ hoặc combo" nzAllowClear
+          nzShowSearch nzServerSearch [(ngModel)]="productSearch" (nzOnSearch)="onSearch($event)"
+          (ngModelChange)="selectProductSearch($event)">
+          @if (!loadingSearch) {
+          @for (item of ProductSearchList; track item) {
+          <nz-option [nzValue]="item.id" [nzLabel]="item.name || ''"></nz-option>
+          }
+          } @else {
+          <nz-option nzDisabled nzCustomContent>
+            <nz-icon nzType="loading" class="loading-icon" />
+            Loading Data...
+          </nz-option>
+          }
+        </nz-select>
+      </div>
+      <div class="category">
+        <ul>
+          <li (click)="getServiceAndProduct(1)" [class.active]="type === 1">
+            Sản phẩm
+          </li>
+          <li (click)="getServiceAndProduct(3)" [class.active]="type === 3">
+            Combo
+          </li>
+          <li (click)="getServiceAndProduct(2)" [class.active]="type === 2">
+            Dịch vụ
+          </li>
+        </ul>
+      </div>
+      <div class="category-list">
+        <ng-container *ngIf="type === 1">
+          <ul>
+            <li *ngFor="let item of productList">
+              <div class="category-detail" (click)="selectProduct(item.id);selectPriceListDetail()">
+                <img [src]="
+                    'http://apithuctapnail.tcsoft.vn/' +
+                    (item.urlImage || 'default.png')
+                  " alt="" />
+                <div class="category-content">
+                  <p>Tên sản phẩm: {{ item.name }}</p>
+                  <p>Giá: {{ item.price || 0 | vncurrency}}</p>
+                  <p>Tồn kho: {{ item.unitStock }}</p>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </ng-container>
+        <ng-container *ngIf="type === 3">
+          <ul>
+            <li *ngFor="let item of productList">
+              <div class="category-detail" (click)="selectProduct(item.id); selectPriceListDetail()">
+                <img [src]="
+                    'http://apithuctapnail.tcsoft.vn/' +
+                    (item.urlImage || 'default.png')
+                  " alt="" />
+                <div class="category-content">
+                  <p>Tên Combo: {{ item.name }}</p>
+                  <p>Giá: {{ item.price }}</p>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </ng-container>
+        <ng-container *ngIf="type === 2">
+          <ul>
+            <li *ngFor="let item of productList">
+              <div class="category-detail" (click)="selectProduct(item.id); selectPriceListDetail()">
+                <img [src]="
+                    'http://apithuctapnail.tcsoft.vn/' +
+                    (item.urlImage || 'default.png')
+                  " alt="" />
+                <div class="category-content">
+                  <p>Tên dịch vụ: {{ item.name }}</p>
+                  <p>Giá: {{ item.price || 0 | vncurrency}}</p>
+                  <p>Thời gian: {{ item.workTime }} phút</p>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </ng-container>
+      </div>
+    </div>
+    <div class="receipt-detail">
+      <div class="search">
+        <div class="searchName">
+          <nz-select style="width: 100%;" nzPlaceHolder="Nhập tên hoặc sđt" nzAllowClear nzShowSearch nzServerSearch
+            [(ngModel)]="customerSearch" (nzOnSearch)="onSearchCustomer($event)"
+            (ngModelChange)="selectCustomerSearch($event); getPriceListByIdCustomer($event)">
+            @if (!loadingSearch) {
+            @for (item of customerSearchList; track item) {
+            <nz-option [nzValue]="item.customerId" [nzLabel]="item.customerName || ''"></nz-option>
+            }
+            } @else {
+            <nz-option nzDisabled nzCustomContent>
+              <nz-icon nzType="loading" class="loading-icon" />
+              Loading Data...
+            </nz-option>
+            }
+          </nz-select>
+        </div>
+        <div class="searchPriceList">
+          <nz-select [(ngModel)]="priceSelect" nzPlaceHolder="Vui lòng chọn bảng giá"
+            (ngModelChange)="selectPriceListDetail()">
+            <ng-template [ngIf]="priceList.length > 0" [ngIfElse]="selectCus">
+              @for (item of priceList; track item) {
+              <nz-option [nzLabel]="item.priceListName || ''" [nzValue]="item.priceListDetails"></nz-option>
+              }
+            </ng-template>
+
+            <ng-template #selectCus>
+              <nz-option [nzLabel]="'Chọn khách hàng trước'" [nzValue]="null"></nz-option>
+            </ng-template>
+          </nz-select>
+
+        </div>
+
+      </div>
+      <div class="infor-customer">
+        <div class="img">
+          <img [src]="'http://apithuctapnail.tcsoft.vn' + selectCustomer.urlAvatar" alt="" />
+        </div>
+        <div class="customer-detail">
+          <p>Họ và tên: {{selectCustomer.customerName}}</p>
+          <p>SĐT: {{selectCustomer.numberPhone}}</p>
+          <p>Hạng khách hàng: {{selectCustomer.rankName}}</p>
+        </div>
+      </div>
+      <div class="product">
+        <table class="tbl">
+          <thead>
+            <tr>
+              <th>Tên sản phẩm</th>
+              <th>Đơn giá</th>
+              <th>Số lượng</th>
+              <th>Loại</th>
+              <th>Người làm</th>
+              <th>Tổng tiền</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of productSelects; let i = index">
+              <td>{{ item.name }}</td>
+              <td>
+                {{ item.price || 0 | vncurrency}}
+              </td>
+              <td>
+                <span (click)="minusUnit(item.id)"><nz-icon nzType="minus" nzTheme="outline" /></span>{{ item.unitStock
+                }}<span (click)="plusUnit(item.id)"><nz-icon nzType="plus" nzTheme="outline" /></span>
+              </td>
+              <td>
+                {{ item.type === 1 ? "Sản phẩm" : item.type === 2 ? "Dịch vụ" : "Combo" }}
+              </td>
+              <td>
+                <nz-select [(ngModel)]="item.workerId" style="width: 200px">
+                  @for (option of staffByServiceMap[item.id]; track option) {
+                  <nz-option [nzLabel]="option.staffName || null" [nzValue]="option.staffId"></nz-option>
+                  }
+                </nz-select>
+              </td>
+              <td>{{ ((item.price ?? 0) * (item.unitStock ?? 0)) | vncurrency}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="payment">
+        <button (click)="getPayment()">Thanh toán ( {{getTotalPrice()}})</button>
+      </div>
+    </div>
+  </div>
+</div>
+<app-payment [ProductSelects]="productSelects" [CustomerSelect]="selectCustomer"></app-payment>

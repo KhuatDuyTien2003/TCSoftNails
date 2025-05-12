@@ -11,7 +11,7 @@
           getHeaderChildList(item.id).length === 0 && item.parentId === null
         "
       >
-        <a [routerLink]="item.url"> {{ item.name }}</a>
+        <a> {{ item.name }}</a>
       </li>
       <li
         nz-submenu
@@ -47,7 +47,7 @@
       <div class="user-info">
         <img
           *ngIf="staff?.urlAvatar"
-          src="http://localhost:5213/uploads/{{ staff?.urlAvatar }}"
+          src="http://apithuctapnail.tcsoft.vn/uploads/{{ staff?.urlAvatar }}"
           alt="avatar"
         />
         <p>{{ staff?.staffName || "" }}</p>

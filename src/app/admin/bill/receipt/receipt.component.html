@@ -1,0 +1,63 @@
+<div class="receipt hidden" id="hidden">
+  <div class="infor-shop">
+    <div class="infor-detail">
+      <h1>Nail TCSOFT</h1>
+      <p>Địa chỉ: Định Công, Thanh Xuân, Hà Nội</p>
+      <p>Điện thoại: 0987654321</p>
+    </div>
+    <div class="logo">
+      <img src="assets/images/avatar.jpg" alt="lỗi" />
+    </div>
+  </div>
+  <h1>Hóa đơn dịch vụ</h1>
+  <div class="infor-customer">
+    <p>Tên khách hàng: {{ model.customerName }}</p>
+    <p>SĐT: {{ model.numberPhone }}</p>
+  </div>
+  <div class="infor-service">
+    <table>
+      <thead>
+        <tr>
+          <th>STT</th>
+          <th>Tên dịch vụ/Sản phẩm</th>
+          <th>Số lượng</th>
+          <th>Đơn giá</th>
+          <th>Giảm giá</th>
+          <th>Người làm</th>
+          <th>Tổng tiền</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of normalizedDetails; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>{{ item.unitPrice }}</td>
+          <td>{{ item.unitPrice }}</td>
+          <td>{{ item.staff }}</td>
+          <td>{{ item.total }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="total">
+    <p>Tổng tiền: {{ model.totalMoney }}</p>
+    <p>Giảm giá: {{ model.promotion }}</p>
+    <p>Tổng tiền sau khi giảm giá:</p>
+  </div>
+  <div class="footer">
+    <p>Cảm ơn quý khách</p>
+    <div class="receiption" style="text-align: center">
+      <p>
+        Hà nội,
+        {{ model.receiptDay | date : "'ngày' dd 'tháng' MM 'năm' yyyy" }}
+      </p>
+
+      <p>Người tạo hóa đơn</p>
+      <br />
+      <br />
+      <br />
+      <p>{{ model.receiption }}</p>
+    </div>
+  </div>
+</div>

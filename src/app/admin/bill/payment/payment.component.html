@@ -1,0 +1,142 @@
+<div class="payment-container hidden" id="hidden">
+  <div class="infor-customer">
+    <h3>{{CustomerSelect.customerName}} - {{CustomerSelect.numberPhone}}</h3>
+    <nz-icon (click)="setHidden()" nzType="close" nzTheme="outline" />
+  </div>
+  <div class="content">
+    <div class="production">
+      <div class="service">
+        <h2>Dịch vụ</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Dịch vụ</th>
+              <th>Giá bán</th>
+              <th>Số lượng</th>
+              <th>Tổng tiền</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let item of ProductSelects">
+              <tr *ngIf="item.type === 2">
+                <td>{{ item.name }}</td>
+                <td>{{ item.price }}</td>
+                <td>{{ item.unitStock }}</td>
+                <td>{{ (item.price ?? 0) * (item.unitStock ?? 0) }}</td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+      <div class="product">
+        <h2>Sản phẩm</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Sản phẩm</th>
+              <th>Giá bán</th>
+              <th>Số lượng</th>
+              <th>Tổng tiền</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let item of ProductSelects">
+              <tr *ngIf="item.type === 1">
+                <td>{{ item.name }}</td>
+                <td>{{ item.price }}</td>
+                <td>{{ item.unitStock }}</td>
+                <td>{{ (item.price ?? 0) * (item.unitStock ?? 0) }}</td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+      <div class="combo">
+        <h2>Combo</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Combo</th>
+              <th>Giá bán</th>
+              <th>Số lượng</th>
+              <th>Tổng tiền</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let item of ProductSelects">
+              <tr *ngIf="item.type === 3">
+                <td>{{ item.name }}</td>
+                <td>{{ item.price }}</td>
+                <td>{{ item.unitStock }}</td>
+                <td>{{ (item.price ?? 0) * (item.unitStock ?? 0) }}</td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="infor-pay">
+      <p>Ngày tạo hóa đơn: {{ today | date:"HH:mm 'ngày' dd/MM/yyyy" }}</p>
+      <p>Tổng tiền hàng : {{totalMoney | vncurrency}}</p>
+      <div class="discount">
+        <p>Giảm giá: </p>
+        <nz-select style="width: 100%;" nzPlaceHolder="Mời nhập tên sản phẩm, dịch vụ hoặc combo" nzAllowClear
+          nzShowSearch nzServerSearch [(ngModel)]="promotionSelect" (nzOnSearch)="getPromotionByCode($event)"
+          (ngModelChange)="calculateDiscount()">
+          <ng-container *ngIf="!loadingSearch">
+            <nz-option *ngFor="let item of promotionList; trackBy: trackByFn" [nzValue]="item"
+              [nzLabel]="item.promotionName || ''" nzCustomContent>
+              <div class="promotion-option">
+                <div class="image">
+                  <img [src]="'http://localhost:5213/' + item.urlImage" alt="promotion" />
+                </div>
+                <div class="info">
+                  <div class="name">{{ item.promotionName }}</div>
+                  <div class="value">Giá trị: {{ item.value_data }}{{item.promotionId === 0? "%" : " tiền mặt"}}</div>
+                  <div class="quantity">Số lượng: {{ item.quantity }}</div>
+                </div>
+              </div>
+            </nz-option>
+          </ng-container>
+          <ng-container *ngIf="loadingSearch">
+            <nz-option nzDisabled nzCustomContent>
+              <nz-icon nzType="loading" class="loading-icon" />
+              Loading Data...
+            </nz-option>
+          </ng-container>
+        </nz-select>
+      </div>
+
+      <div *ngIf="totalDiscount !== null">
+        <p style="color: red !important;">Tổng tiền được giảm: {{totalDiscount| vncurrency}}</p>
+      </div>
+      <div class="totalPoint"
+        [style]="(promotionSelect.promotionId ===0 && promotionSelect.isPoints) ?  'display:flex; gap: 7px;' : 'display:flex; gap: 7px;pointer-events: none;opacity: 0.6'">
+        <p>Điểm tích lũy: </p>
+        <input style="margin-bottom: 2.5%;" type="checkbox" name="point" [value]="CustomerSelect.totalPoints"
+          [(ngModel)]="isPoint" id="point">
+        <label for="point">{{CustomerSelect.totalPoints || 0* 1000}}</label>
+      </div>
+
+
+      <p>Tổng tiền sau giảm giá: {{(totalMoney - (totalDiscount || 0)) | vncurrency}}</p>
+      <div class="paymentType">
+        <input type="radio" name="payType" [value]="false" id="cash" [(ngModel)]="selectedPayType"> <label
+          for="cash">Tiền
+          mặt</label>
+        <input type="radio" name="payType" [value]="true" id="card" [(ngModel)]="selectedPayType"> <label
+          for="card">Chuyển
+          khoản</label>
+      </div>
+      <div class="note">
+        <p>Ghi chú: </p>
+        <input type="text">
+      </div>
+      <div class="btn-div">
+        <button (click)="createBill()">Thanh toán</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-receipt [model]="receipt"></app-receipt>
