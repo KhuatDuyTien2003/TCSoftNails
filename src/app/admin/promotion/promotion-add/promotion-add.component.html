@@ -1,0 +1,83 @@
+<div class="container">
+  <h2>Thêm khuyến mãi</h2>
+  <form [formGroup]="promotionForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label>Tên khuyến mãi</label>
+      <input type="text" class="form-control" formControlName="promotionName" />
+    </div>
+
+    <div class="mb-3">
+      <label>Loại khuyến mãi</label>
+      <select class="form-select" formControlName="promotionType">
+        <option [ngValue]="true">Trực Tiếp</option>
+        <option [ngValue]="false">Phần Trăm</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label>Ngày bắt đầu</label>
+      <input type="date" class="form-control" formControlName="startDate" />
+    </div>
+
+    <div class="mb-3">
+      <label>Ngày kết thúc</label>
+      <input type="date" class="form-control" formControlName="endDate" />
+    </div>
+
+    <div class="mb-3">
+      <label>Số lượng</label>
+      <input type="number" class="form-control" formControlName="quantity" />
+    </div>
+
+    <div class="mb-3">
+      <label>Mã loại sản phẩm</label>
+      <input type="number" class="form-control" formControlName="productTypeId" />
+    </div>
+
+    <div class="mb-3">
+      <label>Có tích điểm</label>
+      <select class="form-select" formControlName="isPoints">
+        <option [ngValue]="true">Có</option>
+        <option [ngValue]="false">Không</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label>Giá Trị </label>
+      <input type="number" class="form-control" formControlName="value_data" />
+    </div>
+
+    <div class="mb-3">
+      <label>Điều kiện</label>
+      <input type="number" class="form-control" formControlName="condition" />
+    </div>
+
+    <div class="mb-3">
+      <label>Cấp bậc</label>
+      <input type="number" class="form-control" formControlName="rankId" />
+    </div>
+
+    <div class="mb-3">
+      <label>Đường dẫn ảnh</label>
+      <input type="text" class="form-control" formControlName="urlImage" />
+    </div>
+
+    <div class="mb-3">
+      <label>Đã xóa</label>
+      <select class="form-select" formControlName="isDeleted">
+        <option [ngValue]="true">Đã xóa</option>
+        <option [ngValue]="false">Chưa xóa</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label>Trạng thái</label>
+      <select class="form-select" formControlName="status">
+        <option [ngValue]="true">Hoạt động</option>
+        <option [ngValue]="false">Không hoạt động</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Lưu</button>
+    <button type="button" class="btn btn-secondary" (click)="goBack()">Hủy</button>
+  </form>
+</div>

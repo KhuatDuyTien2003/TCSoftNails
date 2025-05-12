@@ -5,6 +5,9 @@ import { AccountComponent } from './admin/account/account.component';
 import { RegisterComponent } from './admin/register/register.component';
 import { ForgotPasswordComponent } from './admin/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './admin/reset-password/reset-password.component';
+import { PromotionListComponent } from './admin/promotion/promotion-list/promotion-list.component';
+import { PromotionAddComponent } from './admin/promotion/promotion-add/promotion-add.component';
+import { PromotionEditComponent } from './admin/promotion/promotion-edit/promotion-edit.component';
 
 import { CustomerComponent } from './admin/customer/customer.component';
 import { StaffComponent } from './admin/staff/staff.component';
@@ -30,6 +33,7 @@ const routes: Routes = [
   { path: 'form-add-appointment', component: FormAppointmentComponent },
   { path: 'Forgot-Password', component: ForgotPasswordComponent },
   { path: 'Reset-Password', component: ResetPasswordComponent },
+
   { path: 'customer', component: CustomerComponent },
   { path: 'staff', component: StaffComponent },
   { path: 'staff/calendar-staff', component: CalendarStaffComponent },
@@ -43,6 +47,11 @@ const routes: Routes = [
   { path: '**', component: NotFound502Component },
 
   // { path: ':id', component: ProductComponent },
+
+  { path: 'promotion-list', component: PromotionListComponent },
+  { path: 'promotion-add', component: PromotionAddComponent },
+  { path: 'promotion-edit/:id', component: PromotionEditComponent },
+
 ];
 
 @NgModule({

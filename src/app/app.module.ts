@@ -14,6 +14,7 @@ import vi from '@angular/common/locales/vi';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+
 import { ToastrModule } from 'ngx-toastr';
 import { NotFound502Component } from './not-found502/not-found502.component';
 import {
@@ -21,6 +22,7 @@ import {
   withFetch,
   HttpClientModule,
 } from '@angular/common/http';
+
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 registerLocaleData(vi);
@@ -34,10 +36,12 @@ registerLocaleData(vi);
     FormsModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     HttpClientModule,
     HeaderComponent,
+
   ],
   providers: [
     provideClientHydration(withEventReplay()),

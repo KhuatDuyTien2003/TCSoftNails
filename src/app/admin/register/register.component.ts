@@ -13,6 +13,8 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzFormModule, NzFormTooltipIcon } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { FormsModule } from '@angular/forms';
+import { NzRadioModule } from 'ng-zorro-antd/radio';
 import {
   catchError,
   filter,
@@ -43,6 +45,7 @@ import { RouterModule } from '@angular/router';
     NzInputModule,
     NzSelectModule,
     RouterModule,
+    NzRadioModule,
   ],
 })
 export class RegisterComponent implements OnInit, OnDestroy {
