@@ -186,7 +186,6 @@ D:\CODE\.NET\web\dev\NailsTcsoft3\obj\Debug\net8.0\refint\NailsTcsoft3.dll
 D:\CODE\.NET\web\dev\NailsTcsoft3\obj\Debug\net8.0\NailsTcsoft3.pdb
 D:\CODE\.NET\web\dev\NailsTcsoft3\obj\Debug\net8.0\NailsTcsoft3.genruntimeconfig.cache
 D:\CODE\.NET\web\dev\NailsTcsoft3\obj\Debug\net8.0\ref\NailsTcsoft3.dll
-D:\CODE\.NET\web\dev_be\NailsTcsoft3\bin\Debug\net8.0\appsettings.Development.json
 D:\CODE\.NET\web\dev_be\NailsTcsoft3\bin\Debug\net8.0\appsettings.json
 D:\CODE\.NET\web\dev_be\NailsTcsoft3\bin\Debug\net8.0\NailsTcsoft3.staticwebassets.runtime.json
 D:\CODE\.NET\web\dev_be\NailsTcsoft3\bin\Debug\net8.0\NailsTcsoft3.exe
