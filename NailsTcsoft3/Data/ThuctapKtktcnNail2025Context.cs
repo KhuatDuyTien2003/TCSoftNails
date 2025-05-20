@@ -58,6 +58,9 @@ public partial class ThuctapKtktcnNail2025Context : IdentityDbContext<Account>
     public virtual DbSet<StaffService> StaffServices { get; set; }
 
     public virtual DbSet<WorkSchedule> WorkSchedules { get; set; }
+    public virtual DbSet<PriceListCustomerRank> PriceListCustomerRanks { get; set; }
+    public virtual DbSet<Supplier> Suppliers { get; set; }
+
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -281,9 +284,6 @@ public partial class ThuctapKtktcnNail2025Context : IdentityDbContext<Account>
             entity.Property(e => e.ProductId).HasColumnName("productId");
             entity.Property(e => e.ReceiptId).HasColumnName("receiptId");
             entity.Property(e => e.Status).HasColumnName("status");
-            entity.Property(e => e.Supplier)
-                .HasMaxLength(100)
-                .HasColumnName("supplier");
         });
 
         modelBuilder.Entity<ImageFeedback>(entity =>
@@ -317,7 +317,6 @@ public partial class ThuctapKtktcnNail2025Context : IdentityDbContext<Account>
                 .HasMaxLength(100)
                 .HasColumnName("priceListName");
             entity.Property(e => e.PriceListType).HasColumnName("priceListType");
-            entity.Property(e => e.RankId).HasColumnName("rankId");
             entity.Property(e => e.StartTime)
                 .HasColumnType("datetime")
                 .HasColumnName("startTime");
@@ -340,7 +339,7 @@ public partial class ThuctapKtktcnNail2025Context : IdentityDbContext<Account>
                 .HasColumnName("sellPrice");
             entity.Property(e => e.Status).HasColumnName("status");
         });
-
+        modelBuilder.Entity<PriceListCustomerRank>().ToTable("PriceListCustomerRank");
         modelBuilder.Entity<ProductAndService>(entity =>
         {
             entity.HasKey(e => e.ProAndSerId).HasName("PK__ProductA__4A1A77791906EC05");

@@ -38,23 +38,10 @@ namespace NailsTcsoft3.Models
                     .ToArray();
             }
         }
-        //public int[]? ProductIds
-        //{
-        //    get
-        //    {
-        //        if (string.IsNullOrEmpty(KeptProductIds))
-        //            return new int[0];
-        //        return KeptProductIds
-        //            .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-        //            .Select(s => int.Parse(s))
-        //            .ToArray();
-        //    }
-        //}
-        //public int[]? KeptProductIds { get; set; }
         public byte ProAndSerType { get; set; }
 
         [DataType(DataType.Date)]
-        public DateTime? ExpiryDate { get; set; }
+        public string? ExpiryDate { get; set; }
 
         public string? Description { get; set; }
 

@@ -648,9 +648,15 @@ namespace NailsTcsoft3.Migrations
                         .HasColumnType("bit")
                         .HasColumnName("isDeleted");
 
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit")
+                    b.Property<string>("ReceiptCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int")
                         .HasColumnName("status");
+
+                    b.Property<int>("SupplierId")
+                        .HasColumnType("int");
 
                     b.Property<decimal?>("TotalMoney")
                         .HasColumnType("decimal(18, 2)")
@@ -671,7 +677,7 @@ namespace NailsTcsoft3.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<decimal?>("ImportPrice")
+                    b.Property<decimal>("ImportPrice")
                         .HasColumnType("decimal(18, 2)")
                         .HasColumnName("importPrice");
 
@@ -679,22 +685,20 @@ namespace NailsTcsoft3.Migrations
                         .HasColumnType("bit")
                         .HasColumnName("isDeleted");
 
-                    b.Property<int?>("ProductId")
+                    b.Property<int>("ProductId")
                         .HasColumnType("int")
                         .HasColumnName("productId");
 
-                    b.Property<int?>("ReceiptId")
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ReceiptId")
                         .HasColumnType("int")
                         .HasColumnName("receiptId");
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit")
                         .HasColumnName("status");
-
-                    b.Property<string>("Supplier")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
-                        .HasColumnName("supplier");
 
                     b.HasKey("Id")
                         .HasName("PK__GoodsRec__3213E83F3CD23916");
@@ -758,13 +762,9 @@ namespace NailsTcsoft3.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasColumnName("priceListName");
 
-                    b.Property<bool>("PriceListType")
+                    b.Property<bool?>("PriceListType")
                         .HasColumnType("bit")
                         .HasColumnName("priceListType");
-
-                    b.Property<int?>("RankId")
-                        .HasColumnType("int")
-                        .HasColumnName("rankId");
 
                     b.Property<DateTime?>("StartTime")
                         .HasColumnType("datetime")
@@ -774,14 +774,33 @@ namespace NailsTcsoft3.Migrations
                         .HasColumnType("bit")
                         .HasColumnName("status");
 
-                    b.Property<int>("ValuePriceList")
-                        .HasColumnType("int")
+                    b.Property<decimal?>("ValuePriceList")
+                        .HasColumnType("decimal(18,2)")
                         .HasColumnName("valuePriceList");
 
                     b.HasKey("PriceListId")
                         .HasName("PK__PriceLis__5A789FD28E7A8255");
 
                     b.ToTable("PriceList", (string)null);
+                });
+
+            modelBuilder.Entity("NailsTcsoft3.Data.PriceListCustomerRank", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("PriceListId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RankId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PriceListCustomerRank", (string)null);
                 });
 
             modelBuilder.Entity("NailsTcsoft3.Data.PriceListDetail", b =>
@@ -1158,6 +1177,41 @@ namespace NailsTcsoft3.Migrations
                         .HasName("PK__StaffSer__3213E83F76EF5E38");
 
                     b.ToTable("StaffService", (string)null);
+                });
+
+            modelBuilder.Entity("NailsTcsoft3.Data.Supplier", b =>
+                {
+                    b.Property<int>("SupplierId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SupplierId"));
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SupplierName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("money")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("SupplierId");
+
+                    b.ToTable("Suppliers");
                 });
 
             modelBuilder.Entity("NailsTcsoft3.Data.WorkSchedule", b =>

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
+using Microsoft. IdentityModel.Tokens;
 using NailsTcsoft3.Data;
 using NailsTcsoft3.Models;
 using System.Data;
@@ -12,8 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using static Azure.Core.HttpHeader;
-using static System.Net.Mime.MediaTypeNames;
+
 
 namespace NailsTcsoft3.Controllers
 {
@@ -66,8 +65,20 @@ namespace NailsTcsoft3.Controllers
             {
                 return BadRequest(new { Message = "Mã sản phẩm đã tồn tại" });
             }
-
-            var product = new ProductAndService
+            // Chuyển đổi ExpiryDate từ dd/MM/yyyy sang DateTime
+            DateTime? expiryDate = null;
+            if (!string.IsNullOrEmpty(request.ExpiryDate))
+            {
+                bool isValidDate = DateTime.TryParseExact(
+                    request.ExpiryDate,
+                    "dd/MM/yyyy",
+                    CultureInfo.InvariantCulture,
+                    DateTimeStyles.None,
+                    out DateTime result
+                );
+                expiryDate = result;
+            }
+                var product = new ProductAndService
             {
                 ProAndSerName = request.ProAndSerName,
                 ProAndSerCode = request.ProAndSerCode,
@@ -81,7 +92,7 @@ namespace NailsTcsoft3.Controllers
                 Commission = request.Commission,
                 IsDeleted = false,
                 Status = request.Status,
-                ExpiryDate = request.ExpiryDate,
+                ExpiryDate = expiryDate,
                 Description = request.Description
             };
 
@@ -93,7 +104,7 @@ namespace NailsTcsoft3.Controllers
                 {
                     1 => "SP", // Sản phẩm
                     2 => "DV", // Dịch vụ
-                    _ => "CB"  // Khác
+                    _ => ""  // Khác
                 };
 
                 product.ProAndSerCode = $"{prefix}00000{product.ProAndSerId}";
@@ -157,13 +168,24 @@ namespace NailsTcsoft3.Controllers
             {
                 return BadRequest(new { success = false, message = "Mã sản phẩm đã tồn tại" });
             }
-
+            DateTime? expiryDate = null;
+            if (!string.IsNullOrEmpty(request.ExpiryDate))
+            {
+                bool isValidDate = DateTime.TryParseExact(
+                    request.ExpiryDate,
+                    "dd/MM/yyyy",
+                    CultureInfo.InvariantCulture,
+                    DateTimeStyles.None,
+                    out DateTime result
+                );
+                 expiryDate = result;
+            }
             // Tạo combo (cũng là một ProductAndService)
             var combo = new ProductAndService
             {
                 ProAndSerName = request.ProAndSerName,
                 ProAndSerCode = request.ProAndSerCode,
-                ProAndSerType = request.ProAndSerType, // Có thể là loại "Combo"
+                ProAndSerType = request.ProAndSerType, 
                 OriginalPrice = request.OriginalPrice,
                 SellingPrice = request.SellingPrice,
                 WorkTime = request.WorkTime,
@@ -173,7 +195,7 @@ namespace NailsTcsoft3.Controllers
                 Commission = request.Commission,
                 Status = request.Status,
                 Description = request.Description,
-                ExpiryDate = request.ExpiryDate,
+                ExpiryDate = expiryDate,
                 IsDeleted = false
             };
 
@@ -183,12 +205,7 @@ namespace NailsTcsoft3.Controllers
             // Gán mã tự động nếu chưa có
             if (combo.ProAndSerCode.IsNullOrEmpty())
             {
-                string prefix = combo.ProAndSerType switch
-                {
-                    1 => "SP",
-                    2 => "DV",
-                    _ => "CB" // Combo
-                };
+                string prefix = "CB";
                 combo.ProAndSerCode = $"{prefix}00000{combo.ProAndSerId}";
                 await _context.SaveChangesAsync();
             }
@@ -444,19 +461,31 @@ namespace NailsTcsoft3.Controllers
                 .Where(i => i.ProAndSerId == id)
                 .OrderBy(i => i.ImageId)
                 .ToListAsync();
-
+            DateTime? expiryDate = null;
+            if (!string.IsNullOrEmpty(dto.ExpiryDate))
+            {
+                bool isValidDate = DateTime.TryParseExact(
+                    dto.ExpiryDate,
+                    "dd/MM/yyyy",
+                    CultureInfo.InvariantCulture,
+                    DateTimeStyles.None,
+                    out DateTime result
+                );
+                expiryDate = result;
+            }
             existingProduct.ProAndSerCode = dto.ProAndSerCode;
             existingProduct.ProAndSerName = dto.ProAndSerName;
             existingProduct.Commission = dto.Commission;
             existingProduct.ProAndSerType = dto.ProAndSerType;
             existingProduct.InventoryQuantity = dto.InventoryQuantity;
             existingProduct.OriginalPrice = dto.OriginalPrice;
+            existingProduct.SellingPrice = dto.SellingPrice;
             existingProduct.ProductTypeId = dto.ProductTypeId;
             existingProduct.Status = dto.Status;
             existingProduct.Unit = dto.Unit;
             existingProduct.WorkTime = dto.WorkTime;
             existingProduct.Description = dto.Description;
-            existingProduct.ExpiryDate = dto.ExpiryDate;
+            existingProduct.ExpiryDate = expiryDate;
             existingProduct.UrlImage = currentImages.FirstOrDefault()?.ImageUrl;
 
             // Lưu toàn bộ thay đổi
@@ -484,15 +513,27 @@ namespace NailsTcsoft3.Controllers
                     success = false,
                     message = "Không tìm thấy combo"
                 });
-            }
 
+            }
+            DateTime? expiryDate = null;
+            if (!string.IsNullOrEmpty(dto.ExpiryDate))
+            {
+                bool isValidDate = DateTime.TryParseExact(
+                    dto.ExpiryDate,
+                    "dd/MM/yyyy",
+                    CultureInfo.InvariantCulture,
+                    DateTimeStyles.None,
+                    out DateTime result
+                );
+                expiryDate = result;
+            }
             // 2. Cập nhật thông tin cơ bản của combo
             existingCombo.ProAndSerName = dto.ProAndSerName;
             existingCombo.SellingPrice = dto.SellingPrice;
             existingCombo.OriginalPrice = dto.OriginalPrice;
             existingCombo.Description = dto.Description;
             existingCombo.Status = dto.Status;
-            existingCombo.ExpiryDate = dto.ExpiryDate;
+            existingCombo.ExpiryDate = expiryDate;
             existingCombo.Commission = dto.Commission;
             existingCombo.WorkTime = dto.WorkTime;
             existingCombo.InventoryQuantity = dto.InventoryQuantity;
@@ -644,8 +685,7 @@ namespace NailsTcsoft3.Controllers
                 filter.PageNumber = 1;
             }
 
-            if (filter.PageSize <= 0)
-            {
+            if (filter.PageSize <= 0)            {
                 filter.PageSize = 5; // Default to 5 items per page as requested
             }
 
@@ -692,75 +732,6 @@ namespace NailsTcsoft3.Controllers
             var normalProducts = await normalQuery
                                   .OrderBy(p => p.ProAndSerType)
                                   .ToListAsync();
-
-            // B2: Nếu có rank > 0, lấy danh sách sản phẩm theo rank (chỉ cần lấy các trường cần thiết)
-            Dictionary<int, decimal> rankPrices = new Dictionary<int, decimal>();
-            if (filter.Rank > 0)
-            {
-                var priceList = await _context.PriceLists
-                    .FirstOrDefaultAsync(x => x.RankId == filter.Rank);
-
-                if (priceList != null)
-                {
-                    var rankQuery = from p in _context.ProductAndServices
-                                    join d in _context.PriceListDetails
-                                      on p.ProAndSerId equals d.ProductId
-                                    where d.PriceListId == priceList.PriceListId && !p.IsDeleted
-                                    select new
-                                    {
-                                        p.ProAndSerId,
-                                        d.SellPrice
-                                    };
-
-                    // Áp dụng lại các điều kiện lọc nếu cần (tương tự như normalProducts)
-                    if (!string.IsNullOrEmpty(filter.SearchTerm))
-                    {
-                        rankQuery = rankQuery.Where(x =>
-                            _context.ProductAndServices
-                                .Where(p => p.ProAndSerId == x.ProAndSerId)
-                                .Any(p => p.ProAndSerName.Contains(filter.SearchTerm) || p.ProAndSerCode.Contains(filter.SearchTerm)));
-                    }
-                    if (productTypes != null && productTypes.Length > 0)
-                    {
-                        rankQuery = rankQuery.Where(x =>
-                            _context.ProductAndServices
-                                .Where(p => p.ProAndSerId == x.ProAndSerId)
-                                .Any(p => productTypes.Contains(p.ProAndSerType)));
-                    }
-
-                    if (filter.ProductGroup > 0)
-                    {
-                        rankQuery = rankQuery.Where(x =>
-                            _context.ProductAndServices
-                                .Where(p => p.ProAndSerId == x.ProAndSerId)
-                                .Any(p => p.ProductTypeId == filter.ProductGroup));
-                    }
-
-                    if (filter.Status > 0)
-                    {
-                        rankQuery = rankQuery.Where(x =>
-                                    _context.ProductAndServices
-                                        .Where(p => p.ProAndSerId == x.ProAndSerId)
-                                        .Any(p => p.Status == filter.Status));
-                    }
-
-                    // Lấy ra kết quả và tạo dictionary: key là ProAndSerId, value là SellingPrice
-                    var rankList = await rankQuery.ToListAsync();
-                    rankPrices = rankList.ToDictionary(x => x.ProAndSerId, x => x.SellPrice);
-                }
-            }
-
-            // B3: Cập nhật SellingPrice cho sản phẩm thường nếu có giá từ rank
-            if (rankPrices.Any())
-            {
-                foreach (var product in normalProducts)
-                {
-                    if (rankPrices.ContainsKey(product.ProAndSerId))
-                    {
-                        product.SellingPrice = rankPrices[product.ProAndSerId];
-                    }
-                }
-            }
 
             // B4: Phân trang
             var totalItems = normalProducts.Count;
@@ -982,7 +953,7 @@ namespace NailsTcsoft3.Controllers
 
             // Fetch data from the database (without applying RemoveDiacritics in the query)
             var products = await _context.ProductAndServices
-                .Where(p => !p.IsDeleted && p.Status != 2)
+                .Where(p => !p.IsDeleted && p.Status != 2 && p.ProAndSerType !=3)
                 .ToListAsync();
 
             // Apply RemoveDiacritics in memory

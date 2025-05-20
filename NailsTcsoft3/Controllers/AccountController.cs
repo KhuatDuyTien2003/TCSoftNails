@@ -7,7 +7,6 @@ using Microsoft.IdentityModel.Tokens;
 using NailsTcsoft3.Data;
 using NailsTcsoft3.Models;
 using NailsTcsoft3.repository;
-using Newtonsoft.Json.Linq;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Security.Claims;

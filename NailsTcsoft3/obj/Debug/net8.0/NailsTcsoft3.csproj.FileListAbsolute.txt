@@ -363,8 +363,17 @@ D:\ThucTap2025\TCSoftNails\NailsTcsoft3\obj\Debug\net8.0\refint\NailsTcsoft3.dll
 D:\ThucTap2025\TCSoftNails\NailsTcsoft3\obj\Debug\net8.0\NailsTcsoft3.pdb
 D:\ThucTap2025\TCSoftNails\NailsTcsoft3\obj\Debug\net8.0\NailsTcsoft3.genruntimeconfig.cache
 D:\ThucTap2025\TCSoftNails\NailsTcsoft3\obj\Debug\net8.0\ref\NailsTcsoft3.dll
+D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\obj\Debug\net8.0\NailsTcsoft3.csproj.AssemblyReference.cache
+D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\obj\Debug\net8.0\NailsTcsoft3.GeneratedMSBuildEditorConfig.editorconfig
+D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\obj\Debug\net8.0\NailsTcsoft3.AssemblyInfoInputs.cache
+D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\obj\Debug\net8.0\NailsTcsoft3.AssemblyInfo.cs
+D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\obj\Debug\net8.0\NailsTcsoft3.csproj.CoreCompileInputs.cache
+D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\obj\Debug\net8.0\NailsTcsoft3.MvcApplicationPartsAssemblyInfo.cs
+D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\obj\Debug\net8.0\NailsTcsoft3.MvcApplicationPartsAssemblyInfo.cache
+D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\obj\Debug\net8.0\NailsTcsoft3.sourcelink.json
 D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\bin\Debug\net8.0\appsettings.Development.json
 D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\bin\Debug\net8.0\appsettings.json
+D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\bin\Debug\net8.0\NailsTcsoft3.staticwebassets.runtime.json
 D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\bin\Debug\net8.0\NailsTcsoft3.staticwebassets.endpoints.json
 D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\bin\Debug\net8.0\NailsTcsoft3.exe
 D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\bin\Debug\net8.0\NailsTcsoft3.deps.json
@@ -374,10 +383,6 @@ D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\bin\Debug\net8.0\Nai
 D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\bin\Debug\net8.0\Azure.Core.dll
 D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\bin\Debug\net8.0\Azure.Identity.dll
 D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\bin\Debug\net8.0\Humanizer.dll
-D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\bin\Debug\net8.0\System.Web.Cors.dll
-D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\bin\Debug\net8.0\System.Net.Http.Formatting.dll
-D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\bin\Debug\net8.0\System.Web.Http.dll
-D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\bin\Debug\net8.0\System.Web.Http.Cors.dll
 D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
 D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
@@ -420,8 +425,6 @@ D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\bin\Debug\net8.0\Mic
 D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
 D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
 D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\bin\Debug\net8.0\Mono.TextTemplating.dll
-D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\bin\Debug\net8.0\Newtonsoft.Json.dll
-D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
 D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
 D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -523,14 +526,6 @@ D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\bin\Debug\net8.0\run
 D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
 D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
-D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\obj\Debug\net8.0\NailsTcsoft3.csproj.AssemblyReference.cache
-D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\obj\Debug\net8.0\NailsTcsoft3.GeneratedMSBuildEditorConfig.editorconfig
-D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\obj\Debug\net8.0\NailsTcsoft3.AssemblyInfoInputs.cache
-D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\obj\Debug\net8.0\NailsTcsoft3.AssemblyInfo.cs
-D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\obj\Debug\net8.0\NailsTcsoft3.csproj.CoreCompileInputs.cache
-D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\obj\Debug\net8.0\NailsTcsoft3.MvcApplicationPartsAssemblyInfo.cs
-D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\obj\Debug\net8.0\NailsTcsoft3.MvcApplicationPartsAssemblyInfo.cache
-D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\obj\Debug\net8.0\NailsTcsoft3.sourcelink.json
 D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\obj\Debug\net8.0\scopedcss\bundle\NailsTcsoft3.styles.css
 D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\obj\Debug\net8.0\staticwebassets.build.json
 D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\obj\Debug\net8.0\staticwebassets.development.json
@@ -548,4 +543,3 @@ D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\obj\Debug\net8.0\ref
 D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\obj\Debug\net8.0\NailsTcsoft3.pdb
 D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\obj\Debug\net8.0\NailsTcsoft3.genruntimeconfig.cache
 D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\obj\Debug\net8.0\ref\NailsTcsoft3.dll
-D:\ThucTap2025\NailTcSoft\back-end\TCSoftNails\NailsTcsoft3\bin\Debug\net8.0\NailsTcsoft3.staticwebassets.runtime.json

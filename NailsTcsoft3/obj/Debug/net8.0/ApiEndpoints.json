@@ -232,6 +232,377 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "NailsTcsoft3.Controllers.GoodsReceiptsController",
+    "Method": "GetGoodsReceiptById",
+    "RelativePath": "GoodsReceipts/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.GoodsReceiptsController",
+    "Method": "CreateGoodsReceipt",
+    "RelativePath": "GoodsReceipts/Create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "NailsTcsoft3.Models.GoodsReceiptForm",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.GoodsReceiptsController",
+    "Method": "DeleteGoodsReceipt",
+    "RelativePath": "GoodsReceipts/Delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.GoodsReceiptsController",
+    "Method": "GetAllGoodsReceipts",
+    "RelativePath": "GoodsReceipts/GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.GoodsReceiptsController",
+    "Method": "GetByFilter",
+    "RelativePath": "GoodsReceipts/GetByFilter",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "TimeStart",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "TimeEnd",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "ReceiptCode",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Days",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "ProductName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "SupplierName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "AccountantName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Status",
+        "Type": "System.Collections.Generic.List\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "PageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "PageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.GoodsReceiptsController",
+    "Method": "UpdateGoodsReceipt",
+    "RelativePath": "GoodsReceipts/Update/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "NailsTcsoft3.Data.GoodsReceipt",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.PriceListsController",
+    "Method": "GetPriceListById",
+    "RelativePath": "PriceLists/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.PriceListsController",
+    "Method": "AddGroupProToList",
+    "RelativePath": "PriceLists/AddGroupProToList",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "NailsTcsoft3.Controllers.PriceListsController\u002BGroupProductAddRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.PriceListsController",
+    "Method": "AddProductToList",
+    "RelativePath": "PriceLists/AddProductToList",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "NailsTcsoft3.Controllers.PriceListsController\u002BAddProductToListRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.PriceListsController",
+    "Method": "DeletePriceList",
+    "RelativePath": "PriceLists/DeletePriceList/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.PriceListsController",
+    "Method": "GetByFilter",
+    "RelativePath": "PriceLists/GetByFilter",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "SearchTerm",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "ProductTypes",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "ProductTypesArray",
+        "Type": "System.Int32[]",
+        "IsRequired": false
+      },
+      {
+        "Name": "PriceListId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "ProductGroup",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "Status",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "PageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "PageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "Stock",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.PriceListsController",
+    "Method": "GetPriceList",
+    "RelativePath": "PriceLists/GetPriceList",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.PriceListsController",
+    "Method": "GetPriceListCustomerRank",
+    "RelativePath": "PriceLists/GetPriceListCustomerRank/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.PriceListsController",
+    "Method": "PostPriceList",
+    "RelativePath": "PriceLists/PostPriceList",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "NailsTcsoft3.Models.PriceListForm",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.PriceListsController",
+    "Method": "PutPriceList",
+    "RelativePath": "PriceLists/PutPriceList/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "NailsTcsoft3.Models.PriceListForm",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.PriceListsController",
+    "Method": "RemoveAllProducts",
+    "RelativePath": "PriceLists/RemoveAllProducts",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "NailsTcsoft3.Controllers.PriceListsController\u002BRemoveAllProductsRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.PriceListsController",
+    "Method": "RemoveProduct",
+    "RelativePath": "PriceLists/RemoveProduct",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "NailsTcsoft3.Controllers.PriceListsController\u002BRemoveProductRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.PriceListsController",
+    "Method": "UpdateSellingPrice",
+    "RelativePath": "PriceLists/UpdateSellingPrice",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "NailsTcsoft3.Controllers.PriceListsController\u002BPriceListDetailUpdateRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "NailsTcsoft3.Controllers.ProductGroupsController",
     "Method": "GetAll",
     "RelativePath": "ProductGroups",
@@ -376,12 +747,12 @@
         "IsRequired": false
       },
       {
-        "Name": "ProductGroup",
+        "Name": "PriceListId",
         "Type": "System.Int32",
         "IsRequired": false
       },
       {
-        "Name": "Rank",
+        "Name": "ProductGroup",
         "Type": "System.Int32",
         "IsRequired": false
       },
@@ -547,7 +918,7 @@
       },
       {
         "Name": "ExpiryDate",
-        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "Type": "System.String",
         "IsRequired": false
       },
       {
@@ -643,7 +1014,7 @@
       },
       {
         "Name": "ExpiryDate",
-        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "Type": "System.String",
         "IsRequired": false
       },
       {
@@ -744,7 +1115,7 @@
       },
       {
         "Name": "ExpiryDate",
-        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "Type": "System.String",
         "IsRequired": false
       },
       {
@@ -845,7 +1216,7 @@
       },
       {
         "Name": "ExpiryDate",
-        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "Type": "System.String",
         "IsRequired": false
       },
       {
