@@ -4,6 +4,7 @@ using NailsTcsoft3.Data;
 using Microsoft.EntityFrameworkCore;
 using NailsTcsoft3.Models;
 using System.Text.Json;
+using Microsoft.IdentityModel.Tokens;
 
 namespace NailsTcsoft3.Controllers
 {
@@ -38,7 +39,7 @@ namespace NailsTcsoft3.Controllers
         }
 
         [HttpGet("GetByFilter")]
-        public async Task<IActionResult> GetByFilter([FromQuery] GoodsReceiptFilter filter)
+        public async Task<IActionResult> GetByFilter([FromQuery] ReceiptFilter filter)
         {
             var query = _context.GoodsReceipts
                 .Where(gr => !gr.IsDeleted)
@@ -161,22 +162,39 @@ namespace NailsTcsoft3.Controllers
 
 
         [HttpPost("Create")]
-        public async Task<IActionResult> CreateGoodsReceipt([FromBody] GoodsReceiptForm request)
+        public async Task<IActionResult> CreateGoodsReceipt([FromBody] ReceiptForm request)
         {
             if (request == null)
             {
                 return BadRequest(new { success = false, message = "Dữ liệu không hợp lệ." });
             }
 
+            // Kiểm tra ReceiptCode đã tồn tại chưa
+            if (!string.IsNullOrWhiteSpace(request.ReceiptCode))
+            {
+                var existingCode = await _context.GoodsReceipts
+                    .AnyAsync(r => r.ReceiptCode == request.ReceiptCode && !r.IsDeleted);
+
+                if (existingCode)
+                {
+                    return Conflict(new
+                    {
+                        success = false,
+                        message = $"Mã phiếu '{request.ReceiptCode}' đã tồn tại."
+                    });
+                }
+            }
+
             var receipt = new GoodsReceipt
             {
-                ImportDate = DateTime.Now,
+                ImportDate = request.ImportDate,
                 TotalMoney = request.TotalMoney,
+                PaymentMoney = request.PaymentMoney,
                 ReceiptCode = request.ReceiptCode,
+                Due = request.Due,
                 SupplierId = request.SupplierId,
                 Comment = request.Comment,
                 AccountantId = request.AccountantId,
-                PaymentMethod = request.PaymentMethod,
                 IsDeleted = false,
                 Status = request.Status
             };
@@ -201,17 +219,26 @@ namespace NailsTcsoft3.Controllers
                         Quantity = product.Quantity,
                         ImportPrice = product.ImportPrice,
                         IsDeleted = false,
-                        Status = product.Status
+                        Status = true
                     };
                     await _context.GoodsReceiptDetails.AddAsync(detail);
                     receipt.TotalQuantity += product.Quantity;
                     receipt.TotalProduct++;
 
+                    if (receipt.Status == 1)
+                    {
+                        var productInDb = await _context.ProductAndServices
+                            .FirstOrDefaultAsync(p => p.ProAndSerId == product.ProductId);
+                        if (productInDb != null)
+                        {
+                            productInDb.InventoryQuantity += product.Quantity;
+                        }
+                    }
+
                 }
                 await _context.SaveChangesAsync();
             }
-            return CreatedAtAction(nameof(GetGoodsReceiptById), new { id = receipt.ReceiptId }, new
-            {
+            return Ok( new {
                 success = true,
                 message = "Tạo phiếu nhập hàng thành công.",
                 data = receipt
@@ -221,6 +248,10 @@ namespace NailsTcsoft3.Controllers
         [HttpPut("Update/{id}")]
         public async Task<IActionResult> UpdateGoodsReceipt(int id, [FromBody] GoodsReceipt request)
         {
+            if (request == null)
+            {
+                return BadRequest(new { success = false, message = "Dữ liệu không hợp lệ." });
+            }
             var goodsReceipt = await _context.GoodsReceipts
                 .FirstOrDefaultAsync(gr => gr.ReceiptId == id && !gr.IsDeleted);
 
@@ -230,65 +261,105 @@ namespace NailsTcsoft3.Controllers
             }
             goodsReceipt.Comment = request.Comment;
             goodsReceipt.AccountantId = request.AccountantId;
-
+            goodsReceipt.LastUpdate = DateTime.Now;
             await _context.SaveChangesAsync();
 
             return Ok(new { success = true, message = "Cập nhật phiếu nhập hàng thành công." });
         }
 
 
-        [HttpDelete("Delete/{id}")]
-        public async Task<IActionResult> DeleteGoodsReceipt(int id)
+        [HttpPut("UpdateReceiptDetail/{id}")]
+        public async Task<IActionResult> UpdateGoodsReceiptDetail(int id, [FromBody] ReceiptForm request)
         {
-            var goodsReceipt = await _context.GoodsReceipts
-                .FirstOrDefaultAsync(gr => gr.ReceiptId == id);
+            if (request == null || request.SelectedProducts.IsNullOrEmpty())
+            {
+                return BadRequest(new { success = false, message = "Dữ liệu không hợp lệ." });
+            }
 
+
+            var goodsReceipt = await _context.GoodsReceipts
+                .FirstOrDefaultAsync(gr => gr.ReceiptId == id && !gr.IsDeleted);
             if (goodsReceipt == null)
             {
                 return NotFound(new { success = false, message = "Không tìm thấy phiếu nhập hàng." });
             }
-
-            goodsReceipt.Status = 2;
-
-            await _context.SaveChangesAsync();
-
-            if (goodsReceipt.Status == 2)
+            if(goodsReceipt.Status == 1)
             {
-                var result = await DecreaseQuantity(id);
-                if (!result)
+                return BadRequest(new { success = false, message = "Không sửa chi tiết sản phẩm phiếu đã nhập thành công." });
+            }    
+
+            // Cập nhật thông tin phiếu nhập
+            goodsReceipt.Comment = request.Comment;
+            goodsReceipt.AccountantId = request.AccountantId;
+            goodsReceipt.TotalMoney = request.TotalMoney;
+            goodsReceipt.Due=request.Due;
+            goodsReceipt.PaymentMoney = request.PaymentMoney;
+            goodsReceipt.Status = request.Status;
+            goodsReceipt.ImportDate = request.ImportDate;
+            goodsReceipt.LastUpdate = DateTime.Now;
+
+            // Xóa tất cả chi tiết cũ
+            var oldDetails = _context.GoodsReceiptDetails
+                .Where(d => d.ReceiptId == id);
+            _context.GoodsReceiptDetails.RemoveRange(oldDetails);
+
+            // Thêm mới danh sách chi tiết từ request
+            var selectedProducts = JsonSerializer.Deserialize<List<GoodsReceiptDetailForm>>(request.SelectedProducts);
+            foreach (var product in selectedProducts)
+            {
+                var newDetail = new GoodsReceiptDetail
                 {
-                    return BadRequest(new { success = false, message = "Hủy nhập hàng không thành công." });
+                    ReceiptId = id,
+                    ProductId = product.ProductId,
+                    Quantity = product.Quantity,
+                    ImportPrice = product.ImportPrice,      
+                    IsDeleted = false,
+                    Status = true
+                };
+                await _context.GoodsReceiptDetails.AddAsync(newDetail);
+
+                if (request.Status == 1)
+                {
+                    var productInDb = await _context.ProductAndServices
+                        .FirstOrDefaultAsync(p => p.ProAndSerId == product.ProductId);
+                    if (productInDb != null)
+                    {
+                        productInDb.InventoryQuantity += product.Quantity;
+                    }
                 }
             }
 
-            return Ok(new { success = true, message = "Hủy nhập hàng thành công." });
+            await _context.SaveChangesAsync();
+            return Ok(new { success = true, message = "Cập nhật chi tiết phiếu nhập hàng thành công." });
         }
 
-        [NonAction]
-        public async Task<bool> DecreaseQuantity(int receiptId)
-
+        [HttpGet("GetAllStaff")]
+        public async Task<IActionResult> GetAllStaff()
         {
-            var details = await _context.GoodsReceiptDetails
-                .Where(grd => grd.ReceiptId == receiptId)
+            var staffList = await _context.Staff
+                .Where(s => !s.IsDeleted)
+                .Select(s => new
+                {
+                    s.StaffId,
+                    s.StaffName,
+                })
                 .ToListAsync();
 
-            if (details == null || !details.Any())
+            if (!staffList.Any())
             {
-                return false;
-            }
-
-            foreach (var item in details)
-            {
-                var product = await _context.ProductAndServices
-                    .FirstOrDefaultAsync(p => p.ProAndSerId == item.ProductId);
-                if (product != null)
+                return Ok(new
                 {
-                    product.InventoryQuantity -= item.Quantity;
-                }
+                    success = false,
+                    message = "Không có nhân viên nào."
+                });
             }
 
-            await _context.SaveChangesAsync();
-            return true;
+            return Ok(new
+            {
+                success = true,
+                message = "Lấy danh sách nhân viên thành công.",
+                data = staffList
+            });
         }
 
     }

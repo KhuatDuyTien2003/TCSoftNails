@@ -2,14 +2,14 @@
 
 namespace NailsTcsoft3.Models
 {
-    public class GoodsReceiptForm
+    public class ReceiptForm
     {
-        public DateTime ImportDate { get; set; }
-
         public decimal TotalMoney { get; set; }
 
-        public int PaymentMethod { get; set; }
+        public decimal PaymentMoney { get; set; }
+        public decimal Due { get; set; }
 
+        public DateTime ImportDate { get; set; }
         public string? ReceiptCode { get; set; }
 
         public int SupplierId { get; set; }
@@ -27,6 +27,5 @@ namespace NailsTcsoft3.Models
         public int Quantity { get; set; }
         public decimal ImportPrice { get; set; }
 
-        public bool Status { get; set; }
     }
 }

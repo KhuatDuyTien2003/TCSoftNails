@@ -3,7 +3,7 @@ using NailsTcsoft3.Data;
 
 namespace NailsTcsoft3.Models
 {
-    public class GoodsReceiptFilter
+    public class ReceiptFilter
     {
         public DateTime? TimeStart { get; set; }
         public DateTime? TimeEnd { get; set; }

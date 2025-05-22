@@ -55,7 +55,41 @@ namespace NailsTcsoft3.Controllers
             });
         }
 
+        [HttpGet("GetByProductType/{productTypeId}")]
+        public async Task<IActionResult> GetByProductType(int productTypeId)
+        {
+            var products = await _context.ProductAndServices
+                .Where(p => !p.IsDeleted && p.ProductTypeId == productTypeId && p.ProAndSerType==1)
+                .Select(p => new
+                {
+                    p.ProAndSerId,
+                    p.ProAndSerName,
+                    p.ProAndSerCode,
+                    p.OriginalPrice,
+                    p.SellingPrice,
+                    p.InventoryQuantity,
+                    p.Unit,
+                    p.Status,
+                    p.UrlImage
+                })
+                .ToListAsync();
 
+            if (!products.Any())
+            {
+                return Ok(new
+                {
+                    success = false,
+                    message = "Không tìm thấy sản phẩm nào thuộc nhóm này."
+                });
+            }
+
+            return Ok(new
+            {
+                success = true,
+                message = "Lấy danh sách sản phẩm thành công.",
+                data = products
+            });
+        }
         // POST: Products/PostProduct
         [HttpPost("PostProduct")]
         public async Task<IActionResult> PostProduct([FromForm] ProductForm request)
@@ -1022,6 +1056,59 @@ namespace NailsTcsoft3.Controllers
 
             return text;
         }
+
+        [HttpGet("GetOnlyProductsBySearch/{search}")]
+        public async Task<IActionResult> GetOnlyProductsBySearch(string search)
+        {
+            if (string.IsNullOrWhiteSpace(search))
+            {
+                return BadRequest(new
+                {
+                    success = false,
+                    message = "Từ khóa tìm kiếm không hợp lệ"
+                });
+            }
+
+            // Normalize the search term by removing diacritics
+            var normalizedSearch = RemoveDiacritics(search.ToLower());
+
+            // Fetch data from the database (without applying RemoveDiacritics in the query)
+            var products = await _context.ProductAndServices
+                .Where(p => !p.IsDeleted && p.Status != 2 && p.ProAndSerType == 1)
+                .ToListAsync();
+
+            // Apply RemoveDiacritics in memory
+            var results = products
+                .Where(p => RemoveDiacritics(p.ProAndSerName.ToLower()).Contains(normalizedSearch) ||
+                            RemoveDiacritics(p.ProAndSerCode.ToLower()).Contains(normalizedSearch))
+                .Select(p => new
+                {
+                    p.ProAndSerId,
+                    p.ProAndSerName,
+                    p.ProAndSerCode,
+                    p.SellingPrice,
+                    p.InventoryQuantity,
+                    p.UrlImage,
+                })
+                .ToList();
+
+            if (!results.Any())
+            {
+                return Ok(new
+                {
+                    success = false,
+                    message = "Không tìm thấy sản phẩm hoặc dịch vụ nào"
+                });
+            }
+
+            return Ok(new
+            {
+                success = true,
+                message = "Lấy danh sách sản phẩm và dịch vụ thành công",
+                data = results
+            });
+        }
+
         private bool ProductExists(int id)
         {
             return _context.ProductAndServices.Any(e => e.ProAndSerId == id);

@@ -257,23 +257,7 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "NailsTcsoft3.Models.GoodsReceiptForm",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "NailsTcsoft3.Controllers.GoodsReceiptsController",
-    "Method": "DeleteGoodsReceipt",
-    "RelativePath": "GoodsReceipts/Delete/{id}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
+        "Type": "NailsTcsoft3.Models.ReceiptForm",
         "IsRequired": true
       }
     ],
@@ -283,6 +267,16 @@
     "ContainingType": "NailsTcsoft3.Controllers.GoodsReceiptsController",
     "Method": "GetAllGoodsReceipts",
     "RelativePath": "GoodsReceipts/GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.GoodsReceiptsController",
+    "Method": "GetAllStaff",
+    "RelativePath": "GoodsReceipts/GetAllStaff",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -366,6 +360,27 @@
       {
         "Name": "request",
         "Type": "NailsTcsoft3.Data.GoodsReceipt",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.GoodsReceiptsController",
+    "Method": "UpdateGoodsReceiptDetail",
+    "RelativePath": "GoodsReceipts/UpdateReceiptDetail/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "NailsTcsoft3.Models.ReceiptForm",
         "IsRequired": true
       }
     ],
@@ -797,6 +812,22 @@
   },
   {
     "ContainingType": "NailsTcsoft3.Controllers.ProductsController",
+    "Method": "GetByProductType",
+    "RelativePath": "Products/GetByProductType/{productTypeId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productTypeId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.ProductsController",
     "Method": "GetDetailCombo",
     "RelativePath": "Products/GetDetailCombo/{id}",
     "HttpMethod": "GET",
@@ -822,6 +853,22 @@
       {
         "Name": "id",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.ProductsController",
+    "Method": "GetOnlyProductsBySearch",
+    "RelativePath": "Products/GetOnlyProductsBySearch/{search}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "search",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],
@@ -1303,6 +1350,101 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.SuppliersController",
+    "Method": "GetAll",
+    "RelativePath": "Suppliers",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.SuppliersController",
+    "Method": "Create",
+    "RelativePath": "Suppliers",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "NailsTcsoft3.Data.Supplier",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.SuppliersController",
+    "Method": "GetById",
+    "RelativePath": "Suppliers/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.SuppliersController",
+    "Method": "Update",
+    "RelativePath": "Suppliers/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "NailsTcsoft3.Data.Supplier",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.SuppliersController",
+    "Method": "Delete",
+    "RelativePath": "Suppliers/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.SuppliersController",
+    "Method": "GetSuppliersBySearch",
+    "RelativePath": "Suppliers/GetSuppliersBySearch/{search}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "search",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   }
 ]

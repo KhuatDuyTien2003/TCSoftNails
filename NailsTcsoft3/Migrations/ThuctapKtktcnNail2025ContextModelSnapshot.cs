@@ -640,6 +640,9 @@ namespace NailsTcsoft3.Migrations
                         .HasColumnType("text")
                         .HasColumnName("comment");
 
+                    b.Property<decimal>("Due")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<DateTime>("ImportDate")
                         .HasColumnType("datetime")
                         .HasColumnName("importDate");
@@ -647,6 +650,12 @@ namespace NailsTcsoft3.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit")
                         .HasColumnName("isDeleted");
+
+                    b.Property<DateTime>("LastUpdate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("PaymentMoney")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ReceiptCode")
                         .HasColumnType("nvarchar(max)");
@@ -658,9 +667,15 @@ namespace NailsTcsoft3.Migrations
                     b.Property<int>("SupplierId")
                         .HasColumnType("int");
 
-                    b.Property<decimal?>("TotalMoney")
+                    b.Property<decimal>("TotalMoney")
                         .HasColumnType("decimal(18, 2)")
                         .HasColumnName("totalMoney");
+
+                    b.Property<int>("TotalProduct")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalQuantity")
+                        .HasColumnType("int");
 
                     b.HasKey("ReceiptId")
                         .HasName("PK__GoodsRec__CAA7E8B863087402");
@@ -1190,11 +1205,17 @@ namespace NailsTcsoft3.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("Due")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<decimal>("Money")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
@@ -1206,12 +1227,9 @@ namespace NailsTcsoft3.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("money")
-                        .HasColumnType("decimal(18,2)");
-
                     b.HasKey("SupplierId");
 
-                    b.ToTable("Suppliers");
+                    b.ToTable("Supplier", (string)null);
                 });
 
             modelBuilder.Entity("NailsTcsoft3.Data.WorkSchedule", b =>

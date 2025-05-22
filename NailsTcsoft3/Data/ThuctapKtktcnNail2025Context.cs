@@ -269,6 +269,7 @@ public partial class ThuctapKtktcnNail2025Context : IdentityDbContext<Account>
                 .HasColumnType("decimal(18, 2)")
                 .HasColumnName("totalMoney");
         });
+        modelBuilder.Entity<Supplier>().ToTable("Supplier");
 
         modelBuilder.Entity<GoodsReceiptDetail>(entity =>
         {
@@ -340,6 +341,7 @@ public partial class ThuctapKtktcnNail2025Context : IdentityDbContext<Account>
             entity.Property(e => e.Status).HasColumnName("status");
         });
         modelBuilder.Entity<PriceListCustomerRank>().ToTable("PriceListCustomerRank");
+       
         modelBuilder.Entity<ProductAndService>(entity =>
         {
             entity.HasKey(e => e.ProAndSerId).HasName("PK__ProductA__4A1A77791906EC05");

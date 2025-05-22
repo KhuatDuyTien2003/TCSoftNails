@@ -540,17 +540,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/GoodsReceiptForm"
+                "$ref": "#/components/schemas/ReceiptForm"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/GoodsReceiptForm"
+                "$ref": "#/components/schemas/ReceiptForm"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/GoodsReceiptForm"
+                "$ref": "#/components/schemas/ReceiptForm"
               }
             }
           }
@@ -604,8 +604,8 @@
         }
       }
     },
-    "/GoodsReceipts/Delete/{id}": {
-      "delete": {
+    "/GoodsReceipts/UpdateReceiptDetail/{id}": {
+      "put": {
         "tags": [
           "GoodsReceipts"
         ],
@@ -619,6 +619,37 @@
               "format": "int32"
             }
           }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReceiptForm"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReceiptForm"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReceiptForm"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/GoodsReceipts/GetAllStaff": {
+      "get": {
+        "tags": [
+          "GoodsReceipts"
         ],
         "responses": {
           "200": {
@@ -1158,6 +1189,29 @@
       "get": {
         "tags": [
           "Products"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Products/GetByProductType/{productTypeId}": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "parameters": [
+          {
+            "name": "productTypeId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -2090,6 +2144,28 @@
         }
       }
     },
+    "/Products/GetOnlyProductsBySearch/{search}": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "parameters": [
+          {
+            "name": "search",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/Staff/CreateStaff": {
       "post": {
         "tags": [
@@ -2125,6 +2201,153 @@
       "get": {
         "tags": [
           "Staff"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Suppliers": {
+      "get": {
+        "tags": [
+          "Suppliers"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Suppliers"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Supplier"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Supplier"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Supplier"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Suppliers/{id}": {
+      "get": {
+        "tags": [
+          "Suppliers"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Suppliers"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Supplier"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Supplier"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Supplier"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Suppliers"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Suppliers/GetSuppliersBySearch/{search}": {
+      "get": {
+        "tags": [
+          "Suppliers"
+        ],
+        "parameters": [
+          {
+            "name": "search",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -2241,13 +2464,17 @@
             "type": "string",
             "format": "date-time"
           },
+          "lastUpdate": {
+            "type": "string",
+            "format": "date-time"
+          },
           "totalMoney": {
             "type": "number",
             "format": "double"
           },
-          "paymentMethod": {
-            "type": "integer",
-            "format": "int32"
+          "paymentMoney": {
+            "type": "number",
+            "format": "double"
           },
           "totalQuantity": {
             "type": "integer",
@@ -2256,6 +2483,10 @@
           "totalProduct": {
             "type": "integer",
             "format": "int32"
+          },
+          "due": {
+            "type": "number",
+            "format": "double"
           },
           "receiptCode": {
             "type": "string",
@@ -2280,49 +2511,6 @@
           "status": {
             "type": "integer",
             "format": "int32"
-          }
-        },
-        "additionalProperties": false
-      },
-      "GoodsReceiptForm": {
-        "type": "object",
-        "properties": {
-          "importDate": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "totalMoney": {
-            "type": "number",
-            "format": "double"
-          },
-          "paymentMethod": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "receiptCode": {
-            "type": "string",
-            "nullable": true
-          },
-          "supplierId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "comment": {
-            "type": "string",
-            "nullable": true
-          },
-          "accountantId": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "status": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "selectedProducts": {
-            "type": "string",
-            "nullable": true
           }
         },
         "additionalProperties": false
@@ -2452,6 +2640,53 @@
         },
         "additionalProperties": false
       },
+      "ReceiptForm": {
+        "type": "object",
+        "properties": {
+          "totalMoney": {
+            "type": "number",
+            "format": "double"
+          },
+          "paymentMoney": {
+            "type": "number",
+            "format": "double"
+          },
+          "due": {
+            "type": "number",
+            "format": "double"
+          },
+          "importDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "receiptCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "supplierId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "comment": {
+            "type": "string",
+            "nullable": true
+          },
+          "accountantId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "selectedProducts": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "RemoveAllProductsRequest": {
         "type": "object",
         "properties": {
@@ -2510,6 +2745,46 @@
           "urlAvatar": {
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Supplier": {
+        "type": "object",
+        "properties": {
+          "supplierId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "supplierName": {
+            "type": "string",
+            "nullable": true
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "money": {
+            "type": "number",
+            "format": "double"
+          },
+          "due": {
+            "type": "number",
+            "format": "double"
+          },
+          "isDeleted": {
+            "type": "boolean"
+          },
+          "status": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false

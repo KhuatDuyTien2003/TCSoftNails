@@ -1,4 +1,3 @@
-.gitignore
 # Build output
 /bin/
 /obj/
@@ -14,7 +13,7 @@ artifacts/
 .vs/
 .vs/**/*
 
-# VS Code settings
+# VS Code
 .vscode/
 .history/
 
@@ -31,7 +30,7 @@ _ReSharper*/
 **/secrets.json
 **/secrets/*.json
 
-# Docker (nếu dùng Docker)
+# Docker
 docker-compose.override.yml
 *.env
 
@@ -54,7 +53,7 @@ TestResults/
 *.db
 *.sqlite
 
-# Symbol files
+# Symbols
 *.pdb
 
 # EF Core
@@ -67,10 +66,16 @@ Migrations/
 # HTTP test files
 *.http
 
-# Config (environment-specific)
+# Config
 appsettings.Development.json
 
-# Project-specific (TCSoftNails)
-TCSoftNails/NailsTcosft3.csproj.user
-TCSoftNails/NailsTcosft3.csproj
-TCSoftNails/NailsTcosft3.http
+# Project-specific
+NailsTcsoft3/obj/Debug/net8.0/EndpointInfo/NailsTcsoft3.json
+
+# File extensions that can cause CRLF warnings
+*.dtbcache.v2
+*.futdcache.v2
+*.suo
+
+# Nếu có các file csproj.user cần ignore
+*.csproj.user
