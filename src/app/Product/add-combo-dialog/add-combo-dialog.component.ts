@@ -88,8 +88,10 @@ export class AddComboDialogComponent implements OnInit {
   }
 
   search(value: string): void {
-    if (value) {
-      this.searchSubject.next(value);
+    const trimmedValue = value.trim();
+
+    if (trimmedValue) {
+      this.searchSubject.next(trimmedValue);
     } else {
       this.listOfOption = [];
     }

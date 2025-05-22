@@ -52,7 +52,12 @@ export class ProductService {
       .get<any[]>(url, { params })
       .pipe(catchError(this.handleError));
   }
-
+  getProductsByProductType(productTypeId: number): Observable<any> {
+    const url = `${this.base_url}/Products/GetByProductType/${productTypeId}`;
+    return this.http
+      .get<any>(url, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
   postProduct(product: FormData): Observable<any> {
     const url = `${this.base_url}/Products/PostProduct`;
     // Nếu product là FormData, bạn không cần đặt Content-Type
@@ -157,7 +162,12 @@ export class ProductService {
       .get<any>(url, this.httpOptions)
       .pipe(catchError(this.handleError));
   }
-
+  getOnlyProBySearch(search: string): Observable<any> {
+    const url = `${this.base_url}/Products/GetOnlyProductsBySearch/${search}`;
+    return this.http
+      .get<any>(url, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
   deleteProduct(id: number): Observable<any> {
     const url = `${this.base_url}/Products/DeleteProduct/${id}`;
     return this.http

@@ -430,7 +430,6 @@ export class ProductComponent implements OnInit {
         'Hạn sử dụng': product.expiryDate
           ? new Date(product.expiryDate).toLocaleDateString('en-GB') // Định dạng ngày tháng: dd/MM/yyyy
           : '',
-        'Mô tả': product.description,
       }))
     );
 

@@ -1,0 +1,275 @@
+<div
+  class="flex flex-col md:flex-row mx-auto p-6 gap-6 bg-gray-100 min-h-screen"
+>
+  <!-- Left Sidebar -->
+  <div class="flex flex-col gap-6 w-full max-w-[280px]">
+    <!-- Search Section -->
+    <details class="bg-white rounded-xl p-4 shadow-sm" open>
+      <summary
+        class="font-semibold cursor-pointer select-none text-sm text-[#1E1E2D] mb-3 flex justify-between items-center"
+      >
+        Tìm kiếm
+        <i class="fas fa-chevron-down text-sm"></i>
+      </summary>
+      <input
+        type="text"
+        placeholder="Theo mã phiếu nhập"
+        class="w-full mb-2 border border-[#D1D5DB] px-4 py-2 text-sm text-[#6B7280] placeholder:text-[#6B7280] focus:outline-none focus:ring-1 focus:ring-blue-500"
+        (input)="onSearchInput($event)"
+        [(ngModel)]="filterCriteria.receiptCode"
+      />
+      <input
+        type="text"
+        placeholder="Theo mã và tên hàng hóa"
+        class="w-full mb-2 border border-[#D1D5DB] px-4 py-2 text-sm text-[#6B7280] placeholder:text-[#6B7280] focus:outline-none focus:ring-1 focus:ring-blue-500"
+        (input)="onProductSearchInput($event)"
+        [(ngModel)]="filterCriteria.productName"
+      />
+      <input
+        type="text"
+        placeholder="Theo mã, tên NCC"
+        class="w-full mb-2 border border-[#D1D5DB] px-4 py-2 text-sm text-[#6B7280] placeholder:text-[#6B7280] focus:outline-none focus:ring-1 focus:ring-blue-500"
+        (input)="onSupplierSearchInput($event)"
+        [(ngModel)]="filterCriteria.supplierName"
+      />
+      <input
+        type="text"
+        placeholder="Theo nhân viên nhập"
+        class="w-full mb-2 border border-[#D1D5DB] px-4 py-2 text-sm text-[#6B7280] placeholder:text-[#6B7280] focus:outline-none focus:ring-1 focus:ring-blue-500"
+        (input)="onAccountantSearchInput($event)"
+        [(ngModel)]="filterCriteria.accountantName"
+      />
+    </details>
+
+    <!-- Thời gian Section -->
+    <details class="bg-white rounded-xl p-4 shadow-sm" open>
+      <summary
+        class="font-semibold cursor-pointer select-none text-sm text-[#1E1E2D] mb-3 flex justify-between items-center"
+      >
+        Thời gian <i class="fas fa-chevron-down text-sm"></i>
+      </summary>
+      <!-- days -->
+      <div class="flex items-center gap-2 text-sm text-[#1E1E2D]">
+        <input
+          type="radio"
+          name="time"
+          value="true"
+          [checked]="active === true"
+          (change)="onTimeRadioChange(true)"
+        />
+        <nz-select
+          [(ngModel)]="days"
+          class="w-full mb-2 py-[7px]"
+          (ngModelChange)="onDaysChange($event)"
+          [disabled]="active === false"
+        >
+          <nz-option
+            *ngFor="let option of dayOptions"
+            [nzValue]="option.value"
+            [nzLabel]="option.label"
+          ></nz-option>
+        </nz-select>
+      </div>
+      <!-- customDays -->
+      <div class="flex items-center gap-2 text-sm text-[#1E1E2D]">
+        <input
+          type="radio"
+          name="time"
+          value="false"
+          [checked]="active === false"
+          (change)="onTimeRadioChange(false)"
+        />
+        <nz-range-picker
+          class="w-full mb-2 py-[7px]"
+          [(ngModel)]="date"
+          [nzFormat]="'dd/MM/yyyy'"
+          [nzAllowClear]="false"
+          (ngModelChange)="onChange($event)"
+          [disabled]="active === true"
+        ></nz-range-picker>
+      </div>
+    </details>
+
+    <!-- Trạng thái Section -->
+    <details class="bg-white rounded-xl p-4 shadow-sm" open>
+      <summary
+        class="font-semibold cursor-pointer select-none text-sm text-[#1E1E2D] mb-3 flex justify-between items-center"
+      >
+        Trạng thái <i class="fas fa-chevron-down text-sm"></i>
+      </summary>
+      <div class="flex flex-col gap-3 text-sm text-[#1E1E2D]">
+        <label
+          *ngFor="let option of statusOptions"
+          class="flex items-center gap-3 cursor-pointer"
+        >
+          <input
+            type="checkbox"
+            class="w-4 h-4 text-blue-500 border-blue-500"
+            [checked]="filterCriteria.status?.includes(option.value)"
+            (change)="onStatusChange(option.value)"
+          />
+          {{ option.label }}
+        </label>
+      </div>
+    </details>
+  </div>
+
+  <!-- Main Content -->
+  <div class="flex-1 flex flex-col gap-4">
+    <div class="flex justify-between items-center">
+      <h1 class="text-[#1E1E2D] font-extrabold text-xl">Phiếu nhập hàng</h1>
+      <div class="flex gap-3">
+        <button
+          class="bg-[#03B050] text-white rounded-md px-4 py-2 flex items-center gap-2 hover:bg-[#02963f] transition"
+          (click)="onCreateNewReceipt()"
+        >
+          <i class="fas fa-plus"></i> Nhập hàng
+        </button>
+        <div class="relative group">
+          <button
+            class="bg-[#03B050] text-white rounded-md px-4 py-2 flex items-center gap-2 hover:bg-[#02963f] transition"
+          >
+            <i class="fas fa-file-export"></i> Xuất file
+          </button>
+          <div
+            class="absolute right-0 mt-1 hidden group-hover:block bg-white border rounded shadow-md z-10"
+          >
+            <button
+              (click)="exportToExcel()"
+              class="px-4 py-2 text-sm text-[#1E1E2D] hover:bg-gray-100 w-full text-left"
+            >
+              Xuất Excel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="overflow-x-auto rounded-xl shadow-sm">
+      <table class="min-w-full text-sm text-[#1E1E2D] bg-white rounded-xl">
+        <thead class="bg-[#D9E9FF] text-[#1E1E2D] font-semibold text-left">
+          <tr>
+            <th class="px-6 py-3 border-r border-[#E5E7EB]">Mã nhập hàng</th>
+            <th class="px-6 py-3 border-r border-[#E5E7EB]">Thời gian</th>
+            <th class="px-6 py-3 border-r border-[#E5E7EB]">Nhà cung cấp</th>
+            <th class="px-6 py-3 border-r border-[#E5E7EB] text-right">
+              Cần trả NCC
+            </th>
+            <th class="px-6 py-3 border-r border-[#E5E7EB] text-right">
+              Tổng tiền
+            </th>
+            <th class="px-6 py-3 border-r border-[#E5E7EB] text-right">
+              Đã thanh toán
+            </th>
+            <th class="px-6 py-3 border-r border-[#E5E7EB]">Ghi chú</th>
+            <th class="px-6 py-3 border-r border-[#E5E7EB]">Nhân viên nhập</th>
+            <th class="px-6 py-3 border-r border-[#E5E7EB] text-right">
+              Trạng thái
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let receipt of goodsReceipts"
+            class="border-b border-[#E5E7EB] hover:bg-gray-50"
+          >
+            <td class="px-6 py-4 border-r border-[#E5E7EB]">
+              {{ receipt.receiptCode }}
+            </td>
+            <td class="px-6 py-4 border-r border-[#E5E7EB]">
+              {{ receipt.importDate | date : "dd/MM/yyyy HH:mm" }}
+            </td>
+            <td class="px-6 py-4 border-r border-[#E5E7EB]">
+              {{ getSupplierName(receipt.supplierId) }}
+            </td>
+            <td
+              class="px-6 py-4 border-r border-[#E5E7EB] text-right font-bold"
+            >
+              {{ receipt.due | number : "1.0-0" }} VND
+            </td>
+            <td class="px-6 py-4 border-r border-[#E5E7EB] text-right">
+              {{ receipt.totalMoney | number : "1.0-0" }} VND
+            </td>
+            <td class="px-6 py-4 border-r border-[#E5E7EB] text-right">
+              {{ receipt.paymentMoney | number : "1.0-0" }} VND
+            </td>
+            <td class="px-6 py-4 border-r border-[#E5E7EB]">
+              {{ receipt.comment }}
+            </td>
+            <td class="px-6 py-4 border-r border-[#E5E7EB]">
+              {{ getStaffName(receipt.accountantId) }}
+            </td>
+            <td class="px-6 py-4 text-right">
+              <span
+                [ngClass]="{
+                  'text-yellow-500': receipt.status === 0,
+                  'text-green-500': receipt.status === 1,
+                }"
+              >
+                {{ getStatusLabel(receipt.status) }}
+              </span>
+            </td>
+          </tr>
+          <tr *ngIf="goodsReceipts.length === 0 && !isLoading">
+            <td colspan="9" class="px-6 py-4 text-center text-gray-500">
+              Không có dữ liệu phiếu nhập hàng
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Loading Indicator -->
+      <div *ngIf="isLoading" class="p-4 flex justify-center">
+        <nz-spin nzSize="large"></nz-spin>
+      </div>
+      <div class="w-full mt-4">
+        <div
+          *ngIf="totalPages > 0"
+          class="flex justify-center items-center gap-2 flex-wrap"
+        >
+          <!-- Previous Button -->
+          <button
+            (click)="prevPage()"
+            [disabled]="currentPage === 1 || isLoading"
+            class="px-3 py-2 bg-gray-200 rounded disabled:opacity-50 flex items-center gap-1"
+          >
+            <i class="fas fa-chevron-left"></i>
+            <span
+              *ngIf="isLoading && currentPage !== 1"
+              class="animate-spin w-4 h-4 border border-gray-400 border-t-transparent rounded-full"
+            ></span>
+          </button>
+
+          <!-- Page Numbers -->
+          <ng-container *ngFor="let page of pageNumbers">
+            <span *ngIf="page === -1" class="px-2">...</span>
+            <button
+              *ngIf="page !== -1"
+              (click)="goToPage(page)"
+              [ngClass]="{
+                'bg-blue-500 text-white': currentPage === page,
+                'bg-gray-200': currentPage !== page
+              }"
+              class="px-3 py-2 rounded"
+            >
+              {{ page }}
+            </button>
+          </ng-container>
+
+          <!-- Next Button -->
+          <button
+            (click)="nextPage()"
+            [disabled]="currentPage === totalPages || isLoading"
+            class="px-3 py-2 bg-gray-200 rounded disabled:opacity-50 flex items-center gap-1"
+          >
+            <span
+              *ngIf="isLoading && currentPage !== totalPages"
+              class="animate-spin w-4 h-4 border border-gray-400 border-t-transparent rounded-full"
+            ></span>
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

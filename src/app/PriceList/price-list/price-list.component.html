@@ -16,7 +16,6 @@
           <div class="flex items-center gap-2">
             <nz-select
               [(ngModel)]="selectedPriceList"
-              (nzScrollToBottom)="loadPriceList()"
               (ngModelChange)="applyFilter()"
               nzPlaceHolder="Chọn bảng giá"
               [nzDropdownRender]="renderTemplate"
@@ -40,7 +39,17 @@
             </button>
           </div>
         </div>
-
+        <!-- search product -->
+        <div class="bg-white p-4 rounded-md shadow-md mb-5">
+          <h3 class="text-lg font-semibold mb-4">Tìm kiếm sản phẩm/dịch vụ</h3>
+          <input
+            type="text"
+            [(ngModel)]="productSearchTerm"
+            (keyup)="debounceApplyFilter()"
+            placeholder="Tìm kiếm sản phẩm"
+            class="w-full px-3 py-2 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+        </div>
         <!-- Product Groups -->
         <div class="bg-white p-4 rounded-md shadow-md">
           <h3 class="text-lg font-semibold mb-4">Nhóm hàng</h3>
@@ -51,7 +60,7 @@
             placeholder="Tìm kiếm nhóm hàng..."
             class="w-full px-3 py-2 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
-          <ul class="max-h-[50%] overflow-y-auto space-y-2">
+          <ul class="max-h-[330px] overflow-y-auto space-y-2 scrow-hidden">
             <li
               *ngFor="let group of filteredGroups"
               (click)="selectGroup(group.productTypeId)"
@@ -79,9 +88,33 @@
       </aside>
 
       <section class="flex-1 p-4 w-full h-[100hv]">
-        <div class="flex items-center justify-between mb-4">
-          <h3 class="text-lg font-semibold">{{ getPriceListName() }}</h3>
+        <div
+          class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4"
+        >
+          <p class="text-xl font-semibold m-0">
+            {{ getPriceListName() }}
+          </p>
+          <nz-select
+            [(ngModel)]="selectedProductId"
+            (ngModelChange)="onSelectProduct($event)"
+            nzShowSearch
+            nzServerSearch
+            nzPlaceHolder="Thêm trực tiếp sản phẩm vào bảng giá"
+            [nzShowArrow]="false"
+            [nzFilterOption]="nzFilterOption"
+            (nzOnSearch)="search($event)"
+            class="w-full md:w-[400px]"
+            [nzSize]="'large'"
+          >
+            <nz-option
+              *ngFor="let item of listOfOption"
+              [nzLabel]="item.proAndSerName + ' - ' + item.proAndSerCode"
+              [nzValue]="item.proAndSerId"
+              class="pro-option"
+            ></nz-option>
+          </nz-select>
         </div>
+
         <div
           class="overflow-y-auto max-h-[calc(100vh-150px)] border-2 bg-gray-200"
         >

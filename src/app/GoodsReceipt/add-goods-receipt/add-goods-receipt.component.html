@@ -1,0 +1,303 @@
+<form [formGroup]="receiptForm">
+  <section class="bg-[#f3f4f6] flex h-[100vh] px-[5%]">
+    <main class="w-[75%] flex flex-col mr-2">
+      <header class="flex items-center justify-between gap-3 px-4 py-2 mb-2">
+        <button
+          aria-label="Back"
+          (click)="back()"
+          class="text-gray-700 text-[20px] font-semibold flex items-center gap-1"
+        >
+          <i class="fas fa-arrow-left"></i>
+          <span class="pl-2">Nhập hàng</span>
+        </button>
+
+        <div class="relative w-[50%]">
+          <nz-select
+            [(ngModel)]="selectedProductId"
+            (ngModelChange)="onSelectProduct($event)"
+            nzShowSearch
+            nzServerSearch
+            [ngModelOptions]="{ standalone: true }"
+            nzPlaceHolder="Tìm kiếm sản phẩm hoặc Dịch vụ"
+            [nzShowArrow]="false"
+            [nzFilterOption]="nzFilterOption"
+            (nzOnSearch)="search($event)"
+            class="flex-1 w-full"
+            [nzSize]="'large'"
+          >
+            <nz-option
+              *ngFor="let item of listOfOption"
+              [nzValue]="item.proAndSerId"
+              [nzCustomContent]="true"
+              class="min-h-[100px]"
+            >
+              <div class="flex items-center gap-2">
+                <img
+                  *ngIf="item.urlImage"
+                  [src]="'http://localhost:5213' + item.urlImage"
+                  class="w-14 h-14 rounded object-cover"
+                />
+                <img
+                  *ngIf="!item.urlImage"
+                  src="assets/images/image.png"
+                  alt="Không có ảnh"
+                  class="w-14 h-14 rounded object-cover"
+                />
+                <div class="py-3">
+                  <p class="font-semibold text-[15px]">
+                    {{ item.proAndSerName }}
+                  </p>
+                  <p class="text-gray-500 text-[11px]">
+                    {{ item.proAndSerCode }}
+                  </p>
+                  <p class="text-gray-500 text-[11px]">
+                    Tồn kho: {{ item.inventoryQuantity }}
+                  </p>
+                </div>
+              </div>
+            </nz-option>
+          </nz-select>
+
+          <!-- Icon danh sách bên phải -->
+          <div
+            class="absolute inset-y-0 right-10 flex items-center pr-3 text-gray-600 hover:text-gray-900 cursor-pointer"
+            (click)="AddProductInGroup()"
+          >
+            <i class="fas fa-list"></i>
+          </div>
+
+          <!-- Icon thêm mới bên phải -->
+          <div
+            class="absolute inset-y-0 right-1 flex items-center pr-3 text-gray-600 hover:text-gray-900 cursor-pointer"
+            (click)="AddProductDialog()"
+          >
+            <i class="fas fa-plus"></i>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2 ml-4">
+          <button
+            type="button"
+            class="w-10 h-10 bg-white border border-gray-300 rounded flex items-center justify-center text-gray-600 hover:text-gray-900"
+          >
+            <i class="fas fa-print"></i>
+          </button>
+          <button
+            type="button"
+            class="w-10 h-10 bg-[#2563eb] rounded flex items-center justify-center text-white"
+          >
+            <i class="fas fa-eye"></i>
+          </button>
+          <button
+            type="button"
+            class="w-10 h-10 bg-white border border-gray-300 rounded flex items-center justify-center text-gray-600 hover:text-gray-900"
+          >
+            <i class="fas fa-exclamation"></i>
+          </button>
+        </div>
+      </header>
+      <!-- Content Area -->
+      <div class="flex flex-1 overflow-hidden">
+        <!-- Left Content -->
+        <div class="w-full">
+          <div
+            *ngIf="selectedProAndSer.length > 0"
+            class="rounded-lg shadow-md overflow-hidden border border-sky-200"
+          >
+            <div class="overflow-y-auto max-h-[calc(100vh-150px)]">
+              <table class="w-full border-collapse bg-white">
+                <thead class="bg-sky-100 sticky top-0">
+                  <tr
+                    class="h-10 text-gray-800 text-sm font-semibold border-b border-sky-200"
+                  >
+                    <th class="text-center w-10 cursor-pointer">
+                      <i
+                        (click)="removeAllProducts()"
+                        class="fa-solid fa-xmark"
+                        style="color: #e52a2a"
+                      ></i>
+                    </th>
+                    <th class="text-center py-2">STT</th>
+                    <th class="text-left pl-2">Mã</th>
+                    <th class="text-left pl-2">Tên</th>
+                    <th class="text-center py-2">
+                      Số lượng<span class="text-pink-500">*</span>
+                    </th>
+                    <th class="text-right py-2 pr-3">Giá gốc</th>
+                    <th class="text-right py-2 pr-3">Thành tiền</th>
+                  </tr>
+                </thead>
+                <tbody class="text-sm text-gray-900">
+                  <tr
+                    class="border-b border-sky-100"
+                    *ngFor="let product of selectedProAndSer; let i = index"
+                  >
+                    <td class="text-center align-middle cursor-pointer">
+                      <i
+                        (click)="removeProduct(i)"
+                        class="fa-solid fa-xmark"
+                        style="color: #e52a2a"
+                      ></i>
+                    </td>
+                    <td class="py-2 text-center align-middle">
+                      {{ i + 1 }}
+                    </td>
+                    <td class="py-2 pl-3 align-middle">
+                      {{ product.proAndSerCode }}
+                    </td>
+                    <td class="py-2 font-semibold pl-3 align-middle">
+                      {{ product.proAndSerName }}
+                    </td>
+                    <td class="py-2 text-center align-middle">
+                      <input
+                        type="number"
+                        min="1"
+                        [(ngModel)]="product.quantity"
+                        (ngModelChange)="
+                          updateQuantity(i, product.quantity ?? 1)
+                        "
+                        [ngModelOptions]="{ standalone: true }"
+                        class="border p-1 w-16 text-center rounded"
+                        (keydown)="blockNonNumbers($event)"
+                      />
+                    </td>
+                    <td class="py-2 text-right pr-3 align-middle">
+                      {{ product.sellingPrice | number }}
+                    </td>
+                    <td class="py-2 text-right pr-3 align-middle">
+                      {{ product.finalPrice | number }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div
+            *ngIf="selectedProAndSer.length === 0"
+            class="h-full flex flex-col items-center justify-center py-12 text-gray-400"
+          >
+            <i class="fas fa-box-open text-5xl mb-3"></i>
+            <span class="text-lg font-medium">Không có sản phẩm nào.</span>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- Right Sidebar -->
+    <aside
+      class="w-[25%] h-[90%] bg-white p-4 flex flex-col gap-4 relative text-[15px] border-l border-r border-gray-300"
+    >
+      <div class="flex items-center gap-2 mb-4">
+        <button
+          type="button"
+          class="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-gray-600"
+        >
+          <i class="fas fa-user-circle"></i>
+        </button>
+        <nz-select
+          formControlName="accountantId"
+          class="w-full"
+          nzPlaceHolder="Nhân viên"
+        >
+          <nz-option
+            *ngFor="let option of staffOptions"
+            [nzValue]="option.staffId"
+            [nzLabel]="option.staffName"
+          ></nz-option>
+        </nz-select>
+
+        <div
+          class="border border-gray-300 rounded px-3 py-1 text-sm text-gray-700 whitespace-nowrap"
+        >
+          {{ createTime | date : "dd/MM/yyyy HH:mm:ss" }}
+        </div>
+      </div>
+      <div class="flex items-center gap-2 mb-4">
+        <nz-select
+          formControlName="supplierId"
+          class="w-full"
+          nzShowSearch
+          nzPlaceHolder="Tìm kiếm nhà cung cấp"
+        >
+          <nz-option
+            *ngFor="let option of supplierOptions"
+            [nzValue]="option.supplierId"
+            [nzLabel]="option.supplierName"
+          ></nz-option>
+        </nz-select>
+
+        <button
+          type="button"
+          class="w-8 h-8 rounded border border-gray-300 text-gray-600 hover:text-gray-900 flex items-center justify-center"
+        >
+          <i class="fas fa-plus"></i>
+        </button>
+      </div>
+      <div class="flex justify-between items-center mb-4">
+        <label class="text-gray-800">Mã phiếu nhập</label>
+        <input
+          type="text"
+          formControlName="receiptCode"
+          readonly
+          value="Mã phiếu tự động"
+          class="border border-gray-300 rounded px-2 py-1 text-sm text-gray-500 bg-white w-[140px] text-right"
+        />
+      </div>
+      <div class="flex justify-between items-center mb-4">
+        <label class="text-gray-800">Tổng tiền hàng</label>
+        <span class="text-gray-800 font-normal">
+          {{ totalMoney | number }}</span
+        >
+      </div>
+      <div class="flex justify-between items-center mb-4">
+        <label class="text-gray-800">Tổng số lượng</label>
+        <span class="text-gray-800 font-normal">{{
+          totalQuantity | number
+        }}</span>
+      </div>
+      <div class="flex justify-between items-center mb-4">
+        <span>Chi phí nhập hàng</span>
+        <p class="text-blue-600 font-semibold">
+          {{ totalMoney | number }}
+        </p>
+      </div>
+      <div class="flex justify-between items-center gap-2 mb-4">
+        <label class="font-semibold text-gray-900">Tiền trả nhà cung cấp</label>
+        <input
+          type="text"
+          formControlName="paymentMoney"
+          class="border border-gray-300 rounded px-3 py-1 text-sm text-gray-700 w-[100px] text-right"
+          (keydown)="blockNonNumbers($event)"
+        />
+      </div>
+      <div class="flex justify-between items-center mb-4">
+        <span>Nợ</span>
+        <button type="button" class="text-blue-600 font-semibold">
+          {{ due | number }}
+        </button>
+      </div>
+      <textarea
+        rows="3"
+        formControlName="comment"
+        placeholder="Ghi chú"
+        class="border border-gray-300 rounded px-3 py-2 text-sm text-gray-700 resize-none"
+      ></textarea>
+      <div class="flex gap-4 mt-auto">
+        <button
+          type="button"
+          class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md py-4"
+          (click)="saveDraftReceipt()"
+        >
+          Lưu Phiếu Nháp
+        </button>
+
+        <button
+          type="button"
+          (click)="submitPayment()"
+          class="flex-1 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-md py-4 flex items-center justify-center gap-2"
+        >
+          <i class="fas fa-check"></i>Thanh Toán
+        </button>
+      </div>
+    </aside>
+  </section>
+</form>
