@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "D:\\CODE\\.NET\\web\\dev_be\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|d:\\code\\.net\\web\\dev_be\\nailstcsoft3\\models\\staffmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|solutionrelative:nailstcsoft3\\models\\staffmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|d:\\code\\.net\\web\\dev_be\\nailstcsoft3\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|solutionrelative:nailstcsoft3\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -62,7 +66,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 23,
+          "SelectedChildIndex": 17,
           "Children": [
             {
               "$type": "Bookmark",
@@ -134,7 +138,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
+              "Title": "StaffModel.cs",
+              "DocumentMoniker": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\Models\\StaffModel.cs",
+              "RelativeDocumentMoniker": "NailsTcsoft3\\Models\\StaffModel.cs",
+              "ToolTip": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\Models\\StaffModel.cs",
+              "RelativeToolTip": "NailsTcsoft3\\Models\\StaffModel.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-23T08:00:28.357Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "ProductsController.cs",
               "DocumentMoniker": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\Controllers\\ProductsController.cs",
               "RelativeDocumentMoniker": "NailsTcsoft3\\Controllers\\ProductsController.cs",
@@ -146,7 +163,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "PermissionController.cs",
               "DocumentMoniker": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\Controllers\\PermissionController.cs",
               "RelativeDocumentMoniker": "NailsTcsoft3\\Controllers\\PermissionController.cs",
@@ -158,7 +175,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "CategoriesController.cs",
               "DocumentMoniker": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\Controllers\\CategoriesController.cs",
               "RelativeDocumentMoniker": "NailsTcsoft3\\Controllers\\CategoriesController.cs",
@@ -170,7 +187,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "CustomerRanksController.cs",
               "DocumentMoniker": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\Controllers\\CustomerRanksController.cs",
               "RelativeDocumentMoniker": "NailsTcsoft3\\Controllers\\CustomerRanksController.cs",
@@ -182,7 +199,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "BillController.cs",
               "DocumentMoniker": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\Controllers\\BillController.cs",
               "RelativeDocumentMoniker": "NailsTcsoft3\\Controllers\\BillController.cs",
@@ -194,7 +211,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\Program.cs",
               "RelativeDocumentMoniker": "NailsTcsoft3\\Program.cs",
@@ -206,20 +223,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "AccountController.cs",
               "DocumentMoniker": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\Controllers\\AccountController.cs",
               "RelativeDocumentMoniker": "NailsTcsoft3\\Controllers\\AccountController.cs",
               "ToolTip": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\Controllers\\AccountController.cs",
               "RelativeToolTip": "NailsTcsoft3\\Controllers\\AccountController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABwBAAA5AAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-22T04:06:48.696Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "CustomerController.cs",
               "DocumentMoniker": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\Controllers\\CustomerController.cs",
               "RelativeDocumentMoniker": "NailsTcsoft3\\Controllers\\CustomerController.cs",
@@ -231,7 +248,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "HeaderController.cs",
               "DocumentMoniker": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\Controllers\\HeaderController.cs",
               "RelativeDocumentMoniker": "NailsTcsoft3\\Controllers\\HeaderController.cs",
@@ -243,7 +260,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "PromotionController.cs",
               "DocumentMoniker": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\Controllers\\PromotionController.cs",
               "RelativeDocumentMoniker": "NailsTcsoft3\\Controllers\\PromotionController.cs",
@@ -255,7 +272,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "StaffController.cs",
               "DocumentMoniker": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\Controllers\\StaffController.cs",
               "RelativeDocumentMoniker": "NailsTcsoft3\\Controllers\\StaffController.cs",
@@ -267,7 +284,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "AccountModel.cs",
               "DocumentMoniker": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\Models\\AccountModel.cs",
               "RelativeDocumentMoniker": "NailsTcsoft3\\Models\\AccountModel.cs",
@@ -279,7 +296,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "Account.cs",
               "DocumentMoniker": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\Data\\Account.cs",
               "RelativeDocumentMoniker": "NailsTcsoft3\\Data\\Account.cs",
