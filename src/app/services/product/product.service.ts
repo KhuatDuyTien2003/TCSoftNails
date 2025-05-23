@@ -15,7 +15,7 @@ import { BaseHttpService } from '../base-http.service';
 export class ProductService {
   baseClass = new BaseHttpService
   private base_url = this.baseClass.base_url;
-    httpOptions = this.baseClass.httpOption
+  
 
 
   private firstServiceCompleteSource = new BehaviorSubject<boolean>(false);
@@ -25,12 +25,12 @@ export class ProductService {
     this.firstServiceCompleteSource.next(true);
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private baseService: BaseHttpService) {}
 
   getProducts(): Observable<Array<any>> {
     const url = `${this.base_url}/Products`;
     return this.http
-      .get<Array<any>>(url, this.httpOptions)
+      .get<Array<any>>(url, this.baseService.httpOption())
       .pipe(catchError(this.handleError));
   }
 
@@ -51,11 +51,16 @@ export class ProductService {
       .get<any[]>(url, { params })
       .pipe(catchError(this.handleError));
   }
-
+  getProductsByProductType(productTypeId: number): Observable<any> {
+    const url = `${this.base_url}/Products/GetByProductType/${productTypeId}`;
+    return this.http
+      .get<any>(url, this.baseService.httpOption())
+      .pipe(catchError(this.handleError));
+  }
   postProduct(product: FormData): Observable<any> {
     const url = `${this.base_url}/Products/PostProduct`;
     // Nếu product là FormData, bạn không cần đặt Content-Type
-    const options = { ...this.httpOptions };
+    const options = { ...this.baseService.httpOption() };
     if (product instanceof FormData) {
       // Loại bỏ header Content-Type nếu có
       if (options.headers) {
@@ -70,7 +75,7 @@ export class ProductService {
   postCombo(product: FormData): Observable<any> {
     const url = `${this.base_url}/Products/PostCombo`;
     // Nếu product là FormData, bạn không cần đặt Content-Type
-    const options = { ...this.httpOptions };
+    const options = { ...this.baseService.httpOption() };
     if (product instanceof FormData) {
       // Loại bỏ header Content-Type nếu có
       if (options.headers) {
@@ -86,7 +91,7 @@ export class ProductService {
   getImagesByProductId(id: number): Observable<any> {
     const url = `${this.base_url}/Products/GetImagesByProductId/${id}`;
     return this.http
-      .get<any>(url, this.httpOptions)
+      .get<any>(url, this.baseService.httpOption())
       .pipe(catchError(this.handleError));
   }
 
@@ -94,7 +99,7 @@ export class ProductService {
     const url = `${this.base_url}/Products/PutProduct/${id}`;
     console.log('Updating product:', id);
     // Nếu product là FormData, bạn không cần đặt Content-Type
-    const options = { ...this.httpOptions };
+    const options = { ...this.baseService.httpOption() };
     if (product instanceof FormData) {
       // Loại bỏ header Content-Type nếu có
       if (options.headers) {
@@ -112,7 +117,7 @@ export class ProductService {
     const url = `${this.base_url}/Products/PutCombo/${id}`;
     console.log('Updating Combo:', id);
     // Nếu product là FormData, bạn không cần đặt Content-Type
-    const options = { ...this.httpOptions };
+    const options = { ...this.baseService.httpOption() };
     if (product instanceof FormData) {
       // Loại bỏ header Content-Type nếu có
       if (options.headers) {
@@ -140,34 +145,39 @@ export class ProductService {
   getProductById(id: number): Observable<any> {
     const url = `${this.base_url}/Products/GetById/${id}`;
     return this.http
-      .get<any>(url, this.httpOptions)
+      .get<any>(url, this.baseService.httpOption())
       .pipe(catchError(this.handleError));
   }
 
   getDetailCombo(id: number): Observable<any> {
     const url = `${this.base_url}/Products/GetDetailCombo/${id}`;
     return this.http
-      .get<any>(url, this.httpOptions)
+      .get<any>(url, this.baseService.httpOption())
       .pipe(catchError(this.handleError));
   }
   getProBySearch(search: string): Observable<any> {
     const url = `${this.base_url}/Products/GetProductsBySearch/${search}`;
     return this.http
-      .get<any>(url, this.httpOptions)
+      .get<any>(url, this.baseService.httpOption())
       .pipe(catchError(this.handleError));
   }
-
+  getOnlyProBySearch(search: string): Observable<any> {
+    const url = `${this.base_url}/Products/GetOnlyProductsBySearch/${search}`;
+    return this.http
+      .get<any>(url, this.baseService.httpOption())
+      .pipe(catchError(this.handleError));
+  }
   deleteProduct(id: number): Observable<any> {
     const url = `${this.base_url}/Products/DeleteProduct/${id}`;
     return this.http
-      .delete<any>(url, this.httpOptions)
+      .delete<any>(url, this.baseService.httpOption())
       .pipe(catchError(this.handleError));
   }
 
   deleteMultipleProducts(ids: number[]): Observable<any> {
     const url = `${this.base_url}/Products/DeleteMultipleProducts`;
     return this.http
-      .post<any>(url, ids, this.httpOptions)
+      .post<any>(url, ids, this.baseService.httpOption())
       .pipe(catchError(this.handleError));
   }
 

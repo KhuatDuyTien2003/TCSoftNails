@@ -1,1 +1,217 @@
-<p>edit-price-list works!</p>
+<form [formGroup]="priceListForm" ngSubmit="onSubmit()">
+  <div
+    class="fixed inset-0 bg-black bg-opacity-20 flex items-center justify-center z-50"
+  >
+    <div class="bg-white rounded-lg w-full max-w-4xl mx-4 md:mx-0 p-6 relative">
+      <!-- Nút đóng -->
+      <button
+        aria-label="Close"
+        class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+        (click)="closeDialog()"
+      >
+        <i class="fas fa-times"></i>
+      </button>
+
+      <!-- Tiêu đề -->
+      <h3 class="font-semibold text-gray-900 text-lg mb-6 select-none">
+        Thêm bảng giá
+      </h3>
+
+      <!-- Tabs -->
+      <nav class="flex border-b border-gray-300 mb-6 select-none">
+        <button
+          type="button"
+          class="px-4 py-2 border-b-2"
+          [ngClass]="
+            selectedTab === 'info'
+              ? 'text-blue-500 border-blue-500'
+              : 'text-gray-500 border-transparent'
+          "
+          (click)="selectTab('info')"
+        >
+          Thông tin
+        </button>
+        <button
+          type="button"
+          class="px-4 py-2 border-b-2"
+          [ngClass]="
+            selectedTab === 'settings'
+              ? 'text-blue-500 border-blue-500'
+              : 'text-gray-500 border-transparent'
+          "
+          (click)="selectTab('settings')"
+        >
+          Thiết lập nâng cao
+        </button>
+      </nav>
+
+      <!-- Tab Thông tin -->
+      <div
+        [hidden]="selectedTab !== 'info'"
+        class="space-y-5 text-gray-700 text-sm select-text"
+      >
+        <!-- Tên bảng giá -->
+        <div class="flex items-center space-x-4">
+          <label for="priceName" class="w-40 font-medium">Tên bảng giá</label>
+          <input
+            id="priceName"
+            formControlName="priceListName"
+            type="text"
+            class="flex-1 border border-gray-300 rounded-md px-3 py-2"
+          />
+        </div>
+
+        <!-- Hiệu lực -->
+        <div class="flex items-center space-x-4">
+          <label class="w-40 font-medium">Hiệu lực</label>
+          <nz-range-picker
+            formControlName="startEndTime"
+            [nzPlaceHolder]="['Từ ngày', 'Đến ngày']"
+            [nzFormat]="'dd/MM/yyyy HH:mm'"
+            [nzAllowClear]="false"
+            [nzShowTime]="true"
+            class="flex-1 text-xs"
+          ></nz-range-picker>
+        </div>
+
+        <!-- Trạng thái -->
+        <div class="flex items-center space-x-4">
+          <label class="w-40 font-medium">Trạng thái</label>
+          <div class="flex space-x-6">
+            <label class="inline-flex items-center space-x-2">
+              <input
+                type="radio"
+                name="status"
+                formControlName="status"
+                [value]="true"
+                class="form-radio text-blue-600"
+              />
+              <span>Kích hoạt</span>
+            </label>
+            <label class="inline-flex items-center space-x-2">
+              <input
+                type="radio"
+                name="status"
+                formControlName="status"
+                [value]="false"
+                class="form-radio text-blue-600"
+              />
+              <span>Chưa áp dụng</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Phạm vi áp dụng -->
+        <div class="flex items-start space-x-4">
+          <label class="w-40 font-medium pt-2">Phạm vi khách hàng</label>
+          <div class="flex-1 flex flex-col space-y-3">
+            <!-- Hai radio nằm cùng một hàng -->
+            <div class="flex space-x-6">
+              <label class="inline-flex items-center space-x-2">
+                <input
+                  type="radio"
+                  formControlName="applyAll"
+                  [value]="true"
+                  (change)="onScopeChange(true)"
+                  class="form-radio text-blue-600"
+                />
+                <span>Áp dụng cho tất cả</span>
+              </label>
+
+              <label class="inline-flex items-center space-x-2">
+                <input
+                  type="radio"
+                  formControlName="applyAll"
+                  [value]="false"
+                  (change)="onScopeChange(false)"
+                  class="form-radio text-blue-600"
+                />
+                <span>Áp dụng cho một số đối tượng</span>
+              </label>
+            </div>
+
+            <!-- Select phạm vi -->
+            <nz-select
+              [nzDisabled]="isSelectDisabled"
+              nzMode="tags"
+              nzPlaceHolder="Chọn phạm vi khách hàng"
+              formControlName="rankId"
+              class="w-full"
+            >
+              <nz-option
+                *ngFor="let rank of customerRanks"
+                [nzLabel]="rank.rankName"
+                [nzValue]="rank.rankId"
+              ></nz-option>
+            </nz-select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Thiết lập nâng cao -->
+      <div
+        [hidden]="selectedTab !== 'settings'"
+        class="w-full space-y-5 text-gray-700 text-sm select-text"
+      >
+        <div class="flex space-x-2">
+          <nz-select formControlName="selectedPrefix" class="w-[20%]">
+            <nz-option [nzValue]="true" nzLabel="Tăng giá"></nz-option>
+            <nz-option [nzValue]="false" nzLabel="Giảm giá"></nz-option>
+          </nz-select>
+
+          <!-- Nhập giá trị -->
+          <nz-input-number
+            formControlName="inputValue"
+            class="w-[50%]"
+            [nzStep]="priceListType.value === true ? 1 : 0.1"
+            [nzPrecision]="priceListType.value === true ? 0 : 2"
+            [nzMin]="0"
+            [nzMax]="priceListType.value === false ? 100 : null"
+          ></nz-input-number>
+
+          <!-- Đơn vị -->
+          <nz-select formControlName="priceListType" class="w-[30%]">
+            <nz-option [nzValue]="true" nzLabel="VND"></nz-option>
+            <nz-option [nzValue]="false" nzLabel="%"></nz-option>
+          </nz-select>
+        </div>
+      </div>
+
+      <!-- Nút -->
+      <div class="flex justify-end space-x-4 mt-8">
+        <button
+          type="button"
+          class="bg-green-600 hover:bg-green-700 text-white rounded-md px-5 py-2 flex items-center space-x-2"
+          (click)="onSubmit()"
+        >
+          <i class="fas fa-save"></i>
+          <span>Lưu</span>
+        </button>
+        <button
+          type="button"
+          class="bg-green-600 hover:bg-green-700 text-white rounded-md px-5 py-2 flex items-center space-x-2"
+          (click)="onReset()"
+        >
+          <i class="fas fa-save"></i>
+          <span>Dữ liệu ban đầu</span>
+        </button>
+        <button
+          type="button"
+          class="bg-red-600 hover:bg-red-700 text-white rounded-md px-5 py-2 flex items-center space-x-2"
+          (click)="onDelete()"
+        >
+          <i class="fa-solid fa-trash"></i>
+          <span>Xóa</span>
+        </button>
+        <button
+          type="button"
+          (click)="onCancel()"
+          class="bg-gray-500 hover:bg-gray-600 text-white rounded-md px-5 py-2 flex items-center space-x-2"
+        >
+          <i class="fas fa-ban"></i>
+          <span>Bỏ qua</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

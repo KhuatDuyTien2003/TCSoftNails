@@ -12,7 +12,7 @@ import { FilterCriteria } from '../../app.type/filter-criteria.type';
   providedIn: 'root',
 })
 export class PriceListService {
-  private base_url = 'http://apithuctapnail.tcsoft.vn/PriceLists';
+  private base_url = 'https://localhost:60786/PriceLists';
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -34,6 +34,7 @@ export class PriceListService {
       params = params.set('productGroup', filter.productGroup);
     if (filter.priceListId)
       params = params.set('priceListId', filter.priceListId);
+    if (filter.searchTerm) params = params.set('searchTerm', filter.searchTerm);
     return this.http
       .get<any[]>(url, { params })
       .pipe(catchError(this.handleError));
@@ -87,8 +88,42 @@ export class PriceListService {
       .pipe(catchError(this.handleError));
   }
 
+  postPriceList(priceListForm: any): Observable<any> {
+    const url = `${this.base_url}/PostPriceList`;
+    return this.http
+      .post<any>(url, priceListForm, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
+  getPriceListCustomerRank(priceListId: number): Observable<any> {
+    const url = `${this.base_url}/GetPriceListCustomerRank/${priceListId}`;
+    return this.http
+      .get<any>(url, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+  putPriceList(priceListId: number, priceListForm: any): Observable<any> {
+    const url = `${this.base_url}/PutPriceList/${priceListId}`;
+    return this.http
+      .put<any>(url, priceListForm, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+  deletePriceList(priceListId: number): Observable<any> {
+    const url = `${this.base_url}/DeletePriceList/${priceListId}`;
+    return this.http
+      .delete<any>(url, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+  addProductToList(priceListId: number, productId: number): Observable<any> {
+    const url = `${this.base_url}/AddProductToList`;
+    const body = {
+      priceListId: priceListId,
+      productId: productId,
+    };
+    return this.http
+      .post<any>(url, body, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
   private handleError(error: HttpErrorResponse) {
-    debugger;
     let errorMess;
     if (error.error instanceof Error) {
       // Lỗi phía client hoặc mạng

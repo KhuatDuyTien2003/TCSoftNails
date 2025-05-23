@@ -6,9 +6,9 @@ import { Injectable } from '@angular/core';
 })
 export class BaseHttpService {
   // base_url = 'http://apithuctapnail.tcsoft.vn';
-  base_url = 'http://localhost:5213';
+  base_url = 'https://localhost:60786';
 
-   httpOption() {
+  httpOption() {
     const token = localStorage.getItem('token') || '';
     return {
       headers: new HttpHeaders({

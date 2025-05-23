@@ -12,7 +12,7 @@ import { debounceTime, of, Subject, switchMap } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { VncurrencyPipe } from '../../../pipe/vncurrency.pipe';
 import { BillDetailSend, BillSend } from '../../../app.type/BillSend.type';
-import { Receipt } from '../../../app.type/receipt.type';
+import {  Receipt } from '../../../app.type/receipt.type';
 import { ReceiptComponent } from '../receipt/receipt.component';
 
 @Component({

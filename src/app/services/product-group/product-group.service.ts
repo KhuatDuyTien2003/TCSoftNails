@@ -14,42 +14,42 @@ import { BaseHttpService } from '../base-http.service';
 export class ProductGroupService {
   baseClass = new BaseHttpService();
   private base_url = this.baseClass.base_url;
-  httpOptions = this.baseClass.httpOption;
 
-  constructor(private http: HttpClient) {}
+
+  constructor(private http: HttpClient, private baseService: BaseHttpService) {}
 
   getProductGroups(): Observable<any> {
     const url = `${this.base_url}/ProductGroups`;
     return this.http
-      .get<any>(url, this.httpOptions)
+      .get<any>(url, this.baseService.httpOption())
       .pipe(catchError(this.handleError));
   }
 
   getProductGroupById(id: number): Observable<any> {
     const url = `${this.base_url}/ProductGroups/GetById/${id}`;
     return this.http
-      .get<any>(url, this.httpOptions)
+      .get<any>(url, this.baseService.httpOption())
       .pipe(catchError(this.handleError));
   }
 
   createProductGroup(productType: any): Observable<any> {
     const url = `${this.base_url}/ProductGroups/PostProductGroup`;
     return this.http
-      .post<any>(url, productType, this.httpOptions)
+      .post<any>(url, productType, this.baseService.httpOption())
       .pipe(catchError(this.handleError));
   }
 
   updateProductGroup(productType: any): Observable<any> {
     const url = `${this.base_url}/ProductGroups/UpdateProductGroup/${productType.ProductTypeId}`;
     return this.http
-      .put<any>(url, productType, this.httpOptions)
+      .put<any>(url, productType, this.baseService.httpOption())
       .pipe(catchError(this.handleError));
   }
 
   deleteProductGroup(id: number): Observable<any> {
     const url = `${this.base_url}/ProductGroups/DeleteProductGroup/${id}`;
     return this.http
-      .delete<any>(url, this.httpOptions)
+      .delete<any>(url, this.baseService.httpOption())
       .pipe(catchError(this.handleError));
   }
 

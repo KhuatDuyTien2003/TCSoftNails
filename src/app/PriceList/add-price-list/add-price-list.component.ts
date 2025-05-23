@@ -14,6 +14,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
+import { PriceListService } from '../../services/price-list/price-list.service';
 
 @Component({
   selector: 'app-add-price-list',
@@ -32,10 +33,11 @@ import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 export class AddPriceListComponent implements OnInit {
   customerRanks: CustomerRank[] = [];
   priceListForm!: FormGroup;
-  isSelectDisabled: boolean = false;
+  isSelectDisabled: boolean = true;
   constructor(
     private fb: FormBuilder,
     private customerRankService: CustomerRankService,
+    private priceListService: PriceListService,
     public dialog: MatDialog,
     private dialogRef: MatDialogRef<AddPriceListComponent>,
     private message: NzMessageService
@@ -47,7 +49,7 @@ export class AddPriceListComponent implements OnInit {
       valuePriceList: [],
       rankId: [[]],
       startEndTime: [null],
-      status: [0, Validators.required],
+      status: [false, Validators.required],
       applyAll: [true],
       selectedPrefix: [true],
     });
@@ -153,10 +155,39 @@ export class AddPriceListComponent implements OnInit {
       return;
     }
 
-    const selectedRange = this.priceListForm.value.startEndTime;
-    console.log('Selected time range:', selectedRange);
-
-    this.message.success('Form đã được gửi thành công!');
-    this.dialogRef.close(this.priceListForm.value);
+    // Chuẩn bị dữ liệu từ form
+    const formValue = this.priceListForm.value;
+    const priceListData = {
+      priceListName: formValue.priceListName,
+      valuePriceList: formValue.valuePriceList,
+      priceListType: formValue.priceListType,
+      startTime: formValue.startEndTime
+        ? formValue.startEndTime[0].toISOString()
+        : null,
+      endTime: formValue.startEndTime
+        ? formValue.startEndTime[1].toISOString()
+        : null,
+      applyAll: formValue.applyAll,
+      customerRankIds: formValue.rankId,
+      status: formValue.status,
+    };
+    console.log('Dữ liệu bảng giá:', priceListData);
+    // Gọi service postPriceList
+    this.priceListService.postPriceList(priceListData).subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.message.success('Tạo bảng giá thành công!');
+          this.dialogRef.close(response.data);
+        } else {
+          this.message.error(
+            response.message || 'Đã xảy ra lỗi khi tạo bảng giá.'
+          );
+        }
+      },
+      error: (err) => {
+        console.error('Lỗi khi gọi API:', err);
+        this.message.error('Đã xảy ra lỗi khi tạo bảng giá.');
+      },
+    });
   }
 }

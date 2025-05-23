@@ -13,15 +13,15 @@ import { BaseHttpService } from '../base-http.service';
 export class CategoryService {
   baseClass = new BaseHttpService();
   private base_url = this.baseClass.base_url;
-  httpOptions = this.baseClass.httpOption;
 
-  constructor(private http: HttpClient) {}
+
+  constructor(private http: HttpClient,private baseService: BaseHttpService) {}
 
   // Get all categories
   getCategories(): Observable<any> {
     const url = `${this.base_url}/Categories`;
     return this.http
-      .get<any>(url, this.httpOptions)
+      .get<any>(url, this.baseService.httpOption())
       .pipe(catchError(this.handleError));
   }
 
@@ -29,7 +29,7 @@ export class CategoryService {
   getCategoryById(id: number): Observable<any> {
     const url = `${this.base_url}/Categories/GetById/${id}`;
     return this.http
-      .get<any>(url, this.httpOptions)
+      .get<any>(url, this.baseService.httpOption())
       .pipe(catchError(this.handleError));
   }
 
@@ -37,7 +37,7 @@ export class CategoryService {
   createCategory(category: any): Observable<any> {
     const url = `${this.base_url}/Categories/CreateCategory`;
     return this.http
-      .post<any>(url, category, this.httpOptions)
+      .post<any>(url, category, this.baseService.httpOption())
       .pipe(catchError(this.handleError));
   }
 
@@ -45,7 +45,7 @@ export class CategoryService {
   updateCategory(category: any): Observable<any> {
     const url = `${this.base_url}/Categories/UpdateCategory/${category.CategoryId}`;
     return this.http
-      .put<any>(url, category, this.httpOptions)
+      .put<any>(url, category, this.baseService.httpOption())
       .pipe(catchError(this.handleError));
   }
 
@@ -53,7 +53,7 @@ export class CategoryService {
   deleteCategory(id: number): Observable<any> {
     const url = `${this.base_url}/Categories/DeleteCategory/${id}`;
     return this.http
-      .delete<any>(url, this.httpOptions)
+      .delete<any>(url, this.baseService.httpOption())
       .pipe(catchError(this.handleError));
   }
 

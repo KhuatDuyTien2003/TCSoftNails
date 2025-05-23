@@ -14,42 +14,42 @@ import { BaseHttpService } from '../base-http.service';
 export class CustomerRankService {
   baseClass = new BaseHttpService();
   private base_url = this.baseClass.base_url;
-  httpOptions = this.baseClass.httpOption;
 
-  constructor(private http: HttpClient) {}
+
+  constructor(private http: HttpClient, private baseService: BaseHttpService) {}
 
   getCustomerRanks(): Observable<any> {
     const url = `${this.base_url}/CustomerRanks`;
     return this.http
-      .get<any>(url, this.httpOptions)
+      .get<any>(url, this.baseService.httpOption())
       .pipe(catchError(this.handleError));
   }
 
   getCustomerRankById(id: number): Observable<any> {
     const url = `${this.base_url}/CustomerRanks/GetById/${id}`;
     return this.http
-      .get<any>(url, this.httpOptions)
+      .get<any>(url, this.baseService.httpOption())
       .pipe(catchError(this.handleError));
   }
 
   createCustomerRank(customerRank: any): Observable<any> {
     const url = `${this.base_url}/CustomerRanks/PostCustomerRank`;
     return this.http
-      .post<any>(url, customerRank, this.httpOptions)
+      .post<any>(url, customerRank, this.baseService.httpOption())
       .pipe(catchError(this.handleError));
   }
 
   updateCustomerRank(customerRank: any): Observable<any> {
     const url = `${this.base_url}/CustomerRanks/PutCustomerRank/${customerRank.rankId}`;
     return this.http
-      .put<any>(url, customerRank, this.httpOptions)
+      .put<any>(url, customerRank, this.baseService.httpOption())
       .pipe(catchError(this.handleError));
   }
 
   deleteCustomerRank(id: number): Observable<any> {
     const url = `${this.base_url}/CustomerRanks/DeleteCustomerRank/${id}`;
     return this.http
-      .delete<any>(url, this.httpOptions)
+      .delete<any>(url, this.baseService.httpOption())
       .pipe(catchError(this.handleError));
   }
 

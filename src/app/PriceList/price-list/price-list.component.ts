@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { debounceTime, Subject } from 'rxjs';
+import { debounceTime, Subject, switchMap } from 'rxjs';
 import { ProductGroupService } from '../../services/product-group/product-group.service';
 import { ProductService } from '../../services/product/product.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -7,7 +7,7 @@ import { ProductGroup } from '../../app.type/product-group.type';
 import { AddPriceListComponent } from '../add-price-list/add-price-list.component';
 import { CommonModule, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { PriceListService } from '../../services/pricelist/price-list.service';
+import { PriceListService } from '../../services/price-list/price-list.service';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { FilterCriteria } from '../../app.type/filter-criteria.type';
@@ -15,29 +15,38 @@ import { PriceList } from '../../app.type/price-list.type';
 import { product } from '../../app.type/product.type';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { EditPriceListComponent } from '../edit-price-list/edit-price-list.component';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-price-list',
   standalone: true,
   templateUrl: './price-list.component.html',
   styleUrl: './price-list.component.scss',
-  imports: [CommonModule, FormsModule, NgFor, NzSelectModule, NzSpinModule],
+  imports: [CommonModule, FormsModule, NgFor, NzSpinModule, NzSelectModule],
 })
 export class PriceListComponent {
   groupSearchTerm: string = '';
   private groupSearchSubject = new Subject<void>();
+  private productSearchSubject = new Subject<void>();
   filteredGroups: ProductGroup[] = [];
   productGroups: ProductGroup[] = [];
   selectedProductGroup: number | null = null;
+  productSearchTerm: string = '';
+
   constructor(
     private productGroupService: ProductGroupService,
     private priceListService: PriceListService,
+    private productService: ProductService,
     public dialog: MatDialog,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private message: NzMessageService
   ) {
     this.groupSearchSubject
       .pipe(debounceTime(300))
       .subscribe(() => this.filterGroups());
+    this.productSearchSubject
+      .pipe(debounceTime(300))
+      .subscribe(() => this.applyFilter());
   }
   priceList: PriceList[] = [];
   products: product[] = [];
@@ -49,6 +58,7 @@ export class PriceListComponent {
   totalPages: number = 0;
   loadPriceList(): void {
     this.isLoading = true;
+    this.priceList = [];
     this.priceListService.GetPriceList().subscribe((data) => {
       this.isLoading = false;
       this.priceList = [...this.priceList, ...data];
@@ -59,6 +69,26 @@ export class PriceListComponent {
   ngOnInit() {
     this.loadProductGroups();
     this.loadPriceList();
+
+    this.searchSubject
+      .pipe(
+        debounceTime(500),
+        switchMap((value: string) => this.productService.getProBySearch(value))
+      )
+      .subscribe({
+        next: (response: any) => {
+          if (response.success == true) {
+            this.listOfOption = response.data.length > 0 ? response.data : [];
+          } else {
+            this.listOfOption = [];
+            console.log('No products found or error in response.');
+          }
+        },
+        error: (err) => {
+          console.error('Error during search:', err);
+          this.listOfOption = [];
+        },
+      });
   }
   resetFilter() {
     this.filteredGroups = [...this.productGroups];
@@ -102,6 +132,9 @@ export class PriceListComponent {
   debounceFilterGroups() {
     this.groupSearchSubject.next();
   }
+  debounceApplyFilter() {
+    this.productSearchSubject.next();
+  }
   selectGroup(groupId: number | null) {
     if (this.selectedProductGroup === groupId) {
       this.selectedProductGroup = null;
@@ -118,6 +151,7 @@ export class PriceListComponent {
     this.isLoading = true;
     const filterCriteria: FilterCriteria = {
       productGroup: this.selectedProductGroup ?? undefined,
+      searchTerm: this.productSearchTerm,
       pageNumber: this.currentPage,
       pageSize: this.pageSize,
       priceListId: this.selectedPriceList
@@ -233,7 +267,7 @@ export class PriceListComponent {
     });
 
     dialogRef.afterClosed().subscribe(() => {
-      this.applyFilter();
+      this.loadPriceList();
     });
   }
   showEditPriceList(): void {
@@ -252,7 +286,7 @@ export class PriceListComponent {
           data: { priceList: priceList },
         });
         dialogRef.afterClosed().subscribe(() => {
-          this.applyFilter();
+          this.loadPriceList();
         });
       }
     }
@@ -296,6 +330,7 @@ export class PriceListComponent {
                 this.snackBar.open(response.message, 'Đóng', {
                   duration: 3000,
                 });
+                this.loadProducts();
               } else {
                 console.error('Lỗi khi cập nhật giá bán:', response.message);
               }
@@ -366,5 +401,52 @@ export class PriceListComponent {
       (list) => list.priceListId === this.selectedPriceList
     );
     return priceList ? priceList.priceListName : '';
+  }
+
+  selectedProductId: number | null = null;
+  searchSubject: Subject<string> = new Subject<string>();
+  readonly nzFilterOption = (): boolean => true;
+  listOfOption: product[] = [];
+  search(value: string): void {
+    if (value) {
+      this.searchSubject.next(value);
+    } else {
+      this.listOfOption = [];
+    }
+  }
+  onSelectProduct(proAndSerId: number): void {
+    console.log('Bạn vừa chọn ID:', proAndSerId);
+    //bảng giá
+    console.log('ID bảng giá hiện tại:', this.selectedPriceList);
+    const alreadyExists = this.products.some(
+      (product) => product.proAndSerId === proAndSerId
+    );
+    if (this.selectedPriceList === null) {
+      this.message.warning('Vui lòng chọn bảng giá trước khi thêm sản phẩm.');
+      return;
+    }
+    if (!alreadyExists) {
+      this.priceListService
+        .addProductToList(this.selectedPriceList, proAndSerId)
+        .subscribe({
+          next: (response) => {
+            if (response.success) {
+              this.message.success(response.message);
+              this.loadProducts();
+            } else {
+              this.message.warning(response.message);
+            }
+          },
+          error: (err) => {
+            console.error('Lỗi khi thêm sản phẩm:', err);
+            this.message.error('Thêm sản phẩm thất bại.');
+          },
+        });
+    } else {
+      this.message.error('Sản phẩm đã có trong bảng giá.');
+    }
+    setTimeout(() => {
+      this.selectedProductId = null;
+    });
   }
 }
