@@ -162,7 +162,7 @@
                       />
                     </td>
                     <td class="py-2 text-right pr-3 align-middle">
-                      {{ product.sellingPrice | number }}
+                      {{ product.originalPrice || 0 | number }}
                     </td>
                     <td class="py-2 text-right pr-3 align-middle">
                       {{ product.finalPrice | number }}
@@ -237,8 +237,7 @@
         <input
           type="text"
           formControlName="receiptCode"
-          readonly
-          value="Mã phiếu tự động"
+          placeholder="Mã phiếu tự động"
           class="border border-gray-300 rounded px-2 py-1 text-sm text-gray-500 bg-white w-[140px] text-right"
         />
       </div>

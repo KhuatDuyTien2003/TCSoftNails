@@ -51,7 +51,6 @@ export class AddGoodsReceiptComponent {
     private router: Router
   ) {
     this.receiptForm = this.fb.group({
-      selectedProducts: [''],
       supplierId: [null, Validators.required],
       accountantId: [null],
       totalMoney: [0, Validators.min(0)],
@@ -61,16 +60,12 @@ export class AddGoodsReceiptComponent {
       due: [0, Validators.min(0)],
       status: 0,
       comment: [''],
-      receiptCode: [],
+      receiptCode: [''],
     });
   }
-
+  dueMoney: number = 0;
   get due(): number {
-    const due = this.receiptForm.get('due') as FormControl;
-    var dueMoney =
-      this.totalMoney - this.receiptForm.get('paymentMoney')?.value || 0;
-    due.setValue(dueMoney);
-    return dueMoney;
+    return this.receiptForm.get('due')?.value || 0;
   }
   get totalMoney(): number {
     return this.receiptForm.get('totalMoney')?.value || 0;
@@ -120,6 +115,9 @@ export class AddGoodsReceiptComponent {
       });
     this.getAllSupplier();
     this.getAllStaff();
+    this.receiptForm.get('paymentMoney')?.valueChanges.subscribe(() => {
+      this.update();
+    });
   }
   getAllSupplier(): void {
     this.supplierService.getAllSuppliers().subscribe({
@@ -177,12 +175,11 @@ export class AddGoodsReceiptComponent {
     if (selectedProduct && !alreadyExists) {
       selectedProduct.quantity = 1;
       selectedProduct.finalPrice =
-        selectedProduct.sellingPrice * selectedProduct.quantity!;
+        (selectedProduct.originalPrice ?? 0) * selectedProduct.quantity!;
       this.selectedProAndSer.push({ ...selectedProduct });
 
       console.log('ĐÃ THÊM THÀNH CÔNG:', this.selectedProAndSer);
-      this.updateTotalMoney();
-      this.updateTotalQuantity();
+      this.update();
     } else {
       console.warn('Đã tồn tại hoặc không tìm thấy sản phẩm.');
     }
@@ -197,39 +194,39 @@ export class AddGoodsReceiptComponent {
     }
     this.selectedProAndSer[index].quantity = newQty;
     this.selectedProAndSer[index].finalPrice =
-      this.selectedProAndSer[index].sellingPrice * newQty;
-    this.updateTotalMoney();
-    this.updateTotalQuantity();
+      (this.selectedProAndSer[index].originalPrice ?? 0) * newQty;
+    this.update();
   }
   removeProduct(index: number): void {
     this.selectedProAndSer.splice(index, 1);
-    this.updateTotalMoney();
-    this.updateTotalQuantity();
+    this.update();
   }
   removeAllProducts(): void {
     this.selectedProAndSer = [];
-    this.updateTotalMoney();
-    this.updateTotalQuantity();
+    this.update();
   }
-  private updateTotalMoney(): void {
+
+  private update(): void {
     const total = this.selectedProAndSer.reduce(
       (sum, item) => sum + item.finalPrice!,
       0
     );
     const totalMoneyControl = this.receiptForm.get('totalMoney') as FormControl;
-    totalMoneyControl.setValue(total); // tránh gán trực tiếp .value
-  }
-  private updateTotalQuantity(): void {
-    const total = this.selectedProAndSer.reduce(
+    totalMoneyControl.setValue(total);
+    const totalQuantity = this.selectedProAndSer.reduce(
       (sum, item) => sum + item.quantity!,
       0
     );
     const totalQuantityControl = this.receiptForm.get(
       'totalQuantity'
     ) as FormControl;
-    totalQuantityControl.setValue(total); // tránh gán trực tiếp .value
-  }
+    totalQuantityControl.setValue(totalQuantity);
 
+    const due = this.receiptForm.get('due') as FormControl;
+    var dueMoney =
+      this.totalMoney - this.receiptForm.get('paymentMoney')?.value || 0;
+    due.setValue(dueMoney);
+  }
   blockNonNumbers(event: KeyboardEvent): void {
     const allowedKeys = [
       'Backspace',
@@ -288,13 +285,13 @@ export class AddGoodsReceiptComponent {
             );
             if (!alreadyExists) {
               product.quantity = 1;
-              product.finalPrice = product.sellingPrice * product.quantity!;
+              product.finalPrice =
+                (product.originalPrice ?? 0) * product.quantity!;
               this.selectedProAndSer.push({ ...product });
             }
           });
 
-          this.updateTotalMoney();
-          this.updateTotalQuantity();
+          this.update();
         } else {
           this.productsByGroup = [];
           this.message.error(res.message);
@@ -348,28 +345,33 @@ export class AddGoodsReceiptComponent {
       quantity: product.quantity,
       importPrice: product.originalPrice,
     }));
+    const formData = new FormData();
+    Object.entries(this.receiptForm.value).forEach(([key, value]) => {
+      if (value !== null && value !== undefined) {
+        formData.append(key, value.toString());
+      }
+    });
+    formData.set('status', '1');
+    formData.set(
+      'importDate',
+      new Date(this.receiptForm.get('importDate')?.value).toISOString()
+    );
+    formData.append('SelectedProducts', JSON.stringify(selectedProducts));
 
-    this.receiptForm
-      .get('selectedProducts')
-      ?.setValue(JSON.stringify(selectedProducts));
-    this.receiptForm.get('status')?.setValue(1);
-
-    this.goodsReceiptService
-      .createGoodsReceipt(this.receiptForm.value)
-      .subscribe({
-        next: (response) => {
-          if (response.success) {
-            this.message.success('Tạo phiếu nhập thành công!');
-            this.router.navigate(['/goods-receipt']);
-          } else {
-            this.message.error(response.message || 'Tạo phiếu nhập thất bại!');
-          }
-        },
-        error: (error) => {
-          this.message.error('Lỗi khi tạo phiếu nhập!');
-          console.error('Error while adding product:', error);
-        },
-      });
+    this.goodsReceiptService.createGoodsReceipt(formData).subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.message.success('Tạo phiếu nhập thành công!');
+          this.router.navigate(['/goods-receipt']);
+        } else {
+          this.message.error(response.message || 'Tạo phiếu nhập thất bại!');
+        }
+      },
+      error: (error) => {
+        this.message.error('Lỗi khi tạo phiếu nhập!');
+        console.error('Lỗi khi tạo phiếu nhập!', error);
+      },
+    });
   }
 
   saveDraftReceipt(): void {
@@ -381,27 +383,28 @@ export class AddGoodsReceiptComponent {
       importPrice: product.originalPrice,
     }));
 
-    this.receiptForm
-      .get('selectedProducts')
-      ?.setValue(JSON.stringify(selectedProducts));
-    this.receiptForm.get('status')?.setValue(0);
-
-    this.goodsReceiptService
-      .createGoodsReceipt(this.receiptForm.value)
-      .subscribe({
-        next: (response) => {
-          if (response.success) {
-            this.message.success('Lưu phiếu tạm thành công!');
-            this.router.navigate(['/goods-receipt']);
-          } else {
-            this.message.error(response.message || 'Lưu phiếu tạm thất bại!');
-          }
-        },
-        error: (error) => {
-          this.message.error('Lỗi khi lưu phiếu tạm!');
-          console.error('Error while saving draft receipt:', error);
-        },
-      });
+    const formData = new FormData();
+    Object.entries(this.receiptForm.value).forEach(([key, value]) => {
+      if (value !== null && value !== undefined) {
+        formData.append(key, value.toString());
+      }
+    });
+    formData.append('selectedProducts', JSON.stringify(selectedProducts));
+    formData.set('status', '0');
+    this.goodsReceiptService.createGoodsReceipt(formData).subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.message.success('Lưu phiếu tạm thành công!');
+          this.router.navigate(['/goods-receipt']);
+        } else {
+          this.message.error(response.message || 'Lưu phiếu tạm thất bại!');
+        }
+      },
+      error: (error) => {
+        this.message.error('Lỗi khi lưu phiếu tạm!');
+        console.error('Error while saving draft receipt:', error);
+      },
+    });
   }
   back(): void {
     this.router.navigate(['/goods-receipt']);

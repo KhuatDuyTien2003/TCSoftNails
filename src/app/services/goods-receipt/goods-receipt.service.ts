@@ -75,9 +75,17 @@ export class GoodsReceiptService {
       .pipe(catchError(this.handleError));
   }
 
-  createGoodsReceipt(receipt: any): Observable<any> {
+  createGoodsReceipt(receipt: FormData): Observable<any> {
+    const url = `${this.base_url}/Create`;
+    const options = { ...this.httpOptions };
+    if (receipt instanceof FormData) {
+      // Loại bỏ header Content-Type nếu có
+      if (options.headers) {
+        options.headers = options.headers.delete('Content-Type');
+      }
+    }
     return this.http
-      .post<any>(`${this.base_url}/Create`, receipt, this.httpOptions)
+      .post<any>(url, receipt, options)
       .pipe(catchError(this.handleError));
   }
 
