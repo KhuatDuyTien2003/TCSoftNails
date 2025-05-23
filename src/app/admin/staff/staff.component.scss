@@ -227,6 +227,11 @@
         color: #fff;
       }
 
+      &.decentralization {
+        background: #007BFF;
+        color: #fff;
+      }
+
       &.status {
         background: #dc2626;
         color: #fff;
@@ -517,6 +522,7 @@
   align-items: center;
   justify-content: center;
 }
+
 nz-range-picker {
   margin: 0 8px 12px 0;
 }

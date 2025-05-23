@@ -10,6 +10,10 @@ import { Injectable } from '@angular/core';
 import { emit } from 'process';
 import { catchError, Observable, ObservedValueOf, throwError } from 'rxjs';
 import { BaseHttpService } from './base-http.service';
+import { RefreshTokenRequest } from '../app.type/RefreshToken.type';
+import { ResponseModel } from '../app.type/Response.type';
+import { Token } from '../app.type/Token.type';
+import { Route, Router } from '@angular/router';
 
 export interface NewAccount {
   staffId: string;
@@ -21,16 +25,20 @@ export interface NewAccount {
   providedIn: 'root',
 })
 export class HttpsService {
+  constructor(
+  private http: HttpClient,
+  private router: Router,
+  private baseService: BaseHttpService
+) {}
   baseClass = new BaseHttpService();
   private base_url = this.baseClass.base_url + '/';
-  httpOption = this.baseClass.httpOption;
 
-  constructor(private http: HttpClient) {}
+
 
   public Login(Username: string, Password: string): Observable<any> {
     const url = `${this.base_url}Account/Login`;
     return this.http
-      .post<any>(url, { Username, Password }, this.httpOption)
+      .post<any>(url, { Username, Password }, this.baseService.httpOption())
       .pipe(catchError((error) => this.handleError(error)));
   }
   public CreateStaff(account: account): Observable<any> {
@@ -43,7 +51,7 @@ export class HttpsService {
   public Register(account: NewAccount): Observable<any> {
     const url = `${this.base_url}Account/register`;
     return this.http
-      .post<any>(url, account, this.httpOption)
+      .post<any>(url, account, this.baseService.httpOption())
       .pipe(catchError((error) => this.handleError(error)));
   }
 
@@ -53,7 +61,7 @@ export class HttpsService {
 
     // var para = new HttpParams().set('email', email);
     // return this.http
-    //   .post<any>(url, email, this.httpOption)
+    //   .post<any>(url, email, this.baseService.httpOption)
     //   .pipe(catchError((error) => this.handleError(error)));
     return this.http
       .post<any>(url, requestBody)
@@ -78,7 +86,26 @@ export class HttpsService {
       .get<account[]>(url)
       .pipe(catchError((error) => this.handleError(error)));
   }
-  
+
+  public refreshToken(
+    model: RefreshTokenRequest
+  ): Observable<ResponseModel<Token>> {
+    const url = `${this.base_url}Account/RefreshToken`;
+    return this.http
+      .post<ResponseModel<Token>>(url, model)
+      .pipe(catchError((error) => this.handleError(error)));
+  }
+
+  logout() {
+    localStorage.clear();
+    this.navigateTo('/Login');
+  }
+  navigateTo(url: string) {
+    if (!url.startsWith('/')) {
+      url = '/' + url;
+    }
+    this.router.navigateByUrl(url);
+  }
 
   public handleError(error: HttpErrorResponse) {
     let errorMess;

@@ -1,0 +1,220 @@
+<app-header></app-header>
+<div class="permission-container">
+  <div class="permission-sidebar">
+    <div class="sidebar-title">
+      <h3>Phân quyền</h3>
+      <nz-icon class="custom-icon" nzType="plus-circle" nzTheme="outline" (click)="openAddRole()">
+      </nz-icon>
+    </div>
+    <ul class="role-list">
+      <li class="role-item" *ngFor="let item of Roles" [class.active]="item === role"
+        (click)="selectRole(item.id ||'')">
+        <span>{{ item.roleName }}</span>
+        <nz-icon (click)="delRole(item.id || '')" nzType="close" nzTheme="outline" />
+      </li>
+    </ul>
+  </div>
+  <div class="permission-group">
+    <div class="main-header">
+      <div class="title">Chỉnh sửa quyền</div>
+      <button class="btn-save" (click)="updatePermission()">Lưu thông tin</button>
+    </div>
+
+
+    <!-- Nhóm 2: THU NGÂN -->
+    <div>
+      <div class="group-header" (click)="toggleGroup('group2')">
+        <label (click)="selectAllPermission($event)"><input type="checkbox" (click)="selectPermission($event)" /> HÓA
+          ĐƠN</label>
+        <span class="toggle-icon">{{ isGroupShown('group2') ? '▲' : '▼' }}</span>
+      </div>
+      <div class="group-body" [class.hidden]="!isGroupShown('group2')">
+        <div class="row">
+          <div class="label">Hóa đơn</div>
+          <div class="actions">
+            <label><input type="checkbox" (change)="selectPermission($event)" /> Thêm</label>
+            <label><input type="checkbox" (change)="selectPermission($event)" /> Sửa</label>
+            <label><input type="checkbox" (change)="selectPermission($event)" /> Xóa</label>
+            <label><input type="checkbox" (change)="selectPermission($event)" /> Hủy</label>
+            <label><input type="checkbox" (change)="selectPermission($event)" /> Được xem</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="label">Giới hạn xem hóa đơn theo người tạo</div>
+          <div class="actions">
+            <label><input type="checkbox" (change)="selectPermission($event)" /> Được xem</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="label">Giới hạn xem hóa đơn theo ngày tạo</div>
+          <div class="actions">
+            <label><input type="checkbox" (change)="selectPermission($event)" /> Được xem</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="label">Thêm/Sửa tiền tip</div>
+          <div class="actions">
+            <label><input type="checkbox" (change)="selectPermission($event)" /> Sửa</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="label">Thêm/Sửa giảm giá</div>
+          <div class="actions">
+            <label><input type="checkbox" (change)="selectPermission($event)" /> Sửa</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="group-header" (click)="toggleGroup('group3')">
+
+        <label (click)="selectAllPermission($event)"><input (click)="selectAllPermission($event)" type="checkbox"
+            id="STAFF" value="STAFF" /> NHÂN
+          VIÊN</label>
+
+        <span class="toggle-icon">{{ isGroupShown('group3') ? '▲' : '▼' }}</span>
+      </div>
+      <div class="group-body" [class.hidden]="!isGroupShown('group3')">
+        <div class="row">
+          <div class="label">Nhân viên</div>
+          <div class="actions">
+            <label><input type="checkbox" class="STAFF" id="STAFF:ADD" value="STAFF:ADD"
+                (change)="selectPermission($event)" /> Thêm</label>
+            <label><input type="checkbox" class="STAFF" id="STAFF:EDIT" value="STAFF:EDIT" /> Sửa</label>
+            <label><input type="checkbox" class="STAFF" id="STAFF:DELETE" value="STAFF:DELETE"
+                (change)="selectPermission($event)" /> Xóa</label>
+            <label><input type="checkbox" class="STAFF" id="STAFF:VIEW" value="STAFF:VIEW"
+                (change)="selectPermission($event)" /> Được xem</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="label">Đặt lịch</div>
+          <div class="actions">
+            <label><input type="checkbox" class="STAFF" id="APPOINTMENT:ADD" value="APPOINTMENT:ADD"
+                (change)="selectPermission($event)" /> Thêm</label>
+            <label><input type="checkbox" class="STAFF" id="APPOINTMENT:EDIT" value="APPOINTMENT:EDIT"
+                (change)="selectPermission($event)" /> Sửa</label>
+            <label><input type="checkbox" class="STAFF" id="APPOINTMENT:DELETE" value="APPOINTMENT:DELETE"
+                (change)="selectPermission($event)" /> Xóa</label>
+            <label><input type="checkbox" class="STAFF" id="APPOINTMENT:VIEW" value="APPOINTMENT:VIEW"
+                (change)="selectPermission($event)" /> Được xem</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="label">Lịch làm việc</div>
+          <div class="actions">
+            <label><input type="checkbox" class="STAFF" id="WORKDATE:ADD" value="WORKDATE:ADD"
+                (change)="selectPermission($event)" /> Thêm</label>
+            <label><input type="checkbox" class="STAFF" id="WORKDATE:DELETE" value="WORKDATE:DELETE"
+                (change)="selectPermission($event)" /> Xóa</label>
+            <label><input type="checkbox" class="STAFF" id="WORKDATE:VIEW" value="WORKDATE:VIEW"
+                (change)="selectPermission($event)" /> Được xem</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="label">Phân quyền</div>
+          <div class="actions">
+            <label><input type="checkbox" class="STAFF" id="ROLE:ADD" value="ROLE:ADD"
+                (change)="selectPermission($event)" /> Thêm</label>
+            <label><input type="checkbox" class="STAFF" id="ROLE:EDIT" value="ROLE:EDIT"
+                (change)="selectPermission($event)" /> Cập nhật</label>
+            <label><input type="checkbox" class="STAFF" id="ROLE:UPDATEFORUSER" value="ROLE:UPDATEFORUSER"
+                (change)="selectPermission($event)" /> Cập nhật quyền cho nhân viên</label>
+            <label><input type="checkbox" class="STAFF" id="ROLE:DELETE" value="ROLE:DELETE"
+                (change)="selectPermission($event)" /> Xóa</label>
+            <label><input type="checkbox" class="STAFF" id="ROLE:VIEW" value="ROLE:VIEW"
+                (change)="selectPermission($event)" /> Được xem</label>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div>
+      <div class="group-header" (click)="toggleGroup('group4')">
+
+        <label (click)="selectAllPermission($event)"><input (click)="selectAllPermission($event)" type="checkbox"
+            id="CUSTOMER" value="CUSTOMER" /> KHÁCH HÀNG</label>
+
+        <span class="toggle-icon">{{ isGroupShown('group4') ? '▲' : '▼' }}</span>
+      </div>
+      <div class="group-body" [class.hidden]="!isGroupShown('group4')">
+        <div class="row">
+          <div class="label">Khách hàng</div>
+          <div class="actions">
+            <label><input type="checkbox" class="CUSTOMER" id="CUSTOMER:ADD" value="CUSTOMER:ADD"
+                (change)="selectPermission($event)" /> Thêm</label>
+            <label><input type="checkbox" class="CUSTOMER" id="CUSTOMER:EDIT" value="CUSTOMER:EDIT"
+                (change)="selectPermission($event)" /> Sửa</label>
+            <label><input type="checkbox" class="CUSTOMER" id="CUSTOMER:DELETE" value="CUSTOMER:DELETE"
+                (change)="selectPermission($event)" /> Xóa</label>
+            <label><input type="checkbox" class="CUSTOMER" id="CUSTOMER:VIEW" value="CUSTOMER:VIEW"
+                (change)="selectPermission($event)" /> Được xem</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="label">Hạng khách hàng</div>
+          <div class="actions">
+            <label><input type="checkbox" class="CUSTOMER" id="CUSTOMERRANK:ADD" value="CUSTOMERRANK:ADD"
+                (change)="selectPermission($event)" />
+              Thêm</label>
+            <label><input type="checkbox" class="CUSTOMER" id="CUSTOMERRANK:EDIT" value="CUSTOMERRANK:EDIT"
+                (change)="selectPermission($event)" />
+              Sửa</label>
+            <label><input type="checkbox" class="CUSTOMER" id="CUSTOMER:DELETE" value="CUSTOMERRANK:DELETE"
+                (change)="selectPermission($event)" />
+              Xóa</label>
+            <label><input type="checkbox" class="CUSTOMER" id="CUSTOMERRANK:VIEW" value="CUSTOMERRANK:VIEW"
+                (change)="selectPermission($event)" /> Được
+              xem</label>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div>
+      <div class="group-header" (click)="toggleGroup('group5')">
+
+        <label (click)="selectAllPermission($event)"><input (click)="selectAllPermission($event)" type="checkbox"
+            id="PRODUCT" value="PRODUCT" />SẢN PHẨM</label>
+
+        <span class="toggle-icon">{{ isGroupShown('group5') ? '▲' : '▼' }}</span>
+      </div>
+      <div class="group-body" [class.hidden]="!isGroupShown('group5')">
+        <div class="row">
+          <div class="label">Sản phẩm</div>
+          <div class="actions">
+            <label><input type="checkbox" class="PRODUCT" id="PRODUCT:ADD" value="PRODUCT:ADD"
+                (change)="selectPermission($event)" /> Thêm</label>
+            <label><input type="checkbox" class="PRODUCT" id="PRODUCT:EDIT" value="PRODUCT:EDIT"
+                (change)="selectPermission($event)" /> Sửa</label>
+            <label><input type="checkbox" class="PRODUCT" id="PRODUCT:DELETE" value="PRODUCT:DELETE"
+                (change)="selectPermission($event)" /> Xóa</label>
+            <label><input type="checkbox" class="PRODUCT" id="PRODUCT:VIEW" value="PRODUCT:VIEW"
+                (change)="selectPermission($event)" /> Được xem</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="label">Loại sản phẩm</div>
+          <div class="actions">
+            <label><input type="checkbox" class="PRODUCT" id="PRODUCTRANK:ADD" value="PRODUCTRANK:ADD"
+                (change)="selectPermission($event)" />
+              Thêm</label>
+            <label><input type="checkbox" class="PRODUCT" id="PRODUCTRANK:EDIT" value="PRODUCTRANK:EDIT"
+                (change)="selectPermission($event)" />
+              Sửa</label>
+            <label><input type="checkbox" class="PRODUCT" id="PRODUCT:DELETE" value="PRODUCTRANK:DELETE"
+                (change)="selectPermission($event)" />
+              Xóa</label>
+            <label><input type="checkbox" class="PRODUCT" id="PRODUCTRANK:VIEW" value="PRODUCTRANK:VIEW"
+                (change)="selectPermission($event)" /> Được
+              xem</label>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<app-add-role (sendRole)="receiveRole($event)"></app-add-role>

@@ -1,5 +1,6 @@
 export interface SearchBill {
   billId?: number | null;
+ 
   customerName?: string | null;
   productName?: string | null;
   receiption?: string | null;
@@ -8,3 +9,4 @@ export interface SearchBill {
   fromDate?: Date | null;
   toDate?: Date | null;
 }
+

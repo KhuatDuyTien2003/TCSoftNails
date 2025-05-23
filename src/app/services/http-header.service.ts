@@ -17,21 +17,20 @@ export class HttpHeaderService {
 
    baseClass = new BaseHttpService
    private base_url = this.baseClass.base_url+"/";
-     httpOption = this.baseClass.httpOption
 
-  constructor(private httpHeader: HttpClient) {}
+  constructor(private httpHeader: HttpClient, private baseService: BaseHttpService) {}
 
   getAllHeader(): Observable<Header[]> {
     const url = `${this.base_url}Header`;
     return this.httpHeader
-      .get<Header[]>(url, this.httpOption)
+      .get<Header[]>(url, this.baseService.httpOption())
       .pipe(catchError((error) => this.handleError(error)));
   }
 
   public getStaffById(staffId: number): Observable<ResponseModel<Staff>> {
       const url = `${this.base_url}Staff/GetStaffById/${staffId}`;
       return this.httpHeader
-        .get<ResponseModel<Staff>>(url, this.httpOption)
+        .get<ResponseModel<Staff>>(url, this.baseService.httpOption())
         .pipe(catchError((error) => this.handleError(error)));
     }
 

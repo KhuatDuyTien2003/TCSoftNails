@@ -6,9 +6,10 @@ export interface BillResponse {
   numberPhone?: string;
   moneyPoint?: number;
   value_data?: number;
-  totalBill?: number;
   receptionId?: number;
-  billStatus?: number;
+  totalBill?: number;
+  totalMoneyAfterDiscount?: number;
+  statusBill?: number;
   receptionName?: string;
   isPay?: boolean;
   billSendDetails: BillResponseDetail[];

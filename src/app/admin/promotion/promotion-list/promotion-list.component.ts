@@ -1,3 +1,4 @@
+import * as FileSaver from 'file-saver';
 import { Component, OnInit } from '@angular/core';
 import { PromotionService } from '../../../services/promotion.service';
 import { CommonModule } from '@angular/common';
@@ -5,28 +6,23 @@ import { Router, Routes } from '@angular/router';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import * as XLSX from 'xlsx';
-import * as FileSaver from 'file-saver';
+
 import { NzFormModule } from 'ng-zorro-antd/form';
 
 @Component({
   selector: 'app-promotion-list',
-  imports: [CommonModule,
-    NzButtonModule,
-    NzTableModule,
-    NzFormModule,],
+  imports: [CommonModule, NzButtonModule, NzTableModule, NzFormModule],
   templateUrl: './promotion-list.component.html',
-  styleUrls: ['./promotion-list.component.css']
+  styleUrls: ['./promotion-list.component.css'],
 })
 export class PromotionListComponent implements OnInit {
   promotions: any[] = [];
   dataFromExcel: any[] = [];
 
-  constructor(private promotionService: PromotionService,
-    private router: Router,
-
-  ) {
-
-  }
+  constructor(
+    private promotionService: PromotionService,
+    private router: Router
+  ) {}
   onAddPromotion() {
     this.router.navigate(['/promotion-add']);
   }
@@ -38,7 +34,6 @@ export class PromotionListComponent implements OnInit {
     this.promotionService.getAllPromotions().subscribe(
       (res) => {
         if (res.success) {
-
           this.promotions = res.data;
         }
       },
@@ -50,17 +45,21 @@ export class PromotionListComponent implements OnInit {
   exportToExcel(): void {
     const fileName = 'PromotionData.xlsx';
     const worksheet = XLSX.utils.json_to_sheet(this.promotions);
-    const workbook = { Sheets: { 'Data': worksheet }, SheetNames: ['Data'] };
-    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-    const data: Blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
+    const workbook = { Sheets: { Data: worksheet }, SheetNames: ['Data'] };
+    const excelBuffer: any = XLSX.write(workbook, {
+      bookType: 'xlsx',
+      type: 'array',
+    });
+    const data: Blob = new Blob([excelBuffer], {
+      type: 'application/octet-stream',
+    });
     FileSaver.saveAs(data, fileName);
   }
-
 
   tableHeaders: string[] = [];
 
   onFileChange(event: any) {
-    const target: DataTransfer = <DataTransfer>(event.target);
+    const target: DataTransfer = <DataTransfer>event.target;
     if (target.files.length !== 1) {
       console.error('Chỉ chọn 1 file Excel');
       return;
@@ -90,7 +89,7 @@ export class PromotionListComponent implements OnInit {
       },
       error: (err) => {
         console.error('Lỗi lưu dữ liệu', err);
-      }
+      },
     });
   }
   onDeletePromotion(id: number) {
@@ -102,7 +101,7 @@ export class PromotionListComponent implements OnInit {
         },
         error: (err) => {
           console.error('Lỗi xóa', err);
-        }
+        },
       });
     }
   }

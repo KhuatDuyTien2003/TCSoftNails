@@ -7,12 +7,8 @@
         <!-- Search -->
         <div class="content">
           <h3>Tìm Kiếm</h3>
-          <input
-            type="text"
-            [(ngModel)]="searchTerm"
-            (keyup)="debounceApplyFilter()"
-            placeholder="Tìm kiếm sản phẩm..."
-          />
+          <input type="text" [(ngModel)]="searchTerm" (keyup)="debounceApplyFilter()"
+            placeholder="Tìm kiếm sản phẩm..." />
         </div>
 
         <!-- Product Types -->
@@ -20,11 +16,7 @@
           <h3>Loại sản phẩm</h3>
           <div *ngFor="let type of productTypes">
             <label>
-              <input
-                type="checkbox"
-                [(ngModel)]="type.selected"
-                (change)="applyFilter()"
-              />
+              <input type="checkbox" [(ngModel)]="type.selected" (change)="applyFilter()" />
               {{ type.name }}
             </label>
           </div>
@@ -35,21 +27,13 @@
           <div class="add-GroupPro">
             <h3>Nhóm hàng</h3>
             <span (click)="showAddGroupDialog()">
-              <i class="fa-solid fa-circle-plus" style="color: #aab5ca"></i
-            ></span>
+              <i class="fa-solid fa-circle-plus" style="color: #aab5ca"></i></span>
           </div>
-          <input
-            type="text"
-            [(ngModel)]="groupSearchTerm"
-            (input)="debounceFilterGroups()"
-            placeholder="Tìm kiếm nhóm hàng..."
-          />
+          <input type="text" [(ngModel)]="groupSearchTerm" (input)="debounceFilterGroups()"
+            placeholder="Tìm kiếm nhóm hàng..." />
           <ul class="max-h-[200px] overflow-y-auto">
-            <li
-              *ngFor="let group of filteredGroups"
-              (click)="selectGroup(group.productTypeId)"
-              [class.selected]="selectedProductGroup === group.productTypeId"
-            >
+            <li *ngFor="let group of filteredGroups" (click)="selectGroup(group.productTypeId)"
+              [class.selected]="selectedProductGroup === group.productTypeId">
               {{ group.productTypeName }}
             </li>
           </ul>
@@ -59,13 +43,7 @@
           <h3>Tồn kho</h3>
           <div *ngFor="let st of stocks">
             <label>
-              <input
-                type="radio"
-                name="stock"
-                [(ngModel)]="stock"
-                [value]="st.id"
-                (change)="applyFilter()"
-              />
+              <input type="radio" name="stock" [(ngModel)]="stock" [value]="st.id" (change)="applyFilter()" />
               {{ st.name }}
             </label>
           </div>
@@ -76,13 +54,7 @@
           <h3>Trạng thái</h3>
           <div *ngFor="let stt of statuses">
             <label>
-              <input
-                type="radio"
-                name="status"
-                [(ngModel)]="status"
-                [value]="stt.id"
-                (change)="applyFilter()"
-              />
+              <input type="radio" name="status" [(ngModel)]="status" [value]="stt.id" (change)="applyFilter()" />
               {{ stt.name }}
             </label>
           </div>
@@ -104,9 +76,7 @@
                 <i class="fa-solid fa-ellipsis-vertical"></i> Thao tác
                 <i class="fa fa-caret-down"></i>
               </a>
-              <ul
-                class="absolute min-w-max left-0 hidden group-hover:block bg-white border rounded shadow-md z-10"
-              >
+              <ul class="absolute min-w-max left-0 hidden group-hover:block bg-white border rounded shadow-md z-10">
                 <li class="px-4 py-4 hover:bg-gray-100 cursor-pointer">
                   <a class="flex items-center gap-5">
                     <i class="far fa-plus"></i> Chuyển nhóm hàng
@@ -122,10 +92,7 @@
                     <i class="far fa-plus"></i> Ẩn
                   </a>
                 </li>
-                <li
-                  class="px-4 py-4 hover:bg-gray-100 cursor-pointer"
-                  (click)="deleteProducts()"
-                >
+                <li class="px-4 py-4 hover:bg-gray-100 cursor-pointer" (click)="deleteProducts()">
                   <a class="flex items-center gap-5">
                     <i class="far fa-plus"></i>
                     Xóa
@@ -141,29 +108,18 @@
                 <i class="fa fa-caret-down"></i>
               </a>
 
-              <ul
-                class="absolute min-w-max left-0 hidden group-hover:block bg-white border rounded shadow-md z-10"
-              >
-                <li
-                  class="px-4 py-3 hover:bg-gray-100 cursor-pointer"
-                  (click)="AddProductDialog()"
-                >
+              <ul class="absolute min-w-max left-0 hidden group-hover:block bg-white border rounded shadow-md z-10">
+                <li class="px-4 py-3 hover:bg-gray-100 cursor-pointer" (click)="AddProductDialog()">
                   <a class="flex items-center gap-3">
                     <i class="far fa-plus"></i> Thêm sản phẩm
                   </a>
                 </li>
-                <li
-                  class="px-4 py-3 hover:bg-gray-100 cursor-pointer"
-                  (click)="AddServiceDialog()"
-                >
+                <li class="px-4 py-3 hover:bg-gray-100 cursor-pointer" (click)="AddServiceDialog()">
                   <a class="flex items-center gap-3">
                     <i class="far fa-plus"></i> Thêm dịch vụ
                   </a>
                 </li>
-                <li
-                  class="px-4 py-3 hover:bg-gray-100 cursor-pointer"
-                  (click)="AddComboDialog()"
-                >
+                <li class="px-4 py-3 hover:bg-gray-100 cursor-pointer" (click)="AddComboDialog()">
                   <a class="flex items-center gap-3">
                     <i class="far fa-plus"></i> Thêm Combo
                   </a>
@@ -185,20 +141,11 @@
                 <i class="fa fa-caret-down"></i>
               </button>
 
-              <div
-                *ngIf="showCheckboxList"
-                class="absolute right-0 top-full mt-1 bg-white border rounded shadow-md z-10"
-              >
+              <div *ngIf="showCheckboxList"
+                class="absolute right-0 top-full mt-1 bg-white border rounded shadow-md z-10">
                 <div class="p-2">
-                  <label
-                    *ngFor="let option of checkboxOptions"
-                    class="block py-1"
-                  >
-                    <input
-                      type="checkbox"
-                      [(ngModel)]="option.selected"
-                      class="mr-2"
-                    />
+                  <label *ngFor="let option of checkboxOptions" class="block py-1">
+                    <input type="checkbox" [(ngModel)]="option.selected" class="mr-2" />
                     {{ option.name }}
                   </label>
                 </div>
@@ -211,12 +158,7 @@
           <thead>
             <tr class="table-header">
               <th>
-                <input
-                  type="checkbox"
-                  [checked]="isAllSelected()"
-                  (change)="toggleSelectAll($event)"
-                  class="h-4 w-4"
-                />
+                <input type="checkbox" [checked]="isAllSelected()" (change)="toggleSelectAll($event)" class="h-4 w-4" />
               </th>
               <th>Mã hàng hóa</th>
               <th>Hinh ảnh</th>
@@ -233,43 +175,23 @@
           </thead>
           <tbody>
             <ng-container *ngFor="let product of products">
-              <tr
-                [ngClass]="{
+              <tr [ngClass]="{
                   'border-l-2 border-r-2 border-t-2 border-blue-500':
                     selectedProduct === product || products.length == 1
-                }"
-                class="table-row"
-                (click)="toggleDetail(product)"
-              >
+                }" class="table-row" (click)="toggleDetail(product)">
                 <td class="table-cell-bordered">
-                  <input
-                    class="h-4 w-4"
-                    [id]="'idProduct_' + product.proAndSerId"
-                    type="checkbox"
-                    [checked]="selectedProductIds.has(product.proAndSerId)"
-                    [value]="product.proAndSerId"
-                    (click)="
+                  <input class="h-4 w-4" [id]="'idProduct_' + product.proAndSerId" type="checkbox"
+                    [checked]="selectedProductIds.has(product.proAndSerId)" [value]="product.proAndSerId" (click)="
                       showActions(product.proAndSerId); $event.stopPropagation()
-                    "
-                  />
+                    " />
                 </td>
 
                 <td class="table-cell-bordered">{{ product.proAndSerCode }}</td>
                 <td class="table-cell-img">
-                  <img
-                    *ngIf="product.urlImage"
-                    [src]="'http://apithuctapnail.tcsoft.vn' + product.urlImage"
-                    alt="{{ product.proAndSerName }}"
-                    lazyLoad="true"
-                  />
-                  <img
-                    *ngIf="!product.urlImage"
-                    src="assets/images/image.png"
-                    alt="Không có ảnh"
-                    width="100"
-                    height="100"
-                    style="object-fit: cover"
-                  />
+                  <img *ngIf="product.urlImage" [src]="'http://apithuctapnail.tcsoft.vn' + product.urlImage"
+                    alt="{{ product.proAndSerName }}" lazyLoad="true" />
+                  <img *ngIf="!product.urlImage" src="assets/images/image.png" alt="Không có ảnh" width="100"
+                    height="100" style="object-fit: cover" />
                 </td>
                 <td class="table-cell-bordered">{{ product.proAndSerName }}</td>
                 <td class="table-cell-bordered">{{ product.workTime }}</td>
@@ -295,18 +217,12 @@
                   {{ product.expiryDate | date : "dd/MM/yyyy" }}
                 </td>
               </tr>
-              <tr
-                *ngIf="selectedProduct === product || products.length == 1"
-                [ngClass]="{
+              <tr *ngIf="selectedProduct === product || products.length == 1" [ngClass]="{
                   'border-l-2 border-b-2  border-r-2 border-blue-500 bg-blue-50':
                     selectedProduct === product || products.length == 1
-                }"
-              >
+                }">
                 <td colspan="12" class="border bg-gray-50">
-                  <app-detail-product
-                    (productUpdated)="applyFilter()"
-                    [product]="product"
-                  ></app-detail-product>
+                  <app-detail-product (productUpdated)="applyFilter()" [product]="product"></app-detail-product>
                 </td>
               </tr>
             </ng-container>
@@ -320,43 +236,25 @@
 
         <div *ngIf="totalPages > 0" class="pagination">
           <!-- Previous Button -->
-          <button
-            (click)="prevPage()"
-            [disabled]="currentPage === 1 || isLoading"
-            class="page-button nav-button"
-            [class.disabled]="currentPage === 1"
-          >
+          <button (click)="prevPage()" [disabled]="currentPage === 1 || isLoading" class="page-button nav-button"
+            [class.disabled]="currentPage === 1">
             <i class="fas fa-chevron-left"></i>
-            <span
-              *ngIf="isLoading && currentPage !== 1"
-              class="loading-spinner"
-            ></span>
+            <span *ngIf="isLoading && currentPage !== 1" class="loading-spinner"></span>
           </button>
 
           <!-- Page Numbers -->
           <ng-container *ngFor="let page of pageNumbers">
             <span *ngIf="page === -1" class="ellipsis">...</span>
-            <button
-              *ngIf="page !== -1"
-              (click)="goToPage(page)"
-              [class.active]="currentPage === page"
-              class="page-button"
-            >
+            <button *ngIf="page !== -1" (click)="goToPage(page)" [class.active]="currentPage === page"
+              class="page-button">
               {{ page }}
             </button>
           </ng-container>
 
           <!-- Next Button -->
-          <button
-            (click)="nextPage()"
-            [disabled]="currentPage === totalPages || isLoading"
-            class="page-button nav-button"
-            [class.disabled]="currentPage === totalPages"
-          >
-            <span
-              *ngIf="isLoading && currentPage !== totalPages"
-              class="loading-spinner"
-            ></span>
+          <button (click)="nextPage()" [disabled]="currentPage === totalPages || isLoading"
+            class="page-button nav-button" [class.disabled]="currentPage === totalPages">
+            <span *ngIf="isLoading && currentPage !== totalPages" class="loading-spinner"></span>
             <i class="fas fa-chevron-right"></i>
           </button>
         </div>

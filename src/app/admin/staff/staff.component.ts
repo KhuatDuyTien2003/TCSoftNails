@@ -1,5 +1,5 @@
 import { Staff } from './../../app.type/Staff.type';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -21,6 +21,7 @@ import { HttpStaffService } from '../../services/http-staff.service';
 import { ToastrService } from 'ngx-toastr';
 import { SearchStaffModel } from '../../app.type/SearchStaffModel.type';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { UpdateRoleComponent } from './update-role/update-role.component';
 @Component({
   selector: 'app-staff',
   standalone: true,
@@ -38,11 +39,13 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
     HeaderComponent,
     FormsModule,
     NzDatePickerModule,
+    UpdateRoleComponent,
   ],
 })
 export class StaffComponent implements OnInit {
   date = null;
   fileName: File | null = null;
+  userName: string = '';
   imageBase64: string = '';
   staffList: Staff[] = [];
   public isEdit: boolean = false;
@@ -78,6 +81,8 @@ export class StaffComponent implements OnInit {
     urlAvatar: new FormControl(),
     gender: new FormControl(''),
   });
+
+  @ViewChild(UpdateRoleComponent) getHidden!: UpdateRoleComponent;
   constructor(
     private httpStaff: HttpStaffService,
     private toastr: ToastrService
@@ -269,7 +274,6 @@ export class StaffComponent implements OnInit {
   }
 
   startDeleteStaff(id: number) {
-
     this.staffId = id;
     console.log(this.staffId);
     this.onHidden('formDelete');
@@ -546,4 +550,9 @@ export class StaffComponent implements OnInit {
     });
   }
 
+  openUpdateRole(id: number, nameUser: string) {
+    this.staffId = id;
+    this.userName = nameUser;
+    this.getHidden.onExit();
+  }
 }

@@ -77,6 +77,8 @@ export class PaymentComponent implements OnChanges, OnInit {
     this._productSelects = value ?? [];
     this.getTotalMoney();
   }
+
+  @Input() billId: number = 0;
   @ViewChild(ReceiptComponent) print!: ReceiptComponent;
   searchInput$ = new Subject<string>();
   loadingSearch: boolean = false;
@@ -129,9 +131,9 @@ export class PaymentComponent implements OnChanges, OnInit {
     );
   }
 
-  createBill() {
+  updateBill() {
     var model: BillSend = {
-      billId: 0,
+      billId: this.billId,
       customerId: this.CustomerSelect.customerId || 100,
       moneyPoint: this.isPoint
         ? (this.CustomerSelect.totalPoints || 0) * 1000
@@ -153,7 +155,7 @@ export class PaymentComponent implements OnChanges, OnInit {
 
     for (let product of this.ProductSelects) {
       let item: BillDetailSend = {
-        billId: 0,
+        billId: this.billId,
         proAndSerId: product.id,
         quantity: product.unitStock,
         staffId: product.idWorker,
@@ -163,11 +165,12 @@ export class PaymentComponent implements OnChanges, OnInit {
       model.billDetails?.push(item);
     }
     console.log(model);
-    this.httpBill.createBill(model).subscribe({
+    this.httpBill.updateBill(model).subscribe({
       next: (data) => {
         if (data.success) {
           this.toastr.success(data.message);
           this.printBill();
+          this.setHidden();
         } else this.toastr.error(data.message);
       },
       error: (err) => this.toastr.error(err),

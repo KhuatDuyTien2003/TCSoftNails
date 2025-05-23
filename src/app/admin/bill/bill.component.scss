@@ -1,9 +1,208 @@
+// .bill-container {
+//   padding: 24px;
+//   width: 75%;
+//   background-color: #f0fdf4;
+//   float:
+//     right;
+//   font-family: 'Roboto', sans-serif;
+//   min-height: 100vh;
+
+//   .search-box {
+//     margin-bottom: 16px;
+//     display: flex;
+//     justify-content: flex-end;
+
+//     input {
+//       padding: 8px 12px;
+//       border: 1px solid #ccc;
+//       border-radius: 8px;
+//       width: 250px;
+//     }
+//   }
+
+//   .bill-content {
+//     background-color: #ffffff;
+//     border-radius: 16px;
+//     padding: 24px;
+//     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+
+//     .header {
+//       margin-bottom: 16px;
+//     }
+
+//     .bill-table {
+//       overflow-x: auto;
+
+//       table {
+//         width: 100%;
+//         border-collapse: collapse;
+//         min-width: 1000px;
+
+//         thead {
+//           background-color: #c8e6c9;
+
+//           th {
+//             padding: 12px;
+//             text-align: left;
+//             font-weight: 600;
+//             color: #256029;
+//             border-bottom: 2px solid #a5d6a7;
+//           }
+//         }
+
+//         tbody {
+//           tr {
+//             transition: background-color 0.3s ease;
+
+//             &:hover {
+//               background-color: #f1f8e9;
+//             }
+
+//             td {
+//               padding: 10px 12px;
+//               font-size: 14px;
+//               color: #333;
+//               border-bottom: 1px solid #eee;
+//               vertical-align: top;
+//             }
+//           }
+
+//           .detailBill {
+//             background-color: #f9fff8;
+//             border-radius: 12px;
+//             padding: 16px;
+//             border: 1px solid #b2dfdb;
+//             margin-top: 8px;
+
+//             .information {
+//               display: flex;
+//               justify-content: space-between;
+//               flex-wrap: wrap;
+//               gap: 20px;
+
+//               .item {
+//                 flex: 1;
+//                 min-width: 250px;
+
+//                 p {
+//                   margin: 4px 0;
+//                   font-size: 14px;
+//                   color: #444;
+//                 }
+//               }
+
+//               .productTable {
+//                 width: 100%;
+//                 overflow-x: auto;
+//                 margin-top: 16px;
+
+//                 .productDetail {
+//                   width: 100%;
+//                   border-collapse: collapse;
+
+//                   th {
+//                     background-color: #e0f2f1;
+//                     padding: 8px;
+//                     text-align: left;
+//                     color: #00695c;
+//                     font-size: 14px;
+//                   }
+
+//                   td {
+//                     padding: 8px;
+//                     border-bottom: 1px solid #ddd;
+//                     font-size: 13px;
+//                     color: #333;
+//                   }
+//                 }
+//               }
+//             }
+//           }
+
+//           .actionBtn {
+//             display: flex;
+//             justify-content: flex-end;
+//             gap: 12px;
+//             margin-top: 12px;
+
+//             .btn {
+//               padding: 8px 16px;
+//               border: none;
+//               border-radius: 8px;
+//               font-weight: 500;
+//               cursor: pointer;
+//               transition: background-color 0.3s ease, transform 0.2s ease;
+//               color: #fff;
+//               box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+//               &:hover {
+//                 transform: translateY(-1px);
+//               }
+//             }
+
+//             .btn_save {
+//               background-color: #66bb6a;
+
+//               &:hover {
+//                 background-color: #4caf50;
+//               }
+//             }
+
+//             .btn_print {
+//               background-color: #42a5f5;
+
+//               &:hover {
+//                 background-color: #1e88e5;
+//               }
+//             }
+
+//             .btn_exprort {
+//               background-color: #ffa726;
+
+//               &:hover {
+//                 background-color: #fb8c00;
+//               }
+//             }
+
+//             .btn_cancel {
+//               background-color: #ef5350;
+
+//               &:hover {
+//                 background-color: #e53935;
+//               }
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+
+// @media print {
+//   body * {
+//     visibility: hidden;
+//   }
+
+//   .bill-container,
+//   app-header {
+//     visibility: hidden;
+//   }
+// }
+
+
+
+
+
+
+// .hidden {
+//   display: none;
+// }
+
 .bill-container {
   padding: 24px;
   width: 75%;
   background-color: #f0fdf4;
-  float:
-    right;
+  float: right;
   font-family: 'Roboto', sans-serif;
   min-height: 100vh;
 
@@ -31,12 +230,14 @@
     }
 
     .bill-table {
-      overflow-x: auto;
+      overflow-x: auto; // This ensures the table is scrollable if it's too wide for the screen.
+      width: 100%;
+      table-layout: fixed; // Ensures equal column width distribution
 
       table {
         width: 100%;
         border-collapse: collapse;
-        min-width: 1000px;
+        min-width: 1000px; // Ensures that the table doesn't shrink below 1000px
 
         thead {
           background-color: #c8e6c9;
@@ -47,6 +248,7 @@
             font-weight: 600;
             color: #256029;
             border-bottom: 2px solid #a5d6a7;
+            white-space: nowrap; // Prevents text from wrapping to the next line
           }
         }
 
@@ -61,11 +263,62 @@
             td {
               padding: 10px 12px;
               font-size: 14px;
+              text-align: center;
               color: #333;
               border-bottom: 1px solid #eee;
               vertical-align: top;
+              white-space: nowrap; // Prevents text from wrapping in the cells
+
+              span {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                nz-icon {
+                  font-size: 20px;
+
+                  // Mặc định (question-circle)
+                  color: #bfbfbf;
+                }
+              }
+
+              // Chưa thanh toán - màu cam nhạt
+              span:has(nz-icon[nztype="clock-circle"]) {
+                nz-icon {
+                  color: #faad14; // cam
+                }
+              }
+
+              // Đã thanh toán - màu xanh lá
+              span:has(nz-icon[nztype="check-circle"]) {
+                nz-icon {
+                  color: #52c41a; // xanh lá
+                }
+              }
+
+              // Đã hủy - màu đỏ
+              span:has(nz-icon[nztype="close-circle"]) {
+                nz-icon {
+                  color: #ff4d4f; // đỏ
+                }
+              }
+
+              // Quá hạn - màu đỏ cam
+              span:has(nz-icon[nztype="exclamation-circle"]) {
+                nz-icon {
+                  color: #f5222d; // đỏ cam
+                }
+              }
+
+              // Không xác định - màu xám
+              span:has(nz-icon[nztype="question-circle"]) {
+                nz-icon {
+                  color: #8c8c8c; // xám
+                }
+              }
             }
           }
+
 
           .detailBill {
             background-color: #f9fff8;
@@ -73,6 +326,8 @@
             padding: 16px;
             border: 1px solid #b2dfdb;
             margin-top: 8px;
+            width: 100%;
+            box-sizing: border-box;
 
             .information {
               display: flex;
@@ -83,6 +338,10 @@
               .item {
                 flex: 1;
                 min-width: 250px;
+                padding: 10px;
+                background-color: #ffffff;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
                 p {
                   margin: 4px 0;
@@ -99,11 +358,12 @@
                 .productDetail {
                   width: 100%;
                   border-collapse: collapse;
+                  overflow-x: auto;
 
                   th {
                     background-color: #e0f2f1;
                     padding: 8px;
-                    text-align: left;
+
                     color: #00695c;
                     font-size: 14px;
                   }
@@ -112,12 +372,15 @@
                     padding: 8px;
                     border-bottom: 1px solid #ddd;
                     font-size: 13px;
+                    text-align: left;
                     color: #333;
+                    white-space: nowrap;
                   }
                 }
               }
             }
           }
+
 
           .actionBtn {
             display: flex;
@@ -178,6 +441,7 @@
   }
 }
 
+// Add print styles to ensure the table displays properly when printed
 @media print {
   body * {
     visibility: hidden;
@@ -185,14 +449,26 @@
 
   .bill-container,
   app-header {
-    visibility: hidden;
+    visibility: visible;
+  }
+
+  .bill-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-shadow: none;
+  }
+
+  .bill-table {
+    overflow: visible;
+    width: 100%;
+  }
+
+  table {
+    width: 100%;
   }
 }
-
-
-
-
-
 
 .hidden {
   display: none;

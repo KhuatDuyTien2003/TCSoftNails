@@ -17,35 +17,47 @@ import { SearchBill } from '../app.type/SearchBill.type';
 export class HttpBillService {
   baseClass = new BaseHttpService();
   private base_url = this.baseClass.base_url + '/';
-  httpOption = this.baseClass.httpOption;
 
-  constructor(private httpBill: HttpClient, toastr: ToastrService) {}
+  constructor(
+    private httpBill: HttpClient,
+    toastr: ToastrService,
+    private baseService: BaseHttpService
+  ) {}
 
-  public getAllBill(): Observable<ResponseModel<BillResponse[]>> {
-    const url = `${this.base_url}Bill`;
+  public getAllBill(
+    pageSize: number,
+    pageNumber: number
+  ): Observable<ResponseModel<BillResponse[]>> {
+    const url = `${this.base_url}Bill/GetAll/${pageSize}/${pageNumber}`;
     return this.httpBill
-      .get<ResponseModel<BillResponse[]>>(url, this.httpOption)
+      .get<ResponseModel<BillResponse[]>>(url, this.baseService.httpOption())
+      .pipe(catchError((error) => this.handleError(error)));
+  }
+  public getBillUnpaid(): Observable<ResponseModel<BillResponse[]>> {
+    const url = `${this.base_url}Bill/GetBillUnpaid`;
+    return this.httpBill
+      .get<ResponseModel<BillResponse[]>>(url, this.baseService.httpOption())
       .pipe(catchError((error) => this.handleError(error)));
   }
 
   public getServiceAndProduct(type: Number) {
     const url = `${this.base_url}Bill/GetProduct/${type}`;
     return this.httpBill
-      .get<ResponseModel<CategoryBill[]>>(url, this.httpOption)
+      .get<ResponseModel<CategoryBill[]>>(url, this.baseService.httpOption())
       .pipe(catchError((error) => this.handleError(error)));
   }
 
   public searchProduct(name: string) {
     const url = `${this.base_url}Bill/SearchProduct/${name}`;
     return this.httpBill
-      .get<ResponseModel<CategoryBill[]>>(url, this.httpOption)
+      .get<ResponseModel<CategoryBill[]>>(url, this.baseService.httpOption())
       .pipe(catchError((error) => this.handleError(error)));
   }
 
   public getPriceListByIdCustomer(id: number) {
     const url = `${this.base_url}Bill/GetPriceListByIdCustomer/${id}`;
     return this.httpBill
-      .get<ResponseModel<PriceList[]>>(url, this.httpOption)
+      .get<ResponseModel<PriceList[]>>(url, this.baseService.httpOption())
       .pipe(catchError((error) => this.handleError(error)));
   }
   public getPromotionByCode(
@@ -53,28 +65,55 @@ export class HttpBillService {
   ): Observable<ResponseModel<Promotion[]>> {
     const url = `${this.base_url}Bill/GetPromotionByCode/${code}`;
     return this.httpBill
-      .get<ResponseModel<Promotion[]>>(url, this.httpOption)
+      .get<ResponseModel<Promotion[]>>(url, this.baseService.httpOption())
       .pipe(catchError((error) => this.handleError(error)));
   }
-  public createBill(model: BillSend): Observable<ResponseModel<string>> {
-    const url = `${this.base_url}Bill/CreateBill/`;
+  public updateBill(model: BillSend): Observable<ResponseModel<string>> {
+    const url = `${this.base_url}Bill/UpdateBill/`;
     return this.httpBill
-      .post<ResponseModel<string>>(url, model, this.httpOption)
+      .put<ResponseModel<string>>(url, model, this.baseService.httpOption())
       .pipe(catchError((error) => this.handleError(error)));
   }
+
+  public updateMultipleBills(
+    models: BillSend[]
+  ): Observable<ResponseModel<any>> {
+    const url = `${this.base_url}Bill/UpdateMultipleBills`;
+    return this.httpBill
+      .post<ResponseModel<any>>(url, models, this.baseService.httpOption())
+      .pipe(catchError((error) => this.handleError(error)));
+  }
+
   public searchBill(
     model: SearchBill
   ): Observable<ResponseModel<BillResponse[]>> {
     const url = `${this.base_url}Bill/FilterBill`;
     return this.httpBill
-      .post<ResponseModel<BillResponse[]>>(url, model, this.httpOption)
+      .post<ResponseModel<BillResponse[]>>(
+        url,
+        model,
+        this.baseService.httpOption()
+      )
       .pipe(catchError((error) => this.handleError(error)));
   }
 
   public delBill(id: number) {
-    const url = `${this.base_url}Bill/DeleteBill/${id}`;
+    const url = `${this.base_url}Bill/DeleteReceipt/${id}`;
     return this.httpBill
-      .get<ResponseModel<string>>(url, this.httpOption)
+      .get<ResponseModel<string>>(url, this.baseService.httpOption())
+      .pipe(catchError((error) => this.handleError(error)));
+  }
+
+  public createNewBill(): Observable<ResponseModel<number>> {
+    const url = `${this.base_url}Bill/CreateNewBill`;
+    return this.httpBill
+      .post<ResponseModel<number>>(url, this.baseService.httpOption())
+      .pipe(catchError((error) => this.handleError(error)));
+  }
+  public updateOverdueBill(): Observable<ResponseModel<string>> {
+    const url = `${this.base_url}Bill/UpdateOverdueBills`;
+    return this.httpBill
+      .post<ResponseModel<string>>(url, this.baseService.httpOption())
       .pipe(catchError((error) => this.handleError(error)));
   }
 

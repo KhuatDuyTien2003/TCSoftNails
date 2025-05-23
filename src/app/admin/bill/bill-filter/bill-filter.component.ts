@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Output,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 
@@ -19,6 +26,10 @@ import {
   tap,
 } from 'rxjs';
 
+export interface emitBill {
+  status: boolean;
+  billList: BillResponse[];
+}
 @Component({
   selector: 'app-bill-filter',
   standalone: true,
@@ -44,9 +55,8 @@ export class BillFilterComponent implements OnInit {
     private httpBill: HttpBillService,
     private toastr: ToastrModule
   ) {}
-  @Output() sendBill: EventEmitter<BillResponse[] | null> = new EventEmitter<
-    BillResponse[] | null
-  >();
+  @Output() sendBill: EventEmitter<emitBill> = new EventEmitter<emitBill>();
+
   searchInput$ = new Subject<SearchBill>();
   ngOnInit(): void {
     this.searchInput$
@@ -55,9 +65,12 @@ export class BillFilterComponent implements OnInit {
         switchMap((searchModel) =>
           this.httpBill.searchBill(searchModel).pipe(
             catchError((error) => {
-              // nếu không có cái catch  thì switchMap sẽ bị hủy hoàn toàn  khi mà fetch bị lỗi
               console.error('Lỗi khi tìm hóa đơn:', error);
-              this.sendBill.emit([]);
+              let model: emitBill = {
+                billList: [],
+                status: true,
+              };
+              this.sendBill.emit(model);
               return of({ success: false, data: [] });
             })
           )
@@ -65,7 +78,11 @@ export class BillFilterComponent implements OnInit {
       )
       .subscribe({
         next: (data) => {
-          this.sendBill.emit(data.data);
+          let model: emitBill = {
+            billList: data.data,
+            status: true,
+          };
+          this.sendBill.emit(model);
         },
       });
   }
@@ -137,7 +154,6 @@ export class BillFilterComponent implements OnInit {
   }
 
   setSearchCheckBox(event: Event) {
-    console.log('hwhw');
     var input = event.currentTarget as HTMLInputElement;
     switch (input.name) {
       case 'unpaid':
@@ -167,7 +183,6 @@ export class BillFilterComponent implements OnInit {
   }
 
   getSearchBill(search: SearchBill) {
-    console.log('heheh');
     this.searchInput$.next({ ...search });
   }
 }

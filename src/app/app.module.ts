@@ -21,10 +21,12 @@ import {
   provideHttpClient,
   withFetch,
   HttpClientModule,
+  HTTP_INTERCEPTORS,
 } from '@angular/common/http';
 
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
+import { ErrorInterceptor } from './services/auth.interceptor';
 registerLocaleData(vi);
 
 @NgModule({
@@ -40,7 +42,6 @@ registerLocaleData(vi);
     ToastrModule.forRoot(),
     HttpClientModule,
     HeaderComponent,
-
   ],
   providers: [
     provideClientHydration(withEventReplay()),
@@ -48,6 +49,7 @@ registerLocaleData(vi);
     provideAnimationsAsync(),
     provideHttpClient(),
     provideHttpClient(withFetch()),
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
 })

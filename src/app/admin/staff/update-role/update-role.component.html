@@ -1,0 +1,17 @@
+<div class="form-wrapper hidden" id="hidden">
+  <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+    <!-- Nút thoát (exit icon) -->
+    <nz-icon nzType="close" nzTheme="outline" class="exit-icon" (click)="onExit()"></nz-icon>
+
+    <h2 class="form-title">Cập nhật quyền cho nhân viên</h2>
+    <p>Họ và tên: {{userName}}</p>
+    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Mời chọn quyền cho nhân viên" formControlName="roleName">
+      <nz-option *ngFor="let item of Roles" [nzLabel]="item.roleName || ''" [nzValue]="item.id"></nz-option>
+
+    </nz-select>
+
+    <button nz-button class="login-form-button" [nzType]="'primary'">
+      Cập nhật
+    </button>
+  </form>
+</div>

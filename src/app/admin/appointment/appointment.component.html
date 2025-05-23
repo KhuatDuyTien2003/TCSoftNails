@@ -34,11 +34,8 @@
           <td>{{ item.staffName }}</td>
           <td *ngFor="let day of selectedWeek">
             <div class="appointment-block">
-              <ng-container
-                *ngFor="let customer of item.appointmentCustomer; let i = index"
-              >
-                <div
-                  (click)="
+              <ng-container *ngFor="let customer of item.appointmentCustomer; let i = index">
+                <div (click)="
                     openFormUpdate(
                       customer.numberPhone,
                       customer.customerName,
@@ -51,18 +48,14 @@
                       customer.idAppointment,
                       customer.status
                     )
-                  "
-                  class="appointment-card"
-                  *ngIf="
+                  " class="appointment-card" *ngIf="
                     formatDate(customer?.timeStart || swatDate) ===
                     formatDate(day || swatDate2)
-                  "
-                  [ngStyle]="{
+                  " [ngStyle]="{
                     'background-color': getColor(customer.status).background,
                     'border-left':
                       '4px solid ' + getColor(customer.status).border
-                  }"
-                >
+                  }">
                   <p class="appointment-time">
                     {{ customer.timeStart | date : "HH:mm" }} -
                     {{ customer.timeEnd | date : "HH:mm" }}
@@ -71,17 +64,13 @@
                     {{ customer.customerName }}
                   </p>
                   <p>
-                    <span style="font-weight: bold">Ghi chú: </span
-                    >{{ customer.description }}
+                    <span style="font-weight: bold">Ghi chú: </span>{{ customer.description }}
                   </p>
                   <p class="appointment-services">
-                    <span
-                      class="appointment-service"
-                      *ngFor="
+                    <span class="appointment-service" *ngFor="
                         let service of customer.appointmentDetails;
                         let isLast = last
-                      "
-                    >
+                      ">
                       {{ service.proAndSerName }}<span *ngIf="!isLast">, </span>
                     </span>
                   </p>
@@ -94,7 +83,4 @@
     </table>
   </div>
 </div>
-<app-form-update
-  #formUpdate
-  (getAppointments)="getAppointments()"
-></app-form-update>
+<app-form-update #formUpdate (getAppointments)="getAppointments()"></app-form-update>

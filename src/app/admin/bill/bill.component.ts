@@ -1,20 +1,21 @@
-import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Component,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { HeaderComponent } from '../../header/header.component';
 import { HttpBillService } from '../../services/http-bill.service';
 import { ToastrService } from 'ngx-toastr';
 import { BillResponse } from '../../app.type/BillResponse.type';
 import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 import { ReceiptComponent } from './receipt/receipt.component';
 import { Receipt } from '../../app.type/receipt.type';
-import { BillFilterComponent } from './bill-filter/bill-filter.component';
-import { error } from 'console';
+import {
+  NZ_ICON_DEFAULT_TWOTONE_COLOR,
+  NzIconModule,
+} from 'ng-zorro-antd/icon';
+import {
+  BillFilterComponent,
+  emitBill,
+} from './bill-filter/bill-filter.component';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 
 @Component({
   selector: 'app-bill',
@@ -24,12 +25,21 @@ import { error } from 'console';
   imports: [
     HeaderComponent,
     CommonModule,
-    RouterModule,
+
     ReceiptComponent,
     BillFilterComponent,
+    NzPaginationModule,
+    NzIconModule,
   ],
 })
 export class BillComponent implements OnInit {
+  isSearch = false;
+  page: number = 1;
+  countPage: number = 100;
+  totalPages: number = 10;
+  currentPage: number = 1;
+  currentSearchPage: number = 1;
+  pageSize: number = 10;
   billList: BillResponse[] = [];
   @ViewChild(ReceiptComponent) printReceipt!: ReceiptComponent;
   receipt: Receipt = {
@@ -44,16 +54,25 @@ export class BillComponent implements OnInit {
   constructor(
     private httpBill: HttpBillService,
     private toastr: ToastrService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) {}
   ngOnInit(): void {
-    this.httpBill.getAllBill().subscribe({
+    this.updateOverdueBills();
+    this.httpBill.getAllBill(this.pageSize, this.currentPage).subscribe({
       next: (data) => {
         if (data.success) {
-          console.log(data.data);
+          console.log(data);
           this.billList = data.data;
+          this.countPage = data.totalPage;
         }
       },
+    });
+  }
+
+  EditBill(id: number) {
+    this.router.navigate(['/bill/add-receipt'], {
+      queryParams: { billId: id },
     });
   }
 
@@ -67,6 +86,20 @@ export class BillComponent implements OnInit {
     }
   }
 
+  updateOverdueBills() {
+    let day = localStorage.getItem('dayUpdateBill') || '';
+    let dateUpdate = new Date(day);
+    if (!day || dateUpdate < new Date()) {
+      this.httpBill.updateOverdueBill().subscribe({
+        next: (data) => {
+          if (data.success) {
+            localStorage.setItem('dayUpdateBill', new Date().toISOString());
+          }
+        },
+      });
+    }
+  }
+
   delBill(id: number) {
     this.httpBill.delBill(id).subscribe({
       next: (data) => {
@@ -77,9 +110,9 @@ export class BillComponent implements OnInit {
     });
   }
 
-  getBillSearch(bills: BillResponse[] | null): void {
-    console.log('value: ', bills);
-    this.billList = bills || [];
+  getBillSearch(bills: emitBill): void {
+    this.isSearch = bills.status;
+    this.billList = bills.billList;
   }
 
   sendReceipt(billId: number) {
@@ -95,9 +128,17 @@ export class BillComponent implements OnInit {
     console.log(this.receipt);
     this.printReceipt.in();
   }
-  // ngAfterViewInit(): void {
-  //   setTimeout(() => {
-  //     this.printReceipt.in();
-  //   }, 0);
-  // }
+  public onPageChange(page: number): void {
+    if (!this.isSearch) {
+      this.currentPage = page;
+      this.httpBill.getAllBill(this.pageSize, this.currentPage).subscribe({
+        next: (data) => {
+          if (data.success) {
+            console.log(data.data);
+            this.billList = data.data;
+          }
+        },
+      });
+    } else this.currentSearchPage = page;
+  }
 }

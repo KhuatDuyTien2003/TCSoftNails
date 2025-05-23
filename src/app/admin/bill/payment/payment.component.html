@@ -88,7 +88,7 @@
               [nzLabel]="item.promotionName || ''" nzCustomContent>
               <div class="promotion-option">
                 <div class="image">
-                  <img [src]="'http://localhost:5213/' + item.urlImage" alt="promotion" />
+                  <img [src]="'http://apithuctapnail.tcsoft.vn' + item.urlImage" alt="promotion" />
                 </div>
                 <div class="info">
                   <div class="name">{{ item.promotionName }}</div>
@@ -133,7 +133,7 @@
         <input type="text">
       </div>
       <div class="btn-div">
-        <button (click)="createBill()">Thanh toán</button>
+        <button (click)="updateBill()">Thanh toán</button>
       </div>
     </div>
   </div>

@@ -2,12 +2,13 @@
   <div class="header-receipt">
     <h2>Hóa đơn</h2>
     <ul class="bill-list">
-      <li>Hóa đơn 1 <nz-icon nzType="close" nzTheme="outline" /></li>
-      <li>Hóa đơn 1 <nz-icon nzType="close" nzTheme="outline" /></li>
-      <li>Hóa đơn 1 <nz-icon nzType="close" nzTheme="outline" /></li>
-      <li>Hóa đơn 1 <nz-icon nzType="close" nzTheme="outline" /></li>
-      <li>Hóa đơn 1 <nz-icon nzType="close" nzTheme="outline" /></li>
-      <li><nz-icon nzType="plus-circle" nzTheme="outline" /></li>
+      <li *ngFor="let item of billUnpaidList" (click)="changeBill(item.billId)"
+        [style]="billIdForcus === item.billId ? 'background-color:white ; color: #007BFF;': ''">Hóa đơn
+        {{item.customerName !== null ?
+        item.customerName: "khách lẻ"}} <nz-icon (click)="delBill(item.billId)" class="hover-icon" nzType="close"
+          nzTheme="outline" />
+      </li>
+      <li (click)="createNewBill()"><nz-icon nzType="plus-circle" nzTheme="outline" /></li>
     </ul>
   </div>
   <div class="receipt">
@@ -15,7 +16,7 @@
       <div class="search">
         <nz-select style="width: 100%;" nzPlaceHolder="Mời nhập tên sản phẩm, dịch vụ hoặc combo" nzAllowClear
           nzShowSearch nzServerSearch [(ngModel)]="productSearch" (nzOnSearch)="onSearch($event)"
-          (ngModelChange)="selectProductSearch($event)">
+          (ngModelChange)="selectProductSearch($event);updateProductBillLocal(billIdForcus)">
           @if (!loadingSearch) {
           @for (item of ProductSearchList; track item) {
           <nz-option [nzValue]="item.id" [nzLabel]="item.name || ''"></nz-option>
@@ -45,9 +46,10 @@
         <ng-container *ngIf="type === 1">
           <ul>
             <li *ngFor="let item of productList">
-              <div class="category-detail" (click)="selectProduct(item.id);selectPriceListDetail()">
+              <div class="category-detail"
+                (click)="selectProduct(item.id);selectPriceListDetail();updateProductBillLocal(billIdForcus)">
                 <img [src]="
-                    'http://apithuctapnail.tcsoft.vn/' +
+                    'http://apithuctapnail.tcsoft.vn' +
                     (item.urlImage || 'default.png')
                   " alt="" />
                 <div class="category-content">
@@ -62,9 +64,10 @@
         <ng-container *ngIf="type === 3">
           <ul>
             <li *ngFor="let item of productList">
-              <div class="category-detail" (click)="selectProduct(item.id); selectPriceListDetail()">
+              <div class="category-detail"
+                (click)="selectProduct(item.id); selectPriceListDetail();updateProductBillLocal(billIdForcus)">
                 <img [src]="
-                    'http://apithuctapnail.tcsoft.vn/' +
+                    'http://apithuctapnail.tcsoft.vn' +
                     (item.urlImage || 'default.png')
                   " alt="" />
                 <div class="category-content">
@@ -78,9 +81,10 @@
         <ng-container *ngIf="type === 2">
           <ul>
             <li *ngFor="let item of productList">
-              <div class="category-detail" (click)="selectProduct(item.id); selectPriceListDetail()">
+              <div class="category-detail"
+                (click)="selectProduct(item.id); selectPriceListDetail();updateProductBillLocal(billIdForcus)">
                 <img [src]="
-                    'http://apithuctapnail.tcsoft.vn/' +
+                    'http://apithuctapnail.tcsoft.vn' +
                     (item.urlImage || 'default.png')
                   " alt="" />
                 <div class="category-content">
@@ -99,7 +103,7 @@
         <div class="searchName">
           <nz-select style="width: 100%;" nzPlaceHolder="Nhập tên hoặc sđt" nzAllowClear nzShowSearch nzServerSearch
             [(ngModel)]="customerSearch" (nzOnSearch)="onSearchCustomer($event)"
-            (ngModelChange)="selectCustomerSearch($event); getPriceListByIdCustomer($event)">
+            (ngModelChange)="selectCustomerSearch($event); getPriceListByIdCustomer($event); updateCustomerBillLocal(billIdForcus)">
             @if (!loadingSearch) {
             @for (item of customerSearchList; track item) {
             <nz-option [nzValue]="item.customerId" [nzLabel]="item.customerName || ''"></nz-option>
@@ -129,16 +133,24 @@
         </div>
 
       </div>
-      <div class="infor-customer">
-        <div class="img">
-          <img [src]="'http://apithuctapnail.tcsoft.vn' + selectCustomer.urlAvatar" alt="" />
+      <div class="customer">
+        <div class="infor-customer">
+          <div class="img">
+            <img [src]="'http://apithuctapnail.tcsoft.vn' + selectCustomer.urlAvatar" alt="" />
+          </div>
+          <div class="customer-detail">
+            <p>Họ và tên: {{selectCustomer.customerName}}</p>
+            <p>SĐT: {{selectCustomer.numberPhone}}</p>
+            <p>Hạng khách hàng: {{selectCustomer.rankName}}</p>
+          </div>
         </div>
-        <div class="customer-detail">
-          <p>Họ và tên: {{selectCustomer.customerName}}</p>
-          <p>SĐT: {{selectCustomer.numberPhone}}</p>
-          <p>Hạng khách hàng: {{selectCustomer.rankName}}</p>
+        <div class="khachle">
+          <label for="cus"><input (change)="setKhachLe(billIdForcus)" type="checkbox" name="" id="cus">Khách
+            lẻ</label>
         </div>
       </div>
+
+
       <div class="product">
         <table class="tbl">
           <thead>
@@ -149,6 +161,7 @@
               <th>Loại</th>
               <th>Người làm</th>
               <th>Tổng tiền</th>
+              <th>Thao tác</th>
             </tr>
           </thead>
           <tbody>
@@ -172,6 +185,8 @@
                 </nz-select>
               </td>
               <td>{{ ((item.price ?? 0) * (item.unitStock ?? 0)) | vncurrency}}</td>
+              <td><nz-icon (click)="removeProduct(item.id); updateProductBillLocal(billIdForcus)" nzType="close"
+                  nzTheme="outline" class="hover-icon" /></td>
             </tr>
           </tbody>
         </table>
@@ -182,4 +197,4 @@
     </div>
   </div>
 </div>
-<app-payment [ProductSelects]="productSelects" [CustomerSelect]="selectCustomer"></app-payment>
+<app-payment [ProductSelects]="productSelects" [CustomerSelect]="selectCustomer" [billId]="billIdForcus"></app-payment>

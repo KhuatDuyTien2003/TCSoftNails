@@ -18,9 +18,7 @@ export class HttpCustomerService {
 
   baseClass = new BaseHttpService
   private base_url = this.baseClass.base_url+"/";
-    httpOption = this.baseClass.httpOption
-
-  constructor(private httpCustomer: HttpClient, toastr: ToastrService) {}
+  constructor(private httpCustomer: HttpClient, toastr: ToastrService, private baseService:BaseHttpService) {}
 
 
 
@@ -32,21 +30,21 @@ export class HttpCustomerService {
   ): Observable<any> {
     const url = `${this.base_url}Customer/AddCustomer`;
     return this.httpCustomer
-      .post<any>(url, customer, this.httpOption)
+      .post<any>(url, customer, this.baseService.httpOption())
       .pipe(catchError((error) => this.handleError(error)));
   }
   public addCustomers(customers: customer[]): Observable<any> {
     const url = `${this.base_url}Customer/AddCustomers`;
     var json = JSON.stringify(customers);
     return this.httpCustomer
-      .post<any>(url, json, this.httpOption)
+      .post<any>(url, json, this.baseService.httpOption())
       .pipe(catchError((error) => this.handleError(error)));
   }
 
   public getCustomer(id: number): Observable<customer> {
     const url = `${this.base_url}Customer/${id}`;
     return this.httpCustomer
-      .get<customer>(url, this.httpOption)
+      .get<customer>(url, this.baseService.httpOption())
       .pipe(catchError((error) => this.handleError(error)));
   }
 
@@ -55,7 +53,7 @@ export class HttpCustomerService {
   ): Observable<any> {
     const url = `${this.base_url}Customer/EditCustomer`;
     return this.httpCustomer
-      .post<any>(url, customer, this.httpOption)
+      .post<any>(url, customer, this.baseService.httpOption())
       .pipe(catchError((error) => this.handleError(error)));
   }
 
@@ -63,7 +61,7 @@ export class HttpCustomerService {
   public deleteMultipleCustomers(listId: string[]): Observable<any> {
     const url = `${this.base_url}Customer/DeleteMultipleCustomers`;
     var json = listId.map((id) => ({ CustomerId: parseInt(id) }));
-    return this.httpCustomer.post<any>(url, json, this.httpOption);
+    return this.httpCustomer.post<any>(url, json, this.baseService.httpOption());
   }
 
   public searchCustomer(
@@ -76,23 +74,23 @@ export class HttpCustomerService {
     return this.httpCustomer.post<
       | { success: boolean; data: customer[]; count: number }
       | { success: boolean; message: string }
-    >(url, model, this.httpOption);
+    >(url, model, this.baseService.httpOption());
   }
 
   public exportCustomer(): Observable<any> {
     const url = `${this.base_url}Customer/ExportCustomer`;
-    return this.httpCustomer.get(url, this.httpOption);
+    return this.httpCustomer.get(url, this.baseService.httpOption());
   }
   public deleteFile(filePath: string): Observable<any> {
     const url = `${this.base_url}Customer/DeleteFile/${filePath}`;
-    return this.httpCustomer.get(url, this.httpOption);
+    return this.httpCustomer.get(url, this.baseService.httpOption());
   }
 
   public deleteCustomer(id: number): Observable<any> {
     var idModel = { CustomerId: id };
     const url = `${this.base_url}Customer/DeleteCustomer`;
     return this.httpCustomer
-      .post<any>(url, idModel, this.httpOption)
+      .post<any>(url, idModel, this.baseService.httpOption())
       .pipe(catchError((error) => this.handleError(error)));
   }
 
@@ -102,7 +100,7 @@ export class HttpCustomerService {
   ): Observable<{ data: customer[]; count: number } | ErrorType> {
     const url = `${this.base_url}Customer?page=${page}&pageSize=${pageSize}`;
     return this.httpCustomer
-      .get<{ data: customer[]; count: number }>(url, this.httpOption)
+      .get<{ data: customer[]; count: number }>(url, this.baseService.httpOption())
       .pipe(catchError((error) => this.handleError(error)));
   }
 

@@ -1,4 +1,3 @@
-
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 import { account } from './../../app.type/account.type';
@@ -14,8 +13,6 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { HttpsService } from '../../services/https.service';
 
-
-
 @Component({
   selector: 'app-account',
   standalone: true,
@@ -30,10 +27,8 @@ import { HttpsService } from '../../services/https.service';
   ],
 })
 export class AccountComponent {
-
   messageError: string = '';
   constructor(private http: HttpsService, private router: Router) {}
-
 
   private formLogin = inject(NonNullableFormBuilder);
   validateForm = this.formLogin.group({
@@ -43,8 +38,6 @@ export class AccountComponent {
   });
 
   submitForm(): void {
-
-
     var account: Omit<
       account,
       'staffName' | 'gender' | 'phoneNumber' | 'birthday' | 'Email'
@@ -54,10 +47,11 @@ export class AccountComponent {
     };
     this.http.Login(account.username, account.password).subscribe((data) => {
       if (data.success) {
-
-        console.log(data.data.token.result);
-        localStorage.setItem('token', data.data.token.result);
+        console.log(data.data);
+        localStorage.clear( );
+        localStorage.setItem('token', data.data.token);
         localStorage.setItem('staffId', data.data.staffId);
+        localStorage.setItem('refreshToken', data.data.refreshToken);
         this.messageError = '';
         this.router.navigate(['/customer']);
       } else {

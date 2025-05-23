@@ -1,0 +1,200 @@
+.permission-container {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f5f7fb;
+  width: 100%;
+
+  .permission-sidebar {
+    width: 30%;
+
+    border-right: 1px solid #ddd;
+    padding: 16px 0;
+    overflow-y: auto;
+    overflow: hidden;
+
+    .sidebar-title {
+      display: flex;
+
+      justify-content: space-between;
+
+      h3 {
+        font-weight: bold;
+        font-size: 22px;
+        margin-bottom: 12px;
+        padding-left: 16px;
+      }
+
+      .custom-icon {
+        font-size: 24px;
+        color: #1890ff;
+        transition: all 0.3s ease;
+        margin-right: 10px;
+
+        &:hover {
+          color: #40a9ff;
+          transform: scale(1.2);
+        }
+
+        &:active {
+          color: #096dd9;
+          transform: scale(0.95);
+        }
+      }
+
+    }
+
+    .role-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      .role-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 16px;
+        cursor: pointer;
+        transition: background 0.2s ease;
+
+        span {
+          font-weight: 500;
+          color: #0d6efd;
+        }
+
+        nz-icon {
+          font-size: 16px;
+          color: #999;
+          transition: color 0.2s ease, transform 0.2s ease;
+          margin-left: 12px;
+          cursor: pointer;
+
+          &:hover {
+            color: #ff4d4f;
+            transform: scale(1.2) rotate(90deg); // hiệu ứng nhẹ khi hover
+          }
+        }
+
+        &:hover {
+          background: #f0f0f0;
+        }
+
+        &.active {
+          background: #00b0ff;
+
+          span {
+            color: white;
+          }
+
+          nz-icon {
+            color: white;
+
+            &:hover {
+              color: #ffeb3b;
+            }
+          }
+        }
+      }
+
+    }
+  }
+
+
+  .permission-group {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    overflow-y: auto;
+    width: 70%;
+    font-family: 'Segoe UI', sans-serif;
+
+    .main-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      margin-top: 10px;
+
+      .title {
+        font-weight: bold;
+        font-size: 18px;
+      }
+
+      .btn-save {
+        background: #20c997;
+        color: white;
+        padding: 8px 16px;
+        border-radius: 4px;
+
+        font-weight: bold;
+        cursor: pointer;
+
+        &:hover {
+          background: #17b487;
+        }
+      }
+    }
+
+    .group-header {
+      background: #f3f3f3;
+      padding: 12px 16px;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ddd;
+
+      &:hover {
+        background: #e6e6e6;
+      }
+
+      .toggle-icon {
+        font-size: 12px;
+        color: #666;
+      }
+    }
+
+    .group-body {
+      padding: 12px 16px;
+
+      .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+        border-bottom: 1px dashed #ddd;
+
+        .label {
+          flex: 1;
+          font-weight: 500;
+          color: #333;
+        }
+
+        .actions {
+          flex: 2;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 12px;
+
+          label {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+
+            input {
+              margin-right: 4px;
+            }
+          }
+        }
+      }
+    }
+
+    .hidden {
+      display: none;
+    }
+  }
+
+}

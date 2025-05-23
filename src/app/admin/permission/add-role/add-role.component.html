@@ -1,0 +1,20 @@
+<div class="form-wrapper hidden" id="hidden">
+  <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+    <!-- Nút thoát (exit icon) -->
+    <nz-icon nzType="close" nzTheme="outline" class="exit-icon" (click)="onExit()"></nz-icon>
+
+    <h2 class="form-title">Tạo nhóm quyền</h2>
+
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Vui lòng nhập tên nhóm quyền">
+        <nz-input-group nzPrefixIcon="user-add">
+          <input type="text" nz-input formControlName="roleName" placeholder="Tên nhóm quyền" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <button nz-button class="login-form-button" [nzType]="'primary'">
+      Tạo nhóm quyền
+    </button>
+  </form>
+</div>

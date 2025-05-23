@@ -12,7 +12,7 @@ import { FilterCriteria } from '../../app.type/filter-criteria.type';
   providedIn: 'root',
 })
 export class PriceListService {
-  private base_url = 'http://localhost:5213/PriceLists';
+  private base_url = 'http://apithuctapnail.tcsoft.vn/PriceLists';
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',

@@ -5,9 +5,6 @@ import { AccountComponent } from './admin/account/account.component';
 import { RegisterComponent } from './admin/register/register.component';
 import { ForgotPasswordComponent } from './admin/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './admin/reset-password/reset-password.component';
-import { PromotionListComponent } from './admin/promotion/promotion-list/promotion-list.component';
-import { PromotionAddComponent } from './admin/promotion/promotion-add/promotion-add.component';
-import { PromotionEditComponent } from './admin/promotion/promotion-edit/promotion-edit.component';
 
 import { CustomerComponent } from './admin/customer/customer.component';
 import { StaffComponent } from './admin/staff/staff.component';
@@ -18,16 +15,13 @@ import { FormAppointmentComponent } from './admin/appointment/form-appointment/f
 import { NotFound502Component } from './not-found502/not-found502.component';
 
 import { ProductComponent } from './Product/product/product.component';
-
 import { CustomerRankComponent } from './admin/customer/customer-rank/customer-rank.component';
 import { BillComponent } from './admin/bill/bill.component';
 import { ReceiptComponent } from './admin/bill/receipt/receipt.component';
 import { AddReceiptComponent } from './admin/bill/add-receipt/add-receipt.component';
 import { PaymentComponent } from './admin/bill/payment/payment.component';
 import { BillFilterComponent } from './admin/bill/bill-filter/bill-filter.component';
-
-import { PriceListComponent } from './PriceList/price-list/price-list.component';
-
+import { PermissionComponent } from './admin/permission/permission.component';
 
 const routes: Routes = [
   { path: 'Login', component: AccountComponent },
@@ -44,18 +38,13 @@ const routes: Routes = [
   { path: 'addShift', component: AddShiftComponent },
   { path: 'Forgot-Password', component: ForgotPasswordComponent },
   { path: 'product', component: ProductComponent },
-
+  { path: 'permission', component: PermissionComponent },
   { path: 'customer-rank', component: CustomerRankComponent },
   { path: 'bill/add-receipt', component: AddReceiptComponent },
   { path: 'form', component: BillFilterComponent },
-  { path: 'promotion-list', component: PromotionListComponent },
-  { path: 'promotion-add', component: PromotionAddComponent },
-  { path: 'promotion-edit/:id', component: PromotionEditComponent },
-
   { path: '**', component: NotFound502Component },
 
-  { path: 'pricelist', component: PriceListComponent },
-
+  
 ];
 
 @NgModule({

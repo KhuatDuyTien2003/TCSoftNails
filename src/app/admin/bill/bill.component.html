@@ -14,6 +14,7 @@
             <th>Tổng tiền hàng</th>
             <th>Giảm giá</th>
             <th>Tổng tiền sau giảm giá</th>
+            <th>Trạng thái</th>
           </tr>
         </thead>
         <tbody>
@@ -24,11 +25,47 @@
               <td>{{ item.customerName !== null ? item.customerName : "Khách lẻ"}}</td>
               <td>{{ item.numberPhone }}</td>
               <td>{{ item.totalBill }}</td>
-              <td>{{ item.value_data }}</td>
-              <td>{{ item.totalBill }}</td>
+              <td>{{ item.value_data === null ? "0" : item.value_data }}</td>
+              <td>{{ item.totalMoneyAfterDiscount }}</td>
+              <td>
+                <ng-container [ngSwitch]="item.statusBill">
+
+                  <!-- Chưa thanh toán -->
+                  <span *ngSwitchCase="0">
+                    <nz-icon nzType="clock-circle"></nz-icon>
+
+                  </span>
+
+                  <!-- Đã thanh toán -->
+                  <span *ngSwitchCase="1">
+                    <nz-icon nzType="check-circle"></nz-icon>
+
+                  </span>
+
+                  <!-- Đã hủy -->
+                  <span *ngSwitchCase="2">
+                    <nz-icon nzType="close-circle"></nz-icon>
+
+                  </span>
+
+                  <!-- Quá hạn -->
+                  <span *ngSwitchCase="3">
+                    <nz-icon nzType="exclamation-circle"></nz-icon>
+
+                  </span>
+
+                  <!-- Trường hợp không xác định -->
+                  <span *ngSwitchDefault>
+                    <nz-icon nzType="question-circle"></nz-icon>
+
+                  </span>
+
+                </ng-container>
+              </td>
+
             </tr>
-            <tr class="hidden">
-              <td colspan="7">
+            <tr class="hidden ">
+              <td colspan="8">
                 <div class="detailBill">
                   <div class="information">
                     <div class="item">
@@ -37,10 +74,40 @@
                       <p>Tên khách hàng: {{ item.customerName !== null ? item.customerName : "Khách lẻ" }}</p>
                     </div>
                     <div class="item">
-                      <p>
-                        Thanh toán:
-                        {{ item.isPay ? "Đã thanh toán" : "Chưa thanh toán" }}
-                      </p>
+
+                      <p><ng-container [ngSwitch]="item.statusBill">
+
+                          <!-- Chưa thanh toán -->
+                          <span *ngSwitchCase="0">
+                            Trạng thái: Chưa thanh toán
+
+                          </span>
+
+                          <!-- Đã thanh toán -->
+                          <span *ngSwitchCase="1">
+                            Trạng thái: Đã thanh toán
+
+                          </span>
+
+                          <!-- Đã hủy -->
+                          <span *ngSwitchCase="2">
+                            Trạng thái: Đã hủy
+
+                          </span>
+
+                          <!-- Quá hạn -->
+                          <span *ngSwitchCase="3">
+                            Trạng thái: Quá hạn
+
+                          </span>
+
+                          <!-- Trường hợp không xác định -->
+                          <span *ngSwitchDefault>
+                            Trạng thái: Không rõ
+
+                          </span>
+
+                        </ng-container></p>
                       <p>Thu ngân: {{ item.receptionName }}</p>
                     </div>
                     <div class="productTable">
@@ -75,6 +142,9 @@
                   </button>
                   <button class="btn btn_exprort">Xuất file</button>
 
+                  <button *ngIf="item.statusBill === 0" style="background-color: rgb(247, 147, 76);"
+                    class="btn btn_edit" (click)="EditBill(item.billId)">Sửa hóa đơn</button>
+
                   <button class="btn btn_cancel" (click)="delBill(item.billId)">Hủy bỏ</button>
                 </div>
               </td>
@@ -82,6 +152,10 @@
           </ng-container>
         </tbody>
       </table>
+      <div style="text-align: center; margin-top: 10px" *ngIf="!isSearch">
+        <nz-pagination [nzPageIndex]="currentPage" [nzTotal]="countPage" [nzPageSize]="pageSize"
+          (nzPageIndexChange)="onPageChange($event)"></nz-pagination>
+      </div>
     </div>
   </div>
 </div>

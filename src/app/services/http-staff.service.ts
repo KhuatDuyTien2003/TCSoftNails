@@ -30,10 +30,10 @@ import { timePick } from '../app.type/timePick.type';
 export class HttpStaffService {
   baseClass = new BaseHttpService();
   private base_url = this.baseClass.base_url + '/';
-  httpOption = this.baseClass.httpOption;
+
 
   token: string = localStorage.getItem('token') || '';
-  constructor(private httpStaff: HttpClient) {}
+  constructor(private httpStaff: HttpClient, private baseService: BaseHttpService) {}
 
   public getAllStaff(
     page: number,
@@ -41,67 +41,67 @@ export class HttpStaffService {
   ): Observable<{ data: Staff[]; count: number } | ErrorType> {
     const url = `${this.base_url}Staff/GetAll?page=${page}&pageSize=${pageSize}`;
     return this.httpStaff
-      .get<{ data: Staff[]; count: number } | ErrorType>(url, this.httpOption)
+      .get<{ data: Staff[]; count: number } | ErrorType>(url, this.baseService.httpOption())
       .pipe(catchError((error) => this.handleError(error)));
   }
 
   public getStaffById(staffId: number): Observable<ResponseModel<Staff>> {
     const url = `${this.base_url}Staff/GetStaffById/${staffId}`;
     return this.httpStaff
-      .get<ResponseModel<Staff>>(url, this.httpOption)
+      .get<ResponseModel<Staff>>(url, this.baseService.httpOption())
       .pipe(catchError((error) => this.handleError(error)));
   }
 
   public updateStaff(newStaff: Staff): Observable<ResponseModel<Staff>> {
     const url = `${this.base_url}Staff/UpdateStaff`;
     return this.httpStaff
-      .post<ResponseModel<Staff>>(url, newStaff, this.httpOption)
+      .post<ResponseModel<Staff>>(url, newStaff, this.baseService.httpOption())
       .pipe(catchError((error) => this.handleError(error)));
   }
 
   public deleteStaff(id: number): Observable<ResponseModel<string>> {
     const url = `${this.base_url}Staff/DeleteStaff/${id}`;
     return this.httpStaff
-      .get<ResponseModel<string>>(url, this.httpOption)
+      .get<ResponseModel<string>>(url, this.baseService.httpOption())
       .pipe(catchError((error) => this.handleError(error)));
   }
 
   public stopStartWork(id: number): Observable<ResponseModel<string>> {
     const url = `${this.base_url}Staff/StopStartWork/${id}`;
     return this.httpStaff
-      .get<ResponseModel<string>>(url, this.httpOption)
+      .get<ResponseModel<string>>(url, this.baseService.httpOption())
       .pipe(catchError((error) => this.handleError(error)));
   }
 
   public createStaff(model: Staff): Observable<ResponseModel<string>> {
     const url = `${this.base_url}Staff/CreateStaff`;
     return this.httpStaff
-      .post<ResponseModel<string>>(url, model, this.httpOption)
+      .post<ResponseModel<string>>(url, model, this.baseService.httpOption())
       .pipe(catchError((error) => this.handleError(error)));
   }
 
   public exportStaff(): Observable<any> {
     const url = `${this.base_url}Staff/ExportStaff`;
-    return this.httpStaff.get(url, this.httpOption);
+    return this.httpStaff.get(url, this.baseService.httpOption());
   }
   public deleteFile(filePath: string): Observable<any> {
     const url = `${this.base_url}Staff/DeleteFile/${filePath}`;
     return this.httpStaff
-      .get(url, this.httpOption)
+      .get(url, this.baseService.httpOption())
       .pipe(catchError((error) => this.handleError(error)));
   }
 
   public getServices(): Observable<any> {
-    const url = `${this.base_url}Staff/GetServices`;
+    const url = `${this.base_url}Staff/GetService`;
     return this.httpStaff
-      .get<any>(url, this.httpOption)
+      .get<any>(url, this.baseService.httpOption())
       .pipe(catchError((error) => this.handleError(error)));
   }
 
   public addStaffs(staffs: Staff[]): Observable<ResponseModel<string>> {
     const url = `${this.base_url}Staff/AddStaffs`;
     return this.httpStaff
-      .post<ResponseModel<string>>(url, staffs, this.httpOption)
+      .post<ResponseModel<string>>(url, staffs, this.baseService.httpOption())
       .pipe(catchError((error) => this.handleError(error)));
   }
 
@@ -110,14 +110,14 @@ export class HttpStaffService {
   ): Observable<ResponseModel<Staff>> {
     const url = `${this.base_url}Staff/SearchStaff`;
     return this.httpStaff
-      .post<ResponseModel<Staff>>(url, model, this.httpOption)
+      .post<ResponseModel<Staff>>(url, model, this.baseService.httpOption())
       .pipe(catchError((error) => this.handleError(error)));
   }
 
   public getWorkDate(): Observable<ResponseModel<ResponseWorkDate[]>> {
     const url = `${this.base_url}Staff/GetWorkDate`;
     return this.httpStaff
-      .get<ResponseModel<ResponseWorkDate[]>>(url, this.httpOption)
+      .get<ResponseModel<ResponseWorkDate[]>>(url, this.baseService.httpOption())
       .pipe(catchError((error) => this.handleError(error)));
   }
 
@@ -156,35 +156,35 @@ export class HttpStaffService {
             | 'userName'
           >[]
         >
-      >(url, this.httpOption)
+      >(url, this.baseService.httpOption())
       .pipe(catchError((error) => this.handleError(error)));
   }
 
   public createCalendar(model: WorkDate): Observable<ResponseModel<string>> {
     const url = `${this.base_url}Staff/CreateCalendar`;
     return this.httpStaff
-      .post<ResponseModel<string>>(url, model, this.httpOption)
+      .post<ResponseModel<string>>(url, model, this.baseService.httpOption())
       .pipe(catchError((error) => this.handleError(error)));
   }
 
   public deleteWorkDate(id: number) {
     const url = `${this.base_url}Staff/DeleteCalendar/${id}`;
     return this.httpStaff
-      .post<ResponseModel<string>>(url, this.httpOption)
+      .post<ResponseModel<string>>(url, this.baseService.httpOption())
       .pipe(catchError((error) => this.handleError(error)));
   }
 
   public getAppointment(): Observable<ResponseModel<Appointment[]>> {
     const url = `${this.base_url}Staff/GetAppointment`;
     return this.httpStaff
-      .get<ResponseModel<Appointment[]>>(url, this.httpOption)
+      .get<ResponseModel<Appointment[]>>(url, this.baseService.httpOption())
       .pipe(catchError((error) => this.handleError(error)));
   }
 
   public getService(): Observable<ResponseModel<Service[]>> {
     const url = `${this.base_url}Staff/GetService`;
     return this.httpStaff
-      .get<ResponseModel<Service[]>>(url, this.httpOption)
+      .get<ResponseModel<Service[]>>(url, this.baseService.httpOption())
       .pipe(catchError((error) => this.handleError(error)));
   }
 
@@ -195,7 +195,7 @@ export class HttpStaffService {
 
     const jsonArray = serviceIds.map((id) => ({ serviceId: id }));
     return this.httpStaff
-      .post<ResponseModel<StaffByServiceId[]>>(url, jsonArray, this.httpOption)
+      .post<ResponseModel<StaffByServiceId[]>>(url, jsonArray, this.baseService.httpOption())
       .pipe(catchError((error) => this.handleError(error)));
   }
 
@@ -220,7 +220,7 @@ export class HttpStaffService {
       })),
     };
     return this.httpStaff
-      .post<ResponseModel<string>>(url, json, this.httpOption)
+      .post<ResponseModel<string>>(url, json, this.baseService.httpOption())
       .pipe(catchError((error) => this.handleError(error)));
   }
   public updateAppointment(
@@ -246,21 +246,21 @@ export class HttpStaffService {
       })),
     };
     return this.httpStaff
-      .post<ResponseModel<string>>(url, json, this.httpOption)
+      .post<ResponseModel<string>>(url, json, this.baseService.httpOption())
       .pipe(catchError((error) => this.handleError(error)));
   }
 
   public getTimeAppointment(): Observable<ResponseModel<timePick[]>> {
     const url = `${this.base_url}Staff/GetTimeAppointment`;
     return this.httpStaff
-      .get<ResponseModel<timePick[]>>(url, this.httpOption)
+      .get<ResponseModel<timePick[]>>(url, this.baseService.httpOption())
       .pipe(catchError((error) => this.handleError(error)));
   }
 
   public deleteAppointment(id: Number): Observable<ResponseModel<string>> {
     const url = `${this.base_url}Staff/DeleteAppointment/${id}`;
     return this.httpStaff
-      .get<ResponseModel<string>>(url, this.httpOption)
+      .get<ResponseModel<string>>(url, this.baseService.httpOption())
       .pipe(catchError((error) => this.handleError(error)));
   }
 
