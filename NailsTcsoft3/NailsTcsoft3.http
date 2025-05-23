@@ -1,6 +1,0 @@
-@NailsTcsoft3_HostAddress = http://localhost:5213
-
-GET {{NailsTcsoft3_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
