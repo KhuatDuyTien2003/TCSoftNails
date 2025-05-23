@@ -1086,7 +1086,7 @@ namespace NailsTcsoft3.Controllers
                     p.ProAndSerId,
                     p.ProAndSerName,
                     p.ProAndSerCode,
-                    p.SellingPrice,
+                    p.OriginalPrice,
                     p.InventoryQuantity,
                     p.UrlImage,
                 })

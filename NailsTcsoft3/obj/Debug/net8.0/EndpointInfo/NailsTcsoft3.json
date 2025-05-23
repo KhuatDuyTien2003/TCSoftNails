@@ -538,23 +538,114 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/ReceiptForm"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ReceiptForm"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ReceiptForm"
+                "type": "object",
+                "properties": {
+                  "TotalMoney": {
+                    "type": "number",
+                    "format": "double"
+                  },
+                  "PaymentMoney": {
+                    "type": "number",
+                    "format": "double"
+                  },
+                  "Due": {
+                    "type": "number",
+                    "format": "double"
+                  },
+                  "ImportDate": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "ReceiptCode": {
+                    "type": "string"
+                  },
+                  "SupplierId": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "TotalQuantity": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Comment": {
+                    "type": "string"
+                  },
+                  "AccountantId": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Status": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "SelectedProducts": {
+                    "type": "string"
+                  }
+                }
+              },
+              "encoding": {
+                "TotalMoney": {
+                  "style": "form"
+                },
+                "PaymentMoney": {
+                  "style": "form"
+                },
+                "Due": {
+                  "style": "form"
+                },
+                "ImportDate": {
+                  "style": "form"
+                },
+                "ReceiptCode": {
+                  "style": "form"
+                },
+                "SupplierId": {
+                  "style": "form"
+                },
+                "TotalQuantity": {
+                  "style": "form"
+                },
+                "Comment": {
+                  "style": "form"
+                },
+                "AccountantId": {
+                  "style": "form"
+                },
+                "Status": {
+                  "style": "form"
+                },
+                "SelectedProducts": {
+                  "style": "form"
+                }
               }
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/GoodsReceipts/GetDetailReceipt/{id}": {
+      "get": {
+        "tags": [
+          "GoodsReceipts"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -580,19 +671,108 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/GoodsReceipt"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/GoodsReceipt"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/GoodsReceipt"
+                "type": "object",
+                "properties": {
+                  "ReceiptId": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "ImportDate": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "LastUpdate": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "TotalMoney": {
+                    "type": "number",
+                    "format": "double"
+                  },
+                  "PaymentMoney": {
+                    "type": "number",
+                    "format": "double"
+                  },
+                  "TotalQuantity": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "TotalProduct": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Due": {
+                    "type": "number",
+                    "format": "double"
+                  },
+                  "ReceiptCode": {
+                    "type": "string"
+                  },
+                  "SupplierId": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Comment": {
+                    "type": "string"
+                  },
+                  "AccountantId": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "IsDeleted": {
+                    "type": "boolean"
+                  },
+                  "Status": {
+                    "type": "integer",
+                    "format": "int32"
+                  }
+                }
+              },
+              "encoding": {
+                "ReceiptId": {
+                  "style": "form"
+                },
+                "ImportDate": {
+                  "style": "form"
+                },
+                "LastUpdate": {
+                  "style": "form"
+                },
+                "TotalMoney": {
+                  "style": "form"
+                },
+                "PaymentMoney": {
+                  "style": "form"
+                },
+                "TotalQuantity": {
+                  "style": "form"
+                },
+                "TotalProduct": {
+                  "style": "form"
+                },
+                "Due": {
+                  "style": "form"
+                },
+                "ReceiptCode": {
+                  "style": "form"
+                },
+                "SupplierId": {
+                  "style": "form"
+                },
+                "Comment": {
+                  "style": "form"
+                },
+                "AccountantId": {
+                  "style": "form"
+                },
+                "IsDeleted": {
+                  "style": "form"
+                },
+                "Status": {
+                  "style": "form"
+                }
               }
             }
           }
@@ -622,19 +802,87 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/ReceiptForm"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ReceiptForm"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ReceiptForm"
+                "type": "object",
+                "properties": {
+                  "TotalMoney": {
+                    "type": "number",
+                    "format": "double"
+                  },
+                  "PaymentMoney": {
+                    "type": "number",
+                    "format": "double"
+                  },
+                  "Due": {
+                    "type": "number",
+                    "format": "double"
+                  },
+                  "ImportDate": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "ReceiptCode": {
+                    "type": "string"
+                  },
+                  "SupplierId": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "TotalQuantity": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Comment": {
+                    "type": "string"
+                  },
+                  "AccountantId": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Status": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "SelectedProducts": {
+                    "type": "string"
+                  }
+                }
+              },
+              "encoding": {
+                "TotalMoney": {
+                  "style": "form"
+                },
+                "PaymentMoney": {
+                  "style": "form"
+                },
+                "Due": {
+                  "style": "form"
+                },
+                "ImportDate": {
+                  "style": "form"
+                },
+                "ReceiptCode": {
+                  "style": "form"
+                },
+                "SupplierId": {
+                  "style": "form"
+                },
+                "TotalQuantity": {
+                  "style": "form"
+                },
+                "Comment": {
+                  "style": "form"
+                },
+                "AccountantId": {
+                  "style": "form"
+                },
+                "Status": {
+                  "style": "form"
+                },
+                "SelectedProducts": {
+                  "style": "form"
+                }
               }
             }
           }
@@ -648,6 +896,41 @@
     },
     "/GoodsReceipts/GetAllStaff": {
       "get": {
+        "tags": [
+          "GoodsReceipts"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/GoodsReceipts/Delete/{id}": {
+      "delete": {
+        "tags": [
+          "GoodsReceipts"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/GoodsReceipts/DeleteAll": {
+      "delete": {
         "tags": [
           "GoodsReceipts"
         ],
@@ -2453,68 +2736,6 @@
         },
         "additionalProperties": false
       },
-      "GoodsReceipt": {
-        "type": "object",
-        "properties": {
-          "receiptId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "importDate": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "lastUpdate": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "totalMoney": {
-            "type": "number",
-            "format": "double"
-          },
-          "paymentMoney": {
-            "type": "number",
-            "format": "double"
-          },
-          "totalQuantity": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "totalProduct": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "due": {
-            "type": "number",
-            "format": "double"
-          },
-          "receiptCode": {
-            "type": "string",
-            "nullable": true
-          },
-          "supplierId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "comment": {
-            "type": "string",
-            "nullable": true
-          },
-          "accountantId": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "isDeleted": {
-            "type": "boolean"
-          },
-          "status": {
-            "type": "integer",
-            "format": "int32"
-          }
-        },
-        "additionalProperties": false
-      },
       "GroupProductAddRequest": {
         "type": "object",
         "properties": {
@@ -2634,53 +2855,6 @@
             "nullable": true
           },
           "token": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "ReceiptForm": {
-        "type": "object",
-        "properties": {
-          "totalMoney": {
-            "type": "number",
-            "format": "double"
-          },
-          "paymentMoney": {
-            "type": "number",
-            "format": "double"
-          },
-          "due": {
-            "type": "number",
-            "format": "double"
-          },
-          "importDate": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "receiptCode": {
-            "type": "string",
-            "nullable": true
-          },
-          "supplierId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "comment": {
-            "type": "string",
-            "nullable": true
-          },
-          "accountantId": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "status": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "selectedProducts": {
             "type": "string",
             "nullable": true
           }

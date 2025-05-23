@@ -160,9 +160,8 @@ namespace NailsTcsoft3.Controllers
             return Ok(goodsReceipt);
         }
 
-
         [HttpPost("Create")]
-        public async Task<IActionResult> CreateGoodsReceipt([FromBody] ReceiptForm request)
+        public async Task<IActionResult> CreateGoodsReceipt([FromForm] ReceiptForm request)
         {
             if (request == null)
             {
@@ -191,6 +190,7 @@ namespace NailsTcsoft3.Controllers
                 TotalMoney = request.TotalMoney,
                 PaymentMoney = request.PaymentMoney,
                 ReceiptCode = request.ReceiptCode,
+                TotalQuantity= request.TotalQuantity,
                 Due = request.Due,
                 SupplierId = request.SupplierId,
                 Comment = request.Comment,
@@ -206,10 +206,10 @@ namespace NailsTcsoft3.Controllers
                 receipt.ReceiptCode = "PN" + receipt.ReceiptId.ToString("D4");
                 await _context.SaveChangesAsync();
             }
-
-            if (request.SelectedProducts != null)
+           
+            if (!request.SelectedProducts.IsNullOrEmpty())
             {
-                var selectedProducts = JsonSerializer.Deserialize<List<GoodsReceiptDetailForm>>(request.SelectedProducts);
+             var selectedProducts = JsonSerializer.Deserialize<List<GoodsReceiptDetailForm>>(request.SelectedProducts, new JsonSerializerOptions { PropertyNameCaseInsensitive = true } );
                 foreach (var product in selectedProducts)
                 {
                     var detail = new GoodsReceiptDetail
@@ -238,15 +238,69 @@ namespace NailsTcsoft3.Controllers
                 }
                 await _context.SaveChangesAsync();
             }
-            return Ok( new {
+            return Ok(new
+            {
                 success = true,
                 message = "Tạo phiếu nhập hàng thành công.",
-                data = receipt
+                data = receipt,
+            });
+        }
+        [HttpGet("GetDetailReceipt/{id}")]
+        public async Task<IActionResult> GetDetailReceipt(int id)
+        {
+            // Lấy phiếu nhập hàng
+            var receipt = await _context.GoodsReceipts
+                .Where(gr => gr.ReceiptId == id && !gr.IsDeleted)
+                .Select(gr => new
+                {
+                    gr.ReceiptId,
+                    gr.ReceiptCode,
+                    gr.ImportDate,
+                    gr.TotalMoney,
+                    gr.PaymentMoney,
+                    gr.Due,
+                    gr.TotalQuantity,
+                    gr.TotalProduct,
+                    gr.SupplierId,
+                    gr.Comment,
+                    gr.AccountantId,
+                    gr.Status
+                })
+                .FirstOrDefaultAsync();
+
+            if (receipt == null)
+            {
+                return NotFound(new { success = false, message = "Không tìm thấy phiếu nhập hàng." });
+            }
+
+            // Lấy chi tiết sản phẩm của phiếu nhập hàng
+            var details = await _context.GoodsReceiptDetails
+                .Where(d => d.ReceiptId == id && !d.IsDeleted)
+                .Select(d => new
+                {
+                    d.Id,
+                    d.ProductId,
+                    d.Quantity,
+                    d.ImportPrice,
+                    d.Status
+                })
+                .ToListAsync();
+
+            return Ok(new
+            {
+                success = true,
+                message = "Lấy chi tiết phiếu nhập hàng thành công.",
+                data = new
+                {
+                    receipt,
+                    details
+                }
             });
         }
 
+
         [HttpPut("Update/{id}")]
-        public async Task<IActionResult> UpdateGoodsReceipt(int id, [FromBody] GoodsReceipt request)
+        public async Task<IActionResult> UpdateGoodsReceipt(int id, [FromForm] GoodsReceipt request)
         {
             if (request == null)
             {
@@ -269,7 +323,7 @@ namespace NailsTcsoft3.Controllers
 
 
         [HttpPut("UpdateReceiptDetail/{id}")]
-        public async Task<IActionResult> UpdateGoodsReceiptDetail(int id, [FromBody] ReceiptForm request)
+        public async Task<IActionResult> UpdateGoodsReceiptDetail(int id, [FromForm] ReceiptForm request)
         {
             if (request == null || request.SelectedProducts.IsNullOrEmpty())
             {
@@ -283,16 +337,17 @@ namespace NailsTcsoft3.Controllers
             {
                 return NotFound(new { success = false, message = "Không tìm thấy phiếu nhập hàng." });
             }
-            if(goodsReceipt.Status == 1)
+            if (goodsReceipt.Status == 1)
             {
                 return BadRequest(new { success = false, message = "Không sửa chi tiết sản phẩm phiếu đã nhập thành công." });
-            }    
+            }
 
             // Cập nhật thông tin phiếu nhập
             goodsReceipt.Comment = request.Comment;
             goodsReceipt.AccountantId = request.AccountantId;
             goodsReceipt.TotalMoney = request.TotalMoney;
-            goodsReceipt.Due=request.Due;
+            goodsReceipt.TotalQuantity = request.TotalQuantity;
+            goodsReceipt.Due = request.Due;
             goodsReceipt.PaymentMoney = request.PaymentMoney;
             goodsReceipt.Status = request.Status;
             goodsReceipt.ImportDate = request.ImportDate;
@@ -304,31 +359,33 @@ namespace NailsTcsoft3.Controllers
             _context.GoodsReceiptDetails.RemoveRange(oldDetails);
 
             // Thêm mới danh sách chi tiết từ request
-            var selectedProducts = JsonSerializer.Deserialize<List<GoodsReceiptDetailForm>>(request.SelectedProducts);
-            foreach (var product in selectedProducts)
+            if (!request.SelectedProducts.IsNullOrEmpty())
             {
-                var newDetail = new GoodsReceiptDetail
+                var selectedProducts = JsonSerializer.Deserialize<List<GoodsReceiptDetailForm>>(request.SelectedProducts, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                foreach (var product in selectedProducts)
                 {
-                    ReceiptId = id,
-                    ProductId = product.ProductId,
-                    Quantity = product.Quantity,
-                    ImportPrice = product.ImportPrice,      
-                    IsDeleted = false,
-                    Status = true
-                };
-                await _context.GoodsReceiptDetails.AddAsync(newDetail);
-
-                if (request.Status == 1)
-                {
-                    var productInDb = await _context.ProductAndServices
-                        .FirstOrDefaultAsync(p => p.ProAndSerId == product.ProductId);
-                    if (productInDb != null)
+                    var newDetail = new GoodsReceiptDetail
                     {
-                        productInDb.InventoryQuantity += product.Quantity;
+                        ReceiptId = id,
+                        ProductId = product.ProductId,
+                        Quantity = product.Quantity,
+                        ImportPrice = product.ImportPrice,
+                        IsDeleted = false,
+                        Status = true
+                    };
+                    await _context.GoodsReceiptDetails.AddAsync(newDetail);
+
+                    if (request.Status == 1)
+                    {
+                        var productInDb = await _context.ProductAndServices
+                            .FirstOrDefaultAsync(p => p.ProAndSerId == product.ProductId);
+                        if (productInDb != null)
+                        {
+                            productInDb.InventoryQuantity += product.Quantity;
+                        }
                     }
                 }
             }
-
             await _context.SaveChangesAsync();
             return Ok(new { success = true, message = "Cập nhật chi tiết phiếu nhập hàng thành công." });
         }
@@ -361,6 +418,65 @@ namespace NailsTcsoft3.Controllers
                 data = staffList
             });
         }
+        // Xóa mềm một phiếu nhập hàng và chi tiết phiếu
+        [HttpDelete("Delete/{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var receipt = await _context.GoodsReceipts.FirstOrDefaultAsync(r => r.ReceiptId == id && !r.IsDeleted);
+            if (receipt == null)
+                return NotFound(new { success = false, message = "Không tìm thấy phiếu nhập hàng." });
+
+            receipt.IsDeleted = true;
+
+            var details = await _context.GoodsReceiptDetails
+                .Where(d => d.ReceiptId == id && !d.IsDeleted)
+                .ToListAsync();
+
+            foreach (var detail in details)
+            {
+                detail.IsDeleted = true;
+            }
+
+            await _context.SaveChangesAsync();
+
+            return Ok(new { success = true, message = "Xóa phiếu nhập hàng và chi tiết thành công." });
+        }
+
+        [HttpDelete("DeleteAll")]
+        public async Task<IActionResult> DeleteAll()
+        {
+            // Lấy tất cả phiếu nhập hàng chưa bị xóa
+            var receipts = await _context.GoodsReceipts
+                .Where(r => !r.IsDeleted)
+                .ToListAsync();
+
+            if (!receipts.Any())
+                return NotFound(new { success = false, message = "Không có phiếu nhập hàng nào để xóa." });
+
+            foreach (var receipt in receipts)
+            {
+                receipt.IsDeleted = true;
+            }
+
+            // Lấy tất cả chi tiết phiếu nhập hàng chưa bị xóa
+            var details = await _context.GoodsReceiptDetails
+                .Where(d => !d.IsDeleted)
+                .ToListAsync();
+
+            foreach (var detail in details)
+            {
+                detail.IsDeleted = true;
+            }
+
+            await _context.SaveChangesAsync();
+
+            return Ok(new
+            {
+                success = true,
+                message = "Đã xóa tất cả phiếu nhập hàng và chi tiết phiếu."
+            });
+        }
+
 
     }
 }

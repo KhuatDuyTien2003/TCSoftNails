@@ -11,6 +11,22 @@
       "RelativeMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|solutionrelative:nailstcsoft3\\models\\receiptform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|d:\\thuctap2025\\nailtcsoft\\back-end\\tcsoftnails\\nailstcsoft3\\data\\goodsreceipt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|solutionrelative:nailstcsoft3\\data\\goodsreceipt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|d:\\thuctap2025\\nailtcsoft\\back-end\\tcsoftnails\\nailstcsoft3\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|solutionrelative:nailstcsoft3\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|d:\\thuctap2025\\nailtcsoft\\back-end\\tcsoftnails\\nailstcsoft3\\models\\productform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|solutionrelative:nailstcsoft3\\models\\productform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|d:\\thuctap2025\\nailtcsoft\\back-end\\tcsoftnails\\nailstcsoft3\\data\\proandserimage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|solutionrelative:nailstcsoft3\\data\\proandserimage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|d:\\thuctap2025\\nailtcsoft\\back-end\\tcsoftnails\\nailstcsoft3\\data\\goodsreceiptdetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|solutionrelative:nailstcsoft3\\data\\goodsreceiptdetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -19,16 +35,8 @@
       "RelativeMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|solutionrelative:nailstcsoft3\\data\\supplier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|d:\\thuctap2025\\nailtcsoft\\back-end\\tcsoftnails\\nailstcsoft3\\data\\goodsreceipt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|solutionrelative:nailstcsoft3\\data\\goodsreceipt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|d:\\thuctap2025\\nailtcsoft\\back-end\\tcsoftnails\\nailstcsoft3\\models\\receiptfilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|solutionrelative:nailstcsoft3\\models\\receiptfilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|d:\\thuctap2025\\nailtcsoft\\back-end\\tcsoftnails\\nailstcsoft3\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|solutionrelative:nailstcsoft3\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6268D83D-D6B8-4943-9CF0-03107EBA1971}|NailsTcsoft3\\NailsTcsoft3.csproj|d:\\thuctap2025\\nailtcsoft\\back-end\\tcsoftnails\\nailstcsoft3\\data\\staff.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -42,7 +50,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 12,
+          "SelectedChildIndex": 14,
           "Children": [
             {
               "$type": "Bookmark",
@@ -70,45 +78,72 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 3,
+              "Title": "ProductsController.cs",
+              "DocumentMoniker": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\Controllers\\ProductsController.cs",
+              "RelativeDocumentMoniker": "NailsTcsoft3\\Controllers\\ProductsController.cs",
+              "ToolTip": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\Controllers\\ProductsController.cs",
+              "RelativeToolTip": "NailsTcsoft3\\Controllers\\ProductsController.cs",
+              "ViewState": "AgIAAKwAAAAAAAAAAAApwMYAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-23T03:47:53.328Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ProAndSerImage.cs",
+              "DocumentMoniker": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\Data\\ProAndSerImage.cs",
+              "RelativeDocumentMoniker": "NailsTcsoft3\\Data\\ProAndSerImage.cs",
+              "ToolTip": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\Data\\ProAndSerImage.cs",
+              "RelativeToolTip": "NailsTcsoft3\\Data\\ProAndSerImage.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-23T03:37:02.964Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ProductForm.cs",
+              "DocumentMoniker": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\Models\\ProductForm.cs",
+              "RelativeDocumentMoniker": "NailsTcsoft3\\Models\\ProductForm.cs",
+              "ToolTip": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\Models\\ProductForm.cs",
+              "RelativeToolTip": "NailsTcsoft3\\Models\\ProductForm.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACIAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-23T03:23:41.754Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "Staff.cs",
               "DocumentMoniker": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\Data\\Staff.cs",
               "RelativeDocumentMoniker": "NailsTcsoft3\\Data\\Staff.cs",
               "ToolTip": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\Data\\Staff.cs",
               "RelativeToolTip": "NailsTcsoft3\\Data\\Staff.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAbAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-21T08:21:41.197Z"
+              "WhenOpened": "2025-05-21T08:21:41.197Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 8,
               "Title": "ReceiptFilter.cs",
               "DocumentMoniker": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\Models\\ReceiptFilter.cs",
               "RelativeDocumentMoniker": "NailsTcsoft3\\Models\\ReceiptFilter.cs",
               "ToolTip": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\Models\\ReceiptFilter.cs",
               "RelativeToolTip": "NailsTcsoft3\\Models\\ReceiptFilter.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-21T06:43:46.787Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "ProductsController.cs",
-              "DocumentMoniker": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\Controllers\\ProductsController.cs",
-              "RelativeDocumentMoniker": "NailsTcsoft3\\Controllers\\ProductsController.cs",
-              "ToolTip": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\Controllers\\ProductsController.cs",
-              "RelativeToolTip": "NailsTcsoft3\\Controllers\\ProductsController.cs",
-              "ViewState": "AgIAADYAAAAAAAAAAAAIwEYAAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-21T04:26:38.841Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "GoodsReceipt.cs",
               "DocumentMoniker": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\Data\\GoodsReceipt.cs",
               "RelativeDocumentMoniker": "NailsTcsoft3\\Data\\GoodsReceipt.cs",
@@ -121,20 +156,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "GoodsReceiptDetail.cs",
               "DocumentMoniker": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\Data\\GoodsReceiptDetail.cs",
               "RelativeDocumentMoniker": "NailsTcsoft3\\Data\\GoodsReceiptDetail.cs",
               "ToolTip": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\Data\\GoodsReceiptDetail.cs",
               "RelativeToolTip": "NailsTcsoft3\\Data\\GoodsReceiptDetail.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-20T09:12:25.782Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 7,
               "Title": "Supplier.cs",
               "DocumentMoniker": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\Data\\Supplier.cs",
               "RelativeDocumentMoniker": "NailsTcsoft3\\Data\\Supplier.cs",
@@ -153,7 +188,7 @@
               "RelativeDocumentMoniker": "NailsTcsoft3\\Controllers\\GoodsReceiptsController.cs",
               "ToolTip": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\Controllers\\GoodsReceiptsController.cs",
               "RelativeToolTip": "NailsTcsoft3\\Controllers\\GoodsReceiptsController.cs",
-              "ViewState": "AgIAAOMAAAAAAAAAAAAQwO8AAAANAAAAAAAAAA==",
+              "ViewState": "AgIAAEIBAAAAAAAAAAAAwFwBAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-13T08:07:33.611Z",
               "EditorCaption": ""
@@ -166,7 +201,7 @@
               "RelativeDocumentMoniker": "NailsTcsoft3\\Models\\ReceiptForm.cs",
               "ToolTip": "D:\\ThucTap2025\\NailTcSoft\\back-end\\TCSoftNails\\NailsTcsoft3\\Models\\ReceiptForm.cs",
               "RelativeToolTip": "NailsTcsoft3\\Models\\ReceiptForm.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-20T06:34:05.264Z",
               "EditorCaption": ""
