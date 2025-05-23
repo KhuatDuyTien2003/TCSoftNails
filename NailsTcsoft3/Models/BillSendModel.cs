@@ -13,6 +13,7 @@ namespace NailsTcsoft3.Models
         public double? value_data { get; set; }
 
         public decimal? totalBill { get; set; }
+        public decimal? TotalMoneyAfterDiscount { get; set; }
 
         public int? receptionId { get; set; }
         public BillStatus? statusBill { get; set; }

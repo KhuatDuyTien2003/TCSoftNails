@@ -326,7 +326,7 @@ namespace NailsTcsoft3.Migrations
                         .HasColumnType("datetime")
                         .HasColumnName("billDate");
 
-                    b.Property<int>("CustomerId")
+                    b.Property<int?>("CustomerId")
                         .HasColumnType("int")
                         .HasColumnName("customerId");
 
@@ -334,14 +334,14 @@ namespace NailsTcsoft3.Migrations
                         .HasColumnType("bit")
                         .HasColumnName("isDeleted");
 
-                    b.Property<bool>("IsPay")
+                    b.Property<bool?>("IsPay")
                         .HasColumnType("bit");
 
                     b.Property<decimal?>("MoneyPoint")
                         .HasColumnType("decimal(18, 2)")
                         .HasColumnName("moneyPoint");
 
-                    b.Property<bool>("PaymentId")
+                    b.Property<bool?>("PaymentId")
                         .HasColumnType("bit")
                         .HasColumnName("paymentId");
 
@@ -353,11 +353,11 @@ namespace NailsTcsoft3.Migrations
                         .HasColumnType("int")
                         .HasColumnName("promotionId");
 
-                    b.Property<int>("ReceptionistId")
+                    b.Property<int?>("ReceptionistId")
                         .HasColumnType("int")
                         .HasColumnName("receptionistId");
 
-                    b.Property<bool>("Status")
+                    b.Property<bool?>("Status")
                         .HasColumnType("bit")
                         .HasColumnName("status");
 
@@ -367,11 +367,11 @@ namespace NailsTcsoft3.Migrations
                     b.Property<decimal?>("TotalDiscount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal>("TotalMoney")
+                    b.Property<decimal?>("TotalMoney")
                         .HasColumnType("decimal(18, 2)")
                         .HasColumnName("totalMoney");
 
-                    b.Property<decimal>("TotalMoneyAfterDiscount")
+                    b.Property<decimal?>("TotalMoneyAfterDiscount")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("BillId")
@@ -393,11 +393,11 @@ namespace NailsTcsoft3.Migrations
                         .HasColumnType("int")
                         .HasColumnName("billId");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit")
                         .HasColumnName("isDeleted");
 
-                    b.Property<int>("ProAndSerId")
+                    b.Property<int?>("ProAndSerId")
                         .HasColumnType("int")
                         .HasColumnName("proAndSerId");
 
@@ -409,15 +409,15 @@ namespace NailsTcsoft3.Migrations
                         .HasColumnType("int")
                         .HasColumnName("staffId");
 
-                    b.Property<bool>("Status")
+                    b.Property<bool?>("Status")
                         .HasColumnType("bit")
                         .HasColumnName("status");
 
-                    b.Property<decimal>("TotalMoney")
+                    b.Property<decimal?>("TotalMoney")
                         .HasColumnType("decimal(18, 2)")
                         .HasColumnName("totalMoney");
 
-                    b.Property<decimal>("UnitPrice")
+                    b.Property<decimal?>("UnitPrice")
                         .HasColumnType("decimal(18, 2)")
                         .HasColumnName("unitPrice");
 
@@ -1227,6 +1227,30 @@ namespace NailsTcsoft3.Migrations
                         .IsUnique();
 
                     b.ToTable("PromotionDetail", (string)null);
+                });
+
+            modelBuilder.Entity("NailsTcsoft3.Data.RefreshToken", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Expiration")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("idStaff")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RefreshTokens");
                 });
 
             modelBuilder.Entity("NailsTcsoft3.Data.Staff", b =>

@@ -43,6 +43,22 @@
   },
   {
     "ContainingType": "NailsTcsoft3.Controllers.AccountController",
+    "Method": "RefreshToken",
+    "RelativePath": "Account/RefreshToken",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "NailsTcsoft3.Controllers.AccountController\u002BRefreshtokenrequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.AccountController",
     "Method": "Register",
     "RelativePath": "Account/register",
     "HttpMethod": "POST",
@@ -75,9 +91,9 @@
   },
   {
     "ContainingType": "NailsTcsoft3.Controllers.BillController",
-    "Method": "GetAll",
-    "RelativePath": "Bill",
-    "HttpMethod": "GET",
+    "Method": "CreateNewBill",
+    "RelativePath": "Bill/CreateNewBill",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
@@ -85,24 +101,8 @@
   },
   {
     "ContainingType": "NailsTcsoft3.Controllers.BillController",
-    "Method": "CreateBill",
-    "RelativePath": "Bill/CreateBill",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "model",
-        "Type": "NailsTcsoft3.Models.BillResponseModel",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "NailsTcsoft3.Controllers.BillController",
-    "Method": "DeleteBill",
-    "RelativePath": "Bill/DeleteBill/{id}",
+    "Method": "DeleteReceipt",
+    "RelativePath": "Bill/DeleteReceipt/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -129,6 +129,37 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.BillController",
+    "Method": "GetAll",
+    "RelativePath": "Bill/GetAll/{pagesize}/{pagenumber}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pagesize",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "pagenumber",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.BillController",
+    "Method": "GetBillUnpaid",
+    "RelativePath": "Bill/GetBillUnpaid",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {
@@ -193,6 +224,48 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.BillController",
+    "Method": "UpdateBill",
+    "RelativePath": "Bill/UpdateBill",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "NailsTcsoft3.Models.BillResponseModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.BillController",
+    "Method": "UpdateMultipleBills",
+    "RelativePath": "Bill/UpdateMultipleBills",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "bills",
+        "Type": "System.Collections.Generic.List\u00601[[NailsTcsoft3.Models.BillResponseModel, NailsTcsoft3, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.BillController",
+    "Method": "UpdateOverdueBills",
+    "RelativePath": "Bill/UpdateOverdueBills",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {
@@ -520,6 +593,85 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.PermissionController",
+    "Method": "GetRoles",
+    "RelativePath": "Permission",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.PermissionController",
+    "Method": "CreateRole",
+    "RelativePath": "Permission/CreateRole",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "roleSendModel",
+        "Type": "NailsTcsoft3.Models.RoleSendModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.PermissionController",
+    "Method": "DeleteRole",
+    "RelativePath": "Permission/DeleteRole/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.PermissionController",
+    "Method": "UpdateRole",
+    "RelativePath": "Permission/UpdateRole",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "roleSendModel",
+        "Type": "NailsTcsoft3.Models.RoleSendModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NailsTcsoft3.Controllers.PermissionController",
+    "Method": "UpdateRoleForUser",
+    "RelativePath": "Permission/UpdateRoleForUser/{id}/{roleId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "roleId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {

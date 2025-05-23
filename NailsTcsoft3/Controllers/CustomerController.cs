@@ -24,7 +24,7 @@ namespace NailsTcsoft3.Controllers
             _saveImageRepo = saveImageRepo;
         }
         [HttpGet]
-       //[Authorize(policy: "CUSTOMER:VIEW")]
+       [Authorize(policy: "CUSTOMER:VIEW")]
         public async Task<IActionResult> GetAll(int page = 1, int pageSize = 10) {
             var skip = (page - 1) * pageSize;
             var result =  _context.Customers.Where(c => c.Status == true && c.IsDeleted == false).Select(c => new CustomerSentModel
@@ -61,7 +61,9 @@ namespace NailsTcsoft3.Controllers
            
         }
 
+
         [HttpPost("SearchCustomer")]
+        [Authorize(policy: "CUSTOMER:SEARCH")]
         public async Task<IActionResult> SearchCustomer(SearchCustomerModel? keywordModel)
         {
             int skip = ((keywordModel.Page ?? 1) - 1) * (keywordModel.PageSize ?? 10);
@@ -181,7 +183,7 @@ namespace NailsTcsoft3.Controllers
         }
 
         [HttpPost("EditCustomer")]
-        //[Authorize(Policy = "CUSTOMER:EDIT")]
+        [Authorize(Policy = "CUSTOMER:EDIT")]
         public async Task<IActionResult> EditCustomer(CustomerReceiveModel model)
         {
             if (model == null)
@@ -244,6 +246,7 @@ namespace NailsTcsoft3.Controllers
             public int CustomerId { get; set; }
         }
         [HttpPost("DeleteCustomer")]
+        [Authorize(policy: "CUSTOMER:DELETE")]
         public async Task<IActionResult> DeleteCustomer(CustomerIDRemove model)
         {
             var customer = await _context.Customers.FindAsync(model.CustomerId);
@@ -266,6 +269,7 @@ namespace NailsTcsoft3.Controllers
 
 
         [HttpPost("DeleteMultipleCustomers")]
+        [Authorize(policy: "CUSTOMER:DELETE")]
         public async Task<IActionResult> DeleteMultipleCustomers(CustomerIDRemove[] customerIDRemoves)
         {
             if (customerIDRemoves == null || customerIDRemoves.Length == 0)
@@ -295,7 +299,9 @@ namespace NailsTcsoft3.Controllers
             });
         }
 
+
         [HttpGet("ExportCustomer")]
+        [Authorize(policy: "CUSTOMER:EXPORT")]
         public async Task<IActionResult> ExportCustomer()
         {
             try
@@ -407,7 +413,7 @@ namespace NailsTcsoft3.Controllers
         }
 
         [HttpPost("AddCustomers")]
-        //[Authorize(Policy = "CUSTOMER:ADD")]
+        [Authorize(Policy = "CUSTOMER:ADD")]
         public async Task<IActionResult> AddCustomers(CustomerReceiveModel[] customerList)
         {
             if (customerList == null || customerList.Length == 0)

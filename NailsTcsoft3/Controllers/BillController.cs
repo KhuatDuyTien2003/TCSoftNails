@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using NailsTcsoft3.Data;
+using Microsoft.AspNetCore.Authorization;
 using NailsTcsoft3.Models;
 using NailsTcsoft3.Models.Enum;
 using NailsTcsoft3.repository;
@@ -22,43 +23,48 @@ namespace NailsTcsoft3.Controllers
             _context = context;
 
         }
-        [HttpGet]
-            public async Task<IActionResult> GetAll()
+        [HttpGet("GetBillUnpaid")]
+        
+        [Authorize(policy: "BILL:VIEWBILlUNPAID")]
+        public async Task<IActionResult> GetBillUnpaid()
+        {
+
+            var countBill = await _context.Bills.CountAsync(b => !b.IsDeleted);
+            var bills = await _context.Database
+                                      .SqlQueryRaw<BillModel>("EXEC PROC_GET_BILL_UNPAID")
+                                      .ToListAsync();
+
+            if (bills == null || bills.Count == 0)
             {
-                var bills = await _context.Database
-                                          .SqlQueryRaw<BillModel>("EXEC PROC_GET_ALL_BILL")
-                                          .ToListAsync();
-
-                if (bills == null || bills.Count == 0)
+                return NotFound(new ResponseModel<List<BillModel>>
                 {
-                    return NotFound(new ResponseModel<List<BillModel>>
-                    {
-                        success = false,
-                        message = "Không tìm thấy hóa đơn",
-                        data = null
-                    });
-                }
+                    success = false,
+                    message = "Không tìm thấy hóa đơn",
+                    data = null
+                });
+            }
 
-                var billList = new List<BillSendModel>();
-                foreach(var item in bills){
-                    var bill = billList.Find(b => b.billId == item.billId);
-                    if(bill == null)
+            var billList = new List<BillSendModel>();
+            foreach (var item in bills) {
+                var bill = billList.Find(b => b.billId == item.billId);
+                if (bill == null)
+                {
+                    var billSendModel = new BillSendModel
                     {
-                        var billSendModel = new BillSendModel
-                        {
-                            billId = item.billId,
-                            billDate = item.billDate,
-                            customerId = item.customerId,
-                            customerName = item.customerName,
-                            numberPhone = item.numberPhone,
-                            moneyPoint = item.moneyPoint,
-                            value_data = item.value_data,
-                            totalBill = item.totalBill,
-                            receptionId = item.receptionId,
-                            receptionName = item.receptionName,
-                            isPay = item.isPay,
-                            statusBill = item.StatusBill,
-                            BillSendDetails = new List<BillSendDetail>()
+                        billId = item.billId,
+                        billDate = item.billDate,
+                        customerId = item.customerId,
+                        customerName = item.customerName,
+                        numberPhone = item.numberPhone,
+                        moneyPoint = item.moneyPoint,
+                        value_data = item.value_data,
+                        totalBill = item.totalBill,
+                        receptionId = item.receptionId,
+                        receptionName = item.receptionName,
+                        TotalMoneyAfterDiscount = item.TotalMoneyAfterDiscount,
+                        isPay = item.isPay,
+                        statusBill = item.StatusBill,
+                        BillSendDetails = new List<BillSendDetail>()
                             {
                                 new BillSendDetail{
                                 proAndSerName = item.proAndSerName,
@@ -70,32 +76,112 @@ namespace NailsTcsoft3.Controllers
                                 proAndSerId = item.proAndSerId
                             }
                             }
-                        };
-                        billList.Add(billSendModel);
-                    }
-                    else
-                    {
-                        var newBillDetail = new BillSendDetail
-                        {
-                            proAndSerName = item.proAndSerName,
-                            quantity = item.quantity,
-                            unitPrice = item.unitPrice,
-                            totalMoney = item.totalMoney,
-                            serviceStaffId = item.serviceStaffId,
-                            serviceStaffName = item.serviceStaffName,
-                            proAndSerId = item.proAndSerId
-                        };
-                        bill.BillSendDetails.Add(newBillDetail);
-                    }
+                    };
+                    billList.Add(billSendModel);
                 }
-
-                return Ok(new ResponseModel<List<BillSendModel>>
+                else
                 {
-                    success = true,
-                    message = "Lấy danh sách hóa đơn thành công",
-                    data = billList
+                    var newBillDetail = new BillSendDetail
+                    {
+                        proAndSerName = item.proAndSerName,
+                        quantity = item.quantity,
+                        unitPrice = item.unitPrice,
+                        totalMoney = item.totalMoney,
+                        serviceStaffId = item.serviceStaffId,
+                        serviceStaffName = item.serviceStaffName,
+                        proAndSerId = item.proAndSerId
+                    };
+                    bill.BillSendDetails.Add(newBillDetail);
+                }
+            }
+
+            return Ok(new ResponseModel<List<BillSendModel>>
+            {
+                success = true,
+                message = "Lấy danh sách hóa đơn thành công",
+                data = billList,
+                totalPage = countBill
+            });
+        }
+        [HttpGet("GetAll/{pagesize}/{pagenumber}")]
+        [Authorize(policy: "BILL:VIEW")]
+        public async Task<IActionResult> GetAll(int pagesize = 10, int pagenumber = 1)
+        {
+
+            var countBill = await _context.Bills.CountAsync(b => !b.IsDeleted);
+            var bills = await _context.Database
+                                      .SqlQueryRaw<BillModel>("EXEC PROC_GET_ALL_BILL @PAGESIZE = {0}, @PAGENUMBER = {1}", pagesize, pagenumber)
+                                      .ToListAsync();
+
+            if (bills == null || bills.Count == 0)
+            {
+                return NotFound(new ResponseModel<List<BillModel>>
+                {
+                    success = false,
+                    message = "Không tìm thấy hóa đơn",
+                    data = null
                 });
             }
+
+            var billList = new List<BillSendModel>();
+            foreach (var item in bills) {
+                var bill = billList.Find(b => b.billId == item.billId);
+                if (bill == null)
+                {
+                    var billSendModel = new BillSendModel
+                    {
+                        billId = item.billId,
+                        billDate = item.billDate,
+                        customerId = item.customerId,
+                        customerName = item.customerName,
+                        numberPhone = item.numberPhone,
+                        moneyPoint = item.moneyPoint,
+                        value_data = item.value_data,
+                        totalBill = item.totalBill,
+                        receptionId = item.receptionId,
+                        receptionName = item.receptionName,
+                        TotalMoneyAfterDiscount = item.TotalMoneyAfterDiscount,
+                        isPay = item.isPay,
+                        statusBill = item.StatusBill,
+                        BillSendDetails = new List<BillSendDetail>()
+                            {
+                                new BillSendDetail{
+                                proAndSerName = item.proAndSerName,
+                                quantity = item.quantity,
+                                unitPrice = item.unitPrice,
+                                totalMoney = item.totalMoney,
+                                serviceStaffId = item.serviceStaffId,
+                                serviceStaffName = item.serviceStaffName,
+                                proAndSerId = item.proAndSerId
+                            }
+                            }
+                    };
+                    billList.Add(billSendModel);
+                }
+                else
+                {
+                    var newBillDetail = new BillSendDetail
+                    {
+                        proAndSerName = item.proAndSerName,
+                        quantity = item.quantity,
+                        unitPrice = item.unitPrice,
+                        totalMoney = item.totalMoney,
+                        serviceStaffId = item.serviceStaffId,
+                        serviceStaffName = item.serviceStaffName,
+                        proAndSerId = item.proAndSerId
+                    };
+                    bill.BillSendDetails.Add(newBillDetail);
+                }
+            }
+
+            return Ok(new ResponseModel<List<BillSendModel>>
+            {
+                success = true, 
+                message = "Lấy danh sách hóa đơn thành công",
+                data = billList,
+                totalPage = countBill
+            });
+        }
 
         public class ProductModel
         {
@@ -110,7 +196,7 @@ namespace NailsTcsoft3.Controllers
         }
 
         [HttpGet("GetProduct/{type}")]
-        public  async Task<IActionResult> GetProduct(int type)
+        public async Task<IActionResult> GetProduct(int type)
         {
             var model = int.Parse(type.ToString());
             var product = await _context.ProductAndServices.Where(p => p.ProAndSerType == model && p.IsDeleted == false)
@@ -121,7 +207,7 @@ namespace NailsTcsoft3.Controllers
                     Price = p.SellingPrice,
                     UnitStock = p.InventoryQuantity ?? 0,
                     UrlImage = p.UrlImage,
-                    WorkTime =  p.WorkTime ?? 0,
+                    WorkTime = p.WorkTime ?? 0,
                     Type = p.ProAndSerType
                 })
                 .ToListAsync();
@@ -144,9 +230,10 @@ namespace NailsTcsoft3.Controllers
             });
         }
         [HttpGet("SearchProduct/{name}")]
-        public  async Task<IActionResult> SearchProduct(string name)
+
+        public async Task<IActionResult> SearchProduct(string name)
         {
-          
+
             var product = await _context.ProductAndServices.Where(p => p.ProAndSerName.Contains(name) && p.IsDeleted == false)
                 .Select(p => new ProductModel
                 {
@@ -155,7 +242,7 @@ namespace NailsTcsoft3.Controllers
                     Price = p.SellingPrice,
                     UnitStock = p.InventoryQuantity ?? 0,
                     UrlImage = p.UrlImage,
-                    WorkTime =  p.WorkTime ?? 0,
+                    WorkTime = p.WorkTime ?? 0,
                     Type = p.ProAndSerType
                 })
                 .ToListAsync();
@@ -182,9 +269,9 @@ namespace NailsTcsoft3.Controllers
         [HttpGet("GetPriceListByIdCustomer/{id?}")]
         public async Task<IActionResult> GetPriceListByIdCustomer(int? id)
         {
-            
-                var result  = await _context.Database.SqlQueryRaw<PriceListRespone>("EXEC PROC_GET_PRICE_LIST_BY_ID_CUSTOMER", id)
-                .ToListAsync();
+
+            var result = await _context.Database.SqlQueryRaw<PriceListRespone>("EXEC PROC_GET_PRICE_LIST_BY_ID_CUSTOMER", id)
+            .ToListAsync();
 
             if (result == null || result.Count == 0)
             {
@@ -198,10 +285,10 @@ namespace NailsTcsoft3.Controllers
 
             else
             {
-             var priceList = new List<PriceListModel>();
+                var priceList = new List<PriceListModel>();
                 foreach (var item in result)
                 {
-                    if(priceList.Any(p => p.PriceListId == item.PriceListId))
+                    if (priceList.Any(p => p.PriceListId == item.PriceListId))
                     {
                         var priceListItem = priceList.FirstOrDefault(p => p.PriceListId == item.PriceListId);
                         if (priceListItem != null)
@@ -215,11 +302,11 @@ namespace NailsTcsoft3.Controllers
                     }
                     else
                     {
-                          priceList.Add(new PriceListModel
-                    {
-                        PriceListId = item.PriceListId ,
-                        PriceListName = item.PriceListName,
-                        PriceListDetails = new List<PriceListDetailModel>()
+                        priceList.Add(new PriceListModel
+                        {
+                            PriceListId = item.PriceListId,
+                            PriceListName = item.PriceListName,
+                            PriceListDetails = new List<PriceListDetailModel>()
                         {
                             new PriceListDetailModel
                             {
@@ -227,19 +314,19 @@ namespace NailsTcsoft3.Controllers
                                 SellPrice = item.SellPrice
                             }
                         }
-                    });
+                        });
                     }
-                  
+
                 }
 
-            return Ok(new ResponseModel<List<PriceListModel>>
-            {
-                success = true,
-                message = "Lấy danh sách bảng giá thành công",
-                data = priceList
-            });
+                return Ok(new ResponseModel<List<PriceListModel>>
+                {
+                    success = true,
+                    message = "Lấy danh sách bảng giá thành công",
+                    data = priceList
+                });
             }
-           
+
         }
 
         [HttpGet("GetPromotionByCode/{code}")]
@@ -282,10 +369,9 @@ namespace NailsTcsoft3.Controllers
                 data = promotionList
             });
         }
-
-        [HttpPost("CreateBill")]
-
-        public async Task<IActionResult> CreateBill([FromBody] BillResponseModel model)
+        [HttpPut("UpdateBill")]
+        [Authorize(policy: "BILL:VIEW")]
+        public async Task<IActionResult> UpdateBill([FromBody] BillResponseModel model)
         {
             if (model == null)
             {
@@ -307,12 +393,12 @@ namespace NailsTcsoft3.Controllers
                 });
             }
 
-            if (model.BillDetails == null || !model.BillDetails.Any())
+            if (model.BillId <= 0)
             {
                 return BadRequest(new ResponseModel<BillResponseModel>
                 {
                     success = false,
-                    message = "Danh sách chi tiết hóa đơn không được để trống",
+                    message = "Mã hóa đơn không hợp lệ",
                     data = null
                 });
             }
@@ -321,43 +407,59 @@ namespace NailsTcsoft3.Controllers
 
             try
             {
-                var newBill = new Bill
+                var bill = await _context.Bills.FindAsync(model.BillId);
+                if (bill == null)
                 {
-                    TotalMoney = model.TotalMoney,  // Nếu TotalMoney có thể null, gán 0 nếu null
-                    ReceptionistId = model.ReceptionistId, // Nếu ReceptionistId có thể null, gán 0 nếu null
-                    CustomerId = model.CustomerId,  // Nếu CustomerId có thể null, gán 0 nếu null
-                    Points = model.Points,          // Có thể null, không gán giá trị mặc định
-                    BillDate = DateTime.Now,
-                    TotalMoneyAfterDiscount = model.TotalMoneyAfterDiscount, // Nếu có thể null, gán 0 nếu null
-                    StatusBill = model.StatusBill.HasValue
-                        ? (BillStatus)model.StatusBill.Value
-                        : BillStatus.ChuaThanhToan,  // Nếu StatusBill là nullable, gán giá trị mặc định là Pending
+                    return NotFound(new ResponseModel<BillResponseModel>
+                    {
+                        success = false,
+                        message = "Hóa đơn không tồn tại",
+                        data = null
+                    });
+                }
 
-                    MoneyPoint = model.MoneyPoint ?? 0,      // Nếu MoneyPoint có thể null, gán 0 nếu null
-                    TotalDiscount = model.TotalDiscount ?? 0, // Nếu TotalDiscount có thể null, gán 0 nếu null
-                    PromotionId = model.PromotionId, // Nếu PromotionId có thể null, giữ nguyên giá trị null
-                    PaymentId = model.PaymentId,     // Giữ nguyên nếu là bool và không nullable
-                    IsPay = model.IsPay,            // Giữ nguyên nếu là bool và không nullable
-                    IsDeleted = false,
-                    Status = true,
-                };
+                // Cập nhật thông tin hóa đơn
+                bill.TotalMoney = model.TotalMoney;
+                bill.ReceptionistId = model.ReceptionistId;
+                bill.CustomerId = model.CustomerId;
+                bill.Points = model.Points;
+                bill.TotalMoneyAfterDiscount = model.TotalMoneyAfterDiscount;
+                bill.StatusBill = model.StatusBill.HasValue ? (BillStatus)model.StatusBill.Value : bill.StatusBill;
+                bill.MoneyPoint = model.MoneyPoint ?? 0;
+                bill.TotalDiscount = model.TotalDiscount ?? 0;
+                bill.PromotionId = model.PromotionId;
+                bill.PaymentId = model.PaymentId;
+                bill.IsPay = model.IsPay;
+              //  bill.UpdatedDate = DateTime.Now;
 
-                _context.Bills.Add(newBill);
-                await _context.SaveChangesAsync(); // Để lấy newBill.BillId
+                _context.Bills.Update(bill);
 
-                var billDetails = model.BillDetails.Select(detail => new BillDetail
+                // Xoá chi tiết cũ
+                var oldDetails = _context.BillDetails.Where(d => d.BillId == model.BillId);
+                _context.BillDetails.RemoveRange(oldDetails);
+
+                // Thêm chi tiết mới
+                var newDetails = model.BillDetails.Select(detail => new BillDetail
                 {
-                    BillId = newBill.BillId,
-                    ProAndSerId = detail.ProAndSerId, // Nếu ProAndSerId có thể null, gán 0 nếu null
-                    Quantity = detail.Quantity ?? 1,       // Nếu Quantity có thể null, gán 1 nếu null
-                    UnitPrice = detail.UnitPrice,     // Nếu UnitPrice có thể null, gán 0 nếu null
-                    StaffId = detail.StaffId ?? 0,         // Nếu StaffId có thể null, gán 0 nếu null
-                    TotalMoney = detail.TotalMoney,   // Nếu TotalMoney có thể null, gán 0 nếu null
+                    BillId = bill.BillId,
+                    ProAndSerId = detail.ProAndSerId,
+                    Quantity = detail.Quantity ?? 1,
+                    UnitPrice = detail.UnitPrice,
+                    StaffId = detail.StaffId ?? 0,
+                    TotalMoney = detail.TotalMoney,
                     IsDeleted = false,
                     Status = true
                 }).ToList();
-
-                _context.BillDetails.AddRange(billDetails);
+                foreach(var item in newDetails)
+                {
+                    var product = await _context.ProductAndServices.FindAsync(item.ProAndSerId);
+                    if (product != null && product.ProAndSerType == 1)
+                    {
+                        product.InventoryQuantity -= item.Quantity;
+                        _context.ProductAndServices.Update(product);
+                    }
+                }
+                _context.BillDetails.AddRange(newDetails);
                 await _context.SaveChangesAsync();
 
                 await transaction.CommitAsync();
@@ -365,10 +467,10 @@ namespace NailsTcsoft3.Controllers
                 return Ok(new ResponseModel<object>
                 {
                     success = true,
-                    message = "Tạo hóa đơn thành công",
+                    message = "Cập nhật hóa đơn thành công",
                     data = new
                     {
-                        BillId = newBill.BillId,
+                        BillId = bill.BillId,
                         model.TotalMoney,
                         model.TotalMoneyAfterDiscount,
                         model.BillDetails
@@ -381,15 +483,135 @@ namespace NailsTcsoft3.Controllers
                 return BadRequest(new ResponseModel<BillResponseModel>
                 {
                     success = false,
-                    message = "Tạo hóa đơn thất bại: " + (ex.InnerException?.Message ?? ex.Message),
+                    message = "Cập nhật hóa đơn thất bại: " + (ex.InnerException?.Message ?? ex.Message),
                     data = null
                 });
             }
         }
 
+        [HttpPost("UpdateMultipleBills")]
+        [Authorize(policy: "BILL:EDIT")]
+        public async Task<IActionResult> UpdateMultipleBills([FromBody] List<BillResponseModel> bills)
+        {
+            if (bills == null || !bills.Any())
+            {
+                return BadRequest(new ResponseModel<object>
+                {
+                    success = false,
+                    message = "Danh sách hóa đơn rỗng",
+                    data = null
+                });
+            }
+
+            using var transaction = await _context.Database.BeginTransactionAsync();
+
+            try
+            {
+                int index = 0;
+                foreach (var model in bills)
+                {
+                    index++; // Dùng để xác định bill đang xử lý
+
+                    if (model.BillId == null || model.BillId == 0)
+                        return BadRequest(new ResponseModel<object>
+                        {
+                            success = false,
+                            message = $"Bill tại vị trí {index} có BillId không hợp lệ",
+                            data = model
+                        });
+
+                    var billToUpdate = await _context.Bills.FindAsync(model.BillId);
+                    if (billToUpdate == null)
+                        return BadRequest(new ResponseModel<object>
+                        {
+                            success = false,
+                            message = $"Không tìm thấy hóa đơn với BillId = {model.BillId}",
+                            data = model
+                        });
+
+                    try
+                    {
+                        // Cập nhật thông tin hóa đơn
+                        billToUpdate.TotalMoney = model.TotalMoney;
+                        billToUpdate.ReceptionistId = model.ReceptionistId;
+                        billToUpdate.CustomerId = model.CustomerId;
+                        billToUpdate.Points = model.Points;
+                        billToUpdate.TotalMoneyAfterDiscount = model.TotalMoneyAfterDiscount;
+                        billToUpdate.StatusBill = BillStatus.ChuaThanhToan;
+                        billToUpdate.MoneyPoint = model.MoneyPoint ?? 0;
+                        billToUpdate.TotalDiscount = model.TotalDiscount ?? 0;
+                        billToUpdate.PromotionId = 0;
+                        billToUpdate.PaymentId = false;
+                        billToUpdate.IsPay = false;
+                        billToUpdate.IsDeleted = false;
+                        billToUpdate.Status = true;
+
+                        // Xóa chi tiết cũ
+                        var existingDetails = await _context.BillDetails
+                            .Where(d => d.BillId == model.BillId)
+                            .ToListAsync();
+
+                        if (existingDetails.Any())
+                            _context.BillDetails.RemoveRange(existingDetails);
+
+                        // Thêm mới chi tiết nếu có
+                        if (model.BillDetails != null && model.BillDetails.Any())
+                        {
+                            var updatedDetails = model.BillDetails.Select((d, i) => new BillDetail
+                            {
+                                BillId = model.BillId,
+                                ProAndSerId = d.ProAndSerId,
+                                Quantity = d.Quantity,
+                                UnitPrice = d.UnitPrice,
+                                StaffId = d.StaffId,
+                                TotalMoney = d.TotalMoney,
+                                IsDeleted = false,
+                                Status = true
+                            }).ToList();
+
+                            await _context.BillDetails.AddRangeAsync(updatedDetails);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        await transaction.RollbackAsync();
+                        return BadRequest(new ResponseModel<object>
+                        {
+                            success = false,
+                            message = "Lỗi khi cập nhật nhiều hóa đơn: " + ex.ToString(), // thay vì chỉ ex.Message
+                            data = null
+                        });
+                    }
+                }
+
+                await _context.SaveChangesAsync();
+                await transaction.CommitAsync();
+
+                return Ok(new ResponseModel<object>
+                {
+                    success = true,
+                    message = "Cập nhật nhiều hóa đơn thành công",
+                    data = null
+                });
+            }
+            catch (Exception ex)
+            {
+                await transaction.RollbackAsync();
+                return BadRequest(new ResponseModel<object>
+                {
+                    success = false,
+                    message = "Lỗi khi cập nhật nhiều hóa đơn: " + ex.ToString(), // thay vì chỉ ex.Message
+                    data = null
+                });
+            }
+        }
+
+
+
         public class SearchBillRequest
         {
             public int? BillId { get; set; }
+
             public string? CustomerName { get; set; }
             public string? ProductName { get; set; }
             public string? Receiption { get; set; }
@@ -399,7 +621,6 @@ namespace NailsTcsoft3.Controllers
             public DateTime? ToDate { get; set; }
         }
 
-        [HttpPost("FilterBill")]
         private DataTable ToIntListDataTable(List<int> list)
         {
             var table = new DataTable();
@@ -414,7 +635,8 @@ namespace NailsTcsoft3.Controllers
             return table;
         }
         [HttpPost("FilterBill")]
-        public async Task<IActionResult> FilterBill( SearchBillRequest model)
+        [Authorize(policy: "BILL:SEARCH")]
+        public async Task<IActionResult> FilterBill(SearchBillRequest model)
         {
             var result = new List<BillModel>();
 
@@ -530,8 +752,50 @@ namespace NailsTcsoft3.Controllers
             });
         }
 
-        [HttpGet("DeleteBill/{id}")]
-        public async Task<IActionResult> DeleteBill(int id)
+        [HttpPost("CreateNewBill")]
+        public async Task<IActionResult> CreateNewBill()
+        {
+            var newBill = new Bill
+            {
+                TotalMoney = null,
+                ReceptionistId = null,
+                CustomerId = null,
+                Points = null,
+                BillDate = DateTime.Now,
+                TotalMoneyAfterDiscount = null,
+                StatusBill = BillStatus.ChuaThanhToan,
+                MoneyPoint = null,
+                TotalDiscount = null,
+                PromotionId = null,
+                PaymentId = false,
+                IsPay = false,
+                IsDeleted = false,
+                Status = true
+            };
+            _context.Bills.Add(newBill);
+            var result = await _context.SaveChangesAsync();
+            if (result > 0)
+            {
+                return Ok(new ResponseModel<int>
+                {
+                    success = true,
+                    message = "Tạo hóa đơn mới thành công",
+                    data = newBill.BillId
+                });
+            }
+            else
+            {
+                return BadRequest(new ResponseModel<int>
+                {
+                    success = false,
+                    message = "Tạo hóa đơn mới thất bại",
+                    data = 0
+                });
+            }
+        }
+        [HttpGet("DeleteReceipt/{id}")]
+        [Authorize(policy: "BILL:DELETE")]
+        public async Task<IActionResult> DeleteReceipt(int id)
         {
             var bill = await _context.Bills.FirstOrDefaultAsync(b => b.BillId == id);
             if (bill == null)
@@ -543,14 +807,54 @@ namespace NailsTcsoft3.Controllers
                     data = null
                 });
             }
-            bill.IsDeleted = true;
+            bill.StatusBill = BillStatus.DaHuy;
             _context.SaveChanges();
             return Ok(new ResponseModel<Bill>
             {
                 success = true,
                 message = "Xóa hóa đơn thành công",
-                data = bill
+                data = null
             });
         }
+
+
+        [HttpPost("UpdateOverdueBills")]
+        public async Task<IActionResult> UpdateOverdueBills()
+        {
+            var today = DateTime.Today; // chỉ giữ ngày, bỏ giờ
+
+            // Lấy danh sách các hóa đơn chưa thanh toán và quá hạn theo ngày
+            var overdueBills = await _context.Bills
+                .Where(b => b.StatusBill == BillStatus.ChuaThanhToan
+                            && b.BillDate.Date < today)
+                .ToListAsync();
+
+            if (!overdueBills.Any())
+            {
+                return Ok(new ResponseModel<string>
+                {
+                    success = true,
+                    message = "Không có hóa đơn quá hạn nào cần cập nhật.",
+                    data = null
+                });
+            }
+
+            // Cập nhật trạng thái cho từng hóa đơn
+            foreach (var bill in overdueBills)
+            {
+                bill.StatusBill = BillStatus.QuaHan;
+            }
+
+            await _context.SaveChangesAsync();
+
+            return Ok(new ResponseModel<string>
+            {
+                success = true,
+                message = $"Đã cập nhật {overdueBills.Count} hóa đơn quá hạn.",
+                data = overdueBills.Count.ToString()
+            });
+        }
+
+
     }
 }

@@ -15,6 +15,7 @@ namespace NailsTcsoft3.Models
         public int? quantity { get; set; }
         public decimal? unitPrice { get; set; }
         public decimal? totalMoney { get; set; }
+        public decimal? TotalMoneyAfterDiscount { get; set; }
         public decimal? totalBill { get; set; }
         public string? serviceStaffName { get; set; }
         public string? receptionName { get; set; }

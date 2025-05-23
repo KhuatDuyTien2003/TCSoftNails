@@ -27,6 +27,7 @@ public partial class ThuctapKtktcnNail2025Context : IdentityDbContext<Account>
     public virtual DbSet<ComboDetail> ComboDetails { get; set; }
 
     public virtual DbSet<CommissionPayment> CommissionPayments { get; set; }
+    public virtual DbSet<RefreshToken> RefreshTokens { get; set; }
 
     public virtual DbSet<Customer> Customers { get; set; }
 

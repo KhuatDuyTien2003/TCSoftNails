@@ -59,6 +59,8 @@ builder.Services.AddAuthentication(opts =>
         ValidateActor = false,
         ValidateAudience = false,
         ValidateIssuerSigningKey = true,
+        ValidateLifetime = true,
+        ClockSkew = TimeSpan.Zero,
         IssuerSigningKey = new SymmetricSecurityKey(secretKeyByte)
     };
 });
@@ -71,10 +73,6 @@ builder.Services.Configure<FormOptions>(options =>
 });
 
 builder.Services.AddTransient<IEmailService, EmailService>();
-
-
-
-
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("CUSTOMER:ADD", policy =>
@@ -83,9 +81,43 @@ builder.Services.AddAuthorization(options =>
         policy.RequireClaim("Action", "CUSTOMER:VIEW"));
     options.AddPolicy("CUSTOMER:EDIT", policy =>
         policy.RequireClaim("Action", "CUSTOMER:EDIT"));
+    options.AddPolicy("CUSTOMER:DELETE", policy =>
+       policy.RequireClaim("Action", "CUSTOMER:DELETE"));
+    options.AddPolicy("STAFF:ADD", policy =>
+        policy.RequireClaim("Action", "STAFF:ADD"));
+    options.AddPolicy("STAFF:VIEW", policy =>
+        policy.RequireClaim("Action", "STAFF:VIEW"));
+    options.AddPolicy("STAFF:EDIT", policy =>
+        policy.RequireClaim("Action", "STAFF:EDIT"));
+    options.AddPolicy("STAFF:DELETE", policy =>
+       policy.RequireClaim("Action", "STAFF:DELETE"));
+    options.AddPolicy("WORKDATE:ADD", policy =>
+    policy.RequireClaim("Action", "WORKDATE:ADD"));
+    options.AddPolicy("WORKDATE:VIEW", policy =>
+        policy.RequireClaim("Action", "WORKDATE:VIEW"));
+    options.AddPolicy("WORKDATE:EDIT", policy =>
+        policy.RequireClaim("Action", "WORKDATE:EDIT"));
+    options.AddPolicy("WORKDATE:DELETE", policy =>
+       policy.RequireClaim("Action", "WORKDATE:DELETE"));
+    options.AddPolicy("APPOINTMENT:ADD", policy =>
+    policy.RequireClaim("Action", "APPOINTMENT:ADD"));
+    options.AddPolicy("APPOINTMENT:VIEW", policy =>
+        policy.RequireClaim("Action", "APPOINTMENT:VIEW"));
+    options.AddPolicy("APPOINTMENT:EDIT", policy =>
+        policy.RequireClaim("Action", "APPOINTMENT:EDIT"));
+    options.AddPolicy("APPOINTMENT:DELETE", policy =>
+       policy.RequireClaim("Action", "APPOINTMENT:DELETE"));
+    options.AddPolicy("ROLE:ADD", policy =>
+policy.RequireClaim("Action", "ROLE:ADD"));
+    options.AddPolicy("ROLE:VIEW", policy =>
+        policy.RequireClaim("Action", "ROLE:VIEW"));
+    options.AddPolicy("ROLE:EDIT", policy =>
+        policy.RequireClaim("Action", "ROLE:EDIT"));
+    options.AddPolicy("ROLE:UPDATEFORUSER", policy =>
+        policy.RequireClaim("Action", "ROLE:UPDATEFORUSER"));
+    options.AddPolicy("ROLE:DELETE", policy =>
+       policy.RequireClaim("Action", "ROLE:DELETE"));
 
-     options.AddPolicy("CUSTOMER:DELETE", policy =>
-        policy.RequireClaim("Action", "CUSTOMER:DELETE"));
 
 });
 builder.Services.AddAuthorization();
@@ -118,3 +150,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+

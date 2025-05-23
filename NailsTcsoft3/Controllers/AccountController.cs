@@ -123,7 +123,7 @@ namespace NailsTcsoft3.Controllers
             {
                 success = true,
                 message = "Đăng nhập thành công",
-                data = new { token = GeneToken(username, password), staffId = account.StaffId }
+                data = new { token = await GeneToken(username), staffId = account.StaffId, refreshToken = await GenerateRefreshtoken(account.StaffId) }
             });
         }
         return Ok(new
@@ -225,75 +225,145 @@ namespace NailsTcsoft3.Controllers
             });
         }
 
-        private async Task<string> GeneToken(string Username, string Password)
+        private async Task<string> GeneToken(string username)
         {
-            var jwtHandle = new JwtSecurityTokenHandler();
+            var jwtHandler = new JwtSecurityTokenHandler();
 
-            // Tìm tài khoản theo UserName
-            var account = await _userManager.FindByNameAsync(Username);
+            // Lấy user
+            var account = await _userManager.FindByNameAsync(username);
             if (account == null)
-            {
                 throw new Exception("Tài khoản không tồn tại.");
-            }
-
-   
-            var isPasswordValid = await _userManager.CheckPasswordAsync(account, Password);
-            if (!isPasswordValid)
-            {
-                throw new Exception("Mật khẩu không chính xác.");
-            }
-
 
             var secretKey = _configuration["AppSettings:SecretKey"];
             if (string.IsNullOrEmpty(secretKey))
-            {
-                throw new Exception("SecretKey không được cấu hình.");
-            }
-            var secretKeyByte = Encoding.UTF8.GetBytes(secretKey);
+                throw new Exception("SecretKey chưa được cấu hình.");
 
-
-            var roles = await _userManager.GetRolesAsync(account);
-            
+            var keyBytes = Encoding.UTF8.GetBytes(secretKey);
 
             var claims = new List<Claim>
     {
         new Claim("StaffId", account.StaffId.ToString()),
-        new Claim("IdToken", Guid.NewGuid().ToString())
+        new Claim("IdToken", Guid.NewGuid().ToString()),
+        new Claim(ClaimTypes.Name, account.UserName)
     };
+
+            var roles = await _userManager.GetRolesAsync(account);
             foreach (var role in roles)
             {
                 claims.Add(new Claim(ClaimTypes.Role, role));
+
                 var fullRole = await _roleManager.FindByNameAsync(role);
-                var functions = await _context.Permissions
-                                             .Where(p => p.RoleId == fullRole.Id)
-                                             .Select(p => p.FunctionId).Distinct()
-                                             .ToListAsync();
-
-                foreach (var functionId in functions)
+                if (fullRole != null)
                 {
-                    claims.Add(new Claim("FunctionId", functionId));
-                    var actions = await _context.Permissions
-                                                .Where(p => p.FunctionId == functionId)
-                                                .Select(p => p.ActionId)
-                                                .ToListAsync();
+                    var functions = await _context.Permissions
+                        .Where(p => p.RoleId == fullRole.Id)
+                        .Select(p => p.FunctionId)
+                        .Distinct()
+                        .ToListAsync();
 
-                    foreach (var actionId in actions)
+                    foreach (var functionId in functions)
                     {
-                        claims.Add(new Claim("Action", $"{functionId}:{actionId}"));
+                        claims.Add(new Claim("FunctionId", functionId));
+
+                        var actions = await _context.Permissions
+                            .Where(p => p.FunctionId == functionId && p.RoleId == fullRole.Id)
+                            .Select(p => p.ActionId)
+                            .Distinct()
+                            .ToListAsync();
+
+                        foreach (var actionId in actions)
+                        {
+                            claims.Add(new Claim("Action", $"{functionId}:{actionId}"));
+                        }
                     }
                 }
             }
 
-
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddMinutes(30),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(secretKeyByte), SecurityAlgorithms.HmacSha256Signature)
+                Expires = DateTime.UtcNow.AddMinutes(10),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(keyBytes), SecurityAlgorithms.HmacSha256Signature)
             };
 
-            var token = jwtHandle.CreateToken(tokenDescriptor);
-            return jwtHandle.WriteToken(token);
+            var token = jwtHandler.CreateToken(tokenDescriptor);
+            return jwtHandler.WriteToken(token);
+        }
+
+        public class Refreshtokenrequest
+        {
+
+            public string refreshtoken { get; set; }
+            public int idStaff { get; set; }
+        }
+
+        private async Task<string> GenerateRefreshtoken(int staffId)
+        {
+            var newToken = Guid.NewGuid().ToString();
+            var refreshToken = new RefreshToken
+            {
+                Token = newToken,
+                Expiration = DateTime.UtcNow.AddDays(7),
+                idStaff = staffId.ToString()
+            };
+
+            await _context.RefreshTokens.AddAsync(refreshToken);
+            await _context.SaveChangesAsync();
+
+            return newToken;
+        }
+
+        private async Task<bool> ValidateRefreshToken(int staffId, string refreshToken)
+        {
+            return await _context.RefreshTokens.AnyAsync(rt =>
+                rt.idStaff == staffId.ToString() &&
+                rt.Token == refreshToken &&
+                rt.Expiration > DateTime.UtcNow);
+        }
+
+        public class Token
+        {
+            public string accessToken { get; set; }
+            public string refreshToken { get; set; }
+            public int staffId { get; set; }
+        }
+
+        [HttpPost("RefreshToken")]
+        public async Task<IActionResult> RefreshToken([FromBody] Refreshtokenrequest request)
+        {
+            var isValid =await ValidateRefreshToken(request.idStaff, request.refreshtoken);
+            if (!isValid)
+            {
+                return Unauthorized(new { message = "Refresh token không hợp lệ hoặc đã hết hạn" });
+            }
+
+      
+            var account = await _userManager.Users.FirstOrDefaultAsync(u => u.StaffId == request.idStaff);
+            if (account == null)
+            {
+                return NotFound(new { message = "Tài khoản không tồn tại" });
+            }
+
+            
+            var accessToken = await GeneToken(account.UserName);
+
+      
+            var newRefreshToken = await GenerateRefreshtoken(request.idStaff);
+
+            return Ok(new ResponseModel<Token>
+            {
+                success = true,
+                message = "Refresh token thành công",
+                data = new Token
+                {
+                    accessToken = accessToken,
+                    refreshToken = !string.IsNullOrEmpty(newRefreshToken) ? newRefreshToken : "",
+
+            staffId = account.StaffId
+                }
+               
+            });
+
         }
 
     }
