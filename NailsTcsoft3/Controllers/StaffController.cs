@@ -10,12 +10,16 @@ using NailsTcsoft3.repository;
 
 using OfficeOpenXml;
 using System.Data;
-                            
+using NailsTcsoft3.Middleware;
+using NailsTcsoft3.Models.Enum;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+
 
 namespace NailsTcsoft3.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [Authorize]
     public class StaffController : ControllerBase
     {
         private readonly ThuctapKtktcnNail2025Context _context;
@@ -148,8 +152,8 @@ namespace NailsTcsoft3.Controllers
             }
         }
 
-        [HttpPost("AddStaffs")] 
-        [Authorize(policy: "STAFF:ADD")]
+        [HttpPost("AddStaffs")]
+        [ClaimRequirement(PermissionAction.STAFF_ADD)]
         public async Task<IActionResult> AddStaffs(StaffModel[] models)
         {
             using var transaction = await _context.Database.BeginTransactionAsync();
@@ -255,7 +259,8 @@ namespace NailsTcsoft3.Controllers
 
 
         [HttpGet("GetAll")]
-        [Authorize(policy: "STAFF:VIEW")]
+        [ClaimRequirement(PermissionAction.STAFF_VIEW)]
+
         public async Task<IActionResult> GetAll(int page = 1, int pageSize = 10)
         {
 
@@ -281,7 +286,7 @@ namespace NailsTcsoft3.Controllers
             }
         }
         [HttpPost("SearchStaff")]
-        [Authorize(policy: "STAFF:SEARCH")]
+        [ClaimRequirement(PermissionAction.STAFF_SEARCH)]
         public async Task<IActionResult> SearchStaff(SearchStaffModel model)
         {
 
@@ -362,7 +367,7 @@ namespace NailsTcsoft3.Controllers
         }
 
         [HttpPost("UpdateStaff")]
-        [Authorize(policy: "STAFF:UPDATE")]
+        [ClaimRequirement(PermissionAction.STAFF_EDIT)]
         public async Task<IActionResult> UpdateStaff(StaffModel newStaff)
         {
             var staff = await _context.Staff.FindAsync(newStaff.staffId);
@@ -427,7 +432,7 @@ namespace NailsTcsoft3.Controllers
             }
         }
         [HttpGet("DeleteStaff/{id}")]
-        [Authorize(policy: "STAFF:DELETE")]
+        [ClaimRequirement(PermissionAction.STAFF_DELETE)]
         public async Task<IActionResult> DeleteStaff(int id)
         {
             var staff = await _context.Staff.FindAsync(id);
@@ -515,7 +520,7 @@ namespace NailsTcsoft3.Controllers
         }
 
         [HttpGet("ExportStaff")]
-        [Authorize(policy: "STAFF:EXPORT")]
+        [ClaimRequirement(PermissionAction.STAFF_EXPORT)]
         public async Task<IActionResult> ExportStaff()
         {
             try
@@ -602,7 +607,7 @@ namespace NailsTcsoft3.Controllers
  
     
         [HttpGet("GetWorkDate")]
-        [Authorize(policy: "WORKDATE:VIEW")]
+        [ClaimRequirement(PermissionAction.WORKDATE_VIEW)]
         public async Task<IActionResult> GetWorkDate()
         {
             var workDates = await _context.Database
@@ -703,7 +708,7 @@ namespace NailsTcsoft3.Controllers
         }
 
         [HttpPost("CreateCalendar")]
-        [Authorize(policy: "WORKDATE:CREATE")]
+        [ClaimRequirement(PermissionAction.WORKDATE_ADD)]
         public async Task<IActionResult> CreateCalendar(WorkDateModel model)
         {
             var workDate = await _context.WorkSchedules
@@ -744,7 +749,7 @@ namespace NailsTcsoft3.Controllers
 
 
         [HttpPost("DeleteCalendar/{id}")]
-        [Authorize(policy: "WORKDATE:DELETE")]
+        [ClaimRequirement(PermissionAction.WORKDATE_DELETE)]
         public async Task<IActionResult> DeleteCalendar(int id)
         {
             var workDate = _context.WorkSchedules
@@ -774,7 +779,8 @@ namespace NailsTcsoft3.Controllers
 
 
         [HttpGet("GetAppointment")]
-        [Authorize(policy: "APPOINTMENT:VIEW")]
+      
+        [ClaimRequirement(PermissionAction.APPOINTMENT_VIEW)]
         public async Task<IActionResult> GetAppointment()
         {
             var listAppointment = await _context.Database
@@ -885,7 +891,8 @@ namespace NailsTcsoft3.Controllers
         }
 
         [HttpGet("DeleteAppointment/{id}")]
-        [Authorize(policy: "APPOINTMENT:DELETE")]
+        [ClaimRequirement(PermissionAction.APPOINTMENT_DELETE)]
+
         public async Task<IActionResult> DeleteAppointment(int id)
         {
             var appointment = await _context.Appointments
@@ -957,8 +964,9 @@ namespace NailsTcsoft3.Controllers
         }
 
         [HttpPost("AddAppointment")]
-        [Authorize(policy: "APPOINTMENT:ADD")]
-       
+        [ClaimRequirement(PermissionAction.APPOINTMENT_ADD)]
+
+
         public async Task<IActionResult> AddAppointment(AppointmentResponseModel model)
         {
             if (model == null || model.SeviceDetail == null || !model.SeviceDetail.Any())
@@ -1081,7 +1089,7 @@ namespace NailsTcsoft3.Controllers
         }
 
         [HttpPost("UpdateAppointment")]
-        [Authorize(policy: "APPOINTMENT:UPDATE")]
+        [ClaimRequirement(PermissionAction.APPOINTMENT_EDIT)]
         public async Task<IActionResult> UpdateAppointment(AppointmentResponseModel model)
         {
             var appointment = await _context.Appointments

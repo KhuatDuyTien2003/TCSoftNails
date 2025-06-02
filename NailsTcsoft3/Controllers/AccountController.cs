@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using NailsTcsoft3.Data;
 using NailsTcsoft3.Models;
 using NailsTcsoft3.repository;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Data;
 using System.IdentityModel.Tokens.Jwt;
@@ -229,7 +230,6 @@ namespace NailsTcsoft3.Controllers
         {
             var jwtHandler = new JwtSecurityTokenHandler();
 
-            // Lấy user
             var account = await _userManager.FindByNameAsync(username);
             if (account == null)
                 throw new Exception("Tài khoản không tồn tại.");
@@ -248,6 +248,10 @@ namespace NailsTcsoft3.Controllers
     };
 
             var roles = await _userManager.GetRolesAsync(account);
+
+            // Dùng HashSet để tránh quyền bị trùng lặp
+            var actionClaimsSet = new HashSet<string>();
+
             foreach (var role in roles)
             {
                 claims.Add(new Claim(ClaimTypes.Role, role));
@@ -273,16 +277,21 @@ namespace NailsTcsoft3.Controllers
 
                         foreach (var actionId in actions)
                         {
-                            claims.Add(new Claim("Action", $"{functionId}:{actionId}"));
+                            // Tạo string permission như "FUNCTION_ACTION"
+                            actionClaimsSet.Add($"{functionId}_{actionId}");
                         }
                     }
                 }
             }
 
+            // Thêm claim "Action" duy nhất, giá trị là JSON array các quyền
+            var actionClaimsJson = JsonConvert.SerializeObject(actionClaimsSet.ToList());
+            claims.Add(new Claim("Action", actionClaimsJson));
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddMinutes(10),
+                Expires = DateTime.UtcNow.AddSeconds(10),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(keyBytes), SecurityAlgorithms.HmacSha256Signature)
             };
 
@@ -296,6 +305,7 @@ namespace NailsTcsoft3.Controllers
             public string refreshtoken { get; set; }
             public int idStaff { get; set; }
         }
+
 
         private async Task<string> GenerateRefreshtoken(int staffId)
         {

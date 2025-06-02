@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NailsTcsoft3.Data;
 using NailsTcsoft3.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace NailsTcsoft3.Controllers
 {
@@ -61,7 +62,8 @@ namespace NailsTcsoft3.Controllers
 
 
         // POST: ProductGroups/CreateProductType
-        [HttpPost("PostProductGroup")] 
+        [HttpPost("PostProductGroup")]
+        [Authorize(policy: "PRODUCTGROUP:VIEW")]
         public async Task<IActionResult> PostProductGroup([FromBody] ProductGroupModel productmodel)
         {
             if (productmodel == null)

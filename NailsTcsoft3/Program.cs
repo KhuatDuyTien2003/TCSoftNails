@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using NailsTcsoft3.Data;
+using NailsTcsoft3.Middleware;
 using NailsTcsoft3.repository;
 using OfficeOpenXml;
 using System.Text;
@@ -73,53 +74,83 @@ builder.Services.Configure<FormOptions>(options =>
 });
 
 builder.Services.AddTransient<IEmailService, EmailService>();
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("CUSTOMER:ADD", policy =>
-        policy.RequireClaim("Action", "CUSTOMER:ADD"));
-    options.AddPolicy("CUSTOMER:VIEW", policy =>
-        policy.RequireClaim("Action", "CUSTOMER:VIEW"));
-    options.AddPolicy("CUSTOMER:EDIT", policy =>
-        policy.RequireClaim("Action", "CUSTOMER:EDIT"));
-    options.AddPolicy("CUSTOMER:DELETE", policy =>
-       policy.RequireClaim("Action", "CUSTOMER:DELETE"));
-    options.AddPolicy("STAFF:ADD", policy =>
-        policy.RequireClaim("Action", "STAFF:ADD"));
-    options.AddPolicy("STAFF:VIEW", policy =>
-        policy.RequireClaim("Action", "STAFF:VIEW"));
-    options.AddPolicy("STAFF:EDIT", policy =>
-        policy.RequireClaim("Action", "STAFF:EDIT"));
-    options.AddPolicy("STAFF:DELETE", policy =>
-       policy.RequireClaim("Action", "STAFF:DELETE"));
-    options.AddPolicy("WORKDATE:ADD", policy =>
-    policy.RequireClaim("Action", "WORKDATE:ADD"));
-    options.AddPolicy("WORKDATE:VIEW", policy =>
-        policy.RequireClaim("Action", "WORKDATE:VIEW"));
-    options.AddPolicy("WORKDATE:EDIT", policy =>
-        policy.RequireClaim("Action", "WORKDATE:EDIT"));
-    options.AddPolicy("WORKDATE:DELETE", policy =>
-       policy.RequireClaim("Action", "WORKDATE:DELETE"));
-    options.AddPolicy("APPOINTMENT:ADD", policy =>
-    policy.RequireClaim("Action", "APPOINTMENT:ADD"));
-    options.AddPolicy("APPOINTMENT:VIEW", policy =>
-        policy.RequireClaim("Action", "APPOINTMENT:VIEW"));
-    options.AddPolicy("APPOINTMENT:EDIT", policy =>
-        policy.RequireClaim("Action", "APPOINTMENT:EDIT"));
-    options.AddPolicy("APPOINTMENT:DELETE", policy =>
-       policy.RequireClaim("Action", "APPOINTMENT:DELETE"));
-    options.AddPolicy("ROLE:ADD", policy =>
-policy.RequireClaim("Action", "ROLE:ADD"));
-    options.AddPolicy("ROLE:VIEW", policy =>
-        policy.RequireClaim("Action", "ROLE:VIEW"));
-    options.AddPolicy("ROLE:EDIT", policy =>
-        policy.RequireClaim("Action", "ROLE:EDIT"));
-    options.AddPolicy("ROLE:UPDATEFORUSER", policy =>
-        policy.RequireClaim("Action", "ROLE:UPDATEFORUSER"));
-    options.AddPolicy("ROLE:DELETE", policy =>
-       policy.RequireClaim("Action", "ROLE:DELETE"));
+//builder.Services.AddAuthorization(options =>
+//{
+//    options.AddPolicy("CUSTOMER:ADD", policy =>
+//        policy.RequireClaim("Action", "CUSTOMER:ADD"));
+//    options.AddPolicy("CUSTOMER:VIEW", policy =>
+//        policy.RequireClaim("Action", "CUSTOMER:VIEW"));
+//    options.AddPolicy("CUSTOMER:EDIT", policy =>
+//        policy.RequireClaim("Action", "CUSTOMER:EDIT"));
+//    options.AddPolicy("CUSTOMER:DELETE", policy =>
+//       policy.RequireClaim("Action", "CUSTOMER:DELETE"));
+//    options.AddPolicy("STAFF:ADD", policy =>
+//        policy.RequireClaim("Action", "STAFF:ADD"));
+//    options.AddPolicy("STAFF:VIEW", policy =>
+//        policy.RequireClaim("Action", "STAFF:VIEW"));
+//    options.AddPolicy("STAFF:EDIT", policy =>
+//        policy.RequireClaim("Action", "STAFF:EDIT"));
+//    options.AddPolicy("STAFF:DELETE", policy =>
+//       policy.RequireClaim("Action", "STAFF:DELETE"));
+//    options.AddPolicy("WORKDATE:ADD", policy =>
+//    policy.RequireClaim("Action", "WORKDATE:ADD"));
+//    options.AddPolicy("WORKDATE:VIEW", policy =>
+//        policy.RequireClaim("Action", "WORKDATE:VIEW"));
+//    options.AddPolicy("WORKDATE:EDIT", policy =>
+//        policy.RequireClaim("Action", "WORKDATE:EDIT"));
+//    options.AddPolicy("WORKDATE:DELETE", policy =>
+//       policy.RequireClaim("Action", "WORKDATE:DELETE"));
+//    options.AddPolicy("APPOINTMENT:ADD", policy =>
+//    policy.RequireClaim("Action", "APPOINTMENT:ADD"));
+//    options.AddPolicy("APPOINTMENT:VIEW", policy =>
+//        policy.RequireClaim("Action", "APPOINTMENT:VIEW"));
+//    options.AddPolicy("APPOINTMENT:EDIT", policy =>
+//        policy.RequireClaim("Action", "APPOINTMENT:EDIT"));
+//    options.AddPolicy("APPOINTMENT:DELETE", policy =>
+//       policy.RequireClaim("Action", "APPOINTMENT:DELETE"));
+//    options.AddPolicy("ROLE:ADD", policy =>
+//policy.RequireClaim("Action", "ROLE:ADD"));
+//    options.AddPolicy("ROLE:VIEW", policy =>
+//        policy.RequireClaim("Action", "ROLE:VIEW"));
+//    options.AddPolicy("ROLE:EDIT", policy =>
+//        policy.RequireClaim("Action", "ROLE:EDIT"));
+//    options.AddPolicy("ROLE:UPDATEFORUSER", policy =>
+//        policy.RequireClaim("Action", "ROLE:UPDATEFORUSER"));
+//    options.AddPolicy("ROLE:DELETE", policy =>
+//       policy.RequireClaim("Action", "ROLE:DELETE"));
+//    options.AddPolicy("GOODSRECEIPT:ADD", policy =>
+//policy.RequireClaim("Action", "GOODSRECEIPT:ADD"));
+//    options.AddPolicy("GOODSRECEIPT:VIEW", policy =>
+//        policy.RequireClaim("Action", "GOODSRECEIPT:VIEW"));
+//    options.AddPolicy("GOODSRECEIPT:EDIT", policy =>
+//        policy.RequireClaim("Action", "GOODSRECEIPT:EDIT"));
+//    options.AddPolicy("GOODSRECEIPT:SEARCH", policy =>
+//        policy.RequireClaim("Action", "GOODSRECEIPT:SEARCH"));
+//    options.AddPolicy("GOODSRECEIPT:DELETE", policy =>
+//       policy.RequireClaim("Action", "GOODSRECEIPT:DELETE"));
+//    options.AddPolicy("PRODUCT:ADD", policy =>
+//policy.RequireClaim("Action", "PRODUCT:ADD"));
+//    options.AddPolicy("PRODUCT:VIEW", policy =>
+//        policy.RequireClaim("Action", "PRODUCT:VIEW"));
+//    options.AddPolicy("PRODUCT:EDIT", policy =>
+//        policy.RequireClaim("Action", "PRODUCT:EDIT"));
+//    options.AddPolicy("PRODUCT:SEARCH", policy =>
+//        policy.RequireClaim("Action", "PRODUCT:SEARCH"));
+//    options.AddPolicy("PRODUCT:DELETE", policy =>
+//       policy.RequireClaim("Action", "PRODUCT:DELETE"));
+//    options.AddPolicy("BILL:ADD", policy =>
+//policy.RequireClaim("Action", "BILL:ADD"));
+//    options.AddPolicy("BILL:VIEW", policy =>
+//        policy.RequireClaim("Action", "BILL:VIEW"));
+//    options.AddPolicy("BILL:EDIT", policy =>
+//        policy.RequireClaim("Action", "BILL:EDIT"));
+//    options.AddPolicy("BILL:SEARCH", policy =>
+//        policy.RequireClaim("Action", "BILL:SEARCH"));
+//    options.AddPolicy("BILL:DELETE", policy =>
+//       policy.RequireClaim("Action", "BILL:DELETE"));
 
 
-});
+//});
 builder.Services.AddAuthorization();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<ISaveImageRepo, SaveImageRepo>();
@@ -145,8 +176,9 @@ app.UseCors("AllowAll");
 
 //app.UseHttpsRedirection();
 app.UseAuthentication();
-app.UseAuthorization();
 
+//app.UseMiddleware<PermissionMiddleware>();
+app.UseAuthorization();
 app.MapControllers();
 
 app.Run();

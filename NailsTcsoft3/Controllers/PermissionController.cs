@@ -5,11 +5,14 @@ using Microsoft.EntityFrameworkCore;
 using NailsTcsoft3.Data;
 using NailsTcsoft3.Models;
  using Microsoft.AspNetCore.Authorization;
+using NailsTcsoft3.Middleware;
+using NailsTcsoft3.Models.Enum;
 
 namespace NailsTcsoft3.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [Authorize]
     public class PermissionController : ControllerBase
     {
         private readonly ThuctapKtktcnNail2025Context _context;
@@ -21,9 +24,10 @@ namespace NailsTcsoft3.Controllers
             _userManager = userManager;
             _roleManager = roleManager;
         }
+        [ClaimRequirement(PermissionAction.ROLE_VIEW)]
 
         [HttpGet]
-        [Authorize(policy: "ROLE:VIEW")]
+  
         public IActionResult GetRoles()
         {
             var roles = _context.Database.SqlQueryRaw<RoleModel>("EXEC PROC_GET_ALL_ROLE").ToList();
@@ -69,7 +73,7 @@ namespace NailsTcsoft3.Controllers
         
         }
         [HttpPost("CreateRole")]
-        [Authorize(policy: "ROLE:ADD")]
+        [ClaimRequirement(PermissionAction.ROLE_ADD)]
         public async Task<IActionResult> CreateRole([FromBody] RoleSendModel roleSendModel)
         {
             var role = new IdentityRole
@@ -100,7 +104,8 @@ namespace NailsTcsoft3.Controllers
         }
 
         [HttpPut("UpdateRole")]
-       [Authorize(policy: "ROLE:EDIT")]
+        [ClaimRequirement(PermissionAction.ROLE_EDIT)]
+
         public async Task<IActionResult> UpdateRole([FromBody] RoleSendModel roleSendModel)
         {
             var role = await _roleManager.FindByIdAsync(roleSendModel.Id);
@@ -159,7 +164,8 @@ namespace NailsTcsoft3.Controllers
             });
         }
         [HttpDelete("DeleteRole/{id}")]
-        [Authorize(policy: "ROLE:DELETE")]
+        [ClaimRequirement(PermissionAction.ROLE_DELETE)]
+
         public async Task<IActionResult> DeleteRole(string id)
         {
             var role = await _roleManager.FindByIdAsync(id);
@@ -198,7 +204,8 @@ namespace NailsTcsoft3.Controllers
             });
         }
         [HttpGet("UpdateRoleForUser/{id}/{roleId}")]
-        [Authorize(policy: "ROLE:UPDATEFORUSER")]
+        [ClaimRequirement(PermissionAction.ROLE_UPDATEFORUSER)]
+
         public async Task<IActionResult> UpdateRoleForUser(int id, string roleId)
         {
 

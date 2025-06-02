@@ -21,11 +21,11 @@
                     .ToArray();
             }
         }
-
+        public int PriceListId { get; set; } = 0;
         public int ProductGroup { get; set; } = 0;
-        public int Rank { get; set; } = 0;
         public int Status { get; set; } = 0;
         public int PageNumber { get; set; } = 1;
         public int PageSize { get; set; } = 10;
+        public int Stock { get; set; } = 0;
     }
 }

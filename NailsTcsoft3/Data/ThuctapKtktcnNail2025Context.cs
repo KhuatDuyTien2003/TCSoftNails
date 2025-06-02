@@ -64,6 +64,8 @@ public partial class ThuctapKtktcnNail2025Context : IdentityDbContext<Account>
     public virtual DbSet<Permissions> Permissions { get; set; }
     public virtual DbSet<Appointment> Appointments { get; set; }
     public virtual DbSet<AppointmentDetail> AppointmentDetails { get; set; }
+    public virtual DbSet<PriceListCustomerRank> PriceListCustomerRanks { get; set; }
+    public virtual DbSet<Supplier> Suppliers { get; set; }
 
 
 
@@ -98,6 +100,9 @@ public partial class ThuctapKtktcnNail2025Context : IdentityDbContext<Account>
                 .HasColumnType("decimal(18, 2)")
                 .HasColumnName("totalMoney");
         });
+        modelBuilder.Entity<Supplier>().ToTable("Supplier");
+        modelBuilder.Entity<PriceListCustomerRank>().ToTable("PriceListCustomerRank");
+
 
         modelBuilder.Entity<BillDetail>(entity =>
         {
@@ -317,9 +322,7 @@ public partial class ThuctapKtktcnNail2025Context : IdentityDbContext<Account>
             entity.Property(e => e.ProductId).HasColumnName("productId");
             entity.Property(e => e.ReceiptId).HasColumnName("receiptId");
             entity.Property(e => e.Status).HasColumnName("status");
-            entity.Property(e => e.Supplier)
-                .HasMaxLength(100)
-                .HasColumnName("supplier");
+           
         });
 
         modelBuilder.Entity<ImageFeedback>(entity =>
@@ -353,7 +356,7 @@ public partial class ThuctapKtktcnNail2025Context : IdentityDbContext<Account>
                 .HasMaxLength(100)
                 .HasColumnName("priceListName");
             entity.Property(e => e.PriceListType).HasColumnName("priceListType");
-            entity.Property(e => e.RankId).HasColumnName("rankId");
+         
             entity.Property(e => e.StartTime)
                 .HasColumnType("datetime")
                 .HasColumnName("startTime");

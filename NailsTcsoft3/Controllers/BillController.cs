@@ -9,11 +9,13 @@ using NailsTcsoft3.Models.Enum;
 using NailsTcsoft3.repository;
 using System.Data;
 using System.Dynamic;
+using NailsTcsoft3.Middleware;
 
 namespace NailsTcsoft3.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [Authorize]
     public class BillController : ControllerBase
     {
         private readonly ThuctapKtktcnNail2025Context _context;
@@ -25,7 +27,7 @@ namespace NailsTcsoft3.Controllers
         }
         [HttpGet("GetBillUnpaid")]
         
-        [Authorize(policy: "BILL:VIEWBILlUNPAID")]
+        //[Authorize(policy: "BILL:VIEWBILlUNPAID")]
         public async Task<IActionResult> GetBillUnpaid()
         {
 
@@ -104,7 +106,8 @@ namespace NailsTcsoft3.Controllers
             });
         }
         [HttpGet("GetAll/{pagesize}/{pagenumber}")]
-        [Authorize(policy: "BILL:VIEW")]
+        [ClaimRequirement(PermissionAction.BILL_VIEW)]
+    
         public async Task<IActionResult> GetAll(int pagesize = 10, int pagenumber = 1)
         {
 
@@ -370,7 +373,7 @@ namespace NailsTcsoft3.Controllers
             });
         }
         [HttpPut("UpdateBill")]
-        [Authorize(policy: "BILL:VIEW")]
+        [ClaimRequirement(PermissionAction.BILL_EDIT)]
         public async Task<IActionResult> UpdateBill([FromBody] BillResponseModel model)
         {
             if (model == null)
@@ -490,7 +493,7 @@ namespace NailsTcsoft3.Controllers
         }
 
         [HttpPost("UpdateMultipleBills")]
-        [Authorize(policy: "BILL:EDIT")]
+        [ClaimRequirement(PermissionAction.BILL_EDIT)]
         public async Task<IActionResult> UpdateMultipleBills([FromBody] List<BillResponseModel> bills)
         {
             if (bills == null || !bills.Any())
@@ -635,7 +638,7 @@ namespace NailsTcsoft3.Controllers
             return table;
         }
         [HttpPost("FilterBill")]
-        [Authorize(policy: "BILL:SEARCH")]
+        [ClaimRequirement(PermissionAction.BILL_SEARCH)]
         public async Task<IActionResult> FilterBill(SearchBillRequest model)
         {
             var result = new List<BillModel>();
@@ -753,6 +756,7 @@ namespace NailsTcsoft3.Controllers
         }
 
         [HttpPost("CreateNewBill")]
+        [ClaimRequirement(PermissionAction.BILL_ADD)]
         public async Task<IActionResult> CreateNewBill()
         {
             var newBill = new Bill
@@ -794,7 +798,7 @@ namespace NailsTcsoft3.Controllers
             }
         }
         [HttpGet("DeleteReceipt/{id}")]
-        [Authorize(policy: "BILL:DELETE")]
+        [ClaimRequirement(PermissionAction.BILL_DELETE)]
         public async Task<IActionResult> DeleteReceipt(int id)
         {
             var bill = await _context.Bills.FirstOrDefaultAsync(b => b.BillId == id);

@@ -9,11 +9,9 @@ public partial class PriceList
 
     public string PriceListName { get; set; } = null!;
 
-    public int ValuePriceList { get; set; }
+    public Decimal? ValuePriceList { get; set; }
 
-    public bool PriceListType { get; set; }
-
-    public int? RankId { get; set; }
+    public bool? PriceListType { get; set; }
 
     public DateTime? StartTime { get; set; }
 

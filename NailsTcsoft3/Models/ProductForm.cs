@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using NailsTcsoft3.Data;
+using System.ComponentModel.DataAnnotations;
 
 namespace NailsTcsoft3.Models
 {
@@ -24,13 +25,33 @@ namespace NailsTcsoft3.Models
         public int? Commission { get; set; }
         public List<IFormFile>? Images { get; set; }
 
+        public string? KeptImageIds { get; set; }
+        public int[]? ImageIds
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(KeptImageIds))
+                    return new int[0];
+                return KeptImageIds
+                    .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(s => int.Parse(s))
+                    .ToArray();
+            }
+        }
         public byte ProAndSerType { get; set; }
 
         [DataType(DataType.Date)]
-        public DateTime? ExpiryDate { get; set; }
+        public string? ExpiryDate { get; set; }
 
         public string? Description { get; set; }
 
         public byte Status { get; set; }
+
+        public string? SelectedProducts { get; set; }
+    }
+    public class SelectedProductDto
+    {
+        public int proAndSerId { get; set; }
+        public int quantity { get; set; }
     }
 }

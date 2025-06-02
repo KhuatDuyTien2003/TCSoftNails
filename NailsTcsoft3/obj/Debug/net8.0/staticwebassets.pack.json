@@ -105,44 +105,312 @@
       "PackagePath": "staticwebassets\\uploads\\fe04ec39-e6a9-4da7-828d-88a7abdbf09c.png"
     },
     {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\007adb27-00d7-4612-8c2a-1bd32ab280f3.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\007adb27-00d7-4612-8c2a-1bd32ab280f3.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\0232533c-85c0-48ea-8193-0908b8617a47.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\0232533c-85c0-48ea-8193-0908b8617a47.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\05121652-00e9-46be-8c99-44997ea98ec1.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\05121652-00e9-46be-8c99-44997ea98ec1.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\05770328-240e-40a2-9522-8002a89e777d.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\05770328-240e-40a2-9522-8002a89e777d.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\09c11bcc-abd9-475b-8265-75fef96b7fa8.jpeg",
+      "PackagePath": "staticwebassets\\uploads\\products\\09c11bcc-abd9-475b-8265-75fef96b7fa8.jpeg"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\0daa7bc9-043e-417d-a658-51982d3e04ef.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\0daa7bc9-043e-417d-a658-51982d3e04ef.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\13f09ef0-d0de-4298-bed7-9b7497b3df18.png",
+      "PackagePath": "staticwebassets\\uploads\\products\\13f09ef0-d0de-4298-bed7-9b7497b3df18.png"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\17db988c-c9be-4a08-b6ce-fe4e0de6d556.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\17db988c-c9be-4a08-b6ce-fe4e0de6d556.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\19c60330-0cd2-4aae-bf76-9b4be938dd3b.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\19c60330-0cd2-4aae-bf76-9b4be938dd3b.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\1b6d7085-0dbb-464d-85fc-1efbbaa74c48.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\1b6d7085-0dbb-464d-85fc-1efbbaa74c48.webp"
+    },
+    {
       "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\1c0c40c8-e444-4ff7-b6d9-de7803e57809.webp",
       "PackagePath": "staticwebassets\\uploads\\products\\1c0c40c8-e444-4ff7-b6d9-de7803e57809.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\1ea643df-ba30-4012-ba27-90f7c1877e2e.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\1ea643df-ba30-4012-ba27-90f7c1877e2e.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\1fb2a583-b072-452b-8df0-3a99f5bff9e1.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\1fb2a583-b072-452b-8df0-3a99f5bff9e1.webp"
     },
     {
       "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\246f92de-2af9-46fc-9b62-53c5bfac7093.webp",
       "PackagePath": "staticwebassets\\uploads\\products\\246f92de-2af9-46fc-9b62-53c5bfac7093.webp"
     },
     {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\25d49f2f-8c99-46c3-97f6-f7475372e00c.jpeg",
+      "PackagePath": "staticwebassets\\uploads\\products\\25d49f2f-8c99-46c3-97f6-f7475372e00c.jpeg"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\260b6c8f-a6f3-4ea2-8d1a-4c8296daf626.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\260b6c8f-a6f3-4ea2-8d1a-4c8296daf626.webp"
+    },
+    {
       "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\301272c9-f801-486d-a99b-057f004a5bd0.webp",
       "PackagePath": "staticwebassets\\uploads\\products\\301272c9-f801-486d-a99b-057f004a5bd0.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\35097974-d4ab-4d6f-a53e-daab8d7d7867.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\35097974-d4ab-4d6f-a53e-daab8d7d7867.webp"
     },
     {
       "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\357bffe1-2782-447d-9748-4241d98f3e6c.jpg",
       "PackagePath": "staticwebassets\\uploads\\products\\357bffe1-2782-447d-9748-4241d98f3e6c.jpg"
     },
     {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\3cc3ab46-73ab-4ced-a0d6-d0dafba7458b.jpeg",
+      "PackagePath": "staticwebassets\\uploads\\products\\3cc3ab46-73ab-4ced-a0d6-d0dafba7458b.jpeg"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\3da6452d-3dbe-46eb-98a3-b4ef4a89f6eb.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\3da6452d-3dbe-46eb-98a3-b4ef4a89f6eb.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\42add52f-b8c5-4c54-b82a-a8351f81e1ed.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\42add52f-b8c5-4c54-b82a-a8351f81e1ed.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\44826772-30ad-4718-9f40-dc773699494b.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\44826772-30ad-4718-9f40-dc773699494b.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\481ed81f-65fc-47bf-827b-de0139dbf958.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\481ed81f-65fc-47bf-827b-de0139dbf958.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\49079a6a-5bba-4122-81e2-5dacb86fb6db.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\49079a6a-5bba-4122-81e2-5dacb86fb6db.webp"
+    },
+    {
       "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\4d7c79b3-434b-465f-9b31-62ea9539b1a6.webp",
       "PackagePath": "staticwebassets\\uploads\\products\\4d7c79b3-434b-465f-9b31-62ea9539b1a6.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\4deb9780-68f9-4967-91ba-41c2b11ecad9.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\4deb9780-68f9-4967-91ba-41c2b11ecad9.webp"
     },
     {
       "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\53fffbd0-ea60-447e-861d-270684b16d5d.png",
       "PackagePath": "staticwebassets\\uploads\\products\\53fffbd0-ea60-447e-861d-270684b16d5d.png"
     },
     {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\56166aca-9dbe-48c1-8e3f-9e0bee3ca34b.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\56166aca-9dbe-48c1-8e3f-9e0bee3ca34b.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\5f5e08e5-b093-4471-bcfd-24243cd84c17.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\5f5e08e5-b093-4471-bcfd-24243cd84c17.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\60fac955-4625-4634-9522-e2a3ebbb7194.jpg",
+      "PackagePath": "staticwebassets\\uploads\\products\\60fac955-4625-4634-9522-e2a3ebbb7194.jpg"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\61936763-552d-4a7a-8665-6fce2df9fa76.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\61936763-552d-4a7a-8665-6fce2df9fa76.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\648bfa2c-6db0-4361-b5fa-f08ca6708d06.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\648bfa2c-6db0-4361-b5fa-f08ca6708d06.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\656cf751-636e-4a1d-b357-7e5b87a90245.jpg",
+      "PackagePath": "staticwebassets\\uploads\\products\\656cf751-636e-4a1d-b357-7e5b87a90245.jpg"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\66be301f-8233-4ebb-888f-42bd6f9a5453.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\66be301f-8233-4ebb-888f-42bd6f9a5453.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\66c142c7-7219-4e03-a252-3a204c109b1b.jpeg",
+      "PackagePath": "staticwebassets\\uploads\\products\\66c142c7-7219-4e03-a252-3a204c109b1b.jpeg"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\677af066-c41a-4834-a425-a68ece53ca4b.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\677af066-c41a-4834-a425-a68ece53ca4b.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\67e7dee6-dd89-489b-a157-97d3af46482c.jpg",
+      "PackagePath": "staticwebassets\\uploads\\products\\67e7dee6-dd89-489b-a157-97d3af46482c.jpg"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\6dae49c3-1552-42b7-aae1-0a398e3171e2.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\6dae49c3-1552-42b7-aae1-0a398e3171e2.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\72379043-e734-4dd3-8be6-dc78eb58eb83.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\72379043-e734-4dd3-8be6-dc78eb58eb83.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\72bbfc79-ce10-4a67-92d8-4f19836ea7fc.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\72bbfc79-ce10-4a67-92d8-4f19836ea7fc.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\766f7f2d-177b-495c-b334-065bcf3a907f.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\766f7f2d-177b-495c-b334-065bcf3a907f.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\82761d90-9255-432c-b350-2c1799df5376.jpg",
+      "PackagePath": "staticwebassets\\uploads\\products\\82761d90-9255-432c-b350-2c1799df5376.jpg"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\845822df-a20f-4427-b052-c0d1cfd8d950.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\845822df-a20f-4427-b052-c0d1cfd8d950.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\8487dcb1-b558-47c3-91c9-8b1e7415f566.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\8487dcb1-b558-47c3-91c9-8b1e7415f566.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\8abe3cca-9261-43c6-8cf1-f4332df49714.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\8abe3cca-9261-43c6-8cf1-f4332df49714.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\8dbab82b-371b-4e02-b490-923f410ed6ec.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\8dbab82b-371b-4e02-b490-923f410ed6ec.webp"
+    },
+    {
       "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\92a9ed2d-4b48-429a-9cef-5c7c76ec3620.webp",
       "PackagePath": "staticwebassets\\uploads\\products\\92a9ed2d-4b48-429a-9cef-5c7c76ec3620.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\9546ce69-8eda-4ebc-bc00-281f71ffe435.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\9546ce69-8eda-4ebc-bc00-281f71ffe435.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\98d24178-38d2-447c-87bb-f3bd220e298a.jpeg",
+      "PackagePath": "staticwebassets\\uploads\\products\\98d24178-38d2-447c-87bb-f3bd220e298a.jpeg"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\98dfb015-e9cd-4892-90c6-71d33088e19f.jpeg",
+      "PackagePath": "staticwebassets\\uploads\\products\\98dfb015-e9cd-4892-90c6-71d33088e19f.jpeg"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\9cdc8503-3555-4bc1-ad74-2b93420ee38f.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\9cdc8503-3555-4bc1-ad74-2b93420ee38f.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\9d772024-ba77-4655-a138-ae4800e33829.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\9d772024-ba77-4655-a138-ae4800e33829.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\9d88dcf8-6b7b-49e6-9a02-0014d6e4e00d.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\9d88dcf8-6b7b-49e6-9a02-0014d6e4e00d.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\9ec41aec-8873-47c1-b727-61d4b4640ed1.jpg",
+      "PackagePath": "staticwebassets\\uploads\\products\\9ec41aec-8873-47c1-b727-61d4b4640ed1.jpg"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\9f3a6a28-ae02-41ae-b2cd-c9c62ca05e37.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\9f3a6a28-ae02-41ae-b2cd-c9c62ca05e37.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\a0d65153-5476-4d7a-be7f-b5782c4b8eb5.jpg",
+      "PackagePath": "staticwebassets\\uploads\\products\\a0d65153-5476-4d7a-be7f-b5782c4b8eb5.jpg"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\a1d2952d-6a9c-4180-bf26-58805c3e66c5.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\a1d2952d-6a9c-4180-bf26-58805c3e66c5.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\a2ae6b37-bf94-4a56-ab96-505b86ff938d.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\a2ae6b37-bf94-4a56-ab96-505b86ff938d.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\a3d7d02b-6f70-4d41-ab40-245335a49fa2.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\a3d7d02b-6f70-4d41-ab40-245335a49fa2.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\a4dc0df0-8c70-4aa5-9d0e-2aa827826a53.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\a4dc0df0-8c70-4aa5-9d0e-2aa827826a53.webp"
     },
     {
       "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\a4de743c-ddeb-4b7a-880b-6e4548a8609d.webp",
       "PackagePath": "staticwebassets\\uploads\\products\\a4de743c-ddeb-4b7a-880b-6e4548a8609d.webp"
     },
     {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\a5d028a5-5e33-4bb7-a5d1-16fa0566976c.jpg",
+      "PackagePath": "staticwebassets\\uploads\\products\\a5d028a5-5e33-4bb7-a5d1-16fa0566976c.jpg"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\a6034e2a-5d23-43fa-b5ec-8f82d77995c5.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\a6034e2a-5d23-43fa-b5ec-8f82d77995c5.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\ae8bc215-3a5c-445d-827c-4b11f44f9dd4.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\ae8bc215-3a5c-445d-827c-4b11f44f9dd4.webp"
+    },
+    {
       "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\af6d14a6-3343-47b7-a871-4dded7b5b7c7.webp",
       "PackagePath": "staticwebassets\\uploads\\products\\af6d14a6-3343-47b7-a871-4dded7b5b7c7.webp"
     },
     {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\b4148997-9468-4309-b0db-db44cf4550f6.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\b4148997-9468-4309-b0db-db44cf4550f6.webp"
+    },
+    {
       "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\b68e862e-cb5e-4710-b1da-f19f38b2c198.jpg",
       "PackagePath": "staticwebassets\\uploads\\products\\b68e862e-cb5e-4710-b1da-f19f38b2c198.jpg"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\b92579e6-90f6-45ea-b088-361f618915dd.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\b92579e6-90f6-45ea-b088-361f618915dd.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\b996fda7-1926-4682-91bc-df4ae6a83a2f.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\b996fda7-1926-4682-91bc-df4ae6a83a2f.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\c24c46e3-6a20-459e-8dc1-97c16a193b08.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\c24c46e3-6a20-459e-8dc1-97c16a193b08.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\d0582603-b724-4359-90a6-8e8843851f42.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\d0582603-b724-4359-90a6-8e8843851f42.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\dae35dac-b0d1-43ae-b1ec-5b14351f0719.jpg",
+      "PackagePath": "staticwebassets\\uploads\\products\\dae35dac-b0d1-43ae-b1ec-5b14351f0719.jpg"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\e10f1801-e98c-4175-a73c-adfac6886047.png",
+      "PackagePath": "staticwebassets\\uploads\\products\\e10f1801-e98c-4175-a73c-adfac6886047.png"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\e3b1c47d-e8a6-423d-bbdd-301924727695.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\e3b1c47d-e8a6-423d-bbdd-301924727695.webp"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\eb5417ab-c148-4a0d-9349-39ada2ac28c3.jpeg",
+      "PackagePath": "staticwebassets\\uploads\\products\\eb5417ab-c148-4a0d-9349-39ada2ac28c3.jpeg"
+    },
+    {
+      "Id": "D:\\CODE\\.NET\\web\\dev_be\\NailsTcsoft3\\wwwroot\\uploads\\products\\fee4e1e8-2efb-433e-853c-af545dbc8300.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\fee4e1e8-2efb-433e-853c-af545dbc8300.webp"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.NailsTcsoft3.Microsoft.AspNetCore.StaticWebAssets.props",

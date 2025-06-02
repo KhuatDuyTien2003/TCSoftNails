@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NailsTcsoft3.Data;
+using NailsTcsoft3.Middleware;
 using NailsTcsoft3.Models;
+using NailsTcsoft3.Models.Enum;
 using NailsTcsoft3.repository;
 using OfficeOpenXml;
 using System.Linq;
@@ -14,6 +16,7 @@ namespace NailsTcsoft3.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [Authorize]
     public class CustomerController : ControllerBase
     {
         private readonly ThuctapKtktcnNail2025Context _context;
@@ -24,7 +27,7 @@ namespace NailsTcsoft3.Controllers
             _saveImageRepo = saveImageRepo;
         }
         [HttpGet]
-       [Authorize(policy: "CUSTOMER:VIEW")]
+        [ClaimRequirement(PermissionAction.CUSTOMER_VIEW)]
         public async Task<IActionResult> GetAll(int page = 1, int pageSize = 10) {
             var skip = (page - 1) * pageSize;
             var result =  _context.Customers.Where(c => c.Status == true && c.IsDeleted == false).Select(c => new CustomerSentModel
@@ -63,7 +66,7 @@ namespace NailsTcsoft3.Controllers
 
 
         [HttpPost("SearchCustomer")]
-        [Authorize(policy: "CUSTOMER:SEARCH")]
+        [ClaimRequirement(PermissionAction.CUSTOMER_SEARCH)]
         public async Task<IActionResult> SearchCustomer(SearchCustomerModel? keywordModel)
         {
             int skip = ((keywordModel.Page ?? 1) - 1) * (keywordModel.PageSize ?? 10);
@@ -183,7 +186,7 @@ namespace NailsTcsoft3.Controllers
         }
 
         [HttpPost("EditCustomer")]
-        [Authorize(Policy = "CUSTOMER:EDIT")]
+        [ClaimRequirement(PermissionAction.CUSTOMER_EDIT)]
         public async Task<IActionResult> EditCustomer(CustomerReceiveModel model)
         {
             if (model == null)
@@ -246,7 +249,7 @@ namespace NailsTcsoft3.Controllers
             public int CustomerId { get; set; }
         }
         [HttpPost("DeleteCustomer")]
-        [Authorize(policy: "CUSTOMER:DELETE")]
+        [ClaimRequirement(PermissionAction.CUSTOMER_DELETE)]
         public async Task<IActionResult> DeleteCustomer(CustomerIDRemove model)
         {
             var customer = await _context.Customers.FindAsync(model.CustomerId);
@@ -269,7 +272,7 @@ namespace NailsTcsoft3.Controllers
 
 
         [HttpPost("DeleteMultipleCustomers")]
-        [Authorize(policy: "CUSTOMER:DELETE")]
+        [ClaimRequirement(PermissionAction.CUSTOMER_DELETE)]
         public async Task<IActionResult> DeleteMultipleCustomers(CustomerIDRemove[] customerIDRemoves)
         {
             if (customerIDRemoves == null || customerIDRemoves.Length == 0)
@@ -301,7 +304,7 @@ namespace NailsTcsoft3.Controllers
 
 
         [HttpGet("ExportCustomer")]
-        [Authorize(policy: "CUSTOMER:EXPORT")]
+        [ClaimRequirement(PermissionAction.CUSTOMER_EXPORT)]
         public async Task<IActionResult> ExportCustomer()
         {
             try
@@ -413,7 +416,7 @@ namespace NailsTcsoft3.Controllers
         }
 
         [HttpPost("AddCustomers")]
-        [Authorize(Policy = "CUSTOMER:ADD")]
+        [ClaimRequirement(PermissionAction.CUSTOMER_ADD)]
         public async Task<IActionResult> AddCustomers(CustomerReceiveModel[] customerList)
         {
             if (customerList == null || customerList.Length == 0)

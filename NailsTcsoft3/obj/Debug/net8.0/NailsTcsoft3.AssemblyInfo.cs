@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NailsTcsoft3")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cdba7dfdc347ca59a7d876b6b4aeca56146649cf")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b4d85a10517ef2213d64fc119ec33b115bcdc020")]
 [assembly: System.Reflection.AssemblyProductAttribute("NailsTcsoft3")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NailsTcsoft3")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
