@@ -1,0 +1,17 @@
+.chartDiv {
+  width: 70%;
+  margin: 0 auto; // căn giữa ngang nếu muốn
+  padding: 1rem;
+
+  h1 {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  ngx-charts-bar-vertical-2d {
+    display: block;
+    width: 100%;
+    height: auto ; // hoặc auto/fit-content tùy thiết kế
+  }
+}

@@ -1,0 +1,41 @@
+<div class="dropdownSelect" #dropdownRef>
+  <div class="selectInput" id="1">
+    <div class="input">
+      <ng-container *ngIf="selectedItem; else noSelection">
+        <p>
+          {{ selectedItem.name }}
+          <span (click)="removeSelectedItem()">×</span>
+        </p>
+      </ng-container>
+      <ng-template #noSelection>
+        <p>Chưa chọn mục nào</p>
+      </ng-template>
+
+      <input type="text" [(ngModel)]="searchValue" (ngModelChange)="waitSearch($event)" placeholder="Tìm kiếm..." />
+    </div>
+  </div>
+
+  <div class="dropdownItem" [class.hidden]="!isClickInsideDropdown" id="2">
+    <ng-container *ngIf="checkForCyclicParent(menu); else chuanDuLieu">
+      <ul>
+        <li>Dữ liệu truyền vào không đúng thứ tự cha con</li>
+      </ul>
+    </ng-container>
+
+    <ng-template #chuanDuLieu>
+      <ul>
+        <li *ngFor="let item of menu">
+          <ng-container *ngIf="item.parentId === null">
+            <p [class.select]="isSelected(item.id)" (click)="selectItem(item.id)">
+              {{ item.name }}
+            </p>
+            <ng-container *ngIf="getChildList(item.id).length > 0">
+              <app-sub-menu [items]="getChildList(item.id)" [menu]="menu"
+                [selectedMenu]="selectedItem ? [selectedItem] : []" (id)="selectItemFromChild($event)"></app-sub-menu>
+            </ng-container>
+          </ng-container>
+        </li>
+      </ul>
+    </ng-template>
+  </div>
+</div>

@@ -96,6 +96,7 @@ export class CustomerComponent implements OnInit {
   });
   ngOnInit() {
     this.getCustomerRankList();
+
     this.httpCustomer.getAllCustomer(this.page, this.pageSize).subscribe({
       next: (data) => {
         if ('data' in data) {

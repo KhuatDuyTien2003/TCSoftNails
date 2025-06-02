@@ -27,6 +27,7 @@ import {
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { ErrorInterceptor } from './services/auth.interceptor';
+import { DropdownParentChildComponent } from './dropdown-parent-child/dropdown-parent-child.component';
 registerLocaleData(vi);
 
 @NgModule({
@@ -42,6 +43,7 @@ registerLocaleData(vi);
     ToastrModule.forRoot(),
     HttpClientModule,
     HeaderComponent,
+    DropdownParentChildComponent,
   ],
   providers: [
     provideClientHydration(withEventReplay()),
@@ -49,7 +51,7 @@ registerLocaleData(vi);
     provideAnimationsAsync(),
     provideHttpClient(),
     provideHttpClient(withFetch()),
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })

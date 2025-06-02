@@ -1,0 +1,20 @@
+<div class="chartDiv">
+  <h1>{{chartName}}</h1>
+<ngx-charts-bar-vertical-2d
+  [results]="groupedData"
+  [xAxis]="true"
+  [yAxis]="true"
+  [showGridLines]="false"
+  [groupPadding]="8"
+  [barPadding]="12"
+  [showXAxisLabel]="true"
+  [xAxisLabel]="'Ngày'"
+  [showYAxisLabel]="true"
+  [yAxisLabel]="'Giá trị'"
+  [legend]="true"
+  [showDataLabel]="true"
+   [scheme]="colorScheme"
+>
+</ngx-charts-bar-vertical-2d>
+
+</div>

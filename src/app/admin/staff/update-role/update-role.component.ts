@@ -5,8 +5,6 @@ import {
   inject,
   Input,
   OnInit,
-  Output,
-  ViewChild,
 } from '@angular/core';
 import {
   NonNullableFormBuilder,
@@ -18,12 +16,10 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
-import { EventEmitter } from 'stream';
+
 import { HttpPermissionService } from '../../../services/http-permission.service';
 import { ToastrService } from 'ngx-toastr';
-import { switchMap } from 'rxjs';
 import { Permission } from '../../../app.type/Permission.type';
-import { PermissionComponent } from '../../permission/permission.component';
 import { RefreshTokenRequest } from '../../../app.type/RefreshToken.type';
 import { HttpsService } from '../../../services/https.service';
 

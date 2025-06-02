@@ -1,0 +1,119 @@
+.dropdownSelect {
+  width: 300px;
+  font-family: Arial, sans-serif;
+  position: relative;
+  margin: 20px;
+  user-select: none;
+
+
+  .selectInput {
+
+    .input {
+      width: 100%;
+      padding: 0.5em 0.8em;
+      border: 1.5px solid #a0c4ff;
+      border-radius: 6px;
+      font-size: 1em;
+      display: flex;
+      gap: 1px;
+      transition: border-color 0.3s ease;
+      height: 40px;
+      overflow: hidden;
+
+      input {
+        width: 70px;
+        border: none;
+        margin-left: 5px;
+        font-size: 14px;
+        outline: none;
+        background: transparent;
+        box-shadow: none;
+        caret-color: black;
+        color: black;
+        padding: 0;
+
+
+      }
+
+      p {
+        background-color: #cccccc;
+        border-radius: 6px;
+        margin: 0;
+        padding: 4px 6px;
+        display: flex;
+        align-items: center;
+        height: 28px;
+        font-size: 14px;
+        padding-left: -14px;
+      }
+
+      span {
+        color: red;
+        margin-left: 5px;
+      }
+
+      &:focus {
+        border-color: #4a90e2;
+        box-shadow: 0 0 6px rgba(74, 144, 226, 0.5);
+      }
+    }
+  }
+
+  .test {
+    border-bottom: 0;
+    border-radius: 6px 6px 0 0;
+  }
+
+
+  .dropdownItem {
+    position: absolute;
+    top: calc(100% + 1px);
+    left: 0;
+    right: 0;
+    max-height: 300px;
+    overflow-y: auto;
+
+    background-color: #fff;
+    border: 2px solid #a0c4ff;
+    border-top: 0;
+
+    border-radius: 0 0 6px 6px;
+    box-shadow: 0 4px 12px rgba(74, 144, 226, 0.25);
+    z-index: 1000;
+
+    ul {
+      list-style: none;
+      padding-left: 1em;
+      margin: 0;
+
+      li {
+        margin: 0.3em 0;
+
+        p {
+          width: 100%;
+          color: #333;
+          display: inline-block;
+          padding: 0.4em 0.8em;
+          border-radius: 4px;
+          cursor: pointer;
+
+          transition: background-color 0.3s ease, color 0.3s ease;
+
+          &:hover {
+            background-color: #cce4ff;
+            color: #0056b3;
+          }
+        }
+      }
+    }
+  }
+}
+
+.select {
+  background-color: #b8daff;
+  color: #003d99;
+}
+
+.hidden {
+  display: hidden;
+}

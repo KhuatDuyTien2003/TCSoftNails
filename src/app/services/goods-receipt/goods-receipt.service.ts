@@ -12,11 +12,14 @@ import { Filter } from '../../app.type/filter-receipt.type';
   providedIn: 'root',
 })
 export class GoodsReceiptService {
-  private base_url = 'https://localhost:60786/GoodsReceipts';
+  private base_url = 'http://apithuctapnail.tcsoft.vn/GoodsReceipts';
+
+   token = localStorage.getItem('token') || '';
 
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${this.token}`,
     }),
   };
 

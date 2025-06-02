@@ -1,0 +1,26 @@
+<div class="report-filter">
+
+  <div class="filter-item">
+    <h3>Tên nhân viên</h3>
+    <nz-select nzMode="tags" nzPlaceHolder="Tên nhân viên" [(ngModel)]="listStaffId">
+      <nz-option *ngFor="let option of listStaff" [nzLabel]="option.staffName || ''"
+        [nzValue]="option.staffId"></nz-option>
+    </nz-select>
+  </div>
+  <div class="filter-item">
+    <h3>Mối quan tâm</h3>
+    <label for="commission"><input type="radio" name="reportType" id="commission"> Hoa hồng</label>
+    <label for="service"><input type="radio" name="reportType" id="service">Dịch vụ</label>
+    <label for="receiption"><input type="radio" name="reportType" id="receiption"> Thu ngân</label>
+  </div>
+  <div class="filter-item">
+    <h3>Thời gian</h3>
+    <Select class="search-input" id="timeline" name="timeline">
+      <option value="month">Tháng này</option>
+      <option value="week">Tuần này</option>
+      <option value="lastweek">Tuần trước</option>
+      <option value="lastmonth">Tháng trước</option>
+    </Select>
+    <nz-range-picker name="dateObject" [(ngModel)]="date"></nz-range-picker>
+  </div>
+</div>

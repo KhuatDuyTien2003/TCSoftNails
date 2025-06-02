@@ -48,7 +48,7 @@ export class AccountComponent {
     this.http.Login(account.username, account.password).subscribe((data) => {
       if (data.success) {
         console.log(data.data);
-        localStorage.clear( );
+        localStorage.clear();
         localStorage.setItem('token', data.data.token);
         localStorage.setItem('staffId', data.data.staffId);
         localStorage.setItem('refreshToken', data.data.refreshToken);

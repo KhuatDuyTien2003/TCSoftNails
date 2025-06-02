@@ -18,14 +18,14 @@ import { ProductComponent } from './Product/product/product.component';
 
 import { CustomerRankComponent } from './admin/customer/customer-rank/customer-rank.component';
 import { BillComponent } from './admin/bill/bill.component';
-import { ReceiptComponent } from './admin/bill/receipt/receipt.component';
 import { AddReceiptComponent } from './admin/bill/add-receipt/add-receipt.component';
-import { PaymentComponent } from './admin/bill/payment/payment.component';
-import { BillFilterComponent } from './admin/bill/bill-filter/bill-filter.component';
 import { PermissionComponent } from './admin/permission/permission.component';
 import { PriceListComponent } from './PriceList/price-list/price-list.component';
 import { GoodsReceiptComponent } from './GoodsReceipt/goods-receipt/goods-receipt.component';
 import { AddGoodsReceiptComponent } from './GoodsReceipt/add-goods-receipt/add-goods-receipt.component';
+import { ReportDoanhthuComponent } from './admin/report/report-doanhthu/report-doanhthu.component';
+import { DropdownParentChildComponent } from './dropdown-parent-child/dropdown-parent-child.component';
+import { TestComponent } from './test/test.component';
 
 const routes: Routes = [
   { path: 'Login', component: AccountComponent },
@@ -45,12 +45,12 @@ const routes: Routes = [
   { path: 'permission', component: PermissionComponent },
   { path: 'customer-rank', component: CustomerRankComponent },
   { path: 'bill/add-receipt', component: AddReceiptComponent },
-  { path: 'form', component: BillFilterComponent },
-
+  { path: 'report', component: ReportDoanhthuComponent },
+  { path: 'forms', component: TestComponent },
   { path: 'price-list', component: PriceListComponent },
   { path: 'goods-receipt', component: GoodsReceiptComponent },
   { path: 'add-goods-receipt', component: AddGoodsReceiptComponent },
-    { path: '**', component: NotFound502Component },
+  { path: '**', component: NotFound502Component },
 ];
 
 @NgModule({

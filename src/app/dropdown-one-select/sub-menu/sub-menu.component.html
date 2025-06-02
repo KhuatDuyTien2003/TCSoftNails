@@ -1,0 +1,11 @@
+<ul>
+  <ng-container *ngFor="let item of items">
+    <li>
+      <p (click)="sendId(item.id)" [class.select]="checkClass(item.id)">{{ item.name }}</p>
+      <ng-container *ngIf="getChildList(item.id).length > 0">
+        <app-sub-menu [items]="getChildList(item.id)" [menu]="menu" (id)="sendId($event)"
+          [selectedMenu]="selectedMenu"></app-sub-menu>
+      </ng-container>
+    </li>
+  </ng-container>
+</ul>

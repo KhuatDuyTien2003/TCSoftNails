@@ -1,0 +1,50 @@
+ul {
+  list-style: none;
+
+  margin: 0;
+  padding-left: 1.5em;
+
+  li {
+    margin: 0.3em 0;
+
+    p {
+      padding-left: 0.8em + 1.5em; // thêm padding để giữ khoảng cách hiển thị
+      margin-left: -1.5em;
+      color: #333;
+
+      display: block;
+      width: 108%;
+      //  padding: 0.4em 0.8em;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, color 0.3s ease;
+
+      &:hover {
+        background-color: #b8daff;
+        color: #003d99;
+      }
+
+      &.select {
+        background-color: #b8daff;
+        color: #003d99;
+      }
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0; // quan trọng để con không bị lệch
+      margin-left: 1.5em;
+
+      li {
+        width: 100%;
+
+        p {
+          width: 117.5%;
+          padding-left: 0.8em + 3em; // thêm padding để giữ khoảng cách hiển thị
+          padding-right: 0em; // thêm padding để giữ khoảng cách hiển thị
+          margin-left: -3em; // bù lại khoảng thụt để nền kéo dài
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,38 @@
+<app-header></app-header>
+<div class="reportContainer">
+  <div class="reportCount">
+    <h3>Báo cáo doanh thu</h3>
+    <div class="countMonth">
+      <div class="value">
+        {{doanhThuTheoThang | vncurrency}}
+      </div>
+      <h4>Doanh thu</h4>
+    </div>
+
+    <div class="Product">
+      <div class="imgDiv">
+        <img [src]="'https://localhost:60786/'+reportThang.anhSanPhamBanChayNhat" alt="">
+      </div>
+      <div class="productInfor">
+        <h3>Sản phẩm bán chạy nhất</h3>
+        <p>Tên sản phẩm: <span>{{reportThang.sanPhamBanChayNhat}}</span></p>
+        <p>Số lượng: <span>{{reportThang.soLuongSanPhamBanChayNhat}}</span></p>
+      </div>
+    </div>
+
+    <div class="countDay">
+      <div class="value">{{ todayDoanhThu | vncurrency }}</div>
+      <h4>Doanh thu trong ngày</h4>
+    </div>
+  </div>
+  <div class="test">
+    <div class="chartDoanhThu">
+      <h3>Biểu đồ doanh thu tháng</h3>
+      <ngx-charts-bar-vertical [results]="doanhThuTheoNgayChart" [xAxis]="true" [yAxis]="true" [showDataLabel]="true"
+        [showDataLabel]="false" [scheme]="colorScheme" [animations]="true" [showGridLines]="false">
+      </ngx-charts-bar-vertical>
+    </div>
+  </div>
+
+
+</div>

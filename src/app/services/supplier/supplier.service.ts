@@ -6,10 +6,13 @@ import { Observable, catchError, throwError } from 'rxjs';
   providedIn: 'root',
 })
 export class SupplierService {
-  private base_url = 'https://localhost:60786/Suppliers';
+  private base_url = 'http://apithuctapnail.tcsoft.vn/Suppliers';
+  token = localStorage.getItem('token') || '';
+
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${this.token}`,
     }),
   };
 

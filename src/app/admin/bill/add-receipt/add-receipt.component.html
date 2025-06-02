@@ -49,7 +49,7 @@
               <div class="category-detail"
                 (click)="selectProduct(item.id);selectPriceListDetail();updateProductBillLocal(billIdForcus)">
                 <img [src]="
-                    'http://apithuctapnail.tcsoft.vn' +
+                    'http://apithuctapnail.tcsoft.vn/' +
                     (item.urlImage || 'default.png')
                   " alt="" />
                 <div class="category-content">
@@ -67,7 +67,7 @@
               <div class="category-detail"
                 (click)="selectProduct(item.id); selectPriceListDetail();updateProductBillLocal(billIdForcus)">
                 <img [src]="
-                    'http://apithuctapnail.tcsoft.vn' +
+                    'http://apithuctapnail.tcsoft.vn/' +
                     (item.urlImage || 'default.png')
                   " alt="" />
                 <div class="category-content">
@@ -84,7 +84,7 @@
               <div class="category-detail"
                 (click)="selectProduct(item.id); selectPriceListDetail();updateProductBillLocal(billIdForcus)">
                 <img [src]="
-                    'http://apithuctapnail.tcsoft.vn' +
+                    'http://apithuctapnail.tcsoft.vn/' +
                     (item.urlImage || 'default.png')
                   " alt="" />
                 <div class="category-content">
@@ -136,7 +136,7 @@
       <div class="customer">
         <div class="infor-customer">
           <div class="img">
-            <img [src]="'http://apithuctapnail.tcsoft.vn' + selectCustomer.urlAvatar" alt="" />
+            <img [src]="'http://apithuctapnail.tcsoft.vn/' + selectCustomer.urlAvatar" alt="" />
           </div>
           <div class="customer-detail">
             <p>Họ và tên: {{selectCustomer.customerName}}</p>

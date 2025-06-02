@@ -1,0 +1,44 @@
+<div class="dropdownSelect" #dropdownRef>
+  <div class="selectInput" id="1">
+    <div class="input">
+      <ng-container *ngIf="selectedMenu.length <= 2">
+        <p *ngFor="let li of selectedMenu">{{li.name}} <span (click)="selectItemFromChild(li.id)">x</span></p>
+      </ng-container>
+      <ng-container *ngIf="selectedMenu.length > 2">
+        <p *ngFor="let li of selectedMenu | slice:0:2">{{li.name}} <span (click)="selectItemFromChild(li.id)">x</span>
+        </p>
+        <p>+{{selectedMenu.length - 2}} more</p>
+      </ng-container>
+      <input type="text" name="" id="" [(ngModel)]="searchValue" (ngModelChange)="waitSearch($event)"
+        placeholder="Tìm kiếm...">
+    </div>
+
+  </div>
+
+  <div class="dropdownItem" [class.hidden]="!isClickInsideDropdown" id="2" (mousedown)="setForcus()">
+    <ng-container *ngIf="checkForCyclicParent(menu); else chuanDuLieu">
+      a
+      <ul>
+        <li>Dữ liệu truyền vào không đúng thứ tự cha con</li>
+      </ul>
+
+
+    </ng-container>
+    <ng-template #chuanDuLieu>
+      <ul>
+        <li *ngFor="let item of menu">
+          <ng-container *ngIf="item.parentId === null">
+            <p [class.select]="checkClass(item.id)" (click)="selectItem(item.id)">{{ item.name }}</p>
+            <ng-container *ngIf="getChildList(item.id).length > 0">
+              <app-submenu [items]="getChildList(item.id)" [menu]="menu" (id)="selectItemFromChild($event)"
+                [selectedMenu]="selectedMenu"></app-submenu>
+            </ng-container>
+          </ng-container>
+        </li>
+      </ul>
+
+    </ng-template>
+
+
+  </div>
+</div>
